@@ -1,0 +1,16 @@
+{
+    "name": "madmagestelegram/types",
+    "description": "Representation of telegram bot types in php classes",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "jms/serializer": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "MadmagesTelegram\\Types\\": "src/"
+        }
+    }
+}

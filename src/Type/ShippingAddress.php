@@ -1,0 +1,197 @@
+<?php declare(strict_types=1);
+
+namespace MadmagesTelegram\Types\Type;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\SkipWhenEmpty;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Accessor;
+use JMS\Serializer\Annotation\Type;
+
+/**
+ * https://core.telegram.org/bots/api#shippingaddress
+ *
+ * This object represents a shipping address. 
+ *
+ * @ExclusionPolicy("none")
+ * @AccessType("public_method")
+ */
+class ShippingAddress extends AbstractType
+{
+    /**
+     * ISO 3166-1 alpha-2 country code
+     *
+     * @var string
+     * @SerializedName("country_code")
+     * @Accessor(getter="getCountryCode",setter="setcountryCode")
+     * @Type("string")
+     */
+    protected $countryCode;
+
+    /**
+     * State, if applicable
+     *
+     * @var string
+     * @SerializedName("state")
+     * @Accessor(getter="getState",setter="setstate")
+     * @Type("string")
+     */
+    protected $state;
+
+    /**
+     * City
+     *
+     * @var string
+     * @SerializedName("city")
+     * @Accessor(getter="getCity",setter="setcity")
+     * @Type("string")
+     */
+    protected $city;
+
+    /**
+     * First line for the address
+     *
+     * @var string
+     * @SerializedName("street_line1")
+     * @Accessor(getter="getStreetLine1",setter="setstreetLine1")
+     * @Type("string")
+     */
+    protected $streetLine1;
+
+    /**
+     * Second line for the address
+     *
+     * @var string
+     * @SerializedName("street_line2")
+     * @Accessor(getter="getStreetLine2",setter="setstreetLine2")
+     * @Type("string")
+     */
+    protected $streetLine2;
+
+    /**
+     * Address post code
+     *
+     * @var string
+     * @SerializedName("post_code")
+     * @Accessor(getter="getPostCode",setter="setpostCode")
+     * @Type("string")
+     */
+    protected $postCode;
+
+
+    /**
+     * @param string $countryCode
+     * @return static
+     */
+    public function setCountryCode(string $countryCode): self
+    {
+        $this->countryCode = $countryCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * @param string $state
+     * @return static
+     */
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param string $city
+     * @return static
+     */
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $streetLine1
+     * @return static
+     */
+    public function setStreetLine1(string $streetLine1): self
+    {
+        $this->streetLine1 = $streetLine1;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreetLine1(): string
+    {
+        return $this->streetLine1;
+    }
+
+    /**
+     * @param string $streetLine2
+     * @return static
+     */
+    public function setStreetLine2(string $streetLine2): self
+    {
+        $this->streetLine2 = $streetLine2;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreetLine2(): string
+    {
+        return $this->streetLine2;
+    }
+
+    /**
+     * @param string $postCode
+     * @return static
+     */
+    public function setPostCode(string $postCode): self
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostCode(): string
+    {
+        return $this->postCode;
+    }
+
+}
