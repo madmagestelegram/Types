@@ -16,6 +16,6 @@ abstract class AbstractType {
      *
      * @return array
      */
-    abstract public static function _getRawData(): array;
+    abstract public function _getRawData(): array;
 
 }
