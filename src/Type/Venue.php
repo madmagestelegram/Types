@@ -19,6 +19,44 @@ use JMS\Serializer\Annotation\Type;
  */
 class Venue extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'location',
+            'title',
+            'address',
+            'foursquare_id',
+            'foursquare_type',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'location' => $this->getLocation(),
+            'title' => $this->getTitle(),
+            'address' => $this->getAddress(),
+            'foursquare_id' => $this->getFoursquareId(),
+            'foursquare_type' => $this->getFoursquareType(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Venue location
      *

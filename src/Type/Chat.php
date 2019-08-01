@@ -19,6 +19,60 @@ use JMS\Serializer\Annotation\Type;
  */
 class Chat extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'id',
+            'type',
+            'title',
+            'username',
+            'first_name',
+            'last_name',
+            'all_members_are_administrators',
+            'photo',
+            'description',
+            'invite_link',
+            'pinned_message',
+            'sticker_set_name',
+            'can_set_sticker_set',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'id' => $this->getId(),
+            'type' => $this->getType(),
+            'title' => $this->getTitle(),
+            'username' => $this->getUsername(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'all_members_are_administrators' => $this->getAllMembersAreAdministrators(),
+            'photo' => $this->getPhoto(),
+            'description' => $this->getDescription(),
+            'invite_link' => $this->getInviteLink(),
+            'pinned_message' => $this->getPinnedMessage(),
+            'sticker_set_name' => $this->getStickerSetName(),
+            'can_set_sticker_set' => $this->getCanSetStickerSet(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
      *

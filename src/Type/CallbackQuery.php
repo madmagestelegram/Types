@@ -21,6 +21,48 @@ use JMS\Serializer\Annotation\Type;
  */
 class CallbackQuery extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'id',
+            'from',
+            'message',
+            'inline_message_id',
+            'chat_instance',
+            'data',
+            'game_short_name',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'id' => $this->getId(),
+            'from' => $this->getFrom(),
+            'message' => $this->getMessage(),
+            'inline_message_id' => $this->getInlineMessageId(),
+            'chat_instance' => $this->getChatInstance(),
+            'data' => $this->getData(),
+            'game_short_name' => $this->getGameShortName(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this query
      *

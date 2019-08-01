@@ -21,6 +21,38 @@ use JMS\Serializer\Annotation\Type;
  */
 class ReplyKeyboardRemove extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'remove_keyboard',
+            'selective',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'remove_keyboard' => $this->getRemoveKeyboard(),
+            'selective' => $this->getSelective(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup)
      *

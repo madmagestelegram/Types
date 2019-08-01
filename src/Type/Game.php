@@ -20,6 +20,46 @@ use JMS\Serializer\Annotation\Type;
  */
 class Game extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'title',
+            'description',
+            'photo',
+            'text',
+            'text_entities',
+            'animation',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'photo' => $this->getPhoto(),
+            'text' => $this->getText(),
+            'text_entities' => $this->getTextEntities(),
+            'animation' => $this->getAnimation(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Title of the game
      *

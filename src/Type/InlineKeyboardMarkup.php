@@ -19,6 +19,36 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineKeyboardMarkup extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'inline_keyboard',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'inline_keyboard' => $this->getInlineKeyboard(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Array of button rows, each represented by an Array of InlineKeyboardButton objects
      *

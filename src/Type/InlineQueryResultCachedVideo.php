@@ -21,6 +21,52 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'type',
+            'id',
+            'video_file_id',
+            'title',
+            'description',
+            'caption',
+            'parse_mode',
+            'reply_markup',
+            'input_message_content',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'type' => $this->getType(),
+            'id' => $this->getId(),
+            'video_file_id' => $this->getVideoFileId(),
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'caption' => $this->getCaption(),
+            'parse_mode' => $this->getParseMode(),
+            'reply_markup' => $this->getReplyMarkup(),
+            'input_message_content' => $this->getInputMessageContent(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Type of the result, must be video
      *

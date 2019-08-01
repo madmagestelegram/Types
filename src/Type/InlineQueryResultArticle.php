@@ -19,6 +19,56 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineQueryResultArticle extends AbstractInlineQueryResult
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'type',
+            'id',
+            'title',
+            'input_message_content',
+            'reply_markup',
+            'url',
+            'hide_url',
+            'description',
+            'thumb_url',
+            'thumb_width',
+            'thumb_height',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'type' => $this->getType(),
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'input_message_content' => $this->getInputMessageContent(),
+            'reply_markup' => $this->getReplyMarkup(),
+            'url' => $this->getUrl(),
+            'hide_url' => $this->getHideUrl(),
+            'description' => $this->getDescription(),
+            'thumb_url' => $this->getThumbUrl(),
+            'thumb_width' => $this->getThumbWidth(),
+            'thumb_height' => $this->getThumbHeight(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Type of the result, must be article
      *

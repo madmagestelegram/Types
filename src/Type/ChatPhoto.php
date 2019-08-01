@@ -19,6 +19,38 @@ use JMS\Serializer\Annotation\Type;
  */
 class ChatPhoto extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'small_file_id',
+            'big_file_id',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'small_file_id' => $this->getSmallFileId(),
+            'big_file_id' => $this->getBigFileId(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique file identifier of small (160x160) chat photo. This file_id can be used only for photo download.
      *

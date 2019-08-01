@@ -19,6 +19,54 @@ use JMS\Serializer\Annotation\Type;
  */
 class EncryptedPassportElement extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'type',
+            'data',
+            'phone_number',
+            'email',
+            'files',
+            'front_side',
+            'reverse_side',
+            'selfie',
+            'translation',
+            'hash',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'type' => $this->getType(),
+            'data' => $this->getData(),
+            'phone_number' => $this->getPhoneNumber(),
+            'email' => $this->getEmail(),
+            'files' => $this->getFiles(),
+            'front_side' => $this->getFrontSide(),
+            'reverse_side' => $this->getReverseSide(),
+            'selfie' => $this->getSelfie(),
+            'translation' => $this->getTranslation(),
+            'hash' => $this->getHash(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
      *

@@ -11,7 +11,7 @@ abstract class Client {
      * @param array  $parameters
      * @return mixed
      */
-    abstract protected function _apiRequest(string $method, array $parameters);
+    abstract public function _rawApiCall(string $method, array $parameters);
 
 
     /**
@@ -56,7 +56,7 @@ abstract class Client {
             'allowed_updates' => $allowedUpdates,
         ];
 
-        return $this->_apiRequest('getUpdates', $requestParameters);
+        return $this->_rawApiCall('getUpdates', $requestParameters);
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class Client {
             'allowed_updates' => $allowedUpdates,
         ];
 
-        return $this->_apiRequest('setWebhook', $requestParameters);
+        return $this->_rawApiCall('setWebhook', $requestParameters);
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class Client {
         $requestParameters = [
         ];
 
-        return $this->_apiRequest('deleteWebhook', $requestParameters);
+        return $this->_rawApiCall('deleteWebhook', $requestParameters);
     }
 
     /**
@@ -136,7 +136,7 @@ abstract class Client {
         $requestParameters = [
         ];
 
-        return $this->_apiRequest('getWebhookInfo', $requestParameters);
+        return $this->_rawApiCall('getWebhookInfo', $requestParameters);
     }
 
     /**
@@ -153,7 +153,7 @@ abstract class Client {
         $requestParameters = [
         ];
 
-        return $this->_apiRequest('getMe', $requestParameters);
+        return $this->_rawApiCall('getMe', $requestParameters);
     }
 
     /**
@@ -206,7 +206,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendMessage', $requestParameters);
+        return $this->_rawApiCall('sendMessage', $requestParameters);
     }
 
     /**
@@ -243,7 +243,7 @@ abstract class Client {
             'message_id' => $messageId,
         ];
 
-        return $this->_apiRequest('forwardMessage', $requestParameters);
+        return $this->_rawApiCall('forwardMessage', $requestParameters);
     }
 
     /**
@@ -298,7 +298,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendPhoto', $requestParameters);
+        return $this->_rawApiCall('sendPhoto', $requestParameters);
     }
 
     /**
@@ -380,7 +380,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendAudio', $requestParameters);
+        return $this->_rawApiCall('sendAudio', $requestParameters);
     }
 
     /**
@@ -444,7 +444,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendDocument', $requestParameters);
+        return $this->_rawApiCall('sendDocument', $requestParameters);
     }
 
     /**
@@ -529,7 +529,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendVideo', $requestParameters);
+        return $this->_rawApiCall('sendVideo', $requestParameters);
     }
 
     /**
@@ -608,7 +608,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendAnimation', $requestParameters);
+        return $this->_rawApiCall('sendAnimation', $requestParameters);
     }
 
     /**
@@ -669,7 +669,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendVoice', $requestParameters);
+        return $this->_rawApiCall('sendVoice', $requestParameters);
     }
 
     /**
@@ -733,7 +733,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendVideoNote', $requestParameters);
+        return $this->_rawApiCall('sendVideoNote', $requestParameters);
     }
 
     /**
@@ -769,7 +769,7 @@ abstract class Client {
             'reply_to_message_id' => $replyToMessageId,
         ];
 
-        return $this->_apiRequest('sendMediaGroup', $requestParameters);
+        return $this->_rawApiCall('sendMediaGroup', $requestParameters);
     }
 
     /**
@@ -821,7 +821,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendLocation', $requestParameters);
+        return $this->_rawApiCall('sendLocation', $requestParameters);
     }
 
     /**
@@ -869,7 +869,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('editMessageLiveLocation', $requestParameters);
+        return $this->_rawApiCall('editMessageLiveLocation', $requestParameters);
     }
 
     /**
@@ -908,7 +908,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('stopMessageLiveLocation', $requestParameters);
+        return $this->_rawApiCall('stopMessageLiveLocation', $requestParameters);
     }
 
     /**
@@ -976,7 +976,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendVenue', $requestParameters);
+        return $this->_rawApiCall('sendVenue', $requestParameters);
     }
 
     /**
@@ -1033,7 +1033,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendContact', $requestParameters);
+        return $this->_rawApiCall('sendContact', $requestParameters);
     }
 
     /**
@@ -1081,7 +1081,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendPoll', $requestParameters);
+        return $this->_rawApiCall('sendPoll', $requestParameters);
     }
 
     /**
@@ -1113,7 +1113,7 @@ abstract class Client {
             'action' => $action,
         ];
 
-        return $this->_apiRequest('sendChatAction', $requestParameters);
+        return $this->_rawApiCall('sendChatAction', $requestParameters);
     }
 
     /**
@@ -1144,7 +1144,7 @@ abstract class Client {
             'limit' => $limit,
         ];
 
-        return $this->_apiRequest('getUserProfilePhotos', $requestParameters);
+        return $this->_rawApiCall('getUserProfilePhotos', $requestParameters);
     }
 
     /**
@@ -1169,7 +1169,7 @@ abstract class Client {
             'file_id' => $fileId,
         ];
 
-        return $this->_apiRequest('getFile', $requestParameters);
+        return $this->_rawApiCall('getFile', $requestParameters);
     }
 
     /**
@@ -1204,7 +1204,7 @@ abstract class Client {
             'until_date' => $untilDate,
         ];
 
-        return $this->_apiRequest('kickChatMember', $requestParameters);
+        return $this->_rawApiCall('kickChatMember', $requestParameters);
     }
 
     /**
@@ -1233,7 +1233,7 @@ abstract class Client {
             'user_id' => $userId,
         ];
 
-        return $this->_apiRequest('unbanChatMember', $requestParameters);
+        return $this->_rawApiCall('unbanChatMember', $requestParameters);
     }
 
     /**
@@ -1290,7 +1290,7 @@ abstract class Client {
             'can_add_web_page_previews' => $canAddWebPagePreviews,
         ];
 
-        return $this->_apiRequest('restrictChatMember', $requestParameters);
+        return $this->_rawApiCall('restrictChatMember', $requestParameters);
     }
 
     /**
@@ -1359,7 +1359,7 @@ abstract class Client {
             'can_promote_members' => $canPromoteMembers,
         ];
 
-        return $this->_apiRequest('promoteChatMember', $requestParameters);
+        return $this->_rawApiCall('promoteChatMember', $requestParameters);
     }
 
     /**
@@ -1382,7 +1382,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('exportChatInviteLink', $requestParameters);
+        return $this->_rawApiCall('exportChatInviteLink', $requestParameters);
     }
 
     /**
@@ -1409,7 +1409,7 @@ abstract class Client {
             'photo' => $photo,
         ];
 
-        return $this->_apiRequest('setChatPhoto', $requestParameters);
+        return $this->_rawApiCall('setChatPhoto', $requestParameters);
     }
 
     /**
@@ -1431,7 +1431,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('deleteChatPhoto', $requestParameters);
+        return $this->_rawApiCall('deleteChatPhoto', $requestParameters);
     }
 
     /**
@@ -1458,7 +1458,7 @@ abstract class Client {
             'title' => $title,
         ];
 
-        return $this->_apiRequest('setChatTitle', $requestParameters);
+        return $this->_rawApiCall('setChatTitle', $requestParameters);
     }
 
     /**
@@ -1485,7 +1485,7 @@ abstract class Client {
             'description' => $description,
         ];
 
-        return $this->_apiRequest('setChatDescription', $requestParameters);
+        return $this->_rawApiCall('setChatDescription', $requestParameters);
     }
 
     /**
@@ -1519,7 +1519,7 @@ abstract class Client {
             'disable_notification' => $disableNotification,
         ];
 
-        return $this->_apiRequest('pinChatMessage', $requestParameters);
+        return $this->_rawApiCall('pinChatMessage', $requestParameters);
     }
 
     /**
@@ -1542,7 +1542,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('unpinChatMessage', $requestParameters);
+        return $this->_rawApiCall('unpinChatMessage', $requestParameters);
     }
 
     /**
@@ -1564,7 +1564,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('leaveChat', $requestParameters);
+        return $this->_rawApiCall('leaveChat', $requestParameters);
     }
 
     /**
@@ -1587,7 +1587,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('getChat', $requestParameters);
+        return $this->_rawApiCall('getChat', $requestParameters);
     }
 
     /**
@@ -1610,7 +1610,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('getChatAdministrators', $requestParameters);
+        return $this->_rawApiCall('getChatAdministrators', $requestParameters);
     }
 
     /**
@@ -1632,7 +1632,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('getChatMembersCount', $requestParameters);
+        return $this->_rawApiCall('getChatMembersCount', $requestParameters);
     }
 
     /**
@@ -1659,7 +1659,7 @@ abstract class Client {
             'user_id' => $userId,
         ];
 
-        return $this->_apiRequest('getChatMember', $requestParameters);
+        return $this->_rawApiCall('getChatMember', $requestParameters);
     }
 
     /**
@@ -1687,7 +1687,7 @@ abstract class Client {
             'sticker_set_name' => $stickerSetName,
         ];
 
-        return $this->_apiRequest('setChatStickerSet', $requestParameters);
+        return $this->_rawApiCall('setChatStickerSet', $requestParameters);
     }
 
     /**
@@ -1710,7 +1710,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiRequest('deleteChatStickerSet', $requestParameters);
+        return $this->_rawApiCall('deleteChatStickerSet', $requestParameters);
     }
 
     /**
@@ -1756,7 +1756,7 @@ abstract class Client {
             'cache_time' => $cacheTime,
         ];
 
-        return $this->_apiRequest('answerCallbackQuery', $requestParameters);
+        return $this->_rawApiCall('answerCallbackQuery', $requestParameters);
     }
 
     /**
@@ -1810,7 +1810,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('editMessageText', $requestParameters);
+        return $this->_rawApiCall('editMessageText', $requestParameters);
     }
 
     /**
@@ -1858,7 +1858,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('editMessageCaption', $requestParameters);
+        return $this->_rawApiCall('editMessageCaption', $requestParameters);
     }
 
     /**
@@ -1903,7 +1903,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('editMessageMedia', $requestParameters);
+        return $this->_rawApiCall('editMessageMedia', $requestParameters);
     }
 
     /**
@@ -1942,7 +1942,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('editMessageReplyMarkup', $requestParameters);
+        return $this->_rawApiCall('editMessageReplyMarkup', $requestParameters);
     }
 
     /**
@@ -1973,7 +1973,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('stopPoll', $requestParameters);
+        return $this->_rawApiCall('stopPoll', $requestParameters);
     }
 
     /**
@@ -2004,7 +2004,7 @@ abstract class Client {
             'message_id' => $messageId,
         ];
 
-        return $this->_apiRequest('deleteMessage', $requestParameters);
+        return $this->_rawApiCall('deleteMessage', $requestParameters);
     }
 
     /**
@@ -2048,7 +2048,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendSticker', $requestParameters);
+        return $this->_rawApiCall('sendSticker', $requestParameters);
     }
 
     /**
@@ -2069,7 +2069,7 @@ abstract class Client {
             'name' => $name,
         ];
 
-        return $this->_apiRequest('getStickerSet', $requestParameters);
+        return $this->_rawApiCall('getStickerSet', $requestParameters);
     }
 
     /**
@@ -2097,7 +2097,7 @@ abstract class Client {
             'png_sticker' => $pngSticker,
         ];
 
-        return $this->_apiRequest('uploadStickerFile', $requestParameters);
+        return $this->_rawApiCall('uploadStickerFile', $requestParameters);
     }
 
     /**
@@ -2154,7 +2154,7 @@ abstract class Client {
             'mask_position' => $maskPosition,
         ];
 
-        return $this->_apiRequest('createNewStickerSet', $requestParameters);
+        return $this->_rawApiCall('createNewStickerSet', $requestParameters);
     }
 
     /**
@@ -2198,7 +2198,7 @@ abstract class Client {
             'mask_position' => $maskPosition,
         ];
 
-        return $this->_apiRequest('addStickerToSet', $requestParameters);
+        return $this->_rawApiCall('addStickerToSet', $requestParameters);
     }
 
     /**
@@ -2224,7 +2224,7 @@ abstract class Client {
             'position' => $position,
         ];
 
-        return $this->_apiRequest('setStickerPositionInSet', $requestParameters);
+        return $this->_rawApiCall('setStickerPositionInSet', $requestParameters);
     }
 
     /**
@@ -2247,7 +2247,7 @@ abstract class Client {
             'sticker' => $sticker,
         ];
 
-        return $this->_apiRequest('deleteStickerFromSet', $requestParameters);
+        return $this->_rawApiCall('deleteStickerFromSet', $requestParameters);
     }
 
     /**
@@ -2309,7 +2309,7 @@ abstract class Client {
             'switch_pm_parameter' => $switchPmParameter,
         ];
 
-        return $this->_apiRequest('answerInlineQuery', $requestParameters);
+        return $this->_rawApiCall('answerInlineQuery', $requestParameters);
     }
 
     /**
@@ -2445,7 +2445,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendInvoice', $requestParameters);
+        return $this->_rawApiCall('sendInvoice', $requestParameters);
     }
 
     /**
@@ -2486,7 +2486,7 @@ abstract class Client {
             'error_message' => $errorMessage,
         ];
 
-        return $this->_apiRequest('answerShippingQuery', $requestParameters);
+        return $this->_rawApiCall('answerShippingQuery', $requestParameters);
     }
 
     /**
@@ -2524,7 +2524,7 @@ abstract class Client {
             'error_message' => $errorMessage,
         ];
 
-        return $this->_apiRequest('answerPreCheckoutQuery', $requestParameters);
+        return $this->_rawApiCall('answerPreCheckoutQuery', $requestParameters);
     }
 
     /**
@@ -2554,7 +2554,7 @@ abstract class Client {
             'errors' => $errors,
         ];
 
-        return $this->_apiRequest('setPassportDataErrors', $requestParameters);
+        return $this->_rawApiCall('setPassportDataErrors', $requestParameters);
     }
 
     /**
@@ -2596,7 +2596,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_apiRequest('sendGame', $requestParameters);
+        return $this->_rawApiCall('sendGame', $requestParameters);
     }
 
     /**
@@ -2650,7 +2650,7 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
         ];
 
-        return $this->_apiRequest('setGameScore', $requestParameters);
+        return $this->_rawApiCall('setGameScore', $requestParameters);
     }
 
     /**
@@ -2687,6 +2687,6 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
         ];
 
-        return $this->_apiRequest('getGameHighScores', $requestParameters);
+        return $this->_rawApiCall('getGameHighScores', $requestParameters);
     }
 }

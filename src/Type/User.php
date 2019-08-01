@@ -19,6 +19,46 @@ use JMS\Serializer\Annotation\Type;
  */
 class User extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'id',
+            'is_bot',
+            'first_name',
+            'last_name',
+            'username',
+            'language_code',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'id' => $this->getId(),
+            'is_bot' => $this->getIsBot(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'username' => $this->getUsername(),
+            'language_code' => $this->getLanguageCode(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this user or bot
      *

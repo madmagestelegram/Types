@@ -20,6 +20,44 @@ use JMS\Serializer\Annotation\Type;
  */
 class PassportElementErrorDataField extends AbstractPassportElementError
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'source',
+            'type',
+            'field_name',
+            'data_hash',
+            'message',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'source' => $this->getSource(),
+            'type' => $this->getType(),
+            'field_name' => $this->getFieldName(),
+            'data_hash' => $this->getDataHash(),
+            'message' => $this->getMessage(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Error source, must be data
      *

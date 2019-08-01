@@ -20,7 +20,7 @@ abstract class TypedClient {
      * @param array  $parameters
      * @return string Returned json string
      */
-    abstract protected function _apiRequest(string $method, array $parameters): string;
+    abstract public function _rawApiCall(string $method, array $parameters): string;
 
     /**
      * @return SerializerInterface
@@ -46,7 +46,7 @@ abstract class TypedClient {
      */
     private function _requestWithMap(string $method, array $requestParams, array $returnType)
     {
-        $jsonString = $this->_apiRequest($method, $this->_prepareRequest($requestParams));
+        $jsonString = $this->_rawApiCall($method, $this->_prepareRequest($requestParams));
         if (empty($returnType)) {
             return json_decode($jsonString, true);
         }
@@ -78,8 +78,14 @@ abstract class TypedClient {
         return $requestParams;
     }
 
-    public static function deserialize(string $jsonString, string $type) {
+    public static function deserialize(string $jsonString, string $type)
+    {
         return self::_getSerializer()->deserialize($jsonString, $type, 'json');
+    }
+
+    public static function serialize(object $objectToSerialize): string
+    {
+        return self::_getSerializer()->serialize($objectToSerialize, 'json');
     }
 
 

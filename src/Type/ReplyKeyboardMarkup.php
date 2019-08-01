@@ -20,6 +20,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class ReplyKeyboardMarkup extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'keyboard',
+            'resize_keyboard',
+            'one_time_keyboard',
+            'selective',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'keyboard' => $this->getKeyboard(),
+            'resize_keyboard' => $this->getResizeKeyboard(),
+            'one_time_keyboard' => $this->getOneTimeKeyboard(),
+            'selective' => $this->getSelective(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Array of button rows, each represented by an Array of KeyboardButton objects
      *

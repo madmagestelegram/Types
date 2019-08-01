@@ -21,6 +21,58 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineQueryResultGif extends AbstractInlineQueryResult
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'type',
+            'id',
+            'gif_url',
+            'gif_width',
+            'gif_height',
+            'gif_duration',
+            'thumb_url',
+            'title',
+            'caption',
+            'parse_mode',
+            'reply_markup',
+            'input_message_content',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'type' => $this->getType(),
+            'id' => $this->getId(),
+            'gif_url' => $this->getGifUrl(),
+            'gif_width' => $this->getGifWidth(),
+            'gif_height' => $this->getGifHeight(),
+            'gif_duration' => $this->getGifDuration(),
+            'thumb_url' => $this->getThumbUrl(),
+            'title' => $this->getTitle(),
+            'caption' => $this->getCaption(),
+            'parse_mode' => $this->getParseMode(),
+            'reply_markup' => $this->getReplyMarkup(),
+            'input_message_content' => $this->getInputMessageContent(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Type of the result, must be gif
      *

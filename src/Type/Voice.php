@@ -19,6 +19,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class Voice extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'file_id',
+            'duration',
+            'mime_type',
+            'file_size',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'file_id' => $this->getFileId(),
+            'duration' => $this->getDuration(),
+            'mime_type' => $this->getMimeType(),
+            'file_size' => $this->getFileSize(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this file
      *

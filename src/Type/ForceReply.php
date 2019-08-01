@@ -21,6 +21,38 @@ use JMS\Serializer\Annotation\Type;
  */
 class ForceReply extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'force_reply',
+            'selective',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'force_reply' => $this->getForceReply(),
+            'selective' => $this->getSelective(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply&#039;
      *

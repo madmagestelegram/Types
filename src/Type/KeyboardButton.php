@@ -20,6 +20,40 @@ use JMS\Serializer\Annotation\Type;
  */
 class KeyboardButton extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'text',
+            'request_contact',
+            'request_location',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'text' => $this->getText(),
+            'request_contact' => $this->getRequestContact(),
+            'request_location' => $this->getRequestLocation(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
      *

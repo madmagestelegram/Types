@@ -20,6 +20,40 @@ use JMS\Serializer\Annotation\Type;
  */
 class InputTextMessageContent extends AbstractInputMessageContent
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'message_text',
+            'parse_mode',
+            'disable_web_page_preview',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'message_text' => $this->getMessageText(),
+            'parse_mode' => $this->getParseMode(),
+            'disable_web_page_preview' => $this->getDisableWebPagePreview(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Text of the message to be sent, 1-4096 characters
      *

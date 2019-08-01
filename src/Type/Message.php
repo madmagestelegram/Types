@@ -19,6 +19,128 @@ use JMS\Serializer\Annotation\Type;
  */
 class Message extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'message_id',
+            'from',
+            'date',
+            'chat',
+            'forward_from',
+            'forward_from_chat',
+            'forward_from_message_id',
+            'forward_signature',
+            'forward_sender_name',
+            'forward_date',
+            'reply_to_message',
+            'edit_date',
+            'media_group_id',
+            'author_signature',
+            'text',
+            'entities',
+            'caption_entities',
+            'audio',
+            'document',
+            'animation',
+            'game',
+            'photo',
+            'sticker',
+            'video',
+            'voice',
+            'video_note',
+            'caption',
+            'contact',
+            'location',
+            'venue',
+            'poll',
+            'new_chat_members',
+            'left_chat_member',
+            'new_chat_title',
+            'new_chat_photo',
+            'delete_chat_photo',
+            'group_chat_created',
+            'supergroup_chat_created',
+            'channel_chat_created',
+            'migrate_to_chat_id',
+            'migrate_from_chat_id',
+            'pinned_message',
+            'invoice',
+            'successful_payment',
+            'connected_website',
+            'passport_data',
+            'reply_markup',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'message_id' => $this->getMessageId(),
+            'from' => $this->getFrom(),
+            'date' => $this->getDate(),
+            'chat' => $this->getChat(),
+            'forward_from' => $this->getForwardFrom(),
+            'forward_from_chat' => $this->getForwardFromChat(),
+            'forward_from_message_id' => $this->getForwardFromMessageId(),
+            'forward_signature' => $this->getForwardSignature(),
+            'forward_sender_name' => $this->getForwardSenderName(),
+            'forward_date' => $this->getForwardDate(),
+            'reply_to_message' => $this->getReplyToMessage(),
+            'edit_date' => $this->getEditDate(),
+            'media_group_id' => $this->getMediaGroupId(),
+            'author_signature' => $this->getAuthorSignature(),
+            'text' => $this->getText(),
+            'entities' => $this->getEntities(),
+            'caption_entities' => $this->getCaptionEntities(),
+            'audio' => $this->getAudio(),
+            'document' => $this->getDocument(),
+            'animation' => $this->getAnimation(),
+            'game' => $this->getGame(),
+            'photo' => $this->getPhoto(),
+            'sticker' => $this->getSticker(),
+            'video' => $this->getVideo(),
+            'voice' => $this->getVoice(),
+            'video_note' => $this->getVideoNote(),
+            'caption' => $this->getCaption(),
+            'contact' => $this->getContact(),
+            'location' => $this->getLocation(),
+            'venue' => $this->getVenue(),
+            'poll' => $this->getPoll(),
+            'new_chat_members' => $this->getNewChatMembers(),
+            'left_chat_member' => $this->getLeftChatMember(),
+            'new_chat_title' => $this->getNewChatTitle(),
+            'new_chat_photo' => $this->getNewChatPhoto(),
+            'delete_chat_photo' => $this->getDeleteChatPhoto(),
+            'group_chat_created' => $this->getGroupChatCreated(),
+            'supergroup_chat_created' => $this->getSupergroupChatCreated(),
+            'channel_chat_created' => $this->getChannelChatCreated(),
+            'migrate_to_chat_id' => $this->getMigrateToChatId(),
+            'migrate_from_chat_id' => $this->getMigrateFromChatId(),
+            'pinned_message' => $this->getPinnedMessage(),
+            'invoice' => $this->getInvoice(),
+            'successful_payment' => $this->getSuccessfulPayment(),
+            'connected_website' => $this->getConnectedWebsite(),
+            'passport_data' => $this->getPassportData(),
+            'reply_markup' => $this->getReplyMarkup(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique message identifier inside this chat
      *

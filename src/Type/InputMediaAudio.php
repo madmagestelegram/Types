@@ -19,6 +19,50 @@ use JMS\Serializer\Annotation\Type;
  */
 class InputMediaAudio extends AbstractInputMedia
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'type',
+            'media',
+            'thumb',
+            'caption',
+            'parse_mode',
+            'duration',
+            'performer',
+            'title',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'type' => $this->getType(),
+            'media' => $this->getMedia(),
+            'thumb' => $this->getThumb(),
+            'caption' => $this->getCaption(),
+            'parse_mode' => $this->getParseMode(),
+            'duration' => $this->getDuration(),
+            'performer' => $this->getPerformer(),
+            'title' => $this->getTitle(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Type of the result, must be audio
      *

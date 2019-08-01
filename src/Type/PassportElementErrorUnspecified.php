@@ -19,6 +19,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class PassportElementErrorUnspecified extends AbstractPassportElementError
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'source',
+            'type',
+            'element_hash',
+            'message',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'source' => $this->getSource(),
+            'type' => $this->getType(),
+            'element_hash' => $this->getElementHash(),
+            'message' => $this->getMessage(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Error source, must be unspecified
      *

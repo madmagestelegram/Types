@@ -20,6 +20,40 @@ use JMS\Serializer\Annotation\Type;
  */
 class EncryptedCredentials extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'data',
+            'hash',
+            'secret',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'data' => $this->getData(),
+            'hash' => $this->getHash(),
+            'secret' => $this->getSecret(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Base64-encoded encrypted JSON-serialized data with unique user&#039;s payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
      *

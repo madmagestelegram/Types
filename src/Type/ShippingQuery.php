@@ -19,6 +19,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class ShippingQuery extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'id',
+            'from',
+            'invoice_payload',
+            'shipping_address',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'id' => $this->getId(),
+            'from' => $this->getFrom(),
+            'invoice_payload' => $this->getInvoicePayload(),
+            'shipping_address' => $this->getShippingAddress(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique query identifier
      *

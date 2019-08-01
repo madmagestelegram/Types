@@ -19,6 +19,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class MaskPosition extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'point',
+            'x_shift',
+            'y_shift',
+            'scale',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'point' => $this->getPoint(),
+            'x_shift' => $this->getXShift(),
+            'y_shift' => $this->getYShift(),
+            'scale' => $this->getScale(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
      *

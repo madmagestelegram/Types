@@ -21,6 +21,40 @@ use JMS\Serializer\Annotation\Type;
  */
 class File extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'file_id',
+            'file_size',
+            'file_path',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'file_id' => $this->getFileId(),
+            'file_size' => $this->getFileSize(),
+            'file_path' => $this->getFilePath(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this file
      *

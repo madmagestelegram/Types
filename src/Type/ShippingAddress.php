@@ -19,6 +19,46 @@ use JMS\Serializer\Annotation\Type;
  */
 class ShippingAddress extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'country_code',
+            'state',
+            'city',
+            'street_line1',
+            'street_line2',
+            'post_code',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'country_code' => $this->getCountryCode(),
+            'state' => $this->getState(),
+            'city' => $this->getCity(),
+            'street_line1' => $this->getStreetLine1(),
+            'street_line2' => $this->getStreetLine2(),
+            'post_code' => $this->getPostCode(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * ISO 3166-1 alpha-2 country code
      *

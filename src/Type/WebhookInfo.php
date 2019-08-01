@@ -20,6 +20,48 @@ use JMS\Serializer\Annotation\Type;
  */
 class WebhookInfo extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'url',
+            'has_custom_certificate',
+            'pending_update_count',
+            'last_error_date',
+            'last_error_message',
+            'max_connections',
+            'allowed_updates',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'url' => $this->getUrl(),
+            'has_custom_certificate' => $this->getHasCustomCertificate(),
+            'pending_update_count' => $this->getPendingUpdateCount(),
+            'last_error_date' => $this->getLastErrorDate(),
+            'last_error_message' => $this->getLastErrorMessage(),
+            'max_connections' => $this->getMaxConnections(),
+            'allowed_updates' => $this->getAllowedUpdates(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Webhook URL, may be empty if webhook is not set up
      *

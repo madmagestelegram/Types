@@ -20,6 +20,50 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineKeyboardButton extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'text',
+            'url',
+            'login_url',
+            'callback_data',
+            'switch_inline_query',
+            'switch_inline_query_current_chat',
+            'callback_game',
+            'pay',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'text' => $this->getText(),
+            'url' => $this->getUrl(),
+            'login_url' => $this->getLoginUrl(),
+            'callback_data' => $this->getCallbackData(),
+            'switch_inline_query' => $this->getSwitchInlineQuery(),
+            'switch_inline_query_current_chat' => $this->getSwitchInlineQueryCurrentChat(),
+            'callback_game' => $this->getCallbackGame(),
+            'pay' => $this->getPay(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Label text on the button
      *

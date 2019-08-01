@@ -19,6 +19,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class OrderInfo extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'name',
+            'phone_number',
+            'email',
+            'shipping_address',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'name' => $this->getName(),
+            'phone_number' => $this->getPhoneNumber(),
+            'email' => $this->getEmail(),
+            'shipping_address' => $this->getShippingAddress(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Optional. User name
      *

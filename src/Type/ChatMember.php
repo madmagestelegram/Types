@@ -19,6 +19,68 @@ use JMS\Serializer\Annotation\Type;
  */
 class ChatMember extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'user',
+            'status',
+            'until_date',
+            'can_be_edited',
+            'can_change_info',
+            'can_post_messages',
+            'can_edit_messages',
+            'can_delete_messages',
+            'can_invite_users',
+            'can_restrict_members',
+            'can_pin_messages',
+            'can_promote_members',
+            'is_member',
+            'can_send_messages',
+            'can_send_media_messages',
+            'can_send_other_messages',
+            'can_add_web_page_previews',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'user' => $this->getUser(),
+            'status' => $this->getStatus(),
+            'until_date' => $this->getUntilDate(),
+            'can_be_edited' => $this->getCanBeEdited(),
+            'can_change_info' => $this->getCanChangeInfo(),
+            'can_post_messages' => $this->getCanPostMessages(),
+            'can_edit_messages' => $this->getCanEditMessages(),
+            'can_delete_messages' => $this->getCanDeleteMessages(),
+            'can_invite_users' => $this->getCanInviteUsers(),
+            'can_restrict_members' => $this->getCanRestrictMembers(),
+            'can_pin_messages' => $this->getCanPinMessages(),
+            'can_promote_members' => $this->getCanPromoteMembers(),
+            'is_member' => $this->getIsMember(),
+            'can_send_messages' => $this->getCanSendMessages(),
+            'can_send_media_messages' => $this->getCanSendMediaMessages(),
+            'can_send_other_messages' => $this->getCanSendOtherMessages(),
+            'can_add_web_page_previews' => $this->getCanAddWebPagePreviews(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Information about the user
      *

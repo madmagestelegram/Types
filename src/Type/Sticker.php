@@ -19,6 +19,50 @@ use JMS\Serializer\Annotation\Type;
  */
 class Sticker extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'file_id',
+            'width',
+            'height',
+            'thumb',
+            'emoji',
+            'set_name',
+            'mask_position',
+            'file_size',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'file_id' => $this->getFileId(),
+            'width' => $this->getWidth(),
+            'height' => $this->getHeight(),
+            'thumb' => $this->getThumb(),
+            'emoji' => $this->getEmoji(),
+            'set_name' => $this->getSetName(),
+            'mask_position' => $this->getMaskPosition(),
+            'file_size' => $this->getFileSize(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this file
      *

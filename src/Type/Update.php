@@ -20,6 +20,56 @@ use JMS\Serializer\Annotation\Type;
  */
 class Update extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'update_id',
+            'message',
+            'edited_message',
+            'channel_post',
+            'edited_channel_post',
+            'inline_query',
+            'chosen_inline_result',
+            'callback_query',
+            'shipping_query',
+            'pre_checkout_query',
+            'poll',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'update_id' => $this->getUpdateId(),
+            'message' => $this->getMessage(),
+            'edited_message' => $this->getEditedMessage(),
+            'channel_post' => $this->getChannelPost(),
+            'edited_channel_post' => $this->getEditedChannelPost(),
+            'inline_query' => $this->getInlineQuery(),
+            'chosen_inline_result' => $this->getChosenInlineResult(),
+            'callback_query' => $this->getCallbackQuery(),
+            'shipping_query' => $this->getShippingQuery(),
+            'pre_checkout_query' => $this->getPreCheckoutQuery(),
+            'poll' => $this->getPoll(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
      *

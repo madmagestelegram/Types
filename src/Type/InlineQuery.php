@@ -20,6 +20,44 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineQuery extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'id',
+            'from',
+            'location',
+            'query',
+            'offset',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'id' => $this->getId(),
+            'from' => $this->getFrom(),
+            'location' => $this->getLocation(),
+            'query' => $this->getQuery(),
+            'offset' => $this->getOffset(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique identifier for this query
      *

@@ -19,6 +19,50 @@ use JMS\Serializer\Annotation\Type;
  */
 class Animation extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'file_id',
+            'width',
+            'height',
+            'duration',
+            'thumb',
+            'file_name',
+            'mime_type',
+            'file_size',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'file_id' => $this->getFileId(),
+            'width' => $this->getWidth(),
+            'height' => $this->getHeight(),
+            'duration' => $this->getDuration(),
+            'thumb' => $this->getThumb(),
+            'file_name' => $this->getFileName(),
+            'mime_type' => $this->getMimeType(),
+            'file_size' => $this->getFileSize(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Unique file identifier
      *

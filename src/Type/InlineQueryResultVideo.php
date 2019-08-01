@@ -21,6 +21,62 @@ use JMS\Serializer\Annotation\Type;
  */
 class InlineQueryResultVideo extends AbstractInlineQueryResult
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'type',
+            'id',
+            'video_url',
+            'mime_type',
+            'thumb_url',
+            'title',
+            'caption',
+            'parse_mode',
+            'video_width',
+            'video_height',
+            'video_duration',
+            'description',
+            'reply_markup',
+            'input_message_content',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'type' => $this->getType(),
+            'id' => $this->getId(),
+            'video_url' => $this->getVideoUrl(),
+            'mime_type' => $this->getMimeType(),
+            'thumb_url' => $this->getThumbUrl(),
+            'title' => $this->getTitle(),
+            'caption' => $this->getCaption(),
+            'parse_mode' => $this->getParseMode(),
+            'video_width' => $this->getVideoWidth(),
+            'video_height' => $this->getVideoHeight(),
+            'video_duration' => $this->getVideoDuration(),
+            'description' => $this->getDescription(),
+            'reply_markup' => $this->getReplyMarkup(),
+            'input_message_content' => $this->getInputMessageContent(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Type of the result, must be video
      *

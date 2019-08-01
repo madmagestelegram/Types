@@ -19,6 +19,44 @@ use JMS\Serializer\Annotation\Type;
  */
 class Contact extends AbstractType
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'phone_number',
+            'first_name',
+            'last_name',
+            'user_id',
+            'vcard',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'phone_number' => $this->getPhoneNumber(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'user_id' => $this->getUserId(),
+            'vcard' => $this->getVcard(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Contact&#039;s phone number
      *

@@ -20,6 +20,42 @@ use JMS\Serializer\Annotation\Type;
  */
 class PassportElementErrorFiles extends AbstractPassportElementError
 {
+
+    /**
+     * Returns raw names of properties of this type
+     *
+     * @return string[]
+     */
+    public static function _getPropertyNames(): array
+    {
+        return [
+            'source',
+            'type',
+            'file_hashes',
+            'message',
+        ];
+    }
+
+    /**
+     * Returns associative array of raw data
+     *
+     * @return array
+     */
+    public function _getRawData(): array
+    {
+        $result = [
+            'source' => $this->getSource(),
+            'type' => $this->getType(),
+            'file_hashes' => $this->getFileHashes(),
+            'message' => $this->getMessage(),
+        ];
+
+        $result = array_filter($result, static function($item){ return $item!==null; });
+        return array_map(static function(&$item){
+            return is_object($item) ? $item->_getRawData():$item;
+        }, $result);
+    }
+
     /**
      * Error source, must be files
      *
