@@ -56,7 +56,7 @@ class Voice extends AbstractType
     }
 
     /**
-     * Unique identifier for this file
+     * Identifier for this file
      *
      * @var string
      * @SerializedName("file_id")

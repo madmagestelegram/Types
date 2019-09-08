@@ -31,6 +31,7 @@ class Sticker extends AbstractType
             'file_id',
             'width',
             'height',
+            'is_animated',
             'thumb',
             'emoji',
             'set_name',
@@ -50,6 +51,7 @@ class Sticker extends AbstractType
             'file_id' => $this->getFileId(),
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
+            'is_animated' => $this->getIsAnimated(),
             'thumb' => $this->getThumb(),
             'emoji' => $this->getEmoji(),
             'set_name' => $this->getSetName(),
@@ -64,7 +66,7 @@ class Sticker extends AbstractType
     }
 
     /**
-     * Unique identifier for this file
+     * Identifier for this file
      *
      * @var string
      * @SerializedName("file_id")
@@ -92,6 +94,16 @@ class Sticker extends AbstractType
      * @Type("int")
      */
     protected $height;
+
+    /**
+     * True, if the sticker is animated
+     *
+     * @var bool
+     * @SerializedName("is_animated")
+     * @Accessor(getter="getIsAnimated",setter="setisAnimated")
+     * @Type("bool")
+     */
+    protected $isAnimated;
 
     /**
      * Optional. Sticker thumbnail in the .webp or .jpg format
@@ -204,6 +216,25 @@ class Sticker extends AbstractType
     public function getHeight(): int
     {
         return $this->height;
+    }
+
+    /**
+     * @param bool $isAnimated
+     * @return static
+     */
+    public function setIsAnimated(bool $isAnimated): self
+    {
+        $this->isAnimated = $isAnimated;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsAnimated(): bool
+    {
+        return $this->isAnimated;
     }
 
     /**

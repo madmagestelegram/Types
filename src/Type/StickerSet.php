@@ -30,6 +30,7 @@ class StickerSet extends AbstractType
         return [
             'name',
             'title',
+            'is_animated',
             'contains_masks',
             'stickers',
         ];
@@ -45,6 +46,7 @@ class StickerSet extends AbstractType
         $result = [
             'name' => $this->getName(),
             'title' => $this->getTitle(),
+            'is_animated' => $this->getIsAnimated(),
             'contains_masks' => $this->getContainsMasks(),
             'stickers' => $this->getStickers(),
         ];
@@ -74,6 +76,16 @@ class StickerSet extends AbstractType
      * @Type("string")
      */
     protected $title;
+
+    /**
+     * True, if the sticker set contains animated stickers
+     *
+     * @var bool
+     * @SerializedName("is_animated")
+     * @Accessor(getter="getIsAnimated",setter="setisAnimated")
+     * @Type("bool")
+     */
+    protected $isAnimated;
 
     /**
      * True, if the sticker set contains masks
@@ -132,6 +144,25 @@ class StickerSet extends AbstractType
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @param bool $isAnimated
+     * @return static
+     */
+    public function setIsAnimated(bool $isAnimated): self
+    {
+        $this->isAnimated = $isAnimated;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsAnimated(): bool
+    {
+        return $this->isAnimated;
     }
 
     /**

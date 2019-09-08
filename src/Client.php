@@ -1240,8 +1240,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#restrictchatmember
      *
      * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work 
-     * and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a 
-     * user. Returns True on success. 
+     * and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. 
+     * Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
@@ -1250,44 +1250,27 @@ abstract class Client {
      * @param int $userId
      *        Unique identifier of the target user 
      *
+     * @param Type\ChatPermissions $permissions
+     *        New user permissions 
+     *
      * @param int $untilDate
      *        Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less 
      * than 30 seconds from the current time, they are considered to be restricted forever 
-     *
-     * @param bool $canSendMessages
-     *        Pass True, if the user can send text messages, contacts, locations and venues 
-     *
-     * @param bool $canSendMediaMessages
-     *        Pass True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies 
-     * can_send_messages 
-     *
-     * @param bool $canSendOtherMessages
-     *        Pass True, if the user can send animations, games, stickers and use inline bots, implies 
-     * can_send_media_messages 
-     *
-     * @param bool $canAddWebPagePreviews
-     *        Pass True, if the user may add web page previews to their messages, implies can_send_media_messages 
      *
      * @return mixed
      */
     public function restrictChatMember(
         $chatId,
         int $userId,
-        int $untilDate = null,
-        bool $canSendMessages = null,
-        bool $canSendMediaMessages = null,
-        bool $canSendOtherMessages = null,
-        bool $canAddWebPagePreviews = null
+        Type\ChatPermissions $permissions,
+        int $untilDate = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'user_id' => $userId,
+            'permissions' => $permissions,
             'until_date' => $untilDate,
-            'can_send_messages' => $canSendMessages,
-            'can_send_media_messages' => $canSendMediaMessages,
-            'can_send_other_messages' => $canSendOtherMessages,
-            'can_add_web_page_previews' => $canAddWebPagePreviews,
         ];
 
         return $this->_rawApiCall('restrictChatMember', $requestParameters);
@@ -1360,6 +1343,34 @@ abstract class Client {
         ];
 
         return $this->_rawApiCall('promoteChatMember', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setchatpermissions
+     *
+     * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a 
+     * supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @supergroupusername) 
+     *
+     * @param Type\ChatPermissions $permissions
+     *        New default chat permissions 
+     *
+     * @return mixed
+     */
+    public function setChatPermissions(
+        $chatId,
+        Type\ChatPermissions $permissions
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'permissions' => $permissions,
+        ];
+
+        return $this->_rawApiCall('setChatPermissions', $requestParameters);
     }
 
     /**
@@ -1464,8 +1475,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#setchatdescription
      *
-     * Use this method to change the description of a supergroup or a channel. The bot must be an administrator in the chat for 
-     * this to work and must have the appropriate admin rights. Returns True on success. 
+     * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the 
+     * chat for this to work and must have the appropriate admin rights. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
@@ -2010,7 +2021,9 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#sendsticker
      *
-     * Use this method to send .webp stickers. On success, the sent Message is returned. 
+     * Use this method to send static .WEBP or animated 
+     * .TGS stickers. On success, the sent Message is 
+     * returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 

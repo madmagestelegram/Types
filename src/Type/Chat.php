@@ -34,11 +34,11 @@ class Chat extends AbstractType
             'username',
             'first_name',
             'last_name',
-            'all_members_are_administrators',
             'photo',
             'description',
             'invite_link',
             'pinned_message',
+            'permissions',
             'sticker_set_name',
             'can_set_sticker_set',
         ];
@@ -58,11 +58,11 @@ class Chat extends AbstractType
             'username' => $this->getUsername(),
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
-            'all_members_are_administrators' => $this->getAllMembersAreAdministrators(),
             'photo' => $this->getPhoto(),
             'description' => $this->getDescription(),
             'invite_link' => $this->getInviteLink(),
             'pinned_message' => $this->getPinnedMessage(),
+            'permissions' => $this->getPermissions(),
             'sticker_set_name' => $this->getStickerSetName(),
             'can_set_sticker_set' => $this->getCanSetStickerSet(),
         ];
@@ -138,17 +138,6 @@ class Chat extends AbstractType
     protected $lastName;
 
     /**
-     * Optional. True if a group has ‘All Members Are Admins’ enabled.
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("all_members_are_administrators")
-     * @Accessor(getter="getAllMembersAreAdministrators",setter="setallMembersAreAdministrators")
-     * @Type("bool")
-     */
-    protected $allMembersAreAdministrators;
-
-    /**
      * Optional. Chat photo. Returned only in getChat.
      *
      * @var ChatPhoto|null
@@ -160,7 +149,7 @@ class Chat extends AbstractType
     protected $photo;
 
     /**
-     * Optional. Description, for supergroups and channel chats. Returned only in getChat.
+     * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -171,7 +160,7 @@ class Chat extends AbstractType
     protected $description;
 
     /**
-     * Optional. Chat invite link, for supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
+     * Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -191,6 +180,17 @@ class Chat extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $pinnedMessage;
+
+    /**
+     * Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
+     *
+     * @var ChatPermissions|null
+     * @SkipWhenEmpty
+     * @SerializedName("permissions")
+     * @Accessor(getter="getPermissions",setter="setpermissions")
+     * @Type("MadmagesTelegram\Types\Type\ChatPermissions")
+     */
+    protected $permissions;
 
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat.
@@ -330,25 +330,6 @@ class Chat extends AbstractType
     }
 
     /**
-     * @param bool $allMembersAreAdministrators
-     * @return static
-     */
-    public function setAllMembersAreAdministrators(bool $allMembersAreAdministrators): self
-    {
-        $this->allMembersAreAdministrators = $allMembersAreAdministrators;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getAllMembersAreAdministrators(): ?bool
-    {
-        return $this->allMembersAreAdministrators;
-    }
-
-    /**
      * @param ChatPhoto $photo
      * @return static
      */
@@ -422,6 +403,25 @@ class Chat extends AbstractType
     public function getPinnedMessage(): ?Message
     {
         return $this->pinnedMessage;
+    }
+
+    /**
+     * @param ChatPermissions $permissions
+     * @return static
+     */
+    public function setPermissions(ChatPermissions $permissions): self
+    {
+        $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatPermissions|null
+     */
+    public function getPermissions(): ?ChatPermissions
+    {
+        return $this->permissions;
     }
 
     /**

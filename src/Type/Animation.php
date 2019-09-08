@@ -64,7 +64,7 @@ class Animation extends AbstractType
     }
 
     /**
-     * Unique file identifier
+     * Identifier for this file
      *
      * @var string
      * @SerializedName("file_id")

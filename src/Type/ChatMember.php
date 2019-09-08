@@ -32,17 +32,18 @@ class ChatMember extends AbstractType
             'status',
             'until_date',
             'can_be_edited',
-            'can_change_info',
             'can_post_messages',
             'can_edit_messages',
             'can_delete_messages',
-            'can_invite_users',
             'can_restrict_members',
-            'can_pin_messages',
             'can_promote_members',
+            'can_change_info',
+            'can_invite_users',
+            'can_pin_messages',
             'is_member',
             'can_send_messages',
             'can_send_media_messages',
+            'can_send_polls',
             'can_send_other_messages',
             'can_add_web_page_previews',
         ];
@@ -60,17 +61,18 @@ class ChatMember extends AbstractType
             'status' => $this->getStatus(),
             'until_date' => $this->getUntilDate(),
             'can_be_edited' => $this->getCanBeEdited(),
-            'can_change_info' => $this->getCanChangeInfo(),
             'can_post_messages' => $this->getCanPostMessages(),
             'can_edit_messages' => $this->getCanEditMessages(),
             'can_delete_messages' => $this->getCanDeleteMessages(),
-            'can_invite_users' => $this->getCanInviteUsers(),
             'can_restrict_members' => $this->getCanRestrictMembers(),
-            'can_pin_messages' => $this->getCanPinMessages(),
             'can_promote_members' => $this->getCanPromoteMembers(),
+            'can_change_info' => $this->getCanChangeInfo(),
+            'can_invite_users' => $this->getCanInviteUsers(),
+            'can_pin_messages' => $this->getCanPinMessages(),
             'is_member' => $this->getIsMember(),
             'can_send_messages' => $this->getCanSendMessages(),
             'can_send_media_messages' => $this->getCanSendMediaMessages(),
+            'can_send_polls' => $this->getCanSendPolls(),
             'can_send_other_messages' => $this->getCanSendOtherMessages(),
             'can_add_web_page_previews' => $this->getCanAddWebPagePreviews(),
         ];
@@ -102,7 +104,7 @@ class ChatMember extends AbstractType
     protected $status;
 
     /**
-     * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user, unix time
+     * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -124,18 +126,7 @@ class ChatMember extends AbstractType
     protected $canBeEdited;
 
     /**
-     * Optional. Administrators only. True, if the administrator can change the chat title, photo and other settings
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("can_change_info")
-     * @Accessor(getter="getCanChangeInfo",setter="setcanChangeInfo")
-     * @Type("bool")
-     */
-    protected $canChangeInfo;
-
-    /**
-     * Optional. Administrators only. True, if the administrator can post in the channel, channels only
+     * Optional. Administrators only. True, if the administrator can post in the channel; channels only
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -146,7 +137,7 @@ class ChatMember extends AbstractType
     protected $canPostMessages;
 
     /**
-     * Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages, channels only
+     * Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -168,17 +159,6 @@ class ChatMember extends AbstractType
     protected $canDeleteMessages;
 
     /**
-     * Optional. Administrators only. True, if the administrator can invite new users to the chat
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("can_invite_users")
-     * @Accessor(getter="getCanInviteUsers",setter="setcanInviteUsers")
-     * @Type("bool")
-     */
-    protected $canInviteUsers;
-
-    /**
      * Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
      *
      * @var bool|null
@@ -188,17 +168,6 @@ class ChatMember extends AbstractType
      * @Type("bool")
      */
     protected $canRestrictMembers;
-
-    /**
-     * Optional. Administrators only. True, if the administrator can pin messages, groups and supergroups only
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("can_pin_messages")
-     * @Accessor(getter="getCanPinMessages",setter="setcanPinMessages")
-     * @Type("bool")
-     */
-    protected $canPinMessages;
 
     /**
      * Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
@@ -212,6 +181,39 @@ class ChatMember extends AbstractType
     protected $canPromoteMembers;
 
     /**
+     * Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_change_info")
+     * @Accessor(getter="getCanChangeInfo",setter="setcanChangeInfo")
+     * @Type("bool")
+     */
+    protected $canChangeInfo;
+
+    /**
+     * Optional. Administrators and restricted only. True, if the user is allowed to invite new users to the chat
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_invite_users")
+     * @Accessor(getter="getCanInviteUsers",setter="setcanInviteUsers")
+     * @Type("bool")
+     */
+    protected $canInviteUsers;
+
+    /**
+     * Optional. Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups only
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_pin_messages")
+     * @Accessor(getter="getCanPinMessages",setter="setcanPinMessages")
+     * @Type("bool")
+     */
+    protected $canPinMessages;
+
+    /**
      * Optional. Restricted only. True, if the user is a member of the chat at the moment of the request
      *
      * @var bool|null
@@ -223,7 +225,7 @@ class ChatMember extends AbstractType
     protected $isMember;
 
     /**
-     * Optional. Restricted only. True, if the user can send text messages, contacts, locations and venues
+     * Optional. Restricted only. True, if the user is allowed to send text messages, contacts, locations and venues
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -234,7 +236,7 @@ class ChatMember extends AbstractType
     protected $canSendMessages;
 
     /**
-     * Optional. Restricted only. True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
+     * Optional. Restricted only. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -245,7 +247,18 @@ class ChatMember extends AbstractType
     protected $canSendMediaMessages;
 
     /**
-     * Optional. Restricted only. True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
+     * Optional. Restricted only. True, if the user is allowed to send polls
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_polls")
+     * @Accessor(getter="getCanSendPolls",setter="setcanSendPolls")
+     * @Type("bool")
+     */
+    protected $canSendPolls;
+
+    /**
+     * Optional. Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -256,7 +269,7 @@ class ChatMember extends AbstractType
     protected $canSendOtherMessages;
 
     /**
-     * Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
+     * Optional. Restricted only. True, if the user is allowed to add web page previews to their messages
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -344,25 +357,6 @@ class ChatMember extends AbstractType
     }
 
     /**
-     * @param bool $canChangeInfo
-     * @return static
-     */
-    public function setCanChangeInfo(bool $canChangeInfo): self
-    {
-        $this->canChangeInfo = $canChangeInfo;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getCanChangeInfo(): ?bool
-    {
-        return $this->canChangeInfo;
-    }
-
-    /**
      * @param bool $canPostMessages
      * @return static
      */
@@ -420,25 +414,6 @@ class ChatMember extends AbstractType
     }
 
     /**
-     * @param bool $canInviteUsers
-     * @return static
-     */
-    public function setCanInviteUsers(bool $canInviteUsers): self
-    {
-        $this->canInviteUsers = $canInviteUsers;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getCanInviteUsers(): ?bool
-    {
-        return $this->canInviteUsers;
-    }
-
-    /**
      * @param bool $canRestrictMembers
      * @return static
      */
@@ -458,25 +433,6 @@ class ChatMember extends AbstractType
     }
 
     /**
-     * @param bool $canPinMessages
-     * @return static
-     */
-    public function setCanPinMessages(bool $canPinMessages): self
-    {
-        $this->canPinMessages = $canPinMessages;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getCanPinMessages(): ?bool
-    {
-        return $this->canPinMessages;
-    }
-
-    /**
      * @param bool $canPromoteMembers
      * @return static
      */
@@ -493,6 +449,63 @@ class ChatMember extends AbstractType
     public function getCanPromoteMembers(): ?bool
     {
         return $this->canPromoteMembers;
+    }
+
+    /**
+     * @param bool $canChangeInfo
+     * @return static
+     */
+    public function setCanChangeInfo(bool $canChangeInfo): self
+    {
+        $this->canChangeInfo = $canChangeInfo;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanChangeInfo(): ?bool
+    {
+        return $this->canChangeInfo;
+    }
+
+    /**
+     * @param bool $canInviteUsers
+     * @return static
+     */
+    public function setCanInviteUsers(bool $canInviteUsers): self
+    {
+        $this->canInviteUsers = $canInviteUsers;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanInviteUsers(): ?bool
+    {
+        return $this->canInviteUsers;
+    }
+
+    /**
+     * @param bool $canPinMessages
+     * @return static
+     */
+    public function setCanPinMessages(bool $canPinMessages): self
+    {
+        $this->canPinMessages = $canPinMessages;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanPinMessages(): ?bool
+    {
+        return $this->canPinMessages;
     }
 
     /**
@@ -550,6 +563,25 @@ class ChatMember extends AbstractType
     public function getCanSendMediaMessages(): ?bool
     {
         return $this->canSendMediaMessages;
+    }
+
+    /**
+     * @param bool $canSendPolls
+     * @return static
+     */
+    public function setCanSendPolls(bool $canSendPolls): self
+    {
+        $this->canSendPolls = $canSendPolls;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendPolls(): ?bool
+    {
+        return $this->canSendPolls;
     }
 
     /**
