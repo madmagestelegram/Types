@@ -71,7 +71,7 @@ abstract class TypedClient {
         }
 
         $withFiles = false;
-        array_walk_recursive($requestParams, function(&$item, &$withFiles)
+        array_walk_recursive($requestParams, function(&$item) use (&$withFiles)
         {
             if (!is_object($item)) {
                 return;
@@ -79,7 +79,11 @@ abstract class TypedClient {
 
             if ($item instanceof AbstractInputFile) {
                 $withFiles = true;
-                $item = $item->getFile();
+                $file = $item->getFile();
+                if (!is_resource($file) && is_file($file)) {
+                    $file = fopen($file, 'rb');
+                }
+                $item = $file;
             } else {
                 $item = json_decode($this->_getSerializer()->serialize($item, 'json'), true);
             }
