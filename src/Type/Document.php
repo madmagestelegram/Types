@@ -64,7 +64,7 @@ class Document extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setfileId")
+     * @Accessor(getter="getFileId",setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -74,7 +74,7 @@ class Document extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -85,7 +85,7 @@ class Document extends AbstractType
      * @var PhotoSize|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setthumb")
+     * @Accessor(getter="getThumb",setter="setThumb")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;
@@ -96,7 +96,7 @@ class Document extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("file_name")
-     * @Accessor(getter="getFileName",setter="setfileName")
+     * @Accessor(getter="getFileName",setter="setFileName")
      * @Type("string")
      */
     protected $fileName;
@@ -107,7 +107,7 @@ class Document extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("mime_type")
-     * @Accessor(getter="getMimeType",setter="setmimeType")
+     * @Accessor(getter="getMimeType",setter="setMimeType")
      * @Type("string")
      */
     protected $mimeType;
@@ -118,7 +118,7 @@ class Document extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setfileSize")
+     * @Accessor(getter="getFileSize",setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;

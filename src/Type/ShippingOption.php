@@ -58,7 +58,7 @@ class ShippingOption extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -68,7 +68,7 @@ class ShippingOption extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -78,7 +78,7 @@ class ShippingOption extends AbstractType
      *
      * @var LabeledPrice[]
      * @SerializedName("prices")
-     * @Accessor(getter="getPrices",setter="setprices")
+     * @Accessor(getter="getPrices",setter="setPrices")
      * @Type("array<MadmagesTelegram\Types\Type\LabeledPrice>")
      */
     protected $prices;

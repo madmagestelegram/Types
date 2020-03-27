@@ -56,7 +56,7 @@ class LabeledPrice extends AbstractType
      *
      * @var string
      * @SerializedName("label")
-     * @Accessor(getter="getLabel",setter="setlabel")
+     * @Accessor(getter="getLabel",setter="setLabel")
      * @Type("string")
      */
     protected $label;
@@ -66,7 +66,7 @@ class LabeledPrice extends AbstractType
      *
      * @var int
      * @SerializedName("amount")
-     * @Accessor(getter="getAmount",setter="setamount")
+     * @Accessor(getter="getAmount",setter="setAmount")
      * @Type("int")
      */
     protected $amount;

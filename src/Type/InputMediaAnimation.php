@@ -68,7 +68,7 @@ class InputMediaAnimation extends AbstractInputMedia
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -78,7 +78,7 @@ class InputMediaAnimation extends AbstractInputMedia
      *
      * @var string
      * @SerializedName("media")
-     * @Accessor(getter="getMedia",setter="setmedia")
+     * @Accessor(getter="getMedia",setter="setMedia")
      * @Type("string")
      */
     protected $media;
@@ -89,7 +89,7 @@ class InputMediaAnimation extends AbstractInputMedia
      * @var AbstractInputFile|string|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setthumb")
+     * @Accessor(getter="getThumb",setter="setThumb")
      * @Type("string")
      */
     protected $thumb;
@@ -100,7 +100,7 @@ class InputMediaAnimation extends AbstractInputMedia
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setcaption")
+     * @Accessor(getter="getCaption",setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -111,7 +111,7 @@ class InputMediaAnimation extends AbstractInputMedia
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setparseMode")
+     * @Accessor(getter="getParseMode",setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -122,7 +122,7 @@ class InputMediaAnimation extends AbstractInputMedia
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("width")
-     * @Accessor(getter="getWidth",setter="setwidth")
+     * @Accessor(getter="getWidth",setter="setWidth")
      * @Type("int")
      */
     protected $width;
@@ -133,7 +133,7 @@ class InputMediaAnimation extends AbstractInputMedia
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("height")
-     * @Accessor(getter="getHeight",setter="setheight")
+     * @Accessor(getter="getHeight",setter="setHeight")
      * @Type("int")
      */
     protected $height;
@@ -144,7 +144,7 @@ class InputMediaAnimation extends AbstractInputMedia
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setduration")
+     * @Accessor(getter="getDuration",setter="setDuration")
      * @Type("int")
      */
     protected $duration;

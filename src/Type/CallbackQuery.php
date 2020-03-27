@@ -68,7 +68,7 @@ class CallbackQuery extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -78,7 +78,7 @@ class CallbackQuery extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setfrom")
+     * @Accessor(getter="getFrom",setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -89,7 +89,7 @@ class CallbackQuery extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("message")
-     * @Accessor(getter="getMessage",setter="setmessage")
+     * @Accessor(getter="getMessage",setter="setMessage")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $message;
@@ -100,7 +100,7 @@ class CallbackQuery extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("inline_message_id")
-     * @Accessor(getter="getInlineMessageId",setter="setinlineMessageId")
+     * @Accessor(getter="getInlineMessageId",setter="setInlineMessageId")
      * @Type("string")
      */
     protected $inlineMessageId;
@@ -110,7 +110,7 @@ class CallbackQuery extends AbstractType
      *
      * @var string
      * @SerializedName("chat_instance")
-     * @Accessor(getter="getChatInstance",setter="setchatInstance")
+     * @Accessor(getter="getChatInstance",setter="setChatInstance")
      * @Type("string")
      */
     protected $chatInstance;
@@ -121,7 +121,7 @@ class CallbackQuery extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("data")
-     * @Accessor(getter="getData",setter="setdata")
+     * @Accessor(getter="getData",setter="setData")
      * @Type("string")
      */
     protected $data;
@@ -132,7 +132,7 @@ class CallbackQuery extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("game_short_name")
-     * @Accessor(getter="getGameShortName",setter="setgameShortName")
+     * @Accessor(getter="getGameShortName",setter="setGameShortName")
      * @Type("string")
      */
     protected $gameShortName;

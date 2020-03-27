@@ -59,7 +59,7 @@ class EncryptedCredentials extends AbstractType
      *
      * @var string
      * @SerializedName("data")
-     * @Accessor(getter="getData",setter="setdata")
+     * @Accessor(getter="getData",setter="setData")
      * @Type("string")
      */
     protected $data;
@@ -69,7 +69,7 @@ class EncryptedCredentials extends AbstractType
      *
      * @var string
      * @SerializedName("hash")
-     * @Accessor(getter="getHash",setter="sethash")
+     * @Accessor(getter="getHash",setter="setHash")
      * @Type("string")
      */
     protected $hash;
@@ -79,7 +79,7 @@ class EncryptedCredentials extends AbstractType
      *
      * @var string
      * @SerializedName("secret")
-     * @Accessor(getter="getSecret",setter="setsecret")
+     * @Accessor(getter="getSecret",setter="setSecret")
      * @Type("string")
      */
     protected $secret;

@@ -90,7 +90,7 @@ class ChatMember extends AbstractType
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setuser")
+     * @Accessor(getter="getUser",setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -100,7 +100,7 @@ class ChatMember extends AbstractType
      *
      * @var string
      * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setstatus")
+     * @Accessor(getter="getStatus",setter="setStatus")
      * @Type("string")
      */
     protected $status;
@@ -111,7 +111,7 @@ class ChatMember extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("custom_title")
-     * @Accessor(getter="getCustomTitle",setter="setcustomTitle")
+     * @Accessor(getter="getCustomTitle",setter="setCustomTitle")
      * @Type("string")
      */
     protected $customTitle;
@@ -122,7 +122,7 @@ class ChatMember extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("until_date")
-     * @Accessor(getter="getUntilDate",setter="setuntilDate")
+     * @Accessor(getter="getUntilDate",setter="setUntilDate")
      * @Type("int")
      */
     protected $untilDate;
@@ -133,7 +133,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_be_edited")
-     * @Accessor(getter="getCanBeEdited",setter="setcanBeEdited")
+     * @Accessor(getter="getCanBeEdited",setter="setCanBeEdited")
      * @Type("bool")
      */
     protected $canBeEdited;
@@ -144,7 +144,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_post_messages")
-     * @Accessor(getter="getCanPostMessages",setter="setcanPostMessages")
+     * @Accessor(getter="getCanPostMessages",setter="setCanPostMessages")
      * @Type("bool")
      */
     protected $canPostMessages;
@@ -155,7 +155,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_edit_messages")
-     * @Accessor(getter="getCanEditMessages",setter="setcanEditMessages")
+     * @Accessor(getter="getCanEditMessages",setter="setCanEditMessages")
      * @Type("bool")
      */
     protected $canEditMessages;
@@ -166,7 +166,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_delete_messages")
-     * @Accessor(getter="getCanDeleteMessages",setter="setcanDeleteMessages")
+     * @Accessor(getter="getCanDeleteMessages",setter="setCanDeleteMessages")
      * @Type("bool")
      */
     protected $canDeleteMessages;
@@ -177,7 +177,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_restrict_members")
-     * @Accessor(getter="getCanRestrictMembers",setter="setcanRestrictMembers")
+     * @Accessor(getter="getCanRestrictMembers",setter="setCanRestrictMembers")
      * @Type("bool")
      */
     protected $canRestrictMembers;
@@ -188,7 +188,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_promote_members")
-     * @Accessor(getter="getCanPromoteMembers",setter="setcanPromoteMembers")
+     * @Accessor(getter="getCanPromoteMembers",setter="setCanPromoteMembers")
      * @Type("bool")
      */
     protected $canPromoteMembers;
@@ -199,7 +199,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_change_info")
-     * @Accessor(getter="getCanChangeInfo",setter="setcanChangeInfo")
+     * @Accessor(getter="getCanChangeInfo",setter="setCanChangeInfo")
      * @Type("bool")
      */
     protected $canChangeInfo;
@@ -210,7 +210,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_invite_users")
-     * @Accessor(getter="getCanInviteUsers",setter="setcanInviteUsers")
+     * @Accessor(getter="getCanInviteUsers",setter="setCanInviteUsers")
      * @Type("bool")
      */
     protected $canInviteUsers;
@@ -221,7 +221,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_pin_messages")
-     * @Accessor(getter="getCanPinMessages",setter="setcanPinMessages")
+     * @Accessor(getter="getCanPinMessages",setter="setCanPinMessages")
      * @Type("bool")
      */
     protected $canPinMessages;
@@ -232,7 +232,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("is_member")
-     * @Accessor(getter="getIsMember",setter="setisMember")
+     * @Accessor(getter="getIsMember",setter="setIsMember")
      * @Type("bool")
      */
     protected $isMember;
@@ -243,7 +243,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_messages")
-     * @Accessor(getter="getCanSendMessages",setter="setcanSendMessages")
+     * @Accessor(getter="getCanSendMessages",setter="setCanSendMessages")
      * @Type("bool")
      */
     protected $canSendMessages;
@@ -254,7 +254,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_media_messages")
-     * @Accessor(getter="getCanSendMediaMessages",setter="setcanSendMediaMessages")
+     * @Accessor(getter="getCanSendMediaMessages",setter="setCanSendMediaMessages")
      * @Type("bool")
      */
     protected $canSendMediaMessages;
@@ -265,7 +265,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_polls")
-     * @Accessor(getter="getCanSendPolls",setter="setcanSendPolls")
+     * @Accessor(getter="getCanSendPolls",setter="setCanSendPolls")
      * @Type("bool")
      */
     protected $canSendPolls;
@@ -276,7 +276,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_other_messages")
-     * @Accessor(getter="getCanSendOtherMessages",setter="setcanSendOtherMessages")
+     * @Accessor(getter="getCanSendOtherMessages",setter="setCanSendOtherMessages")
      * @Type("bool")
      */
     protected $canSendOtherMessages;
@@ -287,7 +287,7 @@ class ChatMember extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_add_web_page_previews")
-     * @Accessor(getter="getCanAddWebPagePreviews",setter="setcanAddWebPagePreviews")
+     * @Accessor(getter="getCanAddWebPagePreviews",setter="setCanAddWebPagePreviews")
      * @Type("bool")
      */
     protected $canAddWebPagePreviews;

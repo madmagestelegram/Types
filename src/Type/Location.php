@@ -56,7 +56,7 @@ class Location extends AbstractType
      *
      * @var float
      * @SerializedName("longitude")
-     * @Accessor(getter="getLongitude",setter="setlongitude")
+     * @Accessor(getter="getLongitude",setter="setLongitude")
      * @Type("float")
      */
     protected $longitude;
@@ -66,7 +66,7 @@ class Location extends AbstractType
      *
      * @var float
      * @SerializedName("latitude")
-     * @Accessor(getter="getLatitude",setter="setlatitude")
+     * @Accessor(getter="getLatitude",setter="setLatitude")
      * @Type("float")
      */
     protected $latitude;

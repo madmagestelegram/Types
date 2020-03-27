@@ -60,7 +60,7 @@ class MaskPosition extends AbstractType
      *
      * @var string
      * @SerializedName("point")
-     * @Accessor(getter="getPoint",setter="setpoint")
+     * @Accessor(getter="getPoint",setter="setPoint")
      * @Type("string")
      */
     protected $point;
@@ -70,7 +70,7 @@ class MaskPosition extends AbstractType
      *
      * @var float
      * @SerializedName("x_shift")
-     * @Accessor(getter="getXShift",setter="setxShift")
+     * @Accessor(getter="getXShift",setter="setXShift")
      * @Type("float")
      */
     protected $xShift;
@@ -80,7 +80,7 @@ class MaskPosition extends AbstractType
      *
      * @var float
      * @SerializedName("y_shift")
-     * @Accessor(getter="getYShift",setter="setyShift")
+     * @Accessor(getter="getYShift",setter="setYShift")
      * @Type("float")
      */
     protected $yShift;
@@ -90,7 +90,7 @@ class MaskPosition extends AbstractType
      *
      * @var float
      * @SerializedName("scale")
-     * @Accessor(getter="getScale",setter="setscale")
+     * @Accessor(getter="getScale",setter="setScale")
      * @Type("float")
      */
     protected $scale;

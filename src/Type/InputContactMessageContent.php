@@ -61,7 +61,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("phone_number")
-     * @Accessor(getter="getPhoneNumber",setter="setphoneNumber")
+     * @Accessor(getter="getPhoneNumber",setter="setPhoneNumber")
      * @Type("string")
      */
     protected $phoneNumber;
@@ -71,7 +71,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("first_name")
-     * @Accessor(getter="getFirstName",setter="setfirstName")
+     * @Accessor(getter="getFirstName",setter="setFirstName")
      * @Type("string")
      */
     protected $firstName;
@@ -82,7 +82,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("last_name")
-     * @Accessor(getter="getLastName",setter="setlastName")
+     * @Accessor(getter="getLastName",setter="setLastName")
      * @Type("string")
      */
     protected $lastName;
@@ -93,7 +93,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("vcard")
-     * @Accessor(getter="getVcard",setter="setvcard")
+     * @Accessor(getter="getVcard",setter="setVcard")
      * @Type("string")
      */
     protected $vcard;

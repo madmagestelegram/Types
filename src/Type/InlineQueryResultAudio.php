@@ -73,7 +73,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -83,7 +83,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -93,7 +93,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("audio_url")
-     * @Accessor(getter="getAudioUrl",setter="setaudioUrl")
+     * @Accessor(getter="getAudioUrl",setter="setAudioUrl")
      * @Type("string")
      */
     protected $audioUrl;
@@ -103,7 +103,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -114,7 +114,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setcaption")
+     * @Accessor(getter="getCaption",setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -125,7 +125,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setparseMode")
+     * @Accessor(getter="getParseMode",setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -136,7 +136,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("performer")
-     * @Accessor(getter="getPerformer",setter="setperformer")
+     * @Accessor(getter="getPerformer",setter="setPerformer")
      * @Type("string")
      */
     protected $performer;
@@ -147,7 +147,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("audio_duration")
-     * @Accessor(getter="getAudioDuration",setter="setaudioDuration")
+     * @Accessor(getter="getAudioDuration",setter="setAudioDuration")
      * @Type("int")
      */
     protected $audioDuration;
@@ -158,7 +158,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setreplyMarkup")
+     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -169,7 +169,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setinputMessageContent")
+     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;

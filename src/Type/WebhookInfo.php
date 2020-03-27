@@ -67,7 +67,7 @@ class WebhookInfo extends AbstractType
      *
      * @var string
      * @SerializedName("url")
-     * @Accessor(getter="getUrl",setter="seturl")
+     * @Accessor(getter="getUrl",setter="setUrl")
      * @Type("string")
      */
     protected $url;
@@ -77,7 +77,7 @@ class WebhookInfo extends AbstractType
      *
      * @var bool
      * @SerializedName("has_custom_certificate")
-     * @Accessor(getter="getHasCustomCertificate",setter="sethasCustomCertificate")
+     * @Accessor(getter="getHasCustomCertificate",setter="setHasCustomCertificate")
      * @Type("bool")
      */
     protected $hasCustomCertificate;
@@ -87,7 +87,7 @@ class WebhookInfo extends AbstractType
      *
      * @var int
      * @SerializedName("pending_update_count")
-     * @Accessor(getter="getPendingUpdateCount",setter="setpendingUpdateCount")
+     * @Accessor(getter="getPendingUpdateCount",setter="setPendingUpdateCount")
      * @Type("int")
      */
     protected $pendingUpdateCount;
@@ -98,7 +98,7 @@ class WebhookInfo extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("last_error_date")
-     * @Accessor(getter="getLastErrorDate",setter="setlastErrorDate")
+     * @Accessor(getter="getLastErrorDate",setter="setLastErrorDate")
      * @Type("int")
      */
     protected $lastErrorDate;
@@ -109,7 +109,7 @@ class WebhookInfo extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("last_error_message")
-     * @Accessor(getter="getLastErrorMessage",setter="setlastErrorMessage")
+     * @Accessor(getter="getLastErrorMessage",setter="setLastErrorMessage")
      * @Type("string")
      */
     protected $lastErrorMessage;
@@ -120,7 +120,7 @@ class WebhookInfo extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("max_connections")
-     * @Accessor(getter="getMaxConnections",setter="setmaxConnections")
+     * @Accessor(getter="getMaxConnections",setter="setMaxConnections")
      * @Type("int")
      */
     protected $maxConnections;
@@ -131,7 +131,7 @@ class WebhookInfo extends AbstractType
      * @var string[]|null
      * @SkipWhenEmpty
      * @SerializedName("allowed_updates")
-     * @Accessor(getter="getAllowedUpdates",setter="setallowedUpdates")
+     * @Accessor(getter="getAllowedUpdates",setter="setAllowedUpdates")
      * @Type("array<string>")
      */
     protected $allowedUpdates;

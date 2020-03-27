@@ -62,7 +62,7 @@ class Invoice extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -72,7 +72,7 @@ class Invoice extends AbstractType
      *
      * @var string
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setdescription")
+     * @Accessor(getter="getDescription",setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -82,7 +82,7 @@ class Invoice extends AbstractType
      *
      * @var string
      * @SerializedName("start_parameter")
-     * @Accessor(getter="getStartParameter",setter="setstartParameter")
+     * @Accessor(getter="getStartParameter",setter="setStartParameter")
      * @Type("string")
      */
     protected $startParameter;
@@ -92,7 +92,7 @@ class Invoice extends AbstractType
      *
      * @var string
      * @SerializedName("currency")
-     * @Accessor(getter="getCurrency",setter="setcurrency")
+     * @Accessor(getter="getCurrency",setter="setCurrency")
      * @Type("string")
      */
     protected $currency;
@@ -102,7 +102,7 @@ class Invoice extends AbstractType
      *
      * @var int
      * @SerializedName("total_amount")
-     * @Accessor(getter="getTotalAmount",setter="settotalAmount")
+     * @Accessor(getter="getTotalAmount",setter="setTotalAmount")
      * @Type("int")
      */
     protected $totalAmount;

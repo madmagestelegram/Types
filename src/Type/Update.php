@@ -77,7 +77,7 @@ class Update extends AbstractType
      *
      * @var int
      * @SerializedName("update_id")
-     * @Accessor(getter="getUpdateId",setter="setupdateId")
+     * @Accessor(getter="getUpdateId",setter="setUpdateId")
      * @Type("int")
      */
     protected $updateId;
@@ -88,7 +88,7 @@ class Update extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("message")
-     * @Accessor(getter="getMessage",setter="setmessage")
+     * @Accessor(getter="getMessage",setter="setMessage")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $message;
@@ -99,7 +99,7 @@ class Update extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("edited_message")
-     * @Accessor(getter="getEditedMessage",setter="seteditedMessage")
+     * @Accessor(getter="getEditedMessage",setter="setEditedMessage")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $editedMessage;
@@ -110,7 +110,7 @@ class Update extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("channel_post")
-     * @Accessor(getter="getChannelPost",setter="setchannelPost")
+     * @Accessor(getter="getChannelPost",setter="setChannelPost")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $channelPost;
@@ -121,7 +121,7 @@ class Update extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("edited_channel_post")
-     * @Accessor(getter="getEditedChannelPost",setter="seteditedChannelPost")
+     * @Accessor(getter="getEditedChannelPost",setter="setEditedChannelPost")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $editedChannelPost;
@@ -132,7 +132,7 @@ class Update extends AbstractType
      * @var InlineQuery|null
      * @SkipWhenEmpty
      * @SerializedName("inline_query")
-     * @Accessor(getter="getInlineQuery",setter="setinlineQuery")
+     * @Accessor(getter="getInlineQuery",setter="setInlineQuery")
      * @Type("MadmagesTelegram\Types\Type\InlineQuery")
      */
     protected $inlineQuery;
@@ -143,7 +143,7 @@ class Update extends AbstractType
      * @var ChosenInlineResult|null
      * @SkipWhenEmpty
      * @SerializedName("chosen_inline_result")
-     * @Accessor(getter="getChosenInlineResult",setter="setchosenInlineResult")
+     * @Accessor(getter="getChosenInlineResult",setter="setChosenInlineResult")
      * @Type("MadmagesTelegram\Types\Type\ChosenInlineResult")
      */
     protected $chosenInlineResult;
@@ -154,7 +154,7 @@ class Update extends AbstractType
      * @var CallbackQuery|null
      * @SkipWhenEmpty
      * @SerializedName("callback_query")
-     * @Accessor(getter="getCallbackQuery",setter="setcallbackQuery")
+     * @Accessor(getter="getCallbackQuery",setter="setCallbackQuery")
      * @Type("MadmagesTelegram\Types\Type\CallbackQuery")
      */
     protected $callbackQuery;
@@ -165,7 +165,7 @@ class Update extends AbstractType
      * @var ShippingQuery|null
      * @SkipWhenEmpty
      * @SerializedName("shipping_query")
-     * @Accessor(getter="getShippingQuery",setter="setshippingQuery")
+     * @Accessor(getter="getShippingQuery",setter="setShippingQuery")
      * @Type("MadmagesTelegram\Types\Type\ShippingQuery")
      */
     protected $shippingQuery;
@@ -176,7 +176,7 @@ class Update extends AbstractType
      * @var PreCheckoutQuery|null
      * @SkipWhenEmpty
      * @SerializedName("pre_checkout_query")
-     * @Accessor(getter="getPreCheckoutQuery",setter="setpreCheckoutQuery")
+     * @Accessor(getter="getPreCheckoutQuery",setter="setPreCheckoutQuery")
      * @Type("MadmagesTelegram\Types\Type\PreCheckoutQuery")
      */
     protected $preCheckoutQuery;
@@ -187,7 +187,7 @@ class Update extends AbstractType
      * @var Poll|null
      * @SkipWhenEmpty
      * @SerializedName("poll")
-     * @Accessor(getter="getPoll",setter="setpoll")
+     * @Accessor(getter="getPoll",setter="setPoll")
      * @Type("MadmagesTelegram\Types\Type\Poll")
      */
     protected $poll;
@@ -198,7 +198,7 @@ class Update extends AbstractType
      * @var PollAnswer|null
      * @SkipWhenEmpty
      * @SerializedName("poll_answer")
-     * @Accessor(getter="getPollAnswer",setter="setpollAnswer")
+     * @Accessor(getter="getPollAnswer",setter="setPollAnswer")
      * @Type("MadmagesTelegram\Types\Type\PollAnswer")
      */
     protected $pollAnswer;

@@ -64,7 +64,7 @@ class ShippingAddress extends AbstractType
      *
      * @var string
      * @SerializedName("country_code")
-     * @Accessor(getter="getCountryCode",setter="setcountryCode")
+     * @Accessor(getter="getCountryCode",setter="setCountryCode")
      * @Type("string")
      */
     protected $countryCode;
@@ -74,7 +74,7 @@ class ShippingAddress extends AbstractType
      *
      * @var string
      * @SerializedName("state")
-     * @Accessor(getter="getState",setter="setstate")
+     * @Accessor(getter="getState",setter="setState")
      * @Type("string")
      */
     protected $state;
@@ -84,7 +84,7 @@ class ShippingAddress extends AbstractType
      *
      * @var string
      * @SerializedName("city")
-     * @Accessor(getter="getCity",setter="setcity")
+     * @Accessor(getter="getCity",setter="setCity")
      * @Type("string")
      */
     protected $city;
@@ -94,7 +94,7 @@ class ShippingAddress extends AbstractType
      *
      * @var string
      * @SerializedName("street_line1")
-     * @Accessor(getter="getStreetLine1",setter="setstreetLine1")
+     * @Accessor(getter="getStreetLine1",setter="setStreetLine1")
      * @Type("string")
      */
     protected $streetLine1;
@@ -104,7 +104,7 @@ class ShippingAddress extends AbstractType
      *
      * @var string
      * @SerializedName("street_line2")
-     * @Accessor(getter="getStreetLine2",setter="setstreetLine2")
+     * @Accessor(getter="getStreetLine2",setter="setStreetLine2")
      * @Type("string")
      */
     protected $streetLine2;
@@ -114,7 +114,7 @@ class ShippingAddress extends AbstractType
      *
      * @var string
      * @SerializedName("post_code")
-     * @Accessor(getter="getPostCode",setter="setpostCode")
+     * @Accessor(getter="getPostCode",setter="setPostCode")
      * @Type("string")
      */
     protected $postCode;

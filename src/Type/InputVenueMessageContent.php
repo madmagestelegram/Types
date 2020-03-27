@@ -65,7 +65,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      *
      * @var float
      * @SerializedName("latitude")
-     * @Accessor(getter="getLatitude",setter="setlatitude")
+     * @Accessor(getter="getLatitude",setter="setLatitude")
      * @Type("float")
      */
     protected $latitude;
@@ -75,7 +75,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      *
      * @var float
      * @SerializedName("longitude")
-     * @Accessor(getter="getLongitude",setter="setlongitude")
+     * @Accessor(getter="getLongitude",setter="setLongitude")
      * @Type("float")
      */
     protected $longitude;
@@ -85,7 +85,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -95,7 +95,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("address")
-     * @Accessor(getter="getAddress",setter="setaddress")
+     * @Accessor(getter="getAddress",setter="setAddress")
      * @Type("string")
      */
     protected $address;
@@ -106,7 +106,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("foursquare_id")
-     * @Accessor(getter="getFoursquareId",setter="setfoursquareId")
+     * @Accessor(getter="getFoursquareId",setter="setFoursquareId")
      * @Type("string")
      */
     protected $foursquareId;
@@ -117,7 +117,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("foursquare_type")
-     * @Accessor(getter="getFoursquareType",setter="setfoursquareType")
+     * @Accessor(getter="getFoursquareType",setter="setFoursquareType")
      * @Type("string")
      */
     protected $foursquareType;

@@ -62,7 +62,7 @@ class Contact extends AbstractType
      *
      * @var string
      * @SerializedName("phone_number")
-     * @Accessor(getter="getPhoneNumber",setter="setphoneNumber")
+     * @Accessor(getter="getPhoneNumber",setter="setPhoneNumber")
      * @Type("string")
      */
     protected $phoneNumber;
@@ -72,7 +72,7 @@ class Contact extends AbstractType
      *
      * @var string
      * @SerializedName("first_name")
-     * @Accessor(getter="getFirstName",setter="setfirstName")
+     * @Accessor(getter="getFirstName",setter="setFirstName")
      * @Type("string")
      */
     protected $firstName;
@@ -83,7 +83,7 @@ class Contact extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("last_name")
-     * @Accessor(getter="getLastName",setter="setlastName")
+     * @Accessor(getter="getLastName",setter="setLastName")
      * @Type("string")
      */
     protected $lastName;
@@ -94,7 +94,7 @@ class Contact extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("user_id")
-     * @Accessor(getter="getUserId",setter="setuserId")
+     * @Accessor(getter="getUserId",setter="setUserId")
      * @Type("int")
      */
     protected $userId;
@@ -105,7 +105,7 @@ class Contact extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("vcard")
-     * @Accessor(getter="getVcard",setter="setvcard")
+     * @Accessor(getter="getVcard",setter="setVcard")
      * @Type("string")
      */
     protected $vcard;

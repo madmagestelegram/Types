@@ -62,7 +62,7 @@ class File extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setfileId")
+     * @Accessor(getter="getFileId",setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -72,7 +72,7 @@ class File extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -83,7 +83,7 @@ class File extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setfileSize")
+     * @Accessor(getter="getFileSize",setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;
@@ -94,7 +94,7 @@ class File extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("file_path")
-     * @Accessor(getter="getFilePath",setter="setfilePath")
+     * @Accessor(getter="getFilePath",setter="setFilePath")
      * @Type("string")
      */
     protected $filePath;

@@ -66,7 +66,7 @@ class SuccessfulPayment extends AbstractType
      *
      * @var string
      * @SerializedName("currency")
-     * @Accessor(getter="getCurrency",setter="setcurrency")
+     * @Accessor(getter="getCurrency",setter="setCurrency")
      * @Type("string")
      */
     protected $currency;
@@ -76,7 +76,7 @@ class SuccessfulPayment extends AbstractType
      *
      * @var int
      * @SerializedName("total_amount")
-     * @Accessor(getter="getTotalAmount",setter="settotalAmount")
+     * @Accessor(getter="getTotalAmount",setter="setTotalAmount")
      * @Type("int")
      */
     protected $totalAmount;
@@ -86,7 +86,7 @@ class SuccessfulPayment extends AbstractType
      *
      * @var string
      * @SerializedName("invoice_payload")
-     * @Accessor(getter="getInvoicePayload",setter="setinvoicePayload")
+     * @Accessor(getter="getInvoicePayload",setter="setInvoicePayload")
      * @Type("string")
      */
     protected $invoicePayload;
@@ -97,7 +97,7 @@ class SuccessfulPayment extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("shipping_option_id")
-     * @Accessor(getter="getShippingOptionId",setter="setshippingOptionId")
+     * @Accessor(getter="getShippingOptionId",setter="setShippingOptionId")
      * @Type("string")
      */
     protected $shippingOptionId;
@@ -108,7 +108,7 @@ class SuccessfulPayment extends AbstractType
      * @var OrderInfo|null
      * @SkipWhenEmpty
      * @SerializedName("order_info")
-     * @Accessor(getter="getOrderInfo",setter="setorderInfo")
+     * @Accessor(getter="getOrderInfo",setter="setOrderInfo")
      * @Type("MadmagesTelegram\Types\Type\OrderInfo")
      */
     protected $orderInfo;
@@ -118,7 +118,7 @@ class SuccessfulPayment extends AbstractType
      *
      * @var string
      * @SerializedName("telegram_payment_charge_id")
-     * @Accessor(getter="getTelegramPaymentChargeId",setter="settelegramPaymentChargeId")
+     * @Accessor(getter="getTelegramPaymentChargeId",setter="setTelegramPaymentChargeId")
      * @Type("string")
      */
     protected $telegramPaymentChargeId;
@@ -128,7 +128,7 @@ class SuccessfulPayment extends AbstractType
      *
      * @var string
      * @SerializedName("provider_payment_charge_id")
-     * @Accessor(getter="getProviderPaymentChargeId",setter="setproviderPaymentChargeId")
+     * @Accessor(getter="getProviderPaymentChargeId",setter="setProviderPaymentChargeId")
      * @Type("string")
      */
     protected $providerPaymentChargeId;

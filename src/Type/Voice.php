@@ -62,7 +62,7 @@ class Voice extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setfileId")
+     * @Accessor(getter="getFileId",setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -72,7 +72,7 @@ class Voice extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -82,7 +82,7 @@ class Voice extends AbstractType
      *
      * @var int
      * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setduration")
+     * @Accessor(getter="getDuration",setter="setDuration")
      * @Type("int")
      */
     protected $duration;
@@ -93,7 +93,7 @@ class Voice extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("mime_type")
-     * @Accessor(getter="getMimeType",setter="setmimeType")
+     * @Accessor(getter="getMimeType",setter="setMimeType")
      * @Type("string")
      */
     protected $mimeType;
@@ -104,7 +104,7 @@ class Voice extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setfileSize")
+     * @Accessor(getter="getFileSize",setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;

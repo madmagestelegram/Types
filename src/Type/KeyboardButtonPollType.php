@@ -56,7 +56,7 @@ class KeyboardButtonPollType extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;

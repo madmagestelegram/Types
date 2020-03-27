@@ -69,7 +69,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_messages")
-     * @Accessor(getter="getCanSendMessages",setter="setcanSendMessages")
+     * @Accessor(getter="getCanSendMessages",setter="setCanSendMessages")
      * @Type("bool")
      */
     protected $canSendMessages;
@@ -80,7 +80,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_media_messages")
-     * @Accessor(getter="getCanSendMediaMessages",setter="setcanSendMediaMessages")
+     * @Accessor(getter="getCanSendMediaMessages",setter="setCanSendMediaMessages")
      * @Type("bool")
      */
     protected $canSendMediaMessages;
@@ -91,7 +91,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_polls")
-     * @Accessor(getter="getCanSendPolls",setter="setcanSendPolls")
+     * @Accessor(getter="getCanSendPolls",setter="setCanSendPolls")
      * @Type("bool")
      */
     protected $canSendPolls;
@@ -102,7 +102,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_send_other_messages")
-     * @Accessor(getter="getCanSendOtherMessages",setter="setcanSendOtherMessages")
+     * @Accessor(getter="getCanSendOtherMessages",setter="setCanSendOtherMessages")
      * @Type("bool")
      */
     protected $canSendOtherMessages;
@@ -113,7 +113,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_add_web_page_previews")
-     * @Accessor(getter="getCanAddWebPagePreviews",setter="setcanAddWebPagePreviews")
+     * @Accessor(getter="getCanAddWebPagePreviews",setter="setCanAddWebPagePreviews")
      * @Type("bool")
      */
     protected $canAddWebPagePreviews;
@@ -124,7 +124,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_change_info")
-     * @Accessor(getter="getCanChangeInfo",setter="setcanChangeInfo")
+     * @Accessor(getter="getCanChangeInfo",setter="setCanChangeInfo")
      * @Type("bool")
      */
     protected $canChangeInfo;
@@ -135,7 +135,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_invite_users")
-     * @Accessor(getter="getCanInviteUsers",setter="setcanInviteUsers")
+     * @Accessor(getter="getCanInviteUsers",setter="setCanInviteUsers")
      * @Type("bool")
      */
     protected $canInviteUsers;
@@ -146,7 +146,7 @@ class ChatPermissions extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_pin_messages")
-     * @Accessor(getter="getCanPinMessages",setter="setcanPinMessages")
+     * @Accessor(getter="getCanPinMessages",setter="setCanPinMessages")
      * @Type("bool")
      */
     protected $canPinMessages;

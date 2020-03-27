@@ -61,7 +61,7 @@ class ReplyKeyboardMarkup extends AbstractType
      *
      * @var array[]
      * @SerializedName("keyboard")
-     * @Accessor(getter="getKeyboard",setter="setkeyboard")
+     * @Accessor(getter="getKeyboard",setter="setKeyboard")
      * @Type("array<array>")
      */
     protected $keyboard;
@@ -72,7 +72,7 @@ class ReplyKeyboardMarkup extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("resize_keyboard")
-     * @Accessor(getter="getResizeKeyboard",setter="setresizeKeyboard")
+     * @Accessor(getter="getResizeKeyboard",setter="setResizeKeyboard")
      * @Type("bool")
      */
     protected $resizeKeyboard;
@@ -83,7 +83,7 @@ class ReplyKeyboardMarkup extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("one_time_keyboard")
-     * @Accessor(getter="getOneTimeKeyboard",setter="setoneTimeKeyboard")
+     * @Accessor(getter="getOneTimeKeyboard",setter="setOneTimeKeyboard")
      * @Type("bool")
      */
     protected $oneTimeKeyboard;
@@ -94,7 +94,7 @@ class ReplyKeyboardMarkup extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("selective")
-     * @Accessor(getter="getSelective",setter="setselective")
+     * @Accessor(getter="getSelective",setter="setSelective")
      * @Type("bool")
      */
     protected $selective;

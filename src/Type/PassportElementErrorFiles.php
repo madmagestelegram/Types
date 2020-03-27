@@ -61,7 +61,7 @@ class PassportElementErrorFiles extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("source")
-     * @Accessor(getter="getSource",setter="setsource")
+     * @Accessor(getter="getSource",setter="setSource")
      * @Type("string")
      */
     protected $source;
@@ -71,7 +71,7 @@ class PassportElementErrorFiles extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -81,7 +81,7 @@ class PassportElementErrorFiles extends AbstractPassportElementError
      *
      * @var string[]
      * @SerializedName("file_hashes")
-     * @Accessor(getter="getFileHashes",setter="setfileHashes")
+     * @Accessor(getter="getFileHashes",setter="setFileHashes")
      * @Type("array<string>")
      */
     protected $fileHashes;
@@ -91,7 +91,7 @@ class PassportElementErrorFiles extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("message")
-     * @Accessor(getter="getMessage",setter="setmessage")
+     * @Accessor(getter="getMessage",setter="setMessage")
      * @Type("string")
      */
     protected $message;

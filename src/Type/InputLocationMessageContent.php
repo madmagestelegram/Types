@@ -59,7 +59,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      *
      * @var float
      * @SerializedName("latitude")
-     * @Accessor(getter="getLatitude",setter="setlatitude")
+     * @Accessor(getter="getLatitude",setter="setLatitude")
      * @Type("float")
      */
     protected $latitude;
@@ -69,7 +69,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      *
      * @var float
      * @SerializedName("longitude")
-     * @Accessor(getter="getLongitude",setter="setlongitude")
+     * @Accessor(getter="getLongitude",setter="setLongitude")
      * @Type("float")
      */
     protected $longitude;
@@ -80,7 +80,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("live_period")
-     * @Accessor(getter="getLivePeriod",setter="setlivePeriod")
+     * @Accessor(getter="getLivePeriod",setter="setLivePeriod")
      * @Type("int")
      */
     protected $livePeriod;

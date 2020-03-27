@@ -62,7 +62,7 @@ class StickerSet extends AbstractType
      *
      * @var string
      * @SerializedName("name")
-     * @Accessor(getter="getName",setter="setname")
+     * @Accessor(getter="getName",setter="setName")
      * @Type("string")
      */
     protected $name;
@@ -72,7 +72,7 @@ class StickerSet extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -82,7 +82,7 @@ class StickerSet extends AbstractType
      *
      * @var bool
      * @SerializedName("is_animated")
-     * @Accessor(getter="getIsAnimated",setter="setisAnimated")
+     * @Accessor(getter="getIsAnimated",setter="setIsAnimated")
      * @Type("bool")
      */
     protected $isAnimated;
@@ -92,7 +92,7 @@ class StickerSet extends AbstractType
      *
      * @var bool
      * @SerializedName("contains_masks")
-     * @Accessor(getter="getContainsMasks",setter="setcontainsMasks")
+     * @Accessor(getter="getContainsMasks",setter="setContainsMasks")
      * @Type("bool")
      */
     protected $containsMasks;
@@ -102,7 +102,7 @@ class StickerSet extends AbstractType
      *
      * @var Sticker[]
      * @SerializedName("stickers")
-     * @Accessor(getter="getStickers",setter="setstickers")
+     * @Accessor(getter="getStickers",setter="setStickers")
      * @Type("array<MadmagesTelegram\Types\Type\Sticker>")
      */
     protected $stickers;

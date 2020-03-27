@@ -146,7 +146,7 @@ class Message extends AbstractType
      *
      * @var int
      * @SerializedName("message_id")
-     * @Accessor(getter="getMessageId",setter="setmessageId")
+     * @Accessor(getter="getMessageId",setter="setMessageId")
      * @Type("int")
      */
     protected $messageId;
@@ -157,7 +157,7 @@ class Message extends AbstractType
      * @var User|null
      * @SkipWhenEmpty
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setfrom")
+     * @Accessor(getter="getFrom",setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -167,7 +167,7 @@ class Message extends AbstractType
      *
      * @var int
      * @SerializedName("date")
-     * @Accessor(getter="getDate",setter="setdate")
+     * @Accessor(getter="getDate",setter="setDate")
      * @Type("int")
      */
     protected $date;
@@ -177,7 +177,7 @@ class Message extends AbstractType
      *
      * @var Chat
      * @SerializedName("chat")
-     * @Accessor(getter="getChat",setter="setchat")
+     * @Accessor(getter="getChat",setter="setChat")
      * @Type("MadmagesTelegram\Types\Type\Chat")
      */
     protected $chat;
@@ -188,7 +188,7 @@ class Message extends AbstractType
      * @var User|null
      * @SkipWhenEmpty
      * @SerializedName("forward_from")
-     * @Accessor(getter="getForwardFrom",setter="setforwardFrom")
+     * @Accessor(getter="getForwardFrom",setter="setForwardFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $forwardFrom;
@@ -199,7 +199,7 @@ class Message extends AbstractType
      * @var Chat|null
      * @SkipWhenEmpty
      * @SerializedName("forward_from_chat")
-     * @Accessor(getter="getForwardFromChat",setter="setforwardFromChat")
+     * @Accessor(getter="getForwardFromChat",setter="setForwardFromChat")
      * @Type("MadmagesTelegram\Types\Type\Chat")
      */
     protected $forwardFromChat;
@@ -210,7 +210,7 @@ class Message extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("forward_from_message_id")
-     * @Accessor(getter="getForwardFromMessageId",setter="setforwardFromMessageId")
+     * @Accessor(getter="getForwardFromMessageId",setter="setForwardFromMessageId")
      * @Type("int")
      */
     protected $forwardFromMessageId;
@@ -221,7 +221,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("forward_signature")
-     * @Accessor(getter="getForwardSignature",setter="setforwardSignature")
+     * @Accessor(getter="getForwardSignature",setter="setForwardSignature")
      * @Type("string")
      */
     protected $forwardSignature;
@@ -232,7 +232,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("forward_sender_name")
-     * @Accessor(getter="getForwardSenderName",setter="setforwardSenderName")
+     * @Accessor(getter="getForwardSenderName",setter="setForwardSenderName")
      * @Type("string")
      */
     protected $forwardSenderName;
@@ -243,7 +243,7 @@ class Message extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("forward_date")
-     * @Accessor(getter="getForwardDate",setter="setforwardDate")
+     * @Accessor(getter="getForwardDate",setter="setForwardDate")
      * @Type("int")
      */
     protected $forwardDate;
@@ -254,7 +254,7 @@ class Message extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("reply_to_message")
-     * @Accessor(getter="getReplyToMessage",setter="setreplyToMessage")
+     * @Accessor(getter="getReplyToMessage",setter="setReplyToMessage")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $replyToMessage;
@@ -265,7 +265,7 @@ class Message extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("edit_date")
-     * @Accessor(getter="getEditDate",setter="seteditDate")
+     * @Accessor(getter="getEditDate",setter="setEditDate")
      * @Type("int")
      */
     protected $editDate;
@@ -276,7 +276,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("media_group_id")
-     * @Accessor(getter="getMediaGroupId",setter="setmediaGroupId")
+     * @Accessor(getter="getMediaGroupId",setter="setMediaGroupId")
      * @Type("string")
      */
     protected $mediaGroupId;
@@ -287,7 +287,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("author_signature")
-     * @Accessor(getter="getAuthorSignature",setter="setauthorSignature")
+     * @Accessor(getter="getAuthorSignature",setter="setAuthorSignature")
      * @Type("string")
      */
     protected $authorSignature;
@@ -298,7 +298,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("text")
-     * @Accessor(getter="getText",setter="settext")
+     * @Accessor(getter="getText",setter="setText")
      * @Type("string")
      */
     protected $text;
@@ -309,7 +309,7 @@ class Message extends AbstractType
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("entities")
-     * @Accessor(getter="getEntities",setter="setentities")
+     * @Accessor(getter="getEntities",setter="setEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $entities;
@@ -320,7 +320,7 @@ class Message extends AbstractType
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("caption_entities")
-     * @Accessor(getter="getCaptionEntities",setter="setcaptionEntities")
+     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
@@ -331,7 +331,7 @@ class Message extends AbstractType
      * @var Audio|null
      * @SkipWhenEmpty
      * @SerializedName("audio")
-     * @Accessor(getter="getAudio",setter="setaudio")
+     * @Accessor(getter="getAudio",setter="setAudio")
      * @Type("MadmagesTelegram\Types\Type\Audio")
      */
     protected $audio;
@@ -342,7 +342,7 @@ class Message extends AbstractType
      * @var Document|null
      * @SkipWhenEmpty
      * @SerializedName("document")
-     * @Accessor(getter="getDocument",setter="setdocument")
+     * @Accessor(getter="getDocument",setter="setDocument")
      * @Type("MadmagesTelegram\Types\Type\Document")
      */
     protected $document;
@@ -353,7 +353,7 @@ class Message extends AbstractType
      * @var Animation|null
      * @SkipWhenEmpty
      * @SerializedName("animation")
-     * @Accessor(getter="getAnimation",setter="setanimation")
+     * @Accessor(getter="getAnimation",setter="setAnimation")
      * @Type("MadmagesTelegram\Types\Type\Animation")
      */
     protected $animation;
@@ -364,7 +364,7 @@ class Message extends AbstractType
      * @var Game|null
      * @SkipWhenEmpty
      * @SerializedName("game")
-     * @Accessor(getter="getGame",setter="setgame")
+     * @Accessor(getter="getGame",setter="setGame")
      * @Type("MadmagesTelegram\Types\Type\Game")
      */
     protected $game;
@@ -375,7 +375,7 @@ class Message extends AbstractType
      * @var PhotoSize[]|null
      * @SkipWhenEmpty
      * @SerializedName("photo")
-     * @Accessor(getter="getPhoto",setter="setphoto")
+     * @Accessor(getter="getPhoto",setter="setPhoto")
      * @Type("array<MadmagesTelegram\Types\Type\PhotoSize>")
      */
     protected $photo;
@@ -386,7 +386,7 @@ class Message extends AbstractType
      * @var Sticker|null
      * @SkipWhenEmpty
      * @SerializedName("sticker")
-     * @Accessor(getter="getSticker",setter="setsticker")
+     * @Accessor(getter="getSticker",setter="setSticker")
      * @Type("MadmagesTelegram\Types\Type\Sticker")
      */
     protected $sticker;
@@ -397,7 +397,7 @@ class Message extends AbstractType
      * @var Video|null
      * @SkipWhenEmpty
      * @SerializedName("video")
-     * @Accessor(getter="getVideo",setter="setvideo")
+     * @Accessor(getter="getVideo",setter="setVideo")
      * @Type("MadmagesTelegram\Types\Type\Video")
      */
     protected $video;
@@ -408,7 +408,7 @@ class Message extends AbstractType
      * @var Voice|null
      * @SkipWhenEmpty
      * @SerializedName("voice")
-     * @Accessor(getter="getVoice",setter="setvoice")
+     * @Accessor(getter="getVoice",setter="setVoice")
      * @Type("MadmagesTelegram\Types\Type\Voice")
      */
     protected $voice;
@@ -419,7 +419,7 @@ class Message extends AbstractType
      * @var VideoNote|null
      * @SkipWhenEmpty
      * @SerializedName("video_note")
-     * @Accessor(getter="getVideoNote",setter="setvideoNote")
+     * @Accessor(getter="getVideoNote",setter="setVideoNote")
      * @Type("MadmagesTelegram\Types\Type\VideoNote")
      */
     protected $videoNote;
@@ -430,7 +430,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setcaption")
+     * @Accessor(getter="getCaption",setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -441,7 +441,7 @@ class Message extends AbstractType
      * @var Contact|null
      * @SkipWhenEmpty
      * @SerializedName("contact")
-     * @Accessor(getter="getContact",setter="setcontact")
+     * @Accessor(getter="getContact",setter="setContact")
      * @Type("MadmagesTelegram\Types\Type\Contact")
      */
     protected $contact;
@@ -452,7 +452,7 @@ class Message extends AbstractType
      * @var Location|null
      * @SkipWhenEmpty
      * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setlocation")
+     * @Accessor(getter="getLocation",setter="setLocation")
      * @Type("MadmagesTelegram\Types\Type\Location")
      */
     protected $location;
@@ -463,7 +463,7 @@ class Message extends AbstractType
      * @var Venue|null
      * @SkipWhenEmpty
      * @SerializedName("venue")
-     * @Accessor(getter="getVenue",setter="setvenue")
+     * @Accessor(getter="getVenue",setter="setVenue")
      * @Type("MadmagesTelegram\Types\Type\Venue")
      */
     protected $venue;
@@ -474,7 +474,7 @@ class Message extends AbstractType
      * @var Poll|null
      * @SkipWhenEmpty
      * @SerializedName("poll")
-     * @Accessor(getter="getPoll",setter="setpoll")
+     * @Accessor(getter="getPoll",setter="setPoll")
      * @Type("MadmagesTelegram\Types\Type\Poll")
      */
     protected $poll;
@@ -485,7 +485,7 @@ class Message extends AbstractType
      * @var User[]|null
      * @SkipWhenEmpty
      * @SerializedName("new_chat_members")
-     * @Accessor(getter="getNewChatMembers",setter="setnewChatMembers")
+     * @Accessor(getter="getNewChatMembers",setter="setNewChatMembers")
      * @Type("array<MadmagesTelegram\Types\Type\User>")
      */
     protected $newChatMembers;
@@ -496,7 +496,7 @@ class Message extends AbstractType
      * @var User|null
      * @SkipWhenEmpty
      * @SerializedName("left_chat_member")
-     * @Accessor(getter="getLeftChatMember",setter="setleftChatMember")
+     * @Accessor(getter="getLeftChatMember",setter="setLeftChatMember")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $leftChatMember;
@@ -507,7 +507,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("new_chat_title")
-     * @Accessor(getter="getNewChatTitle",setter="setnewChatTitle")
+     * @Accessor(getter="getNewChatTitle",setter="setNewChatTitle")
      * @Type("string")
      */
     protected $newChatTitle;
@@ -518,7 +518,7 @@ class Message extends AbstractType
      * @var PhotoSize[]|null
      * @SkipWhenEmpty
      * @SerializedName("new_chat_photo")
-     * @Accessor(getter="getNewChatPhoto",setter="setnewChatPhoto")
+     * @Accessor(getter="getNewChatPhoto",setter="setNewChatPhoto")
      * @Type("array<MadmagesTelegram\Types\Type\PhotoSize>")
      */
     protected $newChatPhoto;
@@ -529,7 +529,7 @@ class Message extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("delete_chat_photo")
-     * @Accessor(getter="getDeleteChatPhoto",setter="setdeleteChatPhoto")
+     * @Accessor(getter="getDeleteChatPhoto",setter="setDeleteChatPhoto")
      * @Type("bool")
      */
     protected $deleteChatPhoto;
@@ -540,7 +540,7 @@ class Message extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("group_chat_created")
-     * @Accessor(getter="getGroupChatCreated",setter="setgroupChatCreated")
+     * @Accessor(getter="getGroupChatCreated",setter="setGroupChatCreated")
      * @Type("bool")
      */
     protected $groupChatCreated;
@@ -551,7 +551,7 @@ class Message extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("supergroup_chat_created")
-     * @Accessor(getter="getSupergroupChatCreated",setter="setsupergroupChatCreated")
+     * @Accessor(getter="getSupergroupChatCreated",setter="setSupergroupChatCreated")
      * @Type("bool")
      */
     protected $supergroupChatCreated;
@@ -562,7 +562,7 @@ class Message extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("channel_chat_created")
-     * @Accessor(getter="getChannelChatCreated",setter="setchannelChatCreated")
+     * @Accessor(getter="getChannelChatCreated",setter="setChannelChatCreated")
      * @Type("bool")
      */
     protected $channelChatCreated;
@@ -573,7 +573,7 @@ class Message extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("migrate_to_chat_id")
-     * @Accessor(getter="getMigrateToChatId",setter="setmigrateToChatId")
+     * @Accessor(getter="getMigrateToChatId",setter="setMigrateToChatId")
      * @Type("int")
      */
     protected $migrateToChatId;
@@ -584,7 +584,7 @@ class Message extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("migrate_from_chat_id")
-     * @Accessor(getter="getMigrateFromChatId",setter="setmigrateFromChatId")
+     * @Accessor(getter="getMigrateFromChatId",setter="setMigrateFromChatId")
      * @Type("int")
      */
     protected $migrateFromChatId;
@@ -595,7 +595,7 @@ class Message extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("pinned_message")
-     * @Accessor(getter="getPinnedMessage",setter="setpinnedMessage")
+     * @Accessor(getter="getPinnedMessage",setter="setPinnedMessage")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $pinnedMessage;
@@ -606,7 +606,7 @@ class Message extends AbstractType
      * @var Invoice|null
      * @SkipWhenEmpty
      * @SerializedName("invoice")
-     * @Accessor(getter="getInvoice",setter="setinvoice")
+     * @Accessor(getter="getInvoice",setter="setInvoice")
      * @Type("MadmagesTelegram\Types\Type\Invoice")
      */
     protected $invoice;
@@ -617,7 +617,7 @@ class Message extends AbstractType
      * @var SuccessfulPayment|null
      * @SkipWhenEmpty
      * @SerializedName("successful_payment")
-     * @Accessor(getter="getSuccessfulPayment",setter="setsuccessfulPayment")
+     * @Accessor(getter="getSuccessfulPayment",setter="setSuccessfulPayment")
      * @Type("MadmagesTelegram\Types\Type\SuccessfulPayment")
      */
     protected $successfulPayment;
@@ -628,7 +628,7 @@ class Message extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("connected_website")
-     * @Accessor(getter="getConnectedWebsite",setter="setconnectedWebsite")
+     * @Accessor(getter="getConnectedWebsite",setter="setConnectedWebsite")
      * @Type("string")
      */
     protected $connectedWebsite;
@@ -639,7 +639,7 @@ class Message extends AbstractType
      * @var PassportData|null
      * @SkipWhenEmpty
      * @SerializedName("passport_data")
-     * @Accessor(getter="getPassportData",setter="setpassportData")
+     * @Accessor(getter="getPassportData",setter="setPassportData")
      * @Type("MadmagesTelegram\Types\Type\PassportData")
      */
     protected $passportData;
@@ -650,7 +650,7 @@ class Message extends AbstractType
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setreplyMarkup")
+     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;

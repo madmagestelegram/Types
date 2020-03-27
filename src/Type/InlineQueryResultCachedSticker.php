@@ -63,7 +63,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -73,7 +73,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -83,7 +83,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("sticker_file_id")
-     * @Accessor(getter="getStickerFileId",setter="setstickerFileId")
+     * @Accessor(getter="getStickerFileId",setter="setStickerFileId")
      * @Type("string")
      */
     protected $stickerFileId;
@@ -94,7 +94,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setreplyMarkup")
+     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -105,7 +105,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setinputMessageContent")
+     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;

@@ -60,7 +60,7 @@ class ChatPhoto extends AbstractType
      *
      * @var string
      * @SerializedName("small_file_id")
-     * @Accessor(getter="getSmallFileId",setter="setsmallFileId")
+     * @Accessor(getter="getSmallFileId",setter="setSmallFileId")
      * @Type("string")
      */
     protected $smallFileId;
@@ -70,7 +70,7 @@ class ChatPhoto extends AbstractType
      *
      * @var string
      * @SerializedName("small_file_unique_id")
-     * @Accessor(getter="getSmallFileUniqueId",setter="setsmallFileUniqueId")
+     * @Accessor(getter="getSmallFileUniqueId",setter="setSmallFileUniqueId")
      * @Type("string")
      */
     protected $smallFileUniqueId;
@@ -80,7 +80,7 @@ class ChatPhoto extends AbstractType
      *
      * @var string
      * @SerializedName("big_file_id")
-     * @Accessor(getter="getBigFileId",setter="setbigFileId")
+     * @Accessor(getter="getBigFileId",setter="setBigFileId")
      * @Type("string")
      */
     protected $bigFileId;
@@ -90,7 +90,7 @@ class ChatPhoto extends AbstractType
      *
      * @var string
      * @SerializedName("big_file_unique_id")
-     * @Accessor(getter="getBigFileUniqueId",setter="setbigFileUniqueId")
+     * @Accessor(getter="getBigFileUniqueId",setter="setBigFileUniqueId")
      * @Type("string")
      */
     protected $bigFileUniqueId;

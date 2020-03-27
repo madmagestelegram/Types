@@ -61,7 +61,7 @@ class PassportFile extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setfileId")
+     * @Accessor(getter="getFileId",setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -71,7 +71,7 @@ class PassportFile extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -81,7 +81,7 @@ class PassportFile extends AbstractType
      *
      * @var int
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setfileSize")
+     * @Accessor(getter="getFileSize",setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;
@@ -91,7 +91,7 @@ class PassportFile extends AbstractType
      *
      * @var int
      * @SerializedName("file_date")
-     * @Accessor(getter="getFileDate",setter="setfileDate")
+     * @Accessor(getter="getFileDate",setter="setFileDate")
      * @Type("int")
      */
     protected $fileDate;

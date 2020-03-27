@@ -60,7 +60,7 @@ class InputMediaPhoto extends AbstractInputMedia
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -70,7 +70,7 @@ class InputMediaPhoto extends AbstractInputMedia
      *
      * @var string
      * @SerializedName("media")
-     * @Accessor(getter="getMedia",setter="setmedia")
+     * @Accessor(getter="getMedia",setter="setMedia")
      * @Type("string")
      */
     protected $media;
@@ -81,7 +81,7 @@ class InputMediaPhoto extends AbstractInputMedia
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setcaption")
+     * @Accessor(getter="getCaption",setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -92,7 +92,7 @@ class InputMediaPhoto extends AbstractInputMedia
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setparseMode")
+     * @Accessor(getter="getParseMode",setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;

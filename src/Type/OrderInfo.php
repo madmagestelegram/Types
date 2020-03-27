@@ -61,7 +61,7 @@ class OrderInfo extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("name")
-     * @Accessor(getter="getName",setter="setname")
+     * @Accessor(getter="getName",setter="setName")
      * @Type("string")
      */
     protected $name;
@@ -72,7 +72,7 @@ class OrderInfo extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("phone_number")
-     * @Accessor(getter="getPhoneNumber",setter="setphoneNumber")
+     * @Accessor(getter="getPhoneNumber",setter="setPhoneNumber")
      * @Type("string")
      */
     protected $phoneNumber;
@@ -83,7 +83,7 @@ class OrderInfo extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("email")
-     * @Accessor(getter="getEmail",setter="setemail")
+     * @Accessor(getter="getEmail",setter="setEmail")
      * @Type("string")
      */
     protected $email;
@@ -94,7 +94,7 @@ class OrderInfo extends AbstractType
      * @var ShippingAddress|null
      * @SkipWhenEmpty
      * @SerializedName("shipping_address")
-     * @Accessor(getter="getShippingAddress",setter="setshippingAddress")
+     * @Accessor(getter="getShippingAddress",setter="setShippingAddress")
      * @Type("MadmagesTelegram\Types\Type\ShippingAddress")
      */
     protected $shippingAddress;

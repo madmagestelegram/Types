@@ -62,7 +62,7 @@ class Venue extends AbstractType
      *
      * @var Location
      * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setlocation")
+     * @Accessor(getter="getLocation",setter="setLocation")
      * @Type("MadmagesTelegram\Types\Type\Location")
      */
     protected $location;
@@ -72,7 +72,7 @@ class Venue extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -82,7 +82,7 @@ class Venue extends AbstractType
      *
      * @var string
      * @SerializedName("address")
-     * @Accessor(getter="getAddress",setter="setaddress")
+     * @Accessor(getter="getAddress",setter="setAddress")
      * @Type("string")
      */
     protected $address;
@@ -93,7 +93,7 @@ class Venue extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("foursquare_id")
-     * @Accessor(getter="getFoursquareId",setter="setfoursquareId")
+     * @Accessor(getter="getFoursquareId",setter="setFoursquareId")
      * @Type("string")
      */
     protected $foursquareId;
@@ -104,7 +104,7 @@ class Venue extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("foursquare_type")
-     * @Accessor(getter="getFoursquareType",setter="setfoursquareType")
+     * @Accessor(getter="getFoursquareType",setter="setFoursquareType")
      * @Type("string")
      */
     protected $foursquareType;

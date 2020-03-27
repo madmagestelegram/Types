@@ -70,7 +70,7 @@ class Animation extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setfileId")
+     * @Accessor(getter="getFileId",setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -80,7 +80,7 @@ class Animation extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -90,7 +90,7 @@ class Animation extends AbstractType
      *
      * @var int
      * @SerializedName("width")
-     * @Accessor(getter="getWidth",setter="setwidth")
+     * @Accessor(getter="getWidth",setter="setWidth")
      * @Type("int")
      */
     protected $width;
@@ -100,7 +100,7 @@ class Animation extends AbstractType
      *
      * @var int
      * @SerializedName("height")
-     * @Accessor(getter="getHeight",setter="setheight")
+     * @Accessor(getter="getHeight",setter="setHeight")
      * @Type("int")
      */
     protected $height;
@@ -110,7 +110,7 @@ class Animation extends AbstractType
      *
      * @var int
      * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setduration")
+     * @Accessor(getter="getDuration",setter="setDuration")
      * @Type("int")
      */
     protected $duration;
@@ -121,7 +121,7 @@ class Animation extends AbstractType
      * @var PhotoSize|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setthumb")
+     * @Accessor(getter="getThumb",setter="setThumb")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;
@@ -132,7 +132,7 @@ class Animation extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("file_name")
-     * @Accessor(getter="getFileName",setter="setfileName")
+     * @Accessor(getter="getFileName",setter="setFileName")
      * @Type("string")
      */
     protected $fileName;
@@ -143,7 +143,7 @@ class Animation extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("mime_type")
-     * @Accessor(getter="getMimeType",setter="setmimeType")
+     * @Accessor(getter="getMimeType",setter="setMimeType")
      * @Type("string")
      */
     protected $mimeType;
@@ -154,7 +154,7 @@ class Animation extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setfileSize")
+     * @Accessor(getter="getFileSize",setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;

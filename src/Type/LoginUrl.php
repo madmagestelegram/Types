@@ -62,7 +62,7 @@ class LoginUrl extends AbstractType
      *
      * @var string
      * @SerializedName("url")
-     * @Accessor(getter="getUrl",setter="seturl")
+     * @Accessor(getter="getUrl",setter="setUrl")
      * @Type("string")
      */
     protected $url;
@@ -73,7 +73,7 @@ class LoginUrl extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("forward_text")
-     * @Accessor(getter="getForwardText",setter="setforwardText")
+     * @Accessor(getter="getForwardText",setter="setForwardText")
      * @Type("string")
      */
     protected $forwardText;
@@ -84,7 +84,7 @@ class LoginUrl extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("bot_username")
-     * @Accessor(getter="getBotUsername",setter="setbotUsername")
+     * @Accessor(getter="getBotUsername",setter="setBotUsername")
      * @Type("string")
      */
     protected $botUsername;
@@ -95,7 +95,7 @@ class LoginUrl extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("request_write_access")
-     * @Accessor(getter="getRequestWriteAccess",setter="setrequestWriteAccess")
+     * @Accessor(getter="getRequestWriteAccess",setter="setRequestWriteAccess")
      * @Type("bool")
      */
     protected $requestWriteAccess;

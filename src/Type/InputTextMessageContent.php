@@ -59,7 +59,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("message_text")
-     * @Accessor(getter="getMessageText",setter="setmessageText")
+     * @Accessor(getter="getMessageText",setter="setMessageText")
      * @Type("string")
      */
     protected $messageText;
@@ -70,7 +70,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setparseMode")
+     * @Accessor(getter="getParseMode",setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -81,7 +81,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("disable_web_page_preview")
-     * @Accessor(getter="getDisableWebPagePreview",setter="setdisableWebPagePreview")
+     * @Accessor(getter="getDisableWebPagePreview",setter="setDisableWebPagePreview")
      * @Type("bool")
      */
     protected $disableWebPagePreview;

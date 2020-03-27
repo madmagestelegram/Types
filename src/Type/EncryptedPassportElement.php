@@ -72,7 +72,7 @@ class EncryptedPassportElement extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -83,7 +83,7 @@ class EncryptedPassportElement extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("data")
-     * @Accessor(getter="getData",setter="setdata")
+     * @Accessor(getter="getData",setter="setData")
      * @Type("string")
      */
     protected $data;
@@ -94,7 +94,7 @@ class EncryptedPassportElement extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("phone_number")
-     * @Accessor(getter="getPhoneNumber",setter="setphoneNumber")
+     * @Accessor(getter="getPhoneNumber",setter="setPhoneNumber")
      * @Type("string")
      */
     protected $phoneNumber;
@@ -105,7 +105,7 @@ class EncryptedPassportElement extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("email")
-     * @Accessor(getter="getEmail",setter="setemail")
+     * @Accessor(getter="getEmail",setter="setEmail")
      * @Type("string")
      */
     protected $email;
@@ -116,7 +116,7 @@ class EncryptedPassportElement extends AbstractType
      * @var PassportFile[]|null
      * @SkipWhenEmpty
      * @SerializedName("files")
-     * @Accessor(getter="getFiles",setter="setfiles")
+     * @Accessor(getter="getFiles",setter="setFiles")
      * @Type("array<MadmagesTelegram\Types\Type\PassportFile>")
      */
     protected $files;
@@ -127,7 +127,7 @@ class EncryptedPassportElement extends AbstractType
      * @var PassportFile|null
      * @SkipWhenEmpty
      * @SerializedName("front_side")
-     * @Accessor(getter="getFrontSide",setter="setfrontSide")
+     * @Accessor(getter="getFrontSide",setter="setFrontSide")
      * @Type("MadmagesTelegram\Types\Type\PassportFile")
      */
     protected $frontSide;
@@ -138,7 +138,7 @@ class EncryptedPassportElement extends AbstractType
      * @var PassportFile|null
      * @SkipWhenEmpty
      * @SerializedName("reverse_side")
-     * @Accessor(getter="getReverseSide",setter="setreverseSide")
+     * @Accessor(getter="getReverseSide",setter="setReverseSide")
      * @Type("MadmagesTelegram\Types\Type\PassportFile")
      */
     protected $reverseSide;
@@ -149,7 +149,7 @@ class EncryptedPassportElement extends AbstractType
      * @var PassportFile|null
      * @SkipWhenEmpty
      * @SerializedName("selfie")
-     * @Accessor(getter="getSelfie",setter="setselfie")
+     * @Accessor(getter="getSelfie",setter="setSelfie")
      * @Type("MadmagesTelegram\Types\Type\PassportFile")
      */
     protected $selfie;
@@ -160,7 +160,7 @@ class EncryptedPassportElement extends AbstractType
      * @var PassportFile[]|null
      * @SkipWhenEmpty
      * @SerializedName("translation")
-     * @Accessor(getter="getTranslation",setter="settranslation")
+     * @Accessor(getter="getTranslation",setter="setTranslation")
      * @Type("array<MadmagesTelegram\Types\Type\PassportFile>")
      */
     protected $translation;
@@ -170,7 +170,7 @@ class EncryptedPassportElement extends AbstractType
      *
      * @var string
      * @SerializedName("hash")
-     * @Accessor(getter="getHash",setter="sethash")
+     * @Accessor(getter="getHash",setter="setHash")
      * @Type("string")
      */
     protected $hash;

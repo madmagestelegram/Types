@@ -72,7 +72,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -82,7 +82,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -92,7 +92,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("photo_file_id")
-     * @Accessor(getter="getPhotoFileId",setter="setphotoFileId")
+     * @Accessor(getter="getPhotoFileId",setter="setPhotoFileId")
      * @Type("string")
      */
     protected $photoFileId;
@@ -103,7 +103,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -114,7 +114,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setdescription")
+     * @Accessor(getter="getDescription",setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -125,7 +125,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setcaption")
+     * @Accessor(getter="getCaption",setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -136,7 +136,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setparseMode")
+     * @Accessor(getter="getParseMode",setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -147,7 +147,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setreplyMarkup")
+     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -158,7 +158,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setinputMessageContent")
+     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;

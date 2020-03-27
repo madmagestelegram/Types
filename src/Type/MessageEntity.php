@@ -64,7 +64,7 @@ class MessageEntity extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -74,7 +74,7 @@ class MessageEntity extends AbstractType
      *
      * @var int
      * @SerializedName("offset")
-     * @Accessor(getter="getOffset",setter="setoffset")
+     * @Accessor(getter="getOffset",setter="setOffset")
      * @Type("int")
      */
     protected $offset;
@@ -84,7 +84,7 @@ class MessageEntity extends AbstractType
      *
      * @var int
      * @SerializedName("length")
-     * @Accessor(getter="getLength",setter="setlength")
+     * @Accessor(getter="getLength",setter="setLength")
      * @Type("int")
      */
     protected $length;
@@ -95,7 +95,7 @@ class MessageEntity extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("url")
-     * @Accessor(getter="getUrl",setter="seturl")
+     * @Accessor(getter="getUrl",setter="setUrl")
      * @Type("string")
      */
     protected $url;
@@ -106,7 +106,7 @@ class MessageEntity extends AbstractType
      * @var User|null
      * @SkipWhenEmpty
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setuser")
+     * @Accessor(getter="getUser",setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -117,7 +117,7 @@ class MessageEntity extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("language")
-     * @Accessor(getter="getLanguage",setter="setlanguage")
+     * @Accessor(getter="getLanguage",setter="setLanguage")
      * @Type("string")
      */
     protected $language;

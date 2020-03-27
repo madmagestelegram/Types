@@ -80,7 +80,7 @@ class Chat extends AbstractType
      *
      * @var int
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("int")
      */
     protected $id;
@@ -90,7 +90,7 @@ class Chat extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -101,7 +101,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="settitle")
+     * @Accessor(getter="getTitle",setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -112,7 +112,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("username")
-     * @Accessor(getter="getUsername",setter="setusername")
+     * @Accessor(getter="getUsername",setter="setUsername")
      * @Type("string")
      */
     protected $username;
@@ -123,7 +123,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("first_name")
-     * @Accessor(getter="getFirstName",setter="setfirstName")
+     * @Accessor(getter="getFirstName",setter="setFirstName")
      * @Type("string")
      */
     protected $firstName;
@@ -134,7 +134,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("last_name")
-     * @Accessor(getter="getLastName",setter="setlastName")
+     * @Accessor(getter="getLastName",setter="setLastName")
      * @Type("string")
      */
     protected $lastName;
@@ -145,7 +145,7 @@ class Chat extends AbstractType
      * @var ChatPhoto|null
      * @SkipWhenEmpty
      * @SerializedName("photo")
-     * @Accessor(getter="getPhoto",setter="setphoto")
+     * @Accessor(getter="getPhoto",setter="setPhoto")
      * @Type("MadmagesTelegram\Types\Type\ChatPhoto")
      */
     protected $photo;
@@ -156,7 +156,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setdescription")
+     * @Accessor(getter="getDescription",setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -167,7 +167,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("invite_link")
-     * @Accessor(getter="getInviteLink",setter="setinviteLink")
+     * @Accessor(getter="getInviteLink",setter="setInviteLink")
      * @Type("string")
      */
     protected $inviteLink;
@@ -178,7 +178,7 @@ class Chat extends AbstractType
      * @var Message|null
      * @SkipWhenEmpty
      * @SerializedName("pinned_message")
-     * @Accessor(getter="getPinnedMessage",setter="setpinnedMessage")
+     * @Accessor(getter="getPinnedMessage",setter="setPinnedMessage")
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $pinnedMessage;
@@ -189,7 +189,7 @@ class Chat extends AbstractType
      * @var ChatPermissions|null
      * @SkipWhenEmpty
      * @SerializedName("permissions")
-     * @Accessor(getter="getPermissions",setter="setpermissions")
+     * @Accessor(getter="getPermissions",setter="setPermissions")
      * @Type("MadmagesTelegram\Types\Type\ChatPermissions")
      */
     protected $permissions;
@@ -200,7 +200,7 @@ class Chat extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("slow_mode_delay")
-     * @Accessor(getter="getSlowModeDelay",setter="setslowModeDelay")
+     * @Accessor(getter="getSlowModeDelay",setter="setSlowModeDelay")
      * @Type("int")
      */
     protected $slowModeDelay;
@@ -211,7 +211,7 @@ class Chat extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("sticker_set_name")
-     * @Accessor(getter="getStickerSetName",setter="setstickerSetName")
+     * @Accessor(getter="getStickerSetName",setter="setStickerSetName")
      * @Type("string")
      */
     protected $stickerSetName;
@@ -222,7 +222,7 @@ class Chat extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_set_sticker_set")
-     * @Accessor(getter="getCanSetStickerSet",setter="setcanSetStickerSet")
+     * @Accessor(getter="getCanSetStickerSet",setter="setCanSetStickerSet")
      * @Type("bool")
      */
     protected $canSetStickerSet;

@@ -58,7 +58,7 @@ class ForceReply extends AbstractType
      *
      * @var bool
      * @SerializedName("force_reply")
-     * @Accessor(getter="getForceReply",setter="setforceReply")
+     * @Accessor(getter="getForceReply",setter="setForceReply")
      * @Type("bool")
      */
     protected $forceReply;
@@ -69,7 +69,7 @@ class ForceReply extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("selective")
-     * @Accessor(getter="getSelective",setter="setselective")
+     * @Accessor(getter="getSelective",setter="setSelective")
      * @Type("bool")
      */
     protected $selective;

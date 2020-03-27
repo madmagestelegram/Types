@@ -56,7 +56,7 @@ class PassportData extends AbstractType
      *
      * @var EncryptedPassportElement[]
      * @SerializedName("data")
-     * @Accessor(getter="getData",setter="setdata")
+     * @Accessor(getter="getData",setter="setData")
      * @Type("array<MadmagesTelegram\Types\Type\EncryptedPassportElement>")
      */
     protected $data;
@@ -66,7 +66,7 @@ class PassportData extends AbstractType
      *
      * @var EncryptedCredentials
      * @SerializedName("credentials")
-     * @Accessor(getter="getCredentials",setter="setcredentials")
+     * @Accessor(getter="getCredentials",setter="setCredentials")
      * @Type("MadmagesTelegram\Types\Type\EncryptedCredentials")
      */
     protected $credentials;

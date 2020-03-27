@@ -70,7 +70,7 @@ class Poll extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setid")
+     * @Accessor(getter="getId",setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -80,7 +80,7 @@ class Poll extends AbstractType
      *
      * @var string
      * @SerializedName("question")
-     * @Accessor(getter="getQuestion",setter="setquestion")
+     * @Accessor(getter="getQuestion",setter="setQuestion")
      * @Type("string")
      */
     protected $question;
@@ -90,7 +90,7 @@ class Poll extends AbstractType
      *
      * @var PollOption[]
      * @SerializedName("options")
-     * @Accessor(getter="getOptions",setter="setoptions")
+     * @Accessor(getter="getOptions",setter="setOptions")
      * @Type("array<MadmagesTelegram\Types\Type\PollOption>")
      */
     protected $options;
@@ -100,7 +100,7 @@ class Poll extends AbstractType
      *
      * @var int
      * @SerializedName("total_voter_count")
-     * @Accessor(getter="getTotalVoterCount",setter="settotalVoterCount")
+     * @Accessor(getter="getTotalVoterCount",setter="setTotalVoterCount")
      * @Type("int")
      */
     protected $totalVoterCount;
@@ -110,7 +110,7 @@ class Poll extends AbstractType
      *
      * @var bool
      * @SerializedName("is_closed")
-     * @Accessor(getter="getIsClosed",setter="setisClosed")
+     * @Accessor(getter="getIsClosed",setter="setIsClosed")
      * @Type("bool")
      */
     protected $isClosed;
@@ -120,7 +120,7 @@ class Poll extends AbstractType
      *
      * @var bool
      * @SerializedName("is_anonymous")
-     * @Accessor(getter="getIsAnonymous",setter="setisAnonymous")
+     * @Accessor(getter="getIsAnonymous",setter="setIsAnonymous")
      * @Type("bool")
      */
     protected $isAnonymous;
@@ -130,7 +130,7 @@ class Poll extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="settype")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -140,7 +140,7 @@ class Poll extends AbstractType
      *
      * @var bool
      * @SerializedName("allows_multiple_answers")
-     * @Accessor(getter="getAllowsMultipleAnswers",setter="setallowsMultipleAnswers")
+     * @Accessor(getter="getAllowsMultipleAnswers",setter="setAllowsMultipleAnswers")
      * @Type("bool")
      */
     protected $allowsMultipleAnswers;
@@ -151,7 +151,7 @@ class Poll extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("correct_option_id")
-     * @Accessor(getter="getCorrectOptionId",setter="setcorrectOptionId")
+     * @Accessor(getter="getCorrectOptionId",setter="setCorrectOptionId")
      * @Type("int")
      */
     protected $correctOptionId;

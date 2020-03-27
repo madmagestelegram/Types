@@ -58,7 +58,7 @@ class GameHighScore extends AbstractType
      *
      * @var int
      * @SerializedName("position")
-     * @Accessor(getter="getPosition",setter="setposition")
+     * @Accessor(getter="getPosition",setter="setPosition")
      * @Type("int")
      */
     protected $position;
@@ -68,7 +68,7 @@ class GameHighScore extends AbstractType
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setuser")
+     * @Accessor(getter="getUser",setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -78,7 +78,7 @@ class GameHighScore extends AbstractType
      *
      * @var int
      * @SerializedName("score")
-     * @Accessor(getter="getScore",setter="setscore")
+     * @Accessor(getter="getScore",setter="setScore")
      * @Type("int")
      */
     protected $score;
