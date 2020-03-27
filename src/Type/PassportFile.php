@@ -57,7 +57,7 @@ class PassportFile extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -67,7 +67,8 @@ class PassportFile extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -77,7 +78,7 @@ class PassportFile extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * File size
+     * File size 
      *
      * @var int
      * @SerializedName("file_size")
@@ -87,7 +88,7 @@ class PassportFile extends AbstractType
     protected $fileSize;
 
     /**
-     * Unix time when the file was uploaded
+     * Unix time when the file was uploaded 
      *
      * @var int
      * @SerializedName("file_date")

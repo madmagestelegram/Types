@@ -59,7 +59,7 @@ class ChosenInlineResult extends AbstractType
     }
 
     /**
-     * The unique identifier for the result that was chosen
+     * The unique identifier for the result that was chosen 
      *
      * @var string
      * @SerializedName("result_id")
@@ -69,7 +69,7 @@ class ChosenInlineResult extends AbstractType
     protected $resultId;
 
     /**
-     * The user that chose the result
+     * The user that chose the result 
      *
      * @var User
      * @SerializedName("from")
@@ -79,7 +79,7 @@ class ChosenInlineResult extends AbstractType
     protected $from;
 
     /**
-     * Optional. Sender location, only for bots that require user location
+     * Optional. Sender location, only for bots that require user location 
      *
      * @var Location|null
      * @SkipWhenEmpty
@@ -90,7 +90,8 @@ class ChosenInlineResult extends AbstractType
     protected $location;
 
     /**
-     * Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
+     * Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the 
+     * message. Will be also received in callback queries and can be used to edit the message. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -101,7 +102,7 @@ class ChosenInlineResult extends AbstractType
     protected $inlineMessageId;
 
     /**
-     * The query that was used to obtain the result
+     * The query that was used to obtain the result 
      *
      * @var string
      * @SerializedName("query")

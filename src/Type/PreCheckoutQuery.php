@@ -62,7 +62,7 @@ class PreCheckoutQuery extends AbstractType
     }
 
     /**
-     * Unique query identifier
+     * Unique query identifier 
      *
      * @var string
      * @SerializedName("id")
@@ -72,7 +72,7 @@ class PreCheckoutQuery extends AbstractType
     protected $id;
 
     /**
-     * User who sent the query
+     * User who sent the query 
      *
      * @var User
      * @SerializedName("from")
@@ -82,7 +82,7 @@ class PreCheckoutQuery extends AbstractType
     protected $from;
 
     /**
-     * Three-letter ISO 4217 currency code
+     * Three-letter ISO 4217 currency code 
      *
      * @var string
      * @SerializedName("currency")
@@ -92,7 +92,9 @@ class PreCheckoutQuery extends AbstractType
     protected $currency;
 
     /**
-     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 
+     * pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each 
+     * currency (2 for the majority of currencies). 
      *
      * @var int
      * @SerializedName("total_amount")
@@ -102,7 +104,7 @@ class PreCheckoutQuery extends AbstractType
     protected $totalAmount;
 
     /**
-     * Bot specified invoice payload
+     * Bot specified invoice payload 
      *
      * @var string
      * @SerializedName("invoice_payload")
@@ -112,7 +114,7 @@ class PreCheckoutQuery extends AbstractType
     protected $invoicePayload;
 
     /**
-     * Optional. Identifier of the shipping option chosen by the user
+     * Optional. Identifier of the shipping option chosen by the user 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -123,7 +125,7 @@ class PreCheckoutQuery extends AbstractType
     protected $shippingOptionId;
 
     /**
-     * Optional. Order info provided by the user
+     * Optional. Order info provided by the user 
      *
      * @var OrderInfo|null
      * @SkipWhenEmpty

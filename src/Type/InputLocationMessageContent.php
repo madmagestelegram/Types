@@ -55,7 +55,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
     }
 
     /**
-     * Latitude of the location in degrees
+     * Latitude of the location in degrees 
      *
      * @var float
      * @SerializedName("latitude")
@@ -65,7 +65,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
     protected $latitude;
 
     /**
-     * Longitude of the location in degrees
+     * Longitude of the location in degrees 
      *
      * @var float
      * @SerializedName("longitude")
@@ -75,7 +75,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
     protected $longitude;
 
     /**
-     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400. 
      *
      * @var int|null
      * @SkipWhenEmpty

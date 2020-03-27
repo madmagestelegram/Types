@@ -55,7 +55,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
     }
 
     /**
-     * Text of the message to be sent, 1-4096 characters
+     * Text of the message to be sent, 1-4096 characters 
      *
      * @var string
      * @SerializedName("message_text")
@@ -65,7 +65,8 @@ class InputTextMessageContent extends AbstractInputMessageContent
     protected $messageText;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#039;s message.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * your bot's message. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -76,7 +77,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
     protected $parseMode;
 
     /**
-     * Optional. Disables link previews for links in the sent message
+     * Optional. Disables link previews for links in the sent message 
      *
      * @var bool|null
      * @SkipWhenEmpty

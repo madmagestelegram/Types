@@ -60,7 +60,11 @@ class MessageEntity extends AbstractType
     }
 
     /**
-     * Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames)
+     * Type of the entity. Can be “mention” (@|username), “hashtag” (#hashtag), “cashtag” ($USD), 
+     * “bot_command” (/start@|jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@|telegram.org), 
+     * “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), 
+     * “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for 
+     * clickable text URLs), “text_mention” (for users without usernames) 
      *
      * @var string
      * @SerializedName("type")
@@ -70,7 +74,7 @@ class MessageEntity extends AbstractType
     protected $type;
 
     /**
-     * Offset in UTF-16 code units to the start of the entity
+     * Offset in UTF-16 code units to the start of the entity 
      *
      * @var int
      * @SerializedName("offset")
@@ -80,7 +84,7 @@ class MessageEntity extends AbstractType
     protected $offset;
 
     /**
-     * Length of the entity in UTF-16 code units
+     * Length of the entity in UTF-16 code units 
      *
      * @var int
      * @SerializedName("length")
@@ -90,7 +94,7 @@ class MessageEntity extends AbstractType
     protected $length;
 
     /**
-     * Optional. For “text_link” only, url that will be opened after user taps on the text
+     * Optional. For “text_link” only, url that will be opened after user taps on the text 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -101,7 +105,7 @@ class MessageEntity extends AbstractType
     protected $url;
 
     /**
-     * Optional. For “text_mention” only, the mentioned user
+     * Optional. For “text_mention” only, the mentioned user 
      *
      * @var User|null
      * @SkipWhenEmpty
@@ -112,7 +116,7 @@ class MessageEntity extends AbstractType
     protected $user;
 
     /**
-     * Optional. For “pre” only, the programming language of the entity text
+     * Optional. For “pre” only, the programming language of the entity text 
      *
      * @var string|null
      * @SkipWhenEmpty

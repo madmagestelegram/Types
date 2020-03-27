@@ -54,7 +54,7 @@ class PollAnswer extends AbstractType
     }
 
     /**
-     * Unique poll identifier
+     * Unique poll identifier 
      *
      * @var string
      * @SerializedName("poll_id")
@@ -64,7 +64,7 @@ class PollAnswer extends AbstractType
     protected $pollId;
 
     /**
-     * The user, who changed the answer to the poll
+     * The user, who changed the answer to the poll 
      *
      * @var User
      * @SerializedName("user")
@@ -74,7 +74,7 @@ class PollAnswer extends AbstractType
     protected $user;
 
     /**
-     * 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.
+     * 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote. 
      *
      * @var int[]
      * @SerializedName("option_ids")

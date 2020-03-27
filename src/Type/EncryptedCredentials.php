@@ -55,7 +55,8 @@ class EncryptedCredentials extends AbstractType
     }
 
     /**
-     * Base64-encoded encrypted JSON-serialized data with unique user&#039;s payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
+     * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for 
+     * EncryptedPassportElement decryption and authentication 
      *
      * @var string
      * @SerializedName("data")
@@ -65,7 +66,7 @@ class EncryptedCredentials extends AbstractType
     protected $data;
 
     /**
-     * Base64-encoded data hash for data authentication
+     * Base64-encoded data hash for data authentication 
      *
      * @var string
      * @SerializedName("hash")
@@ -75,7 +76,7 @@ class EncryptedCredentials extends AbstractType
     protected $hash;
 
     /**
-     * Base64-encoded secret, encrypted with the bot&#039;s public RSA key, required for data decryption
+     * Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption 
      *
      * @var string
      * @SerializedName("secret")

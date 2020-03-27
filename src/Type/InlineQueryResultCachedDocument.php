@@ -68,7 +68,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be document
+     * Type of the result, must be document 
      *
      * @var string
      * @SerializedName("type")
@@ -78,7 +78,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -88,7 +88,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Title for the result
+     * Title for the result 
      *
      * @var string
      * @SerializedName("title")
@@ -98,7 +98,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * A valid file identifier for the file
+     * A valid file identifier for the file 
      *
      * @var string
      * @SerializedName("document_file_id")
@@ -108,7 +108,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $documentFileId;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -119,7 +119,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -130,7 +130,8 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -141,7 +142,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -152,7 +153,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the file
+     * Optional. Content of the message to be sent instead of the file 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

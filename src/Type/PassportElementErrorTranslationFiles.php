@@ -57,7 +57,7 @@ class PassportElementErrorTranslationFiles extends AbstractPassportElementError
     }
 
     /**
-     * Error source, must be translation_files
+     * Error source, must be translation_files 
      *
      * @var string
      * @SerializedName("source")
@@ -67,7 +67,9 @@ class PassportElementErrorTranslationFiles extends AbstractPassportElementError
     protected $source;
 
     /**
-     * Type of element of the user&#039;s Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+     * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, 
+     * “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, 
+     * “passport_registration”, “temporary_registration” 
      *
      * @var string
      * @SerializedName("type")
@@ -77,7 +79,7 @@ class PassportElementErrorTranslationFiles extends AbstractPassportElementError
     protected $type;
 
     /**
-     * List of base64-encoded file hashes
+     * List of base64-encoded file hashes 
      *
      * @var string[]
      * @SerializedName("file_hashes")
@@ -87,7 +89,7 @@ class PassportElementErrorTranslationFiles extends AbstractPassportElementError
     protected $fileHashes;
 
     /**
-     * Error message
+     * Error message 
      *
      * @var string
      * @SerializedName("message")

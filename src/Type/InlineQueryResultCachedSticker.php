@@ -59,7 +59,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be sticker
+     * Type of the result, must be sticker 
      *
      * @var string
      * @SerializedName("type")
@@ -69,7 +69,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -79,7 +79,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid file identifier of the sticker
+     * A valid file identifier of the sticker 
      *
      * @var string
      * @SerializedName("sticker_file_id")
@@ -89,7 +89,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
     protected $stickerFileId;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -100,7 +100,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the sticker
+     * Optional. Content of the message to be sent instead of the sticker 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

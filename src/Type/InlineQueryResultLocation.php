@@ -71,7 +71,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be location
+     * Type of the result, must be location 
      *
      * @var string
      * @SerializedName("type")
@@ -81,7 +81,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 Bytes
+     * Unique identifier for this result, 1-64 Bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -91,7 +91,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Location latitude in degrees
+     * Location latitude in degrees 
      *
      * @var float
      * @SerializedName("latitude")
@@ -101,7 +101,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $latitude;
 
     /**
-     * Location longitude in degrees
+     * Location longitude in degrees 
      *
      * @var float
      * @SerializedName("longitude")
@@ -111,7 +111,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $longitude;
 
     /**
-     * Location title
+     * Location title 
      *
      * @var string
      * @SerializedName("title")
@@ -121,7 +121,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -132,7 +132,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $livePeriod;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -143,7 +143,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the location
+     * Optional. Content of the message to be sent instead of the location 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
@@ -154,7 +154,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $inputMessageContent;
 
     /**
-     * Optional. Url of the thumbnail for the result
+     * Optional. Url of the thumbnail for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -165,7 +165,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Thumbnail width
+     * Optional. Thumbnail width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -176,7 +176,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $thumbWidth;
 
     /**
-     * Optional. Thumbnail height
+     * Optional. Thumbnail height 
      *
      * @var int|null
      * @SkipWhenEmpty

@@ -86,7 +86,7 @@ class ChatMember extends AbstractType
     }
 
     /**
-     * Information about the user
+     * Information about the user 
      *
      * @var User
      * @SerializedName("user")
@@ -96,7 +96,8 @@ class ChatMember extends AbstractType
     protected $user;
 
     /**
-     * The member&#039;s status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, “left” or “kicked”
+     * The member's status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, 
+     * “left” or “kicked” 
      *
      * @var string
      * @SerializedName("status")
@@ -106,7 +107,7 @@ class ChatMember extends AbstractType
     protected $status;
 
     /**
-     * Optional. Owner and administrators only. Custom title for this user
+     * Optional. Owner and administrators only. Custom title for this user 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -117,7 +118,7 @@ class ChatMember extends AbstractType
     protected $customTitle;
 
     /**
-     * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
+     * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -128,7 +129,7 @@ class ChatMember extends AbstractType
     protected $untilDate;
 
     /**
-     * Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
+     * Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -139,7 +140,7 @@ class ChatMember extends AbstractType
     protected $canBeEdited;
 
     /**
-     * Optional. Administrators only. True, if the administrator can post in the channel; channels only
+     * Optional. Administrators only. True, if the administrator can post in the channel; channels only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -150,7 +151,8 @@ class ChatMember extends AbstractType
     protected $canPostMessages;
 
     /**
-     * Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
+     * Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; 
+     * channels only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -161,7 +163,7 @@ class ChatMember extends AbstractType
     protected $canEditMessages;
 
     /**
-     * Optional. Administrators only. True, if the administrator can delete messages of other users
+     * Optional. Administrators only. True, if the administrator can delete messages of other users 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -172,7 +174,7 @@ class ChatMember extends AbstractType
     protected $canDeleteMessages;
 
     /**
-     * Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
+     * Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -183,7 +185,9 @@ class ChatMember extends AbstractType
     protected $canRestrictMembers;
 
     /**
-     * Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+     * Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own 
+     * privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were 
+     * appointed by the user) 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -194,7 +198,8 @@ class ChatMember extends AbstractType
     protected $canPromoteMembers;
 
     /**
-     * Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
+     * Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other 
+     * settings 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -205,7 +210,7 @@ class ChatMember extends AbstractType
     protected $canChangeInfo;
 
     /**
-     * Optional. Administrators and restricted only. True, if the user is allowed to invite new users to the chat
+     * Optional. Administrators and restricted only. True, if the user is allowed to invite new users to the chat 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -216,7 +221,8 @@ class ChatMember extends AbstractType
     protected $canInviteUsers;
 
     /**
-     * Optional. Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups only
+     * Optional. Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups 
+     * only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -227,7 +233,7 @@ class ChatMember extends AbstractType
     protected $canPinMessages;
 
     /**
-     * Optional. Restricted only. True, if the user is a member of the chat at the moment of the request
+     * Optional. Restricted only. True, if the user is a member of the chat at the moment of the request 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -238,7 +244,7 @@ class ChatMember extends AbstractType
     protected $isMember;
 
     /**
-     * Optional. Restricted only. True, if the user is allowed to send text messages, contacts, locations and venues
+     * Optional. Restricted only. True, if the user is allowed to send text messages, contacts, locations and venues 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -249,7 +255,8 @@ class ChatMember extends AbstractType
     protected $canSendMessages;
 
     /**
-     * Optional. Restricted only. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+     * Optional. Restricted only. True, if the user is allowed to send audios, documents, photos, videos, video notes and 
+     * voice notes 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -260,7 +267,7 @@ class ChatMember extends AbstractType
     protected $canSendMediaMessages;
 
     /**
-     * Optional. Restricted only. True, if the user is allowed to send polls
+     * Optional. Restricted only. True, if the user is allowed to send polls 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -271,7 +278,7 @@ class ChatMember extends AbstractType
     protected $canSendPolls;
 
     /**
-     * Optional. Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots
+     * Optional. Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -282,7 +289,7 @@ class ChatMember extends AbstractType
     protected $canSendOtherMessages;
 
     /**
-     * Optional. Restricted only. True, if the user is allowed to add web page previews to their messages
+     * Optional. Restricted only. True, if the user is allowed to add web page previews to their messages 
      *
      * @var bool|null
      * @SkipWhenEmpty

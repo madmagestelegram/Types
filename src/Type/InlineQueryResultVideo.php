@@ -78,7 +78,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be video
+     * Type of the result, must be video 
      *
      * @var string
      * @SerializedName("type")
@@ -88,7 +88,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -98,7 +98,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL for the embedded video player or video file
+     * A valid URL for the embedded video player or video file 
      *
      * @var string
      * @SerializedName("video_url")
@@ -108,7 +108,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $videoUrl;
 
     /**
-     * Mime type of the content of video url, “text/html” or “video/mp4”
+     * Mime type of the content of video url, “text/html” or “video/mp4” 
      *
      * @var string
      * @SerializedName("mime_type")
@@ -118,7 +118,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $mimeType;
 
     /**
-     * URL of the thumbnail (jpeg only) for the video
+     * URL of the thumbnail (jpeg only) for the video 
      *
      * @var string
      * @SerializedName("thumb_url")
@@ -128,7 +128,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Title for the result
+     * Title for the result 
      *
      * @var string
      * @SerializedName("title")
@@ -138,7 +138,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -149,7 +149,8 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -160,7 +161,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Video width
+     * Optional. Video width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -171,7 +172,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $videoWidth;
 
     /**
-     * Optional. Video height
+     * Optional. Video height 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -182,7 +183,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $videoHeight;
 
     /**
-     * Optional. Video duration in seconds
+     * Optional. Video duration in seconds 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -193,7 +194,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $videoDuration;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -204,7 +205,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -215,7 +216,8 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
+     * Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo 
+     * is used to send an HTML-page as a result (e.g., a YouTube video). 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

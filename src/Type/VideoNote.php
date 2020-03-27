@@ -61,7 +61,7 @@ class VideoNote extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -71,7 +71,8 @@ class VideoNote extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -81,7 +82,7 @@ class VideoNote extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Video width and height (diameter of the video message) as defined by sender
+     * Video width and height (diameter of the video message) as defined by sender 
      *
      * @var int
      * @SerializedName("length")
@@ -91,7 +92,7 @@ class VideoNote extends AbstractType
     protected $length;
 
     /**
-     * Duration of the video in seconds as defined by sender
+     * Duration of the video in seconds as defined by sender 
      *
      * @var int
      * @SerializedName("duration")
@@ -101,7 +102,7 @@ class VideoNote extends AbstractType
     protected $duration;
 
     /**
-     * Optional. Video thumbnail
+     * Optional. Video thumbnail 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -112,7 +113,7 @@ class VideoNote extends AbstractType
     protected $thumb;
 
     /**
-     * Optional. File size
+     * Optional. File size 
      *
      * @var int|null
      * @SkipWhenEmpty

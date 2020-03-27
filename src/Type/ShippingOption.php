@@ -54,7 +54,7 @@ class ShippingOption extends AbstractType
     }
 
     /**
-     * Shipping option identifier
+     * Shipping option identifier 
      *
      * @var string
      * @SerializedName("id")
@@ -64,7 +64,7 @@ class ShippingOption extends AbstractType
     protected $id;
 
     /**
-     * Option title
+     * Option title 
      *
      * @var string
      * @SerializedName("title")
@@ -74,7 +74,7 @@ class ShippingOption extends AbstractType
     protected $title;
 
     /**
-     * List of price portions
+     * List of price portions 
      *
      * @var LabeledPrice[]
      * @SerializedName("prices")

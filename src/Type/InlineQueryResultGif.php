@@ -74,7 +74,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be gif
+     * Type of the result, must be gif 
      *
      * @var string
      * @SerializedName("type")
@@ -84,7 +84,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -94,7 +94,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL for the GIF file. File size must not exceed 1MB
+     * A valid URL for the GIF file. File size must not exceed 1MB 
      *
      * @var string
      * @SerializedName("gif_url")
@@ -104,7 +104,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $gifUrl;
 
     /**
-     * Optional. Width of the GIF
+     * Optional. Width of the GIF 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -115,7 +115,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $gifWidth;
 
     /**
-     * Optional. Height of the GIF
+     * Optional. Height of the GIF 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -126,7 +126,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $gifHeight;
 
     /**
-     * Optional. Duration of the GIF
+     * Optional. Duration of the GIF 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -137,7 +137,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $gifDuration;
 
     /**
-     * URL of the static thumbnail for the result (jpeg or gif)
+     * URL of the static thumbnail for the result (jpeg or gif) 
      *
      * @var string
      * @SerializedName("thumb_url")
@@ -147,7 +147,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Title for the result
+     * Optional. Title for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -158,7 +158,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -169,7 +169,8 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -180,7 +181,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -191,7 +192,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the GIF animation
+     * Optional. Content of the message to be sent instead of the GIF animation 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

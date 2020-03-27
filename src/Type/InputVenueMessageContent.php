@@ -61,7 +61,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     }
 
     /**
-     * Latitude of the venue in degrees
+     * Latitude of the venue in degrees 
      *
      * @var float
      * @SerializedName("latitude")
@@ -71,7 +71,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     protected $latitude;
 
     /**
-     * Longitude of the venue in degrees
+     * Longitude of the venue in degrees 
      *
      * @var float
      * @SerializedName("longitude")
@@ -81,7 +81,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     protected $longitude;
 
     /**
-     * Name of the venue
+     * Name of the venue 
      *
      * @var string
      * @SerializedName("title")
@@ -91,7 +91,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     protected $title;
 
     /**
-     * Address of the venue
+     * Address of the venue 
      *
      * @var string
      * @SerializedName("address")
@@ -101,7 +101,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     protected $address;
 
     /**
-     * Optional. Foursquare identifier of the venue, if known
+     * Optional. Foursquare identifier of the venue, if known 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -112,7 +112,8 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     protected $foursquareId;
 
     /**
-     * Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     * Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, 
+     * “arts_entertainment/aquarium” or “food/icecream”.) 
      *
      * @var string|null
      * @SkipWhenEmpty

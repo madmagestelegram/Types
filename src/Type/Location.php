@@ -52,7 +52,7 @@ class Location extends AbstractType
     }
 
     /**
-     * Longitude as defined by sender
+     * Longitude as defined by sender 
      *
      * @var float
      * @SerializedName("longitude")
@@ -62,7 +62,7 @@ class Location extends AbstractType
     protected $longitude;
 
     /**
-     * Latitude as defined by sender
+     * Latitude as defined by sender 
      *
      * @var float
      * @SerializedName("latitude")

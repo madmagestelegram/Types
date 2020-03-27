@@ -74,7 +74,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be mpeg4_gif
+     * Type of the result, must be mpeg4_gif 
      *
      * @var string
      * @SerializedName("type")
@@ -84,7 +84,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -94,7 +94,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL for the MP4 file. File size must not exceed 1MB
+     * A valid URL for the MP4 file. File size must not exceed 1MB 
      *
      * @var string
      * @SerializedName("mpeg4_url")
@@ -104,7 +104,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $mpeg4Url;
 
     /**
-     * Optional. Video width
+     * Optional. Video width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -115,7 +115,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $mpeg4Width;
 
     /**
-     * Optional. Video height
+     * Optional. Video height 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -126,7 +126,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $mpeg4Height;
 
     /**
-     * Optional. Video duration
+     * Optional. Video duration 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -137,7 +137,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $mpeg4Duration;
 
     /**
-     * URL of the static thumbnail (jpeg or gif) for the result
+     * URL of the static thumbnail (jpeg or gif) for the result 
      *
      * @var string
      * @SerializedName("thumb_url")
@@ -147,7 +147,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Title for the result
+     * Optional. Title for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -158,7 +158,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -169,7 +169,8 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -180,7 +181,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -191,7 +192,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the video animation
+     * Optional. Content of the message to be sent instead of the video animation 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

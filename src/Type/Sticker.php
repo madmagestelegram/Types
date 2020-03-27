@@ -68,7 +68,7 @@ class Sticker extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -78,7 +78,8 @@ class Sticker extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -88,7 +89,7 @@ class Sticker extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Sticker width
+     * Sticker width 
      *
      * @var int
      * @SerializedName("width")
@@ -98,7 +99,7 @@ class Sticker extends AbstractType
     protected $width;
 
     /**
-     * Sticker height
+     * Sticker height 
      *
      * @var int
      * @SerializedName("height")
@@ -108,7 +109,7 @@ class Sticker extends AbstractType
     protected $height;
 
     /**
-     * True, if the sticker is animated
+     * True, if the sticker is animated 
      *
      * @var bool
      * @SerializedName("is_animated")
@@ -118,7 +119,7 @@ class Sticker extends AbstractType
     protected $isAnimated;
 
     /**
-     * Optional. Sticker thumbnail in the .WEBP or .JPG format
+     * Optional. Sticker thumbnail in the .WEBP or .JPG format 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -129,7 +130,7 @@ class Sticker extends AbstractType
     protected $thumb;
 
     /**
-     * Optional. Emoji associated with the sticker
+     * Optional. Emoji associated with the sticker 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -140,7 +141,7 @@ class Sticker extends AbstractType
     protected $emoji;
 
     /**
-     * Optional. Name of the sticker set to which the sticker belongs
+     * Optional. Name of the sticker set to which the sticker belongs 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -151,7 +152,7 @@ class Sticker extends AbstractType
     protected $setName;
 
     /**
-     * Optional. For mask stickers, the position where the mask should be placed
+     * Optional. For mask stickers, the position where the mask should be placed 
      *
      * @var MaskPosition|null
      * @SkipWhenEmpty
@@ -162,7 +163,7 @@ class Sticker extends AbstractType
     protected $maskPosition;
 
     /**
-     * Optional. File size
+     * Optional. File size 
      *
      * @var int|null
      * @SkipWhenEmpty

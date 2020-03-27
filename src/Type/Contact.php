@@ -58,7 +58,7 @@ class Contact extends AbstractType
     }
 
     /**
-     * Contact&#039;s phone number
+     * Contact's phone number 
      *
      * @var string
      * @SerializedName("phone_number")
@@ -68,7 +68,7 @@ class Contact extends AbstractType
     protected $phoneNumber;
 
     /**
-     * Contact&#039;s first name
+     * Contact's first name 
      *
      * @var string
      * @SerializedName("first_name")
@@ -78,7 +78,7 @@ class Contact extends AbstractType
     protected $firstName;
 
     /**
-     * Optional. Contact&#039;s last name
+     * Optional. Contact's last name 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -89,7 +89,7 @@ class Contact extends AbstractType
     protected $lastName;
 
     /**
-     * Optional. Contact&#039;s user identifier in Telegram
+     * Optional. Contact's user identifier in Telegram 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -100,7 +100,7 @@ class Contact extends AbstractType
     protected $userId;
 
     /**
-     * Optional. Additional data about the contact in the form of a vCard
+     * Optional. Additional data about the contact in the form of a vCard 
      *
      * @var string|null
      * @SkipWhenEmpty

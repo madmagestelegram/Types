@@ -56,7 +56,7 @@ class PassportElementErrorUnspecified extends AbstractPassportElementError
     }
 
     /**
-     * Error source, must be unspecified
+     * Error source, must be unspecified 
      *
      * @var string
      * @SerializedName("source")
@@ -66,7 +66,7 @@ class PassportElementErrorUnspecified extends AbstractPassportElementError
     protected $source;
 
     /**
-     * Type of element of the user&#039;s Telegram Passport which has the issue
+     * Type of element of the user's Telegram Passport which has the issue 
      *
      * @var string
      * @SerializedName("type")
@@ -76,7 +76,7 @@ class PassportElementErrorUnspecified extends AbstractPassportElementError
     protected $type;
 
     /**
-     * Base64-encoded element hash
+     * Base64-encoded element hash 
      *
      * @var string
      * @SerializedName("element_hash")
@@ -86,7 +86,7 @@ class PassportElementErrorUnspecified extends AbstractPassportElementError
     protected $elementHash;
 
     /**
-     * Error message
+     * Error message 
      *
      * @var string
      * @SerializedName("message")

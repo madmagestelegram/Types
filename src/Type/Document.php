@@ -60,7 +60,7 @@ class Document extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -70,7 +70,8 @@ class Document extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -80,7 +81,7 @@ class Document extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Optional. Document thumbnail as defined by sender
+     * Optional. Document thumbnail as defined by sender 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -91,7 +92,7 @@ class Document extends AbstractType
     protected $thumb;
 
     /**
-     * Optional. Original filename as defined by sender
+     * Optional. Original filename as defined by sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -102,7 +103,7 @@ class Document extends AbstractType
     protected $fileName;
 
     /**
-     * Optional. MIME type of the file as defined by sender
+     * Optional. MIME type of the file as defined by sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -113,7 +114,7 @@ class Document extends AbstractType
     protected $mimeType;
 
     /**
-     * Optional. File size
+     * Optional. File size 
      *
      * @var int|null
      * @SkipWhenEmpty

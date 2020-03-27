@@ -76,7 +76,9 @@ class Chat extends AbstractType
     }
 
     /**
-     * Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+     * Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have 
+     * difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type 
+     * are safe for storing this identifier. 
      *
      * @var int
      * @SerializedName("id")
@@ -86,7 +88,7 @@ class Chat extends AbstractType
     protected $id;
 
     /**
-     * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
+     * Type of chat, can be either “private”, “group”, “supergroup” or “channel” 
      *
      * @var string
      * @SerializedName("type")
@@ -96,7 +98,7 @@ class Chat extends AbstractType
     protected $type;
 
     /**
-     * Optional. Title, for supergroups, channels and group chats
+     * Optional. Title, for supergroups, channels and group chats 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -107,7 +109,7 @@ class Chat extends AbstractType
     protected $title;
 
     /**
-     * Optional. Username, for private chats, supergroups and channels if available
+     * Optional. Username, for private chats, supergroups and channels if available 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -118,7 +120,7 @@ class Chat extends AbstractType
     protected $username;
 
     /**
-     * Optional. First name of the other party in a private chat
+     * Optional. First name of the other party in a private chat 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -129,7 +131,7 @@ class Chat extends AbstractType
     protected $firstName;
 
     /**
-     * Optional. Last name of the other party in a private chat
+     * Optional. Last name of the other party in a private chat 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -140,7 +142,7 @@ class Chat extends AbstractType
     protected $lastName;
 
     /**
-     * Optional. Chat photo. Returned only in getChat.
+     * Optional. Chat photo. Returned only in getChat. 
      *
      * @var ChatPhoto|null
      * @SkipWhenEmpty
@@ -151,7 +153,7 @@ class Chat extends AbstractType
     protected $photo;
 
     /**
-     * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
+     * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -162,7 +164,8 @@ class Chat extends AbstractType
     protected $description;
 
     /**
-     * Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
+     * Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates 
+     * their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -173,7 +176,7 @@ class Chat extends AbstractType
     protected $inviteLink;
 
     /**
-     * Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
+     * Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -184,7 +187,7 @@ class Chat extends AbstractType
     protected $pinnedMessage;
 
     /**
-     * Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
+     * Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat. 
      *
      * @var ChatPermissions|null
      * @SkipWhenEmpty
@@ -195,7 +198,8 @@ class Chat extends AbstractType
     protected $permissions;
 
     /**
-     * Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat.
+     * Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged 
+     * user. Returned only in getChat. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -206,7 +210,7 @@ class Chat extends AbstractType
     protected $slowModeDelay;
 
     /**
-     * Optional. For supergroups, name of group sticker set. Returned only in getChat.
+     * Optional. For supergroups, name of group sticker set. Returned only in getChat. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -217,7 +221,7 @@ class Chat extends AbstractType
     protected $stickerSetName;
 
     /**
-     * Optional. True, if the bot can change the group sticker set. Returned only in getChat.
+     * Optional. True, if the bot can change the group sticker set. Returned only in getChat. 
      *
      * @var bool|null
      * @SkipWhenEmpty

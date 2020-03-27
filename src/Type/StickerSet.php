@@ -58,7 +58,7 @@ class StickerSet extends AbstractType
     }
 
     /**
-     * Sticker set name
+     * Sticker set name 
      *
      * @var string
      * @SerializedName("name")
@@ -68,7 +68,7 @@ class StickerSet extends AbstractType
     protected $name;
 
     /**
-     * Sticker set title
+     * Sticker set title 
      *
      * @var string
      * @SerializedName("title")
@@ -78,7 +78,7 @@ class StickerSet extends AbstractType
     protected $title;
 
     /**
-     * True, if the sticker set contains animated stickers
+     * True, if the sticker set contains animated stickers 
      *
      * @var bool
      * @SerializedName("is_animated")
@@ -88,7 +88,7 @@ class StickerSet extends AbstractType
     protected $isAnimated;
 
     /**
-     * True, if the sticker set contains masks
+     * True, if the sticker set contains masks 
      *
      * @var bool
      * @SerializedName("contains_masks")
@@ -98,7 +98,7 @@ class StickerSet extends AbstractType
     protected $containsMasks;
 
     /**
-     * List of all set stickers
+     * List of all set stickers 
      *
      * @var Sticker[]
      * @SerializedName("stickers")

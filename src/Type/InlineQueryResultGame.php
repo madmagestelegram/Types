@@ -56,7 +56,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be game
+     * Type of the result, must be game 
      *
      * @var string
      * @SerializedName("type")
@@ -66,7 +66,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -76,7 +76,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Short name of the game
+     * Short name of the game 
      *
      * @var string
      * @SerializedName("game_short_name")
@@ -86,7 +86,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
     protected $gameShortName;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty

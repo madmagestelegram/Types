@@ -66,7 +66,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be mpeg4_gif
+     * Type of the result, must be mpeg4_gif 
      *
      * @var string
      * @SerializedName("type")
@@ -76,7 +76,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -86,7 +86,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid file identifier for the MP4 file
+     * A valid file identifier for the MP4 file 
      *
      * @var string
      * @SerializedName("mpeg4_file_id")
@@ -96,7 +96,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $mpeg4FileId;
 
     /**
-     * Optional. Title for the result
+     * Optional. Title for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -107,7 +107,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -118,7 +118,8 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -129,7 +130,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -140,7 +141,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the video animation
+     * Optional. Content of the message to be sent instead of the video animation 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

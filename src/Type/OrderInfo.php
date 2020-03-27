@@ -56,7 +56,7 @@ class OrderInfo extends AbstractType
     }
 
     /**
-     * Optional. User name
+     * Optional. User name 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -67,7 +67,7 @@ class OrderInfo extends AbstractType
     protected $name;
 
     /**
-     * Optional. User&#039;s phone number
+     * Optional. User's phone number 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -78,7 +78,7 @@ class OrderInfo extends AbstractType
     protected $phoneNumber;
 
     /**
-     * Optional. User email
+     * Optional. User email 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -89,7 +89,7 @@ class OrderInfo extends AbstractType
     protected $email;
 
     /**
-     * Optional. User shipping address
+     * Optional. User shipping address 
      *
      * @var ShippingAddress|null
      * @SkipWhenEmpty

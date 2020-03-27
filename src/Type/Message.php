@@ -142,7 +142,7 @@ class Message extends AbstractType
     }
 
     /**
-     * Unique message identifier inside this chat
+     * Unique message identifier inside this chat 
      *
      * @var int
      * @SerializedName("message_id")
@@ -152,7 +152,7 @@ class Message extends AbstractType
     protected $messageId;
 
     /**
-     * Optional. Sender, empty for messages sent to channels
+     * Optional. Sender, empty for messages sent to channels 
      *
      * @var User|null
      * @SkipWhenEmpty
@@ -163,7 +163,7 @@ class Message extends AbstractType
     protected $from;
 
     /**
-     * Date the message was sent in Unix time
+     * Date the message was sent in Unix time 
      *
      * @var int
      * @SerializedName("date")
@@ -173,7 +173,7 @@ class Message extends AbstractType
     protected $date;
 
     /**
-     * Conversation the message belongs to
+     * Conversation the message belongs to 
      *
      * @var Chat
      * @SerializedName("chat")
@@ -183,7 +183,7 @@ class Message extends AbstractType
     protected $chat;
 
     /**
-     * Optional. For forwarded messages, sender of the original message
+     * Optional. For forwarded messages, sender of the original message 
      *
      * @var User|null
      * @SkipWhenEmpty
@@ -194,7 +194,7 @@ class Message extends AbstractType
     protected $forwardFrom;
 
     /**
-     * Optional. For messages forwarded from channels, information about the original channel
+     * Optional. For messages forwarded from channels, information about the original channel 
      *
      * @var Chat|null
      * @SkipWhenEmpty
@@ -205,7 +205,7 @@ class Message extends AbstractType
     protected $forwardFromChat;
 
     /**
-     * Optional. For messages forwarded from channels, identifier of the original message in the channel
+     * Optional. For messages forwarded from channels, identifier of the original message in the channel 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -216,7 +216,7 @@ class Message extends AbstractType
     protected $forwardFromMessageId;
 
     /**
-     * Optional. For messages forwarded from channels, signature of the post author if present
+     * Optional. For messages forwarded from channels, signature of the post author if present 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -227,7 +227,8 @@ class Message extends AbstractType
     protected $forwardSignature;
 
     /**
-     * Optional. Sender&#039;s name for messages forwarded from users who disallow adding a link to their account in forwarded messages
+     * Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded 
+     * messages 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -238,7 +239,7 @@ class Message extends AbstractType
     protected $forwardSenderName;
 
     /**
-     * Optional. For forwarded messages, date the original message was sent in Unix time
+     * Optional. For forwarded messages, date the original message was sent in Unix time 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -249,7 +250,8 @@ class Message extends AbstractType
     protected $forwardDate;
 
     /**
-     * Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     * Optional. For replies, the original message. Note that the Message object in this field will not contain further 
+     * reply_to_message fields even if it itself is a reply. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -260,7 +262,7 @@ class Message extends AbstractType
     protected $replyToMessage;
 
     /**
-     * Optional. Date the message was last edited in Unix time
+     * Optional. Date the message was last edited in Unix time 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -271,7 +273,7 @@ class Message extends AbstractType
     protected $editDate;
 
     /**
-     * Optional. The unique identifier of a media message group this message belongs to
+     * Optional. The unique identifier of a media message group this message belongs to 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -282,7 +284,7 @@ class Message extends AbstractType
     protected $mediaGroupId;
 
     /**
-     * Optional. Signature of the post author for messages in channels
+     * Optional. Signature of the post author for messages in channels 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -293,7 +295,7 @@ class Message extends AbstractType
     protected $authorSignature;
 
     /**
-     * Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters
+     * Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -304,7 +306,7 @@ class Message extends AbstractType
     protected $text;
 
     /**
-     * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+     * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text 
      *
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
@@ -315,7 +317,8 @@ class Message extends AbstractType
     protected $entities;
 
     /**
-     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the 
+     * caption 
      *
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
@@ -326,7 +329,7 @@ class Message extends AbstractType
     protected $captionEntities;
 
     /**
-     * Optional. Message is an audio file, information about the file
+     * Optional. Message is an audio file, information about the file 
      *
      * @var Audio|null
      * @SkipWhenEmpty
@@ -337,7 +340,7 @@ class Message extends AbstractType
     protected $audio;
 
     /**
-     * Optional. Message is a general file, information about the file
+     * Optional. Message is a general file, information about the file 
      *
      * @var Document|null
      * @SkipWhenEmpty
@@ -348,7 +351,8 @@ class Message extends AbstractType
     protected $document;
 
     /**
-     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field 
+     * is set, the document field will also be set 
      *
      * @var Animation|null
      * @SkipWhenEmpty
@@ -359,7 +363,7 @@ class Message extends AbstractType
     protected $animation;
 
     /**
-     * Optional. Message is a game, information about the game. More about games »
+     * Optional. Message is a game, information about the game. More about games » 
      *
      * @var Game|null
      * @SkipWhenEmpty
@@ -370,7 +374,7 @@ class Message extends AbstractType
     protected $game;
 
     /**
-     * Optional. Message is a photo, available sizes of the photo
+     * Optional. Message is a photo, available sizes of the photo 
      *
      * @var PhotoSize[]|null
      * @SkipWhenEmpty
@@ -381,7 +385,7 @@ class Message extends AbstractType
     protected $photo;
 
     /**
-     * Optional. Message is a sticker, information about the sticker
+     * Optional. Message is a sticker, information about the sticker 
      *
      * @var Sticker|null
      * @SkipWhenEmpty
@@ -392,7 +396,7 @@ class Message extends AbstractType
     protected $sticker;
 
     /**
-     * Optional. Message is a video, information about the video
+     * Optional. Message is a video, information about the video 
      *
      * @var Video|null
      * @SkipWhenEmpty
@@ -403,7 +407,7 @@ class Message extends AbstractType
     protected $video;
 
     /**
-     * Optional. Message is a voice message, information about the file
+     * Optional. Message is a voice message, information about the file 
      *
      * @var Voice|null
      * @SkipWhenEmpty
@@ -414,7 +418,7 @@ class Message extends AbstractType
     protected $voice;
 
     /**
-     * Optional. Message is a video note, information about the video message
+     * Optional. Message is a video note, information about the video message 
      *
      * @var VideoNote|null
      * @SkipWhenEmpty
@@ -425,7 +429,7 @@ class Message extends AbstractType
     protected $videoNote;
 
     /**
-     * Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
+     * Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -436,7 +440,7 @@ class Message extends AbstractType
     protected $caption;
 
     /**
-     * Optional. Message is a shared contact, information about the contact
+     * Optional. Message is a shared contact, information about the contact 
      *
      * @var Contact|null
      * @SkipWhenEmpty
@@ -447,7 +451,7 @@ class Message extends AbstractType
     protected $contact;
 
     /**
-     * Optional. Message is a shared location, information about the location
+     * Optional. Message is a shared location, information about the location 
      *
      * @var Location|null
      * @SkipWhenEmpty
@@ -458,7 +462,7 @@ class Message extends AbstractType
     protected $location;
 
     /**
-     * Optional. Message is a venue, information about the venue
+     * Optional. Message is a venue, information about the venue 
      *
      * @var Venue|null
      * @SkipWhenEmpty
@@ -469,7 +473,7 @@ class Message extends AbstractType
     protected $venue;
 
     /**
-     * Optional. Message is a native poll, information about the poll
+     * Optional. Message is a native poll, information about the poll 
      *
      * @var Poll|null
      * @SkipWhenEmpty
@@ -480,7 +484,8 @@ class Message extends AbstractType
     protected $poll;
 
     /**
-     * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+     * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one 
+     * of these members) 
      *
      * @var User[]|null
      * @SkipWhenEmpty
@@ -491,7 +496,7 @@ class Message extends AbstractType
     protected $newChatMembers;
 
     /**
-     * Optional. A member was removed from the group, information about them (this member may be the bot itself)
+     * Optional. A member was removed from the group, information about them (this member may be the bot itself) 
      *
      * @var User|null
      * @SkipWhenEmpty
@@ -502,7 +507,7 @@ class Message extends AbstractType
     protected $leftChatMember;
 
     /**
-     * Optional. A chat title was changed to this value
+     * Optional. A chat title was changed to this value 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -513,7 +518,7 @@ class Message extends AbstractType
     protected $newChatTitle;
 
     /**
-     * Optional. A chat photo was change to this value
+     * Optional. A chat photo was change to this value 
      *
      * @var PhotoSize[]|null
      * @SkipWhenEmpty
@@ -524,7 +529,7 @@ class Message extends AbstractType
     protected $newChatPhoto;
 
     /**
-     * Optional. Service message: the chat photo was deleted
+     * Optional. Service message: the chat photo was deleted 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -535,7 +540,7 @@ class Message extends AbstractType
     protected $deleteChatPhoto;
 
     /**
-     * Optional. Service message: the group has been created
+     * Optional. Service message: the group has been created 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -546,7 +551,9 @@ class Message extends AbstractType
     protected $groupChatCreated;
 
     /**
-     * Optional. Service message: the supergroup has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     * Optional. Service message: the supergroup has been created. This field can‘t be received in a message coming 
+     * through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message 
+     * if someone replies to a very first message in a directly created supergroup. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -557,7 +564,9 @@ class Message extends AbstractType
     protected $supergroupChatCreated;
 
     /**
-     * Optional. Service message: the channel has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     * Optional. Service message: the channel has been created. This field can‘t be received in a message coming through 
+     * updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone 
+     * replies to a very first message in a channel. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -568,7 +577,9 @@ class Message extends AbstractType
     protected $channelChatCreated;
 
     /**
-     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 
+     * 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 
+     * 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -579,7 +590,9 @@ class Message extends AbstractType
     protected $migrateToChatId;
 
     /**
-     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater 
+     * than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller 
+     * than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -590,7 +603,8 @@ class Message extends AbstractType
     protected $migrateFromChatId;
 
     /**
-     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further 
+     * reply_to_message fields even if it is itself a reply. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -601,7 +615,7 @@ class Message extends AbstractType
     protected $pinnedMessage;
 
     /**
-     * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
+     * Optional. Message is an invoice for a payment, information about the invoice. More about payments » 
      *
      * @var Invoice|null
      * @SkipWhenEmpty
@@ -612,7 +626,8 @@ class Message extends AbstractType
     protected $invoice;
 
     /**
-     * Optional. Message is a service message about a successful payment, information about the payment. More about payments »
+     * Optional. Message is a service message about a successful payment, information about the payment. More about 
+     * payments » 
      *
      * @var SuccessfulPayment|null
      * @SkipWhenEmpty
@@ -623,7 +638,7 @@ class Message extends AbstractType
     protected $successfulPayment;
 
     /**
-     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login » 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -634,7 +649,7 @@ class Message extends AbstractType
     protected $connectedWebsite;
 
     /**
-     * Optional. Telegram Passport data
+     * Optional. Telegram Passport data 
      *
      * @var PassportData|null
      * @SkipWhenEmpty
@@ -645,7 +660,7 @@ class Message extends AbstractType
     protected $passportData;
 
     /**
-     * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty

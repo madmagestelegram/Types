@@ -63,7 +63,7 @@ class WebhookInfo extends AbstractType
     }
 
     /**
-     * Webhook URL, may be empty if webhook is not set up
+     * Webhook URL, may be empty if webhook is not set up 
      *
      * @var string
      * @SerializedName("url")
@@ -73,7 +73,7 @@ class WebhookInfo extends AbstractType
     protected $url;
 
     /**
-     * True, if a custom certificate was provided for webhook certificate checks
+     * True, if a custom certificate was provided for webhook certificate checks 
      *
      * @var bool
      * @SerializedName("has_custom_certificate")
@@ -83,7 +83,7 @@ class WebhookInfo extends AbstractType
     protected $hasCustomCertificate;
 
     /**
-     * Number of updates awaiting delivery
+     * Number of updates awaiting delivery 
      *
      * @var int
      * @SerializedName("pending_update_count")
@@ -93,7 +93,7 @@ class WebhookInfo extends AbstractType
     protected $pendingUpdateCount;
 
     /**
-     * Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
+     * Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -104,7 +104,8 @@ class WebhookInfo extends AbstractType
     protected $lastErrorDate;
 
     /**
-     * Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
+     * Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an 
+     * update via webhook 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -115,7 +116,7 @@ class WebhookInfo extends AbstractType
     protected $lastErrorMessage;
 
     /**
-     * Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
+     * Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -126,7 +127,7 @@ class WebhookInfo extends AbstractType
     protected $maxConnections;
 
     /**
-     * Optional. A list of update types the bot is subscribed to. Defaults to all update types
+     * Optional. A list of update types the bot is subscribed to. Defaults to all update types 
      *
      * @var string[]|null
      * @SkipWhenEmpty

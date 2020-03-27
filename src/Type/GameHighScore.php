@@ -54,7 +54,7 @@ class GameHighScore extends AbstractType
     }
 
     /**
-     * Position in high score table for the game
+     * Position in high score table for the game 
      *
      * @var int
      * @SerializedName("position")
@@ -64,7 +64,7 @@ class GameHighScore extends AbstractType
     protected $position;
 
     /**
-     * User
+     * User 
      *
      * @var User
      * @SerializedName("user")
@@ -74,7 +74,7 @@ class GameHighScore extends AbstractType
     protected $user;
 
     /**
-     * Score
+     * Score 
      *
      * @var int
      * @SerializedName("score")

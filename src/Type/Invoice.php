@@ -58,7 +58,7 @@ class Invoice extends AbstractType
     }
 
     /**
-     * Product name
+     * Product name 
      *
      * @var string
      * @SerializedName("title")
@@ -68,7 +68,7 @@ class Invoice extends AbstractType
     protected $title;
 
     /**
-     * Product description
+     * Product description 
      *
      * @var string
      * @SerializedName("description")
@@ -78,7 +78,7 @@ class Invoice extends AbstractType
     protected $description;
 
     /**
-     * Unique bot deep-linking parameter that can be used to generate this invoice
+     * Unique bot deep-linking parameter that can be used to generate this invoice 
      *
      * @var string
      * @SerializedName("start_parameter")
@@ -88,7 +88,7 @@ class Invoice extends AbstractType
     protected $startParameter;
 
     /**
-     * Three-letter ISO 4217 currency code
+     * Three-letter ISO 4217 currency code 
      *
      * @var string
      * @SerializedName("currency")
@@ -98,7 +98,9 @@ class Invoice extends AbstractType
     protected $currency;
 
     /**
-     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 
+     * pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each 
+     * currency (2 for the majority of currencies). 
      *
      * @var int
      * @SerializedName("total_amount")

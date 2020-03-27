@@ -50,7 +50,7 @@ class InlineKeyboardMarkup extends AbstractType
     }
 
     /**
-     * Array of button rows, each represented by an Array of InlineKeyboardButton objects
+     * Array of button rows, each represented by an Array of InlineKeyboardButton objects 
      *
      * @var array[]
      * @SerializedName("inline_keyboard")

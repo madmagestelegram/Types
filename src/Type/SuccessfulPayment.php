@@ -62,7 +62,7 @@ class SuccessfulPayment extends AbstractType
     }
 
     /**
-     * Three-letter ISO 4217 currency code
+     * Three-letter ISO 4217 currency code 
      *
      * @var string
      * @SerializedName("currency")
@@ -72,7 +72,9 @@ class SuccessfulPayment extends AbstractType
     protected $currency;
 
     /**
-     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 
+     * pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each 
+     * currency (2 for the majority of currencies). 
      *
      * @var int
      * @SerializedName("total_amount")
@@ -82,7 +84,7 @@ class SuccessfulPayment extends AbstractType
     protected $totalAmount;
 
     /**
-     * Bot specified invoice payload
+     * Bot specified invoice payload 
      *
      * @var string
      * @SerializedName("invoice_payload")
@@ -92,7 +94,7 @@ class SuccessfulPayment extends AbstractType
     protected $invoicePayload;
 
     /**
-     * Optional. Identifier of the shipping option chosen by the user
+     * Optional. Identifier of the shipping option chosen by the user 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -103,7 +105,7 @@ class SuccessfulPayment extends AbstractType
     protected $shippingOptionId;
 
     /**
-     * Optional. Order info provided by the user
+     * Optional. Order info provided by the user 
      *
      * @var OrderInfo|null
      * @SkipWhenEmpty
@@ -114,7 +116,7 @@ class SuccessfulPayment extends AbstractType
     protected $orderInfo;
 
     /**
-     * Telegram payment identifier
+     * Telegram payment identifier 
      *
      * @var string
      * @SerializedName("telegram_payment_charge_id")
@@ -124,7 +126,7 @@ class SuccessfulPayment extends AbstractType
     protected $telegramPaymentChargeId;
 
     /**
-     * Provider payment identifier
+     * Provider payment identifier 
      *
      * @var string
      * @SerializedName("provider_payment_charge_id")

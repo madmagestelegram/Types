@@ -68,7 +68,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be voice
+     * Type of the result, must be voice 
      *
      * @var string
      * @SerializedName("type")
@@ -78,7 +78,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -88,7 +88,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL for the voice recording
+     * A valid URL for the voice recording 
      *
      * @var string
      * @SerializedName("voice_url")
@@ -98,7 +98,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $voiceUrl;
 
     /**
-     * Recording title
+     * Recording title 
      *
      * @var string
      * @SerializedName("title")
@@ -108,7 +108,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption, 0-1024 characters after entities parsing
+     * Optional. Caption, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -119,7 +119,8 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -130,7 +131,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Recording duration in seconds
+     * Optional. Recording duration in seconds 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -141,7 +142,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $voiceDuration;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -152,7 +153,7 @@ class InlineQueryResultVoice extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the voice recording
+     * Optional. Content of the message to be sent instead of the voice recording 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

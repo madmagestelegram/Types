@@ -60,7 +60,7 @@ class ShippingAddress extends AbstractType
     }
 
     /**
-     * ISO 3166-1 alpha-2 country code
+     * ISO 3166-1 alpha-2 country code 
      *
      * @var string
      * @SerializedName("country_code")
@@ -70,7 +70,7 @@ class ShippingAddress extends AbstractType
     protected $countryCode;
 
     /**
-     * State, if applicable
+     * State, if applicable 
      *
      * @var string
      * @SerializedName("state")
@@ -80,7 +80,7 @@ class ShippingAddress extends AbstractType
     protected $state;
 
     /**
-     * City
+     * City 
      *
      * @var string
      * @SerializedName("city")
@@ -90,7 +90,7 @@ class ShippingAddress extends AbstractType
     protected $city;
 
     /**
-     * First line for the address
+     * First line for the address 
      *
      * @var string
      * @SerializedName("street_line1")
@@ -100,7 +100,7 @@ class ShippingAddress extends AbstractType
     protected $streetLine1;
 
     /**
-     * Second line for the address
+     * Second line for the address 
      *
      * @var string
      * @SerializedName("street_line2")
@@ -110,7 +110,7 @@ class ShippingAddress extends AbstractType
     protected $streetLine2;
 
     /**
-     * Address post code
+     * Address post code 
      *
      * @var string
      * @SerializedName("post_code")

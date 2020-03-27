@@ -68,7 +68,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be photo
+     * Type of the result, must be photo 
      *
      * @var string
      * @SerializedName("type")
@@ -78,7 +78,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -88,7 +88,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid file identifier of the photo
+     * A valid file identifier of the photo 
      *
      * @var string
      * @SerializedName("photo_file_id")
@@ -98,7 +98,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $photoFileId;
 
     /**
-     * Optional. Title for the result
+     * Optional. Title for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -109,7 +109,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -120,7 +120,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -131,7 +131,8 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -142,7 +143,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -153,7 +154,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the photo
+     * Optional. Content of the message to be sent instead of the photo 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

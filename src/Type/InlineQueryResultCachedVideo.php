@@ -68,7 +68,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be video
+     * Type of the result, must be video 
      *
      * @var string
      * @SerializedName("type")
@@ -78,7 +78,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -88,7 +88,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid file identifier for the video file
+     * A valid file identifier for the video file 
      *
      * @var string
      * @SerializedName("video_file_id")
@@ -98,7 +98,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $videoFileId;
 
     /**
-     * Title for the result
+     * Title for the result 
      *
      * @var string
      * @SerializedName("title")
@@ -108,7 +108,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -119,7 +119,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -130,7 +130,8 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -141,7 +142,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -152,7 +153,7 @@ class InlineQueryResultCachedVideo extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the video
+     * Optional. Content of the message to be sent instead of the video 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

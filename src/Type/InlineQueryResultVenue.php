@@ -75,7 +75,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be venue
+     * Type of the result, must be venue 
      *
      * @var string
      * @SerializedName("type")
@@ -85,7 +85,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 Bytes
+     * Unique identifier for this result, 1-64 Bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -95,7 +95,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Latitude of the venue location in degrees
+     * Latitude of the venue location in degrees 
      *
      * @var float
      * @SerializedName("latitude")
@@ -105,7 +105,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $latitude;
 
     /**
-     * Longitude of the venue location in degrees
+     * Longitude of the venue location in degrees 
      *
      * @var float
      * @SerializedName("longitude")
@@ -115,7 +115,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $longitude;
 
     /**
-     * Title of the venue
+     * Title of the venue 
      *
      * @var string
      * @SerializedName("title")
@@ -125,7 +125,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Address of the venue
+     * Address of the venue 
      *
      * @var string
      * @SerializedName("address")
@@ -135,7 +135,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $address;
 
     /**
-     * Optional. Foursquare identifier of the venue if known
+     * Optional. Foursquare identifier of the venue if known 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -146,7 +146,8 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $foursquareId;
 
     /**
-     * Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     * Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, 
+     * “arts_entertainment/aquarium” or “food/icecream”.) 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -157,7 +158,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $foursquareType;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -168,7 +169,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the venue
+     * Optional. Content of the message to be sent instead of the venue 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
@@ -179,7 +180,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $inputMessageContent;
 
     /**
-     * Optional. Url of the thumbnail for the result
+     * Optional. Url of the thumbnail for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -190,7 +191,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Thumbnail width
+     * Optional. Thumbnail width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -201,7 +202,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     protected $thumbWidth;
 
     /**
-     * Optional. Thumbnail height
+     * Optional. Thumbnail height 
      *
      * @var int|null
      * @SkipWhenEmpty

@@ -64,7 +64,7 @@ class CallbackQuery extends AbstractType
     }
 
     /**
-     * Unique identifier for this query
+     * Unique identifier for this query 
      *
      * @var string
      * @SerializedName("id")
@@ -74,7 +74,7 @@ class CallbackQuery extends AbstractType
     protected $id;
 
     /**
-     * Sender
+     * Sender 
      *
      * @var User
      * @SerializedName("from")
@@ -84,7 +84,8 @@ class CallbackQuery extends AbstractType
     protected $from;
 
     /**
-     * Optional. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
+     * Optional. Message with the callback button that originated the query. Note that message content and message date 
+     * will not be available if the message is too old 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -95,7 +96,7 @@ class CallbackQuery extends AbstractType
     protected $message;
 
     /**
-     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
+     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -106,7 +107,8 @@ class CallbackQuery extends AbstractType
     protected $inlineMessageId;
 
     /**
-     * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
+     * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. 
+     * Useful for high scores in games. 
      *
      * @var string
      * @SerializedName("chat_instance")
@@ -116,7 +118,7 @@ class CallbackQuery extends AbstractType
     protected $chatInstance;
 
     /**
-     * Optional. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
+     * Optional. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -127,7 +129,7 @@ class CallbackQuery extends AbstractType
     protected $data;
 
     /**
-     * Optional. Short name of a Game to be returned, serves as the unique identifier for the game
+     * Optional. Short name of a Game to be returned, serves as the unique identifier for the game 
      *
      * @var string|null
      * @SkipWhenEmpty

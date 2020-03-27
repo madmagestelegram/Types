@@ -52,7 +52,7 @@ class PollOption extends AbstractType
     }
 
     /**
-     * Option text, 1-100 characters
+     * Option text, 1-100 characters 
      *
      * @var string
      * @SerializedName("text")
@@ -62,7 +62,7 @@ class PollOption extends AbstractType
     protected $text;
 
     /**
-     * Number of users that voted for this option
+     * Number of users that voted for this option 
      *
      * @var int
      * @SerializedName("voter_count")

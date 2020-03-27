@@ -58,7 +58,7 @@ class File extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -68,7 +68,8 @@ class File extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -78,7 +79,7 @@ class File extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Optional. File size, if known
+     * Optional. File size, if known 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -89,7 +90,7 @@ class File extends AbstractType
     protected $fileSize;
 
     /**
-     * Optional. File path. Use https://api.telegram.org/file/bot/ to get the file.
+     * Optional. File path. Use https://api.telegram.org/file/bot/ to get the file. 
      *
      * @var string|null
      * @SkipWhenEmpty

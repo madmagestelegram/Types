@@ -73,7 +73,10 @@ class Update extends AbstractType
     }
 
     /**
-     * The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+     * The update‘s unique identifier. Update identifiers start from a certain positive number and increase 
+     * sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to 
+     * restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then 
+     * identifier of the next update will be chosen randomly instead of sequentially. 
      *
      * @var int
      * @SerializedName("update_id")
@@ -83,7 +86,7 @@ class Update extends AbstractType
     protected $updateId;
 
     /**
-     * Optional. New incoming message of any kind — text, photo, sticker, etc.
+     * Optional. New incoming message of any kind — text, photo, sticker, etc. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -94,7 +97,7 @@ class Update extends AbstractType
     protected $message;
 
     /**
-     * Optional. New version of a message that is known to the bot and was edited
+     * Optional. New version of a message that is known to the bot and was edited 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -105,7 +108,7 @@ class Update extends AbstractType
     protected $editedMessage;
 
     /**
-     * Optional. New incoming channel post of any kind — text, photo, sticker, etc.
+     * Optional. New incoming channel post of any kind — text, photo, sticker, etc. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -116,7 +119,7 @@ class Update extends AbstractType
     protected $channelPost;
 
     /**
-     * Optional. New version of a channel post that is known to the bot and was edited
+     * Optional. New version of a channel post that is known to the bot and was edited 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -127,7 +130,7 @@ class Update extends AbstractType
     protected $editedChannelPost;
 
     /**
-     * Optional. New incoming inline query
+     * Optional. New incoming inline query 
      *
      * @var InlineQuery|null
      * @SkipWhenEmpty
@@ -138,7 +141,8 @@ class Update extends AbstractType
     protected $inlineQuery;
 
     /**
-     * Optional. The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.
+     * Optional. The result of an inline query that was chosen by a user and sent to their chat partner. Please see our 
+     * documentation on the feedback collecting for details on how to enable these updates for your bot. 
      *
      * @var ChosenInlineResult|null
      * @SkipWhenEmpty
@@ -149,7 +153,7 @@ class Update extends AbstractType
     protected $chosenInlineResult;
 
     /**
-     * Optional. New incoming callback query
+     * Optional. New incoming callback query 
      *
      * @var CallbackQuery|null
      * @SkipWhenEmpty
@@ -160,7 +164,7 @@ class Update extends AbstractType
     protected $callbackQuery;
 
     /**
-     * Optional. New incoming shipping query. Only for invoices with flexible price
+     * Optional. New incoming shipping query. Only for invoices with flexible price 
      *
      * @var ShippingQuery|null
      * @SkipWhenEmpty
@@ -171,7 +175,7 @@ class Update extends AbstractType
     protected $shippingQuery;
 
     /**
-     * Optional. New incoming pre-checkout query. Contains full information about checkout
+     * Optional. New incoming pre-checkout query. Contains full information about checkout 
      *
      * @var PreCheckoutQuery|null
      * @SkipWhenEmpty
@@ -182,7 +186,7 @@ class Update extends AbstractType
     protected $preCheckoutQuery;
 
     /**
-     * Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
+     * Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot 
      *
      * @var Poll|null
      * @SkipWhenEmpty
@@ -193,7 +197,8 @@ class Update extends AbstractType
     protected $poll;
 
     /**
-     * Optional. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
+     * Optional. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by 
+     * the bot itself. 
      *
      * @var PollAnswer|null
      * @SkipWhenEmpty

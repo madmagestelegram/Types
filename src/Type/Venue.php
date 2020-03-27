@@ -58,7 +58,7 @@ class Venue extends AbstractType
     }
 
     /**
-     * Venue location
+     * Venue location 
      *
      * @var Location
      * @SerializedName("location")
@@ -68,7 +68,7 @@ class Venue extends AbstractType
     protected $location;
 
     /**
-     * Name of the venue
+     * Name of the venue 
      *
      * @var string
      * @SerializedName("title")
@@ -78,7 +78,7 @@ class Venue extends AbstractType
     protected $title;
 
     /**
-     * Address of the venue
+     * Address of the venue 
      *
      * @var string
      * @SerializedName("address")
@@ -88,7 +88,7 @@ class Venue extends AbstractType
     protected $address;
 
     /**
-     * Optional. Foursquare identifier of the venue
+     * Optional. Foursquare identifier of the venue 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -99,7 +99,8 @@ class Venue extends AbstractType
     protected $foursquareId;
 
     /**
-     * Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     * Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, 
+     * “arts_entertainment/aquarium” or “food/icecream”.) 
      *
      * @var string|null
      * @SkipWhenEmpty

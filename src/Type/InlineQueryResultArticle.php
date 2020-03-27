@@ -70,7 +70,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be article
+     * Type of the result, must be article 
      *
      * @var string
      * @SerializedName("type")
@@ -80,7 +80,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 Bytes
+     * Unique identifier for this result, 1-64 Bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -90,7 +90,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Title of the result
+     * Title of the result 
      *
      * @var string
      * @SerializedName("title")
@@ -100,7 +100,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Content of the message to be sent
+     * Content of the message to be sent 
      *
      * @var AbstractInputMessageContent
      * @SerializedName("input_message_content")
@@ -110,7 +110,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $inputMessageContent;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -121,7 +121,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. URL of the result
+     * Optional. URL of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -132,7 +132,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $url;
 
     /**
-     * Optional. Pass True, if you don&#039;t want the URL to be shown in the message
+     * Optional. Pass True, if you don't want the URL to be shown in the message 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -143,7 +143,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $hideUrl;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -154,7 +154,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Url of the thumbnail for the result
+     * Optional. Url of the thumbnail for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -165,7 +165,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Thumbnail width
+     * Optional. Thumbnail width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -176,7 +176,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $thumbWidth;
 
     /**
-     * Optional. Thumbnail height
+     * Optional. Thumbnail height 
      *
      * @var int|null
      * @SkipWhenEmpty

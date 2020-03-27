@@ -52,7 +52,7 @@ class UserProfilePhotos extends AbstractType
     }
 
     /**
-     * Total number of profile pictures the target user has
+     * Total number of profile pictures the target user has 
      *
      * @var int
      * @SerializedName("total_count")
@@ -62,7 +62,7 @@ class UserProfilePhotos extends AbstractType
     protected $totalCount;
 
     /**
-     * Requested profile pictures (in up to 4 sizes each)
+     * Requested profile pictures (in up to 4 sizes each) 
      *
      * @var array[]
      * @SerializedName("photos")

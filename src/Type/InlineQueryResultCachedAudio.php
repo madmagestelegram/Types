@@ -64,7 +64,7 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be audio
+     * Type of the result, must be audio 
      *
      * @var string
      * @SerializedName("type")
@@ -74,7 +74,7 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -84,7 +84,7 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid file identifier for the audio file
+     * A valid file identifier for the audio file 
      *
      * @var string
      * @SerializedName("audio_file_id")
@@ -94,7 +94,7 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     protected $audioFileId;
 
     /**
-     * Optional. Caption, 0-1024 characters after entities parsing
+     * Optional. Caption, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -105,7 +105,8 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -116,7 +117,7 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -127,7 +128,7 @@ class InlineQueryResultCachedAudio extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the audio
+     * Optional. Content of the message to be sent instead of the audio 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

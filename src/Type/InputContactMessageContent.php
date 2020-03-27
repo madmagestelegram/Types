@@ -57,7 +57,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
     }
 
     /**
-     * Contact&#039;s phone number
+     * Contact's phone number 
      *
      * @var string
      * @SerializedName("phone_number")
@@ -67,7 +67,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
     protected $phoneNumber;
 
     /**
-     * Contact&#039;s first name
+     * Contact's first name 
      *
      * @var string
      * @SerializedName("first_name")
@@ -77,7 +77,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
     protected $firstName;
 
     /**
-     * Optional. Contact&#039;s last name
+     * Optional. Contact's last name 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -88,7 +88,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
     protected $lastName;
 
     /**
-     * Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
+     * Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes 
      *
      * @var string|null
      * @SkipWhenEmpty

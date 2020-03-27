@@ -59,7 +59,7 @@ class PhotoSize extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -69,7 +69,8 @@ class PhotoSize extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -79,7 +80,7 @@ class PhotoSize extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Photo width
+     * Photo width 
      *
      * @var int
      * @SerializedName("width")
@@ -89,7 +90,7 @@ class PhotoSize extends AbstractType
     protected $width;
 
     /**
-     * Photo height
+     * Photo height 
      *
      * @var int
      * @SerializedName("height")
@@ -99,7 +100,7 @@ class PhotoSize extends AbstractType
     protected $height;
 
     /**
-     * Optional. File size
+     * Optional. File size 
      *
      * @var int|null
      * @SkipWhenEmpty

@@ -52,7 +52,7 @@ class PassportData extends AbstractType
     }
 
     /**
-     * Array with information about documents and other Telegram Passport elements that was shared with the bot
+     * Array with information about documents and other Telegram Passport elements that was shared with the bot 
      *
      * @var EncryptedPassportElement[]
      * @SerializedName("data")
@@ -62,7 +62,7 @@ class PassportData extends AbstractType
     protected $data;
 
     /**
-     * Encrypted credentials required to decrypt the data
+     * Encrypted credentials required to decrypt the data 
      *
      * @var EncryptedCredentials
      * @SerializedName("credentials")

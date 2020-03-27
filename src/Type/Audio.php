@@ -64,7 +64,7 @@ class Audio extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -74,7 +74,8 @@ class Audio extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -84,7 +85,7 @@ class Audio extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Duration of the audio in seconds as defined by sender
+     * Duration of the audio in seconds as defined by sender 
      *
      * @var int
      * @SerializedName("duration")
@@ -94,7 +95,7 @@ class Audio extends AbstractType
     protected $duration;
 
     /**
-     * Optional. Performer of the audio as defined by sender or by audio tags
+     * Optional. Performer of the audio as defined by sender or by audio tags 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -105,7 +106,7 @@ class Audio extends AbstractType
     protected $performer;
 
     /**
-     * Optional. Title of the audio as defined by sender or by audio tags
+     * Optional. Title of the audio as defined by sender or by audio tags 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -116,7 +117,7 @@ class Audio extends AbstractType
     protected $title;
 
     /**
-     * Optional. MIME type of the file as defined by sender
+     * Optional. MIME type of the file as defined by sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -127,7 +128,7 @@ class Audio extends AbstractType
     protected $mimeType;
 
     /**
-     * Optional. File size
+     * Optional. File size 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -138,7 +139,7 @@ class Audio extends AbstractType
     protected $fileSize;
 
     /**
-     * Optional. Thumbnail of the album cover to which the music file belongs
+     * Optional. Thumbnail of the album cover to which the music file belongs 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty

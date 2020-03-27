@@ -59,7 +59,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
     }
 
     /**
-     * Error source, must be data
+     * Error source, must be data 
      *
      * @var string
      * @SerializedName("source")
@@ -69,7 +69,8 @@ class PassportElementErrorDataField extends AbstractPassportElementError
     protected $source;
 
     /**
-     * The section of the user&#039;s Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+     * The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, 
+     * “driver_license”, “identity_card”, “internal_passport”, “address” 
      *
      * @var string
      * @SerializedName("type")
@@ -79,7 +80,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
     protected $type;
 
     /**
-     * Name of the data field which has the error
+     * Name of the data field which has the error 
      *
      * @var string
      * @SerializedName("field_name")
@@ -89,7 +90,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
     protected $fieldName;
 
     /**
-     * Base64-encoded data hash
+     * Base64-encoded data hash 
      *
      * @var string
      * @SerializedName("data_hash")
@@ -99,7 +100,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
     protected $dataHash;
 
     /**
-     * Error message
+     * Error message 
      *
      * @var string
      * @SerializedName("message")

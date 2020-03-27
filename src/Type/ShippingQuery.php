@@ -56,7 +56,7 @@ class ShippingQuery extends AbstractType
     }
 
     /**
-     * Unique query identifier
+     * Unique query identifier 
      *
      * @var string
      * @SerializedName("id")
@@ -66,7 +66,7 @@ class ShippingQuery extends AbstractType
     protected $id;
 
     /**
-     * User who sent the query
+     * User who sent the query 
      *
      * @var User
      * @SerializedName("from")
@@ -76,7 +76,7 @@ class ShippingQuery extends AbstractType
     protected $from;
 
     /**
-     * Bot specified invoice payload
+     * Bot specified invoice payload 
      *
      * @var string
      * @SerializedName("invoice_payload")
@@ -86,7 +86,7 @@ class ShippingQuery extends AbstractType
     protected $invoicePayload;
 
     /**
-     * User specified shipping address
+     * User specified shipping address 
      *
      * @var ShippingAddress
      * @SerializedName("shipping_address")

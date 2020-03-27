@@ -73,7 +73,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be photo
+     * Type of the result, must be photo 
      *
      * @var string
      * @SerializedName("type")
@@ -83,7 +83,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -93,7 +93,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB
+     * A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB 
      *
      * @var string
      * @SerializedName("photo_url")
@@ -103,7 +103,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $photoUrl;
 
     /**
-     * URL of the thumbnail for the photo
+     * URL of the thumbnail for the photo 
      *
      * @var string
      * @SerializedName("thumb_url")
@@ -113,7 +113,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Width of the photo
+     * Optional. Width of the photo 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -124,7 +124,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $photoWidth;
 
     /**
-     * Optional. Height of the photo
+     * Optional. Height of the photo 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -135,7 +135,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $photoHeight;
 
     /**
-     * Optional. Title for the result
+     * Optional. Title for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -146,7 +146,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -157,7 +157,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -168,7 +168,8 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -179,7 +180,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -190,7 +191,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the photo
+     * Optional. Content of the message to be sent instead of the photo 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty

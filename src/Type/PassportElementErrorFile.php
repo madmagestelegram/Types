@@ -57,7 +57,7 @@ class PassportElementErrorFile extends AbstractPassportElementError
     }
 
     /**
-     * Error source, must be file
+     * Error source, must be file 
      *
      * @var string
      * @SerializedName("source")
@@ -67,7 +67,8 @@ class PassportElementErrorFile extends AbstractPassportElementError
     protected $source;
 
     /**
-     * The section of the user&#039;s Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+     * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, 
+     * “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration” 
      *
      * @var string
      * @SerializedName("type")
@@ -77,7 +78,7 @@ class PassportElementErrorFile extends AbstractPassportElementError
     protected $type;
 
     /**
-     * Base64-encoded file hash
+     * Base64-encoded file hash 
      *
      * @var string
      * @SerializedName("file_hash")
@@ -87,7 +88,7 @@ class PassportElementErrorFile extends AbstractPassportElementError
     protected $fileHash;
 
     /**
-     * Error message
+     * Error message 
      *
      * @var string
      * @SerializedName("message")

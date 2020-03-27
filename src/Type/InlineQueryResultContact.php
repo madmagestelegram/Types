@@ -71,7 +71,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be contact
+     * Type of the result, must be contact 
      *
      * @var string
      * @SerializedName("type")
@@ -81,7 +81,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 Bytes
+     * Unique identifier for this result, 1-64 Bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -91,7 +91,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Contact&#039;s phone number
+     * Contact's phone number 
      *
      * @var string
      * @SerializedName("phone_number")
@@ -101,7 +101,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $phoneNumber;
 
     /**
-     * Contact&#039;s first name
+     * Contact's first name 
      *
      * @var string
      * @SerializedName("first_name")
@@ -111,7 +111,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $firstName;
 
     /**
-     * Optional. Contact&#039;s last name
+     * Optional. Contact's last name 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -122,7 +122,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $lastName;
 
     /**
-     * Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
+     * Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -133,7 +133,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $vcard;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -144,7 +144,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the contact
+     * Optional. Content of the message to be sent instead of the contact 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
@@ -155,7 +155,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $inputMessageContent;
 
     /**
-     * Optional. Url of the thumbnail for the result
+     * Optional. Url of the thumbnail for the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -166,7 +166,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Thumbnail width
+     * Optional. Thumbnail width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -177,7 +177,7 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     protected $thumbWidth;
 
     /**
-     * Optional. Thumbnail height
+     * Optional. Thumbnail height 
      *
      * @var int|null
      * @SkipWhenEmpty

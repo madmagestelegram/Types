@@ -57,7 +57,7 @@ class PassportElementErrorReverseSide extends AbstractPassportElementError
     }
 
     /**
-     * Error source, must be reverse_side
+     * Error source, must be reverse_side 
      *
      * @var string
      * @SerializedName("source")
@@ -67,7 +67,8 @@ class PassportElementErrorReverseSide extends AbstractPassportElementError
     protected $source;
 
     /**
-     * The section of the user&#039;s Telegram Passport which has the issue, one of “driver_license”, “identity_card”
+     * The section of the user's Telegram Passport which has the issue, one of “driver_license”, 
+     * “identity_card” 
      *
      * @var string
      * @SerializedName("type")
@@ -77,7 +78,7 @@ class PassportElementErrorReverseSide extends AbstractPassportElementError
     protected $type;
 
     /**
-     * Base64-encoded hash of the file with the reverse side of the document
+     * Base64-encoded hash of the file with the reverse side of the document 
      *
      * @var string
      * @SerializedName("file_hash")
@@ -87,7 +88,7 @@ class PassportElementErrorReverseSide extends AbstractPassportElementError
     protected $fileHash;
 
     /**
-     * Error message
+     * Error message 
      *
      * @var string
      * @SerializedName("message")

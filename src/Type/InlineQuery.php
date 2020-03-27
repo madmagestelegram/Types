@@ -59,7 +59,7 @@ class InlineQuery extends AbstractType
     }
 
     /**
-     * Unique identifier for this query
+     * Unique identifier for this query 
      *
      * @var string
      * @SerializedName("id")
@@ -69,7 +69,7 @@ class InlineQuery extends AbstractType
     protected $id;
 
     /**
-     * Sender
+     * Sender 
      *
      * @var User
      * @SerializedName("from")
@@ -79,7 +79,7 @@ class InlineQuery extends AbstractType
     protected $from;
 
     /**
-     * Optional. Sender location, only for bots that request user location
+     * Optional. Sender location, only for bots that request user location 
      *
      * @var Location|null
      * @SkipWhenEmpty
@@ -90,7 +90,7 @@ class InlineQuery extends AbstractType
     protected $location;
 
     /**
-     * Text of the query (up to 256 characters)
+     * Text of the query (up to 256 characters) 
      *
      * @var string
      * @SerializedName("query")
@@ -100,7 +100,7 @@ class InlineQuery extends AbstractType
     protected $query;
 
     /**
-     * Offset of the results to be returned, can be controlled by the bot
+     * Offset of the results to be returned, can be controlled by the bot 
      *
      * @var string
      * @SerializedName("offset")

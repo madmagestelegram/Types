@@ -271,7 +271,7 @@ abstract class TypedClient {
      * Use this method to send text messages. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $text
      *        Text of the message to be sent, 1-4096 characters after entities parsing 
@@ -328,11 +328,11 @@ abstract class TypedClient {
      * Use this method to forward messages of any kind. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param int|string $fromChatId
      *        Unique identifier for the chat where the original message was sent (or channel username in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @param int $messageId
      *        Message identifier in the chat specified in from_chat_id 
@@ -369,7 +369,7 @@ abstract class TypedClient {
      * Use this method to send photos. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $photo
      *        Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an 
@@ -431,7 +431,7 @@ abstract class TypedClient {
      * instead. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $audio
      *        Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers 
@@ -514,7 +514,7 @@ abstract class TypedClient {
      * Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $document
      *        File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an 
@@ -584,7 +584,7 @@ abstract class TypedClient {
      * currently send video files of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $video
      *        Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an 
@@ -672,7 +672,7 @@ abstract class TypedClient {
      * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $animation
      *        Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers 
@@ -757,7 +757,7 @@ abstract class TypedClient {
      * this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $voice
      *        Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), 
@@ -822,7 +822,7 @@ abstract class TypedClient {
      * support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $videoNote
      *        Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers 
@@ -889,7 +889,7 @@ abstract class TypedClient {
      * Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
      *        A JSON-serialized array describing photos and videos to be sent, must include 2–10 items 
@@ -929,7 +929,7 @@ abstract class TypedClient {
      * Use this method to send point on the map. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param float $latitude
      *        Latitude of the location 
@@ -993,7 +993,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @channelusername) 
+     * target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
@@ -1041,7 +1041,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @channelusername) 
+     * target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Required if inline_message_id is not specified. Identifier of the message with live location to stop 
@@ -1082,7 +1082,7 @@ abstract class TypedClient {
      * Use this method to send information about a venue. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param float $latitude
      *        Latitude of the venue 
@@ -1154,7 +1154,7 @@ abstract class TypedClient {
      * Use this method to send phone contacts. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $phoneNumber
      *        Contact's phone number 
@@ -1215,7 +1215,7 @@ abstract class TypedClient {
      * Use this method to send a native poll. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $question
      *        Poll question, 1-255 characters 
@@ -1294,7 +1294,7 @@ abstract class TypedClient {
      * time to arrive. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $action
      *        Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text 
@@ -1394,7 +1394,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target group or username of the target supergroup or channel (in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1433,7 +1433,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target group or username of the target supergroup or channel (in the format 
-     * @username) 
+     * @|username) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1466,7 +1466,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
-     * @supergroupusername) 
+     * @|supergroupusername) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1509,7 +1509,7 @@ abstract class TypedClient {
      * Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1582,7 +1582,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
-     * @supergroupusername) 
+     * @|supergroupusername) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1619,7 +1619,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
-     * @supergroupusername) 
+     * @|supergroupusername) 
      *
      * @param Type\ChatPermissions $permissions
      *        New default chat permissions 
@@ -1651,7 +1651,7 @@ abstract class TypedClient {
      * String on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @return string;
      */
@@ -1677,7 +1677,7 @@ abstract class TypedClient {
      * administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile $photo
      *        New chat photo, uploaded using multipart/form-data 
@@ -1708,7 +1708,7 @@ abstract class TypedClient {
      * the chat for this to work and must have the appropriate admin rights. Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @return bool;
      */
@@ -1734,7 +1734,7 @@ abstract class TypedClient {
      * administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $title
      *        New chat title, 1-255 characters 
@@ -1765,7 +1765,7 @@ abstract class TypedClient {
      * chat for this to work and must have the appropriate admin rights. Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $description
      *        New chat description, 0-255 characters 
@@ -1797,7 +1797,7 @@ abstract class TypedClient {
      * right in the channel. Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Identifier of a message to pin 
@@ -1835,7 +1835,7 @@ abstract class TypedClient {
      * admin right in the channel. Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @return bool;
      */
@@ -1861,7 +1861,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @return bool;
      */
@@ -1888,7 +1888,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @return Type\Chat;
      */
@@ -1915,7 +1915,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @return Type\ChatMember[];
      */
@@ -1941,7 +1941,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @return int;
      */
@@ -1967,7 +1967,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
-     * @channelusername) 
+     * @|channelusername) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1999,7 +1999,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
-     * @supergroupusername) 
+     * @|supergroupusername) 
      *
      * @param string $stickerSetName
      *        Name of the sticker set to be set as the group sticker set 
@@ -2031,7 +2031,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
-     * @supergroupusername) 
+     * @|supergroupusername) 
      *
      * @return bool;
      */
@@ -2068,7 +2068,7 @@ abstract class TypedClient {
      *
      * @param string $url
      *        URL that will be opened by the user's client. If you have created a Game and accepted the conditions via 
-     * @Botfather, specify the URL that opens your game – note that this will only work if the query comes from a callback_game 
+     * @|Botfather, specify the URL that opens your game – note that this will only work if the query comes from a callback_game 
      * button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. 
      *
      * @param int $cacheTime
@@ -2111,7 +2111,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @channelusername) 
+     * target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
@@ -2166,7 +2166,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @channelusername) 
+     * target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
@@ -2225,7 +2225,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @channelusername) 
+     * target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
@@ -2271,7 +2271,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @channelusername) 
+     * target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
@@ -2312,7 +2312,7 @@ abstract class TypedClient {
      * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Identifier of the original message with the poll 
@@ -2352,7 +2352,7 @@ abstract class TypedClient {
      * delete any message there.Returns True on success. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param int $messageId
      *        Identifier of the message to delete 
@@ -2384,7 +2384,7 @@ abstract class TypedClient {
      * returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\AbstractInputFile|string $sticker
      *        Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass 
@@ -2626,8 +2626,8 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#deletestickerfromset
      *
      * Use this method to delete a sticker from a set created by the bot. Returns True on success. To enable this 
-     * option, send the /setinline command to @BotFather and provide the 
-     * placeholder text that the user will see in the input field after typing your bot’s name. 
+     * option, send the /setinline command to @|BotFather and provide 
+     * the placeholder text that the user will see in the input field after typing your bot’s name. 
      *
      * @param string $sticker
      *        File identifier of the sticker 

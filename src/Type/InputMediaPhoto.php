@@ -56,7 +56,7 @@ class InputMediaPhoto extends AbstractInputMedia
     }
 
     /**
-     * Type of the result, must be photo
+     * Type of the result, must be photo 
      *
      * @var string
      * @SerializedName("type")
@@ -66,7 +66,9 @@ class InputMediaPhoto extends AbstractInputMedia
     protected $type;
 
     /**
-     * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://” to upload a new one using multipart/form-data under  name. More info on Sending Files »
+     * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for 
+     * Telegram to get a file from the Internet, or pass “attach://” to upload a new one using 
+     * multipart/form-data under  name. More info on Sending Files » 
      *
      * @var string
      * @SerializedName("media")
@@ -76,7 +78,7 @@ class InputMediaPhoto extends AbstractInputMedia
     protected $media;
 
     /**
-     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -87,7 +89,8 @@ class InputMediaPhoto extends AbstractInputMedia
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty

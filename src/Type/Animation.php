@@ -66,7 +66,7 @@ class Animation extends AbstractType
     }
 
     /**
-     * Identifier for this file, which can be used to download or reuse the file
+     * Identifier for this file, which can be used to download or reuse the file 
      *
      * @var string
      * @SerializedName("file_id")
@@ -76,7 +76,8 @@ class Animation extends AbstractType
     protected $fileId;
 
     /**
-     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to 
+     * download or reuse the file. 
      *
      * @var string
      * @SerializedName("file_unique_id")
@@ -86,7 +87,7 @@ class Animation extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Video width as defined by sender
+     * Video width as defined by sender 
      *
      * @var int
      * @SerializedName("width")
@@ -96,7 +97,7 @@ class Animation extends AbstractType
     protected $width;
 
     /**
-     * Video height as defined by sender
+     * Video height as defined by sender 
      *
      * @var int
      * @SerializedName("height")
@@ -106,7 +107,7 @@ class Animation extends AbstractType
     protected $height;
 
     /**
-     * Duration of the video in seconds as defined by sender
+     * Duration of the video in seconds as defined by sender 
      *
      * @var int
      * @SerializedName("duration")
@@ -116,7 +117,7 @@ class Animation extends AbstractType
     protected $duration;
 
     /**
-     * Optional. Animation thumbnail as defined by sender
+     * Optional. Animation thumbnail as defined by sender 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -127,7 +128,7 @@ class Animation extends AbstractType
     protected $thumb;
 
     /**
-     * Optional. Original animation filename as defined by sender
+     * Optional. Original animation filename as defined by sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -138,7 +139,7 @@ class Animation extends AbstractType
     protected $fileName;
 
     /**
-     * Optional. MIME type of the file as defined by sender
+     * Optional. MIME type of the file as defined by sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -149,7 +150,7 @@ class Animation extends AbstractType
     protected $mimeType;
 
     /**
-     * Optional. File size
+     * Optional. File size 
      *
      * @var int|null
      * @SkipWhenEmpty

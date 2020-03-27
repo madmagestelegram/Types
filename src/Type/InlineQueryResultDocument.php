@@ -76,7 +76,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     }
 
     /**
-     * Type of the result, must be document
+     * Type of the result, must be document 
      *
      * @var string
      * @SerializedName("type")
@@ -86,7 +86,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $type;
 
     /**
-     * Unique identifier for this result, 1-64 bytes
+     * Unique identifier for this result, 1-64 bytes 
      *
      * @var string
      * @SerializedName("id")
@@ -96,7 +96,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * Title for the result
+     * Title for the result 
      *
      * @var string
      * @SerializedName("title")
@@ -106,7 +106,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
+     * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -117,7 +117,8 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
+     * the media caption. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -128,7 +129,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $parseMode;
 
     /**
-     * A valid URL for the file
+     * A valid URL for the file 
      *
      * @var string
      * @SerializedName("document_url")
@@ -138,7 +139,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $documentUrl;
 
     /**
-     * Mime type of the content of the file, either “application/pdf” or “application/zip”
+     * Mime type of the content of the file, either “application/pdf” or “application/zip” 
      *
      * @var string
      * @SerializedName("mime_type")
@@ -148,7 +149,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $mimeType;
 
     /**
-     * Optional. Short description of the result
+     * Optional. Short description of the result 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -159,7 +160,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Inline keyboard attached to the message
+     * Optional. Inline keyboard attached to the message 
      *
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
@@ -170,7 +171,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $replyMarkup;
 
     /**
-     * Optional. Content of the message to be sent instead of the file
+     * Optional. Content of the message to be sent instead of the file 
      *
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
@@ -181,7 +182,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $inputMessageContent;
 
     /**
-     * Optional. URL of the thumbnail (jpeg only) for the file
+     * Optional. URL of the thumbnail (jpeg only) for the file 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -192,7 +193,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $thumbUrl;
 
     /**
-     * Optional. Thumbnail width
+     * Optional. Thumbnail width 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -203,7 +204,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $thumbWidth;
 
     /**
-     * Optional. Thumbnail height
+     * Optional. Thumbnail height 
      *
      * @var int|null
      * @SkipWhenEmpty

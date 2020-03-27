@@ -66,7 +66,7 @@ class User extends AbstractType
     }
 
     /**
-     * Unique identifier for this user or bot
+     * Unique identifier for this user or bot 
      *
      * @var int
      * @SerializedName("id")
@@ -76,7 +76,7 @@ class User extends AbstractType
     protected $id;
 
     /**
-     * True, if this user is a bot
+     * True, if this user is a bot 
      *
      * @var bool
      * @SerializedName("is_bot")
@@ -86,7 +86,7 @@ class User extends AbstractType
     protected $isBot;
 
     /**
-     * User‘s or bot’s first name
+     * User‘s or bot’s first name 
      *
      * @var string
      * @SerializedName("first_name")
@@ -96,7 +96,7 @@ class User extends AbstractType
     protected $firstName;
 
     /**
-     * Optional. User‘s or bot’s last name
+     * Optional. User‘s or bot’s last name 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -107,7 +107,7 @@ class User extends AbstractType
     protected $lastName;
 
     /**
-     * Optional. User‘s or bot’s username
+     * Optional. User‘s or bot’s username 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -118,7 +118,7 @@ class User extends AbstractType
     protected $username;
 
     /**
-     * Optional. IETF language tag of the user&#039;s language
+     * Optional. IETF language tag of the user's language 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -129,7 +129,7 @@ class User extends AbstractType
     protected $languageCode;
 
     /**
-     * Optional. True, if the bot can be invited to groups. Returned only in getMe.
+     * Optional. True, if the bot can be invited to groups. Returned only in getMe. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -140,7 +140,7 @@ class User extends AbstractType
     protected $canJoinGroups;
 
     /**
-     * Optional. True, if privacy mode is disabled for the bot. Returned only in getMe.
+     * Optional. True, if privacy mode is disabled for the bot. Returned only in getMe. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -151,7 +151,7 @@ class User extends AbstractType
     protected $canReadAllGroupMessages;
 
     /**
-     * Optional. True, if the bot supports inline queries. Returned only in getMe.
+     * Optional. True, if the bot supports inline queries. Returned only in getMe. 
      *
      * @var bool|null
      * @SkipWhenEmpty
