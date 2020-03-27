@@ -120,7 +120,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Caption of the photo to be sent, 0-1024 characters
+     * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

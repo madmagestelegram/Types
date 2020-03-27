@@ -95,7 +95,7 @@ class InputMediaAudio extends AbstractInputMedia
     protected $thumb;
 
     /**
-     * Optional. Caption of the audio to be sent, 0-1024 characters
+     * Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

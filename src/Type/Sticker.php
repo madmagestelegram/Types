@@ -29,6 +29,7 @@ class Sticker extends AbstractType
     {
         return [
             'file_id',
+            'file_unique_id',
             'width',
             'height',
             'is_animated',
@@ -49,6 +50,7 @@ class Sticker extends AbstractType
     {
         $result = [
             'file_id' => $this->getFileId(),
+            'file_unique_id' => $this->getFileUniqueId(),
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'is_animated' => $this->getIsAnimated(),
@@ -66,7 +68,7 @@ class Sticker extends AbstractType
     }
 
     /**
-     * Identifier for this file
+     * Identifier for this file, which can be used to download or reuse the file
      *
      * @var string
      * @SerializedName("file_id")
@@ -74,6 +76,16 @@ class Sticker extends AbstractType
      * @Type("string")
      */
     protected $fileId;
+
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     *
+     * @var string
+     * @SerializedName("file_unique_id")
+     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Type("string")
+     */
+    protected $fileUniqueId;
 
     /**
      * Sticker width
@@ -106,7 +118,7 @@ class Sticker extends AbstractType
     protected $isAnimated;
 
     /**
-     * Optional. Sticker thumbnail in the .webp or .jpg format
+     * Optional. Sticker thumbnail in the .WEBP or .JPG format
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -178,6 +190,25 @@ class Sticker extends AbstractType
     public function getFileId(): string
     {
         return $this->fileId;
+    }
+
+    /**
+     * @param string $fileUniqueId
+     * @return static
+     */
+    public function setFileUniqueId(string $fileUniqueId): self
+    {
+        $this->fileUniqueId = $fileUniqueId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileUniqueId(): string
+    {
+        return $this->fileUniqueId;
     }
 
     /**

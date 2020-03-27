@@ -33,6 +33,7 @@ class MessageEntity extends AbstractType
             'length',
             'url',
             'user',
+            'language',
         ];
     }
 
@@ -49,6 +50,7 @@ class MessageEntity extends AbstractType
             'length' => $this->getLength(),
             'url' => $this->getUrl(),
             'user' => $this->getUser(),
+            'language' => $this->getLanguage(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -58,7 +60,7 @@ class MessageEntity extends AbstractType
     }
 
     /**
-     * Type of the entity. Can be mention (@username), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users without usernames)
+     * Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames)
      *
      * @var string
      * @SerializedName("type")
@@ -108,6 +110,17 @@ class MessageEntity extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
+
+    /**
+     * Optional. For “pre” only, the programming language of the entity text
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("language")
+     * @Accessor(getter="getLanguage",setter="setlanguage")
+     * @Type("string")
+     */
+    protected $language;
 
 
     /**
@@ -203,6 +216,25 @@ class MessageEntity extends AbstractType
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    /**
+     * @param string $language
+     * @return static
+     */
+    public function setLanguage(string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
     }
 
 }

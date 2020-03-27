@@ -90,7 +90,7 @@ class InlineQuery extends AbstractType
     protected $location;
 
     /**
-     * Text of the query (up to 512 characters)
+     * Text of the query (up to 256 characters)
      *
      * @var string
      * @SerializedName("query")

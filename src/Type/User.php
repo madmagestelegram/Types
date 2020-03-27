@@ -34,6 +34,9 @@ class User extends AbstractType
             'last_name',
             'username',
             'language_code',
+            'can_join_groups',
+            'can_read_all_group_messages',
+            'supports_inline_queries',
         ];
     }
 
@@ -51,6 +54,9 @@ class User extends AbstractType
             'last_name' => $this->getLastName(),
             'username' => $this->getUsername(),
             'language_code' => $this->getLanguageCode(),
+            'can_join_groups' => $this->getCanJoinGroups(),
+            'can_read_all_group_messages' => $this->getCanReadAllGroupMessages(),
+            'supports_inline_queries' => $this->getSupportsInlineQueries(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -121,6 +127,39 @@ class User extends AbstractType
      * @Type("string")
      */
     protected $languageCode;
+
+    /**
+     * Optional. True, if the bot can be invited to groups. Returned only in getMe.
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_join_groups")
+     * @Accessor(getter="getCanJoinGroups",setter="setcanJoinGroups")
+     * @Type("bool")
+     */
+    protected $canJoinGroups;
+
+    /**
+     * Optional. True, if privacy mode is disabled for the bot. Returned only in getMe.
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_read_all_group_messages")
+     * @Accessor(getter="getCanReadAllGroupMessages",setter="setcanReadAllGroupMessages")
+     * @Type("bool")
+     */
+    protected $canReadAllGroupMessages;
+
+    /**
+     * Optional. True, if the bot supports inline queries. Returned only in getMe.
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("supports_inline_queries")
+     * @Accessor(getter="getSupportsInlineQueries",setter="setsupportsInlineQueries")
+     * @Type("bool")
+     */
+    protected $supportsInlineQueries;
 
 
     /**
@@ -235,6 +274,63 @@ class User extends AbstractType
     public function getLanguageCode(): ?string
     {
         return $this->languageCode;
+    }
+
+    /**
+     * @param bool $canJoinGroups
+     * @return static
+     */
+    public function setCanJoinGroups(bool $canJoinGroups): self
+    {
+        $this->canJoinGroups = $canJoinGroups;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanJoinGroups(): ?bool
+    {
+        return $this->canJoinGroups;
+    }
+
+    /**
+     * @param bool $canReadAllGroupMessages
+     * @return static
+     */
+    public function setCanReadAllGroupMessages(bool $canReadAllGroupMessages): self
+    {
+        $this->canReadAllGroupMessages = $canReadAllGroupMessages;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanReadAllGroupMessages(): ?bool
+    {
+        return $this->canReadAllGroupMessages;
+    }
+
+    /**
+     * @param bool $supportsInlineQueries
+     * @return static
+     */
+    public function setSupportsInlineQueries(bool $supportsInlineQueries): self
+    {
+        $this->supportsInlineQueries = $supportsInlineQueries;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getSupportsInlineQueries(): ?bool
+    {
+        return $this->supportsInlineQueries;
     }
 
 }

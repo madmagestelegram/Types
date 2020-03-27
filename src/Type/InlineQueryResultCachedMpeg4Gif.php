@@ -107,7 +107,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters
+     * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

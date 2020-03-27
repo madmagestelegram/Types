@@ -29,6 +29,7 @@ class Document extends AbstractType
     {
         return [
             'file_id',
+            'file_unique_id',
             'thumb',
             'file_name',
             'mime_type',
@@ -45,6 +46,7 @@ class Document extends AbstractType
     {
         $result = [
             'file_id' => $this->getFileId(),
+            'file_unique_id' => $this->getFileUniqueId(),
             'thumb' => $this->getThumb(),
             'file_name' => $this->getFileName(),
             'mime_type' => $this->getMimeType(),
@@ -58,7 +60,7 @@ class Document extends AbstractType
     }
 
     /**
-     * Identifier for this file
+     * Identifier for this file, which can be used to download or reuse the file
      *
      * @var string
      * @SerializedName("file_id")
@@ -66,6 +68,16 @@ class Document extends AbstractType
      * @Type("string")
      */
     protected $fileId;
+
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     *
+     * @var string
+     * @SerializedName("file_unique_id")
+     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Type("string")
+     */
+    protected $fileUniqueId;
 
     /**
      * Optional. Document thumbnail as defined by sender
@@ -129,6 +141,25 @@ class Document extends AbstractType
     public function getFileId(): string
     {
         return $this->fileId;
+    }
+
+    /**
+     * @param string $fileUniqueId
+     * @return static
+     */
+    public function setFileUniqueId(string $fileUniqueId): self
+    {
+        $this->fileUniqueId = $fileUniqueId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileUniqueId(): string
+    {
+        return $this->fileUniqueId;
     }
 
     /**

@@ -138,7 +138,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption of the video to be sent, 0-1024 characters
+     * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

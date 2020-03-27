@@ -106,7 +106,7 @@ class InlineQueryResultCachedVoice extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption, 0-1024 characters
+     * Optional. Caption, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

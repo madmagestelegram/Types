@@ -40,6 +40,7 @@ class Update extends AbstractType
             'shipping_query',
             'pre_checkout_query',
             'poll',
+            'poll_answer',
         ];
     }
 
@@ -62,6 +63,7 @@ class Update extends AbstractType
             'shipping_query' => $this->getShippingQuery(),
             'pre_checkout_query' => $this->getPreCheckoutQuery(),
             'poll' => $this->getPoll(),
+            'poll_answer' => $this->getPollAnswer(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -189,6 +191,17 @@ class Update extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Poll")
      */
     protected $poll;
+
+    /**
+     * Optional. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
+     *
+     * @var PollAnswer|null
+     * @SkipWhenEmpty
+     * @SerializedName("poll_answer")
+     * @Accessor(getter="getPollAnswer",setter="setpollAnswer")
+     * @Type("MadmagesTelegram\Types\Type\PollAnswer")
+     */
+    protected $pollAnswer;
 
 
     /**
@@ -398,6 +411,25 @@ class Update extends AbstractType
     public function getPoll(): ?Poll
     {
         return $this->poll;
+    }
+
+    /**
+     * @param PollAnswer $pollAnswer
+     * @return static
+     */
+    public function setPollAnswer(PollAnswer $pollAnswer): self
+    {
+        $this->pollAnswer = $pollAnswer;
+
+        return $this;
+    }
+
+    /**
+     * @return PollAnswer|null
+     */
+    public function getPollAnswer(): ?PollAnswer
+    {
+        return $this->pollAnswer;
     }
 
 }

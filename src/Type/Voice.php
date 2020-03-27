@@ -29,6 +29,7 @@ class Voice extends AbstractType
     {
         return [
             'file_id',
+            'file_unique_id',
             'duration',
             'mime_type',
             'file_size',
@@ -44,6 +45,7 @@ class Voice extends AbstractType
     {
         $result = [
             'file_id' => $this->getFileId(),
+            'file_unique_id' => $this->getFileUniqueId(),
             'duration' => $this->getDuration(),
             'mime_type' => $this->getMimeType(),
             'file_size' => $this->getFileSize(),
@@ -56,7 +58,7 @@ class Voice extends AbstractType
     }
 
     /**
-     * Identifier for this file
+     * Identifier for this file, which can be used to download or reuse the file
      *
      * @var string
      * @SerializedName("file_id")
@@ -64,6 +66,16 @@ class Voice extends AbstractType
      * @Type("string")
      */
     protected $fileId;
+
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     *
+     * @var string
+     * @SerializedName("file_unique_id")
+     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Type("string")
+     */
+    protected $fileUniqueId;
 
     /**
      * Duration of the audio in seconds as defined by sender
@@ -115,6 +127,25 @@ class Voice extends AbstractType
     public function getFileId(): string
     {
         return $this->fileId;
+    }
+
+    /**
+     * @param string $fileUniqueId
+     * @return static
+     */
+    public function setFileUniqueId(string $fileUniqueId): self
+    {
+        $this->fileUniqueId = $fileUniqueId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileUniqueId(): string
+    {
+        return $this->fileUniqueId;
     }
 
     /**

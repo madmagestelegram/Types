@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#inlinequeryresultaudio
  *
- * Represents a link to an mp3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use 
+ * Represents a link to an MP3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use 
  * input_message_content to send a message with the specified content instead of the audio. 
  *
  * @ExclusionPolicy("none")
@@ -109,7 +109,7 @@ class InlineQueryResultAudio extends AbstractInlineQueryResult
     protected $title;
 
     /**
-     * Optional. Caption, 0-1024 characters
+     * Optional. Caption, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

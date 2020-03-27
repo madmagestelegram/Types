@@ -13,7 +13,8 @@ use JMS\Serializer\Annotation\Type;
  * https://core.telegram.org/bots/api#keyboardbutton
  *
  * This object represents one button of the reply keyboard. For simple text buttons String can be used instead 
- * of this object to specify text of the button. Optional fields are mutually exclusive. 
+ * of this object to specify text of the button. Optional fields request_contact, 
+ * request_location, and request_poll are mutually exclusive. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -32,6 +33,7 @@ class KeyboardButton extends AbstractType
             'text',
             'request_contact',
             'request_location',
+            'request_poll',
         ];
     }
 
@@ -46,6 +48,7 @@ class KeyboardButton extends AbstractType
             'text' => $this->getText(),
             'request_contact' => $this->getRequestContact(),
             'request_location' => $this->getRequestLocation(),
+            'request_poll' => $this->getRequestPoll(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -86,6 +89,17 @@ class KeyboardButton extends AbstractType
      * @Type("bool")
      */
     protected $requestLocation;
+
+    /**
+     * Optional. If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only
+     *
+     * @var KeyboardButtonPollType|null
+     * @SkipWhenEmpty
+     * @SerializedName("request_poll")
+     * @Accessor(getter="getRequestPoll",setter="setrequestPoll")
+     * @Type("MadmagesTelegram\Types\Type\KeyboardButtonPollType")
+     */
+    protected $requestPoll;
 
 
     /**
@@ -143,6 +157,25 @@ class KeyboardButton extends AbstractType
     public function getRequestLocation(): ?bool
     {
         return $this->requestLocation;
+    }
+
+    /**
+     * @param KeyboardButtonPollType $requestPoll
+     * @return static
+     */
+    public function setRequestPoll(KeyboardButtonPollType $requestPoll): self
+    {
+        $this->requestPoll = $requestPoll;
+
+        return $this;
+    }
+
+    /**
+     * @return KeyboardButtonPollType|null
+     */
+    public function getRequestPoll(): ?KeyboardButtonPollType
+    {
+        return $this->requestPoll;
     }
 
 }

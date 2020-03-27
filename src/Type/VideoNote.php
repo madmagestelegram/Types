@@ -30,6 +30,7 @@ class VideoNote extends AbstractType
     {
         return [
             'file_id',
+            'file_unique_id',
             'length',
             'duration',
             'thumb',
@@ -46,6 +47,7 @@ class VideoNote extends AbstractType
     {
         $result = [
             'file_id' => $this->getFileId(),
+            'file_unique_id' => $this->getFileUniqueId(),
             'length' => $this->getLength(),
             'duration' => $this->getDuration(),
             'thumb' => $this->getThumb(),
@@ -59,7 +61,7 @@ class VideoNote extends AbstractType
     }
 
     /**
-     * Identifier for this file
+     * Identifier for this file, which can be used to download or reuse the file
      *
      * @var string
      * @SerializedName("file_id")
@@ -67,6 +69,16 @@ class VideoNote extends AbstractType
      * @Type("string")
      */
     protected $fileId;
+
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     *
+     * @var string
+     * @SerializedName("file_unique_id")
+     * @Accessor(getter="getFileUniqueId",setter="setfileUniqueId")
+     * @Type("string")
+     */
+    protected $fileUniqueId;
 
     /**
      * Video width and height (diameter of the video message) as defined by sender
@@ -128,6 +140,25 @@ class VideoNote extends AbstractType
     public function getFileId(): string
     {
         return $this->fileId;
+    }
+
+    /**
+     * @param string $fileUniqueId
+     * @return static
+     */
+    public function setFileUniqueId(string $fileUniqueId): self
+    {
+        $this->fileUniqueId = $fileUniqueId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileUniqueId(): string
+    {
+        return $this->fileUniqueId;
     }
 
     /**

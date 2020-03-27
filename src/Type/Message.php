@@ -293,7 +293,7 @@ class Message extends AbstractType
     protected $authorSignature;
 
     /**
-     * Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters.
+     * Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters
      *
      * @var string|null
      * @SkipWhenEmpty

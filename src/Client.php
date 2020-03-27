@@ -34,7 +34,7 @@ abstract class Client {
      * should be used for testing purposes only. 
      *
      * @param string[] $allowedUpdates
-     *        List the types of updates you want your bot to receive. For example, specify [“message”, 
+     *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
      * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
      * update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the 
      * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
@@ -81,7 +81,7 @@ abstract class Client {
      * throughput. 
      *
      * @param string[] $allowedUpdates
-     *        List the types of updates you want your bot to receive. For example, specify [“message”, 
+     *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
      * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
      * update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the 
      * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
@@ -165,7 +165,7 @@ abstract class Client {
      *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
      *
      * @param string $text
-     *        Text of the message to be sent 
+     *        Text of the message to be sent, 1-4096 characters after entities parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your 
@@ -260,7 +260,7 @@ abstract class Client {
      * More info on Sending Files » 
      *
      * @param string $caption
-     *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters 
+     *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -305,9 +305,9 @@ abstract class Client {
      * https://core.telegram.org/bots/api#sendaudio
      *
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must 
-     * be in the .mp3 format. On success, the sent Message is 
-     * returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice 
-     * messages, use the sendVoice method instead. 
+     * be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For 
+     * sending voice messages, use the sendVoice method 
+     * instead. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
@@ -318,7 +318,7 @@ abstract class Client {
      * multipart/form-data. More info on Sending Files » 
      *
      * @param string $caption
-     *        Audio caption, 0-1024 characters 
+     *        Audio caption, 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -404,7 +404,8 @@ abstract class Client {
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param string $caption
-     *        Document caption (may also be used when resending documents by file_id), 0-1024 characters 
+     *        Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities 
+     * parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -478,7 +479,7 @@ abstract class Client {
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param string $caption
-     *        Video caption (may also be used when resending videos by file_id), 0-1024 characters 
+     *        Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -562,7 +563,8 @@ abstract class Client {
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param string $caption
-     *        Animation caption (may also be used when resending animation by file_id), 0-1024 characters 
+     *        Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities 
+     * parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -615,7 +617,7 @@ abstract class Client {
      * https://core.telegram.org/bots/api#sendvoice
      *
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For 
-     * this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
+     * this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
@@ -626,7 +628,7 @@ abstract class Client {
      * multipart/form-data. More info on Sending Files » 
      *
      * @param string $caption
-     *        Voice message caption, 0-1024 characters 
+     *        Voice message caption, 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -1039,17 +1041,31 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#sendpoll
      *
-     * Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent Message is returned. 
+     * Use this method to send a native poll. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername). A 
-     * native poll can't be sent to a private chat. 
+     *        Unique identifier for the target chat or username of the target channel (in the format @channelusername) 
      *
      * @param string $question
      *        Poll question, 1-255 characters 
      *
      * @param string[] $options
-     *        List of answer options, 2-10 strings 1-100 characters each 
+     *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
+     *
+     * @param bool $isAnonymous
+     *        True, if the poll needs to be anonymous, defaults to True 
+     *
+     * @param string $type
+     *        Poll type, “quiz” or “regular”, defaults to “regular” 
+     *
+     * @param bool $allowsMultipleAnswers
+     *        True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False 
+     *
+     * @param int $correctOptionId
+     *        0-based identifier of the correct answer option, required for polls in quiz mode 
+     *
+     * @param bool $isClosed
+     *        Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. 
      *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -1067,6 +1083,11 @@ abstract class Client {
         $chatId,
         string $question,
         array $options,
+        bool $isAnonymous = null,
+        string $type = null,
+        bool $allowsMultipleAnswers = null,
+        int $correctOptionId = null,
+        bool $isClosed = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
         $replyMarkup = null
@@ -1076,6 +1097,11 @@ abstract class Client {
             'chat_id' => $chatId,
             'question' => $question,
             'options' => $options,
+            'is_anonymous' => $isAnonymous,
+            'type' => $type,
+            'allows_multiple_answers' => $allowsMultipleAnswers,
+            'correct_option_id' => $correctOptionId,
+            'is_closed' => $isClosed,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
             'reply_markup' => $replyMarkup,
@@ -1343,6 +1369,39 @@ abstract class Client {
         ];
 
         return $this->_rawApiCall('promoteChatMember', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setchatadministratorcustomtitle
+     *
+     * Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True 
+     * on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @supergroupusername) 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user 
+     *
+     * @param string $customTitle
+     *        New custom title for the administrator; 0-16 characters, emoji are not allowed 
+     *
+     * @return mixed
+     */
+    public function setChatAdministratorCustomTitle(
+        $chatId,
+        int $userId,
+        string $customTitle
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'user_id' => $userId,
+            'custom_title' => $customTitle,
+        ];
+
+        return $this->_rawApiCall('setChatAdministratorCustomTitle', $requestParameters);
     }
 
     /**
@@ -1777,7 +1836,7 @@ abstract class Client {
      * success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. 
      *
      * @param string $text
-     *        New text of the message 
+     *        New text of the message, 1-4096 characters after entities parsing 
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -1840,7 +1899,7 @@ abstract class Client {
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
      * @param string $caption
-     *        New caption of the message 
+     *        New caption of the message, 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
      *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
@@ -2030,7 +2089,7 @@ abstract class Client {
      *
      * @param Type\AbstractInputFile|string $sticker
      *        Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass 
-     * an HTTP URL as a String for Telegram to get a .webp file from the Internet, or upload a new one using 
+     * an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
      * @param bool $disableNotification
@@ -2088,7 +2147,7 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#uploadstickerfile
      *
-     * Use this method to upload a .png file with a sticker for later use in createNewStickerSet and 
+     * Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and 
      * addStickerToSet methods (can be used multiple times). Returns the uploaded File on success. 
      *
      * @param int $userId
@@ -2217,7 +2276,7 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#setstickerpositioninset
      *
-     * Use this method to move a sticker in a set created by the bot to a specific position . Returns True on success. 
+     * Use this method to move a sticker in a set created by the bot to a specific position. Returns True on success. 
      *
      * @param string $sticker
      *        File identifier of the sticker 
@@ -2350,8 +2409,8 @@ abstract class Client {
      *        Three-letter ISO 4217 currency code, see more on currencies 
      *
      * @param Type\LabeledPrice[] $prices
-     *        Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, 
-     * etc.) 
+     *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
+     * delivery tax, bonus, etc.) 
      *
      * @param string $title
      *        Product name, 1-32 characters 

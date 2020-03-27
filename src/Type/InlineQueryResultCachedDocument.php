@@ -119,7 +119,7 @@ class InlineQueryResultCachedDocument extends AbstractInlineQueryResult
     protected $description;
 
     /**
-     * Optional. Caption of the document to be sent, 0-1024 characters
+     * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
      *
      * @var string|null
      * @SkipWhenEmpty

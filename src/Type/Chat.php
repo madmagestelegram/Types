@@ -39,6 +39,7 @@ class Chat extends AbstractType
             'invite_link',
             'pinned_message',
             'permissions',
+            'slow_mode_delay',
             'sticker_set_name',
             'can_set_sticker_set',
         ];
@@ -63,6 +64,7 @@ class Chat extends AbstractType
             'invite_link' => $this->getInviteLink(),
             'pinned_message' => $this->getPinnedMessage(),
             'permissions' => $this->getPermissions(),
+            'slow_mode_delay' => $this->getSlowModeDelay(),
             'sticker_set_name' => $this->getStickerSetName(),
             'can_set_sticker_set' => $this->getCanSetStickerSet(),
         ];
@@ -191,6 +193,17 @@ class Chat extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatPermissions")
      */
     protected $permissions;
+
+    /**
+     * Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat.
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("slow_mode_delay")
+     * @Accessor(getter="getSlowModeDelay",setter="setslowModeDelay")
+     * @Type("int")
+     */
+    protected $slowModeDelay;
 
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat.
@@ -422,6 +435,25 @@ class Chat extends AbstractType
     public function getPermissions(): ?ChatPermissions
     {
         return $this->permissions;
+    }
+
+    /**
+     * @param int $slowModeDelay
+     * @return static
+     */
+    public function setSlowModeDelay(int $slowModeDelay): self
+    {
+        $this->slowModeDelay = $slowModeDelay;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSlowModeDelay(): ?int
+    {
+        return $this->slowModeDelay;
     }
 
     /**

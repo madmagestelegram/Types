@@ -30,6 +30,7 @@ class ChatMember extends AbstractType
         return [
             'user',
             'status',
+            'custom_title',
             'until_date',
             'can_be_edited',
             'can_post_messages',
@@ -59,6 +60,7 @@ class ChatMember extends AbstractType
         $result = [
             'user' => $this->getUser(),
             'status' => $this->getStatus(),
+            'custom_title' => $this->getCustomTitle(),
             'until_date' => $this->getUntilDate(),
             'can_be_edited' => $this->getCanBeEdited(),
             'can_post_messages' => $this->getCanPostMessages(),
@@ -102,6 +104,17 @@ class ChatMember extends AbstractType
      * @Type("string")
      */
     protected $status;
+
+    /**
+     * Optional. Owner and administrators only. Custom title for this user
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("custom_title")
+     * @Accessor(getter="getCustomTitle",setter="setcustomTitle")
+     * @Type("string")
+     */
+    protected $customTitle;
 
     /**
      * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
@@ -316,6 +329,25 @@ class ChatMember extends AbstractType
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * @param string $customTitle
+     * @return static
+     */
+    public function setCustomTitle(string $customTitle): self
+    {
+        $this->customTitle = $customTitle;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCustomTitle(): ?string
+    {
+        return $this->customTitle;
     }
 
     /**

@@ -29,7 +29,9 @@ class ChatPhoto extends AbstractType
     {
         return [
             'small_file_id',
+            'small_file_unique_id',
             'big_file_id',
+            'big_file_unique_id',
         ];
     }
 
@@ -42,7 +44,9 @@ class ChatPhoto extends AbstractType
     {
         $result = [
             'small_file_id' => $this->getSmallFileId(),
+            'small_file_unique_id' => $this->getSmallFileUniqueId(),
             'big_file_id' => $this->getBigFileId(),
+            'big_file_unique_id' => $this->getBigFileUniqueId(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -62,6 +66,16 @@ class ChatPhoto extends AbstractType
     protected $smallFileId;
 
     /**
+     * Unique file identifier of small (160x160) chat photo, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     *
+     * @var string
+     * @SerializedName("small_file_unique_id")
+     * @Accessor(getter="getSmallFileUniqueId",setter="setsmallFileUniqueId")
+     * @Type("string")
+     */
+    protected $smallFileUniqueId;
+
+    /**
      * File identifier of big (640x640) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.
      *
      * @var string
@@ -70,6 +84,16 @@ class ChatPhoto extends AbstractType
      * @Type("string")
      */
     protected $bigFileId;
+
+    /**
+     * Unique file identifier of big (640x640) chat photo, which is supposed to be the same over time and for different bots. Can&#039;t be used to download or reuse the file.
+     *
+     * @var string
+     * @SerializedName("big_file_unique_id")
+     * @Accessor(getter="getBigFileUniqueId",setter="setbigFileUniqueId")
+     * @Type("string")
+     */
+    protected $bigFileUniqueId;
 
 
     /**
@@ -92,6 +116,25 @@ class ChatPhoto extends AbstractType
     }
 
     /**
+     * @param string $smallFileUniqueId
+     * @return static
+     */
+    public function setSmallFileUniqueId(string $smallFileUniqueId): self
+    {
+        $this->smallFileUniqueId = $smallFileUniqueId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSmallFileUniqueId(): string
+    {
+        return $this->smallFileUniqueId;
+    }
+
+    /**
      * @param string $bigFileId
      * @return static
      */
@@ -108,6 +151,25 @@ class ChatPhoto extends AbstractType
     public function getBigFileId(): string
     {
         return $this->bigFileId;
+    }
+
+    /**
+     * @param string $bigFileUniqueId
+     * @return static
+     */
+    public function setBigFileUniqueId(string $bigFileUniqueId): self
+    {
+        $this->bigFileUniqueId = $bigFileUniqueId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBigFileUniqueId(): string
+    {
+        return $this->bigFileUniqueId;
     }
 
 }

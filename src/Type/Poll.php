@@ -31,7 +31,12 @@ class Poll extends AbstractType
             'id',
             'question',
             'options',
+            'total_voter_count',
             'is_closed',
+            'is_anonymous',
+            'type',
+            'allows_multiple_answers',
+            'correct_option_id',
         ];
     }
 
@@ -46,7 +51,12 @@ class Poll extends AbstractType
             'id' => $this->getId(),
             'question' => $this->getQuestion(),
             'options' => $this->getOptions(),
+            'total_voter_count' => $this->getTotalVoterCount(),
             'is_closed' => $this->getIsClosed(),
+            'is_anonymous' => $this->getIsAnonymous(),
+            'type' => $this->getType(),
+            'allows_multiple_answers' => $this->getAllowsMultipleAnswers(),
+            'correct_option_id' => $this->getCorrectOptionId(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -86,6 +96,16 @@ class Poll extends AbstractType
     protected $options;
 
     /**
+     * Total number of users that voted in the poll
+     *
+     * @var int
+     * @SerializedName("total_voter_count")
+     * @Accessor(getter="getTotalVoterCount",setter="settotalVoterCount")
+     * @Type("int")
+     */
+    protected $totalVoterCount;
+
+    /**
      * True, if the poll is closed
      *
      * @var bool
@@ -94,6 +114,47 @@ class Poll extends AbstractType
      * @Type("bool")
      */
     protected $isClosed;
+
+    /**
+     * True, if the poll is anonymous
+     *
+     * @var bool
+     * @SerializedName("is_anonymous")
+     * @Accessor(getter="getIsAnonymous",setter="setisAnonymous")
+     * @Type("bool")
+     */
+    protected $isAnonymous;
+
+    /**
+     * Poll type, currently can be “regular” or “quiz”
+     *
+     * @var string
+     * @SerializedName("type")
+     * @Accessor(getter="getType",setter="settype")
+     * @Type("string")
+     */
+    protected $type;
+
+    /**
+     * True, if the poll allows multiple answers
+     *
+     * @var bool
+     * @SerializedName("allows_multiple_answers")
+     * @Accessor(getter="getAllowsMultipleAnswers",setter="setallowsMultipleAnswers")
+     * @Type("bool")
+     */
+    protected $allowsMultipleAnswers;
+
+    /**
+     * Optional. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("correct_option_id")
+     * @Accessor(getter="getCorrectOptionId",setter="setcorrectOptionId")
+     * @Type("int")
+     */
+    protected $correctOptionId;
 
 
     /**
@@ -154,6 +215,25 @@ class Poll extends AbstractType
     }
 
     /**
+     * @param int $totalVoterCount
+     * @return static
+     */
+    public function setTotalVoterCount(int $totalVoterCount): self
+    {
+        $this->totalVoterCount = $totalVoterCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalVoterCount(): int
+    {
+        return $this->totalVoterCount;
+    }
+
+    /**
      * @param bool $isClosed
      * @return static
      */
@@ -170,6 +250,82 @@ class Poll extends AbstractType
     public function getIsClosed(): bool
     {
         return $this->isClosed;
+    }
+
+    /**
+     * @param bool $isAnonymous
+     * @return static
+     */
+    public function setIsAnonymous(bool $isAnonymous): self
+    {
+        $this->isAnonymous = $isAnonymous;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsAnonymous(): bool
+    {
+        return $this->isAnonymous;
+    }
+
+    /**
+     * @param string $type
+     * @return static
+     */
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param bool $allowsMultipleAnswers
+     * @return static
+     */
+    public function setAllowsMultipleAnswers(bool $allowsMultipleAnswers): self
+    {
+        $this->allowsMultipleAnswers = $allowsMultipleAnswers;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowsMultipleAnswers(): bool
+    {
+        return $this->allowsMultipleAnswers;
+    }
+
+    /**
+     * @param int $correctOptionId
+     * @return static
+     */
+    public function setCorrectOptionId(int $correctOptionId): self
+    {
+        $this->correctOptionId = $correctOptionId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCorrectOptionId(): ?int
+    {
+        return $this->correctOptionId;
     }
 
 }
