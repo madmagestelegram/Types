@@ -37,6 +37,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
             'gif_height',
             'gif_duration',
             'thumb_url',
+            'thumb_mime_type',
             'title',
             'caption',
             'parse_mode',
@@ -60,6 +61,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
             'gif_height' => $this->getGifHeight(),
             'gif_duration' => $this->getGifDuration(),
             'thumb_url' => $this->getThumbUrl(),
+            'thumb_mime_type' => $this->getThumbMimeType(),
             'title' => $this->getTitle(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
@@ -137,7 +139,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $gifDuration;
 
     /**
-     * URL of the static thumbnail for the result (jpeg or gif) 
+     * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result 
      *
      * @var string
      * @SerializedName("thumb_url")
@@ -145,6 +147,18 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
      * @Type("string")
      */
     protected $thumbUrl;
+
+    /**
+     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. 
+     * Defaults to “image/jpeg” 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("thumb_mime_type")
+     * @Accessor(getter="getThumbMimeType",setter="setThumbMimeType")
+     * @Type("string")
+     */
+    protected $thumbMimeType;
 
     /**
      * Optional. Title for the result 
@@ -169,8 +183,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
-     * the media caption. 
+     * Optional. Mode for parsing entities in the caption. See formatting options for more details. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -334,6 +347,25 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     public function getThumbUrl(): string
     {
         return $this->thumbUrl;
+    }
+
+    /**
+     * @param string $thumbMimeType
+     * @return static
+     */
+    public function setThumbMimeType(string $thumbMimeType): self
+    {
+        $this->thumbMimeType = $thumbMimeType;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getThumbMimeType(): ?string
+    {
+        return $this->thumbMimeType;
     }
 
     /**

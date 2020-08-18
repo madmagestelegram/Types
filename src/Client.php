@@ -27,7 +27,7 @@ abstract class Client {
      * previous updates will forgotten. 
      *
      * @param int $limit
-     *        Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100. 
+     *        Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100. 
      *
      * @param int $timeout
      *        Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling 
@@ -65,8 +65,8 @@ abstract class Client {
      * Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for 
      * the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on 
      * success. If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, 
-     * e.g. https://www.example.com/&lt;token&gt;. Since nobody else knows your bot‘s token, you can be 
-     * pretty sure it’s us. 
+     * e.g. https://www.example.com/&lt;token&gt;. Since nobody else knows your bot's token, you can be 
+     * pretty sure it's us. 
      *
      * @param string $url
      *        HTTPS url to send updates to. Use an empty string to remove webhook integration 
@@ -77,8 +77,7 @@ abstract class Client {
      *
      * @param int $maxConnections
      *        Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults 
-     * to 40. Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s 
-     * throughput. 
+     * to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. 
      *
      * @param string[] $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
@@ -168,8 +167,7 @@ abstract class Client {
      *        Text of the message to be sent, 1-4096 characters after entities parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your 
-     * bot's message. 
+     *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
      * @param bool $disableWebPagePreview
      *        Disables link previews for links in this message 
@@ -263,8 +261,7 @@ abstract class Client {
      *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the photo caption. See formatting options for more details. 
      *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -321,8 +318,7 @@ abstract class Client {
      *        Audio caption, 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the audio caption. See formatting options for more details. 
      *
      * @param int $duration
      *        Duration of the audio in seconds 
@@ -335,9 +331,9 @@ abstract class Client {
      *
      * @param Type\AbstractInputFile|string $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
-     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. 
-     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as 
-     * a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
+     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
+     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
+     * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param bool $disableNotification
@@ -398,9 +394,9 @@ abstract class Client {
      *
      * @param Type\AbstractInputFile|string $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
-     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. 
-     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as 
-     * a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
+     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
+     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
+     * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param string $caption
@@ -408,8 +404,7 @@ abstract class Client {
      * parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the document caption. See formatting options for more details. 
      *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -473,17 +468,16 @@ abstract class Client {
      *
      * @param Type\AbstractInputFile|string $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
-     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. 
-     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as 
-     * a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
+     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
+     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
+     * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param string $caption
      *        Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the video caption. See formatting options for more details. 
      *
      * @param bool $supportsStreaming
      *        Pass True, if the uploaded video is suitable for streaming 
@@ -557,9 +551,9 @@ abstract class Client {
      *
      * @param Type\AbstractInputFile|string $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
-     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. 
-     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as 
-     * a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
+     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
+     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
+     * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param string $caption
@@ -567,8 +561,7 @@ abstract class Client {
      * parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the animation caption. See formatting options for more details. 
      *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -631,8 +624,7 @@ abstract class Client {
      *        Voice message caption, 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the voice message caption. See formatting options for more details. 
      *
      * @param int $duration
      *        Duration of the voice message in seconds 
@@ -696,9 +688,9 @@ abstract class Client {
      *
      * @param Type\AbstractInputFile|string $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
-     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. 
-     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as 
-     * a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
+     * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
+     * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
+     * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
      * @param bool $disableNotification
@@ -747,7 +739,7 @@ abstract class Client {
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
-     *        A JSON-serialized array describing photos and videos to be sent, must include 2–10 items 
+     *        A JSON-serialized array describing photos and videos to be sent, must include 2-10 items 
      *
      * @param bool $disableNotification
      *        Sends the messages silently. Users will receive a notification with no sound. 
@@ -1064,6 +1056,20 @@ abstract class Client {
      * @param int $correctOptionId
      *        0-based identifier of the correct answer option, required for polls in quiz mode 
      *
+     * @param string $explanation
+     *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
+     * characters with at most 2 line feeds after entities parsing 
+     *
+     * @param string $explanationParseMode
+     *        Mode for parsing entities in the explanation. See formatting options for more details. 
+     *
+     * @param int $openPeriod
+     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
+     *
+     * @param int $closeDate
+     *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
+     * seconds in the future. Can't be used together with open_period. 
+     *
      * @param bool $isClosed
      *        Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. 
      *
@@ -1087,6 +1093,10 @@ abstract class Client {
         string $type = null,
         bool $allowsMultipleAnswers = null,
         int $correctOptionId = null,
+        string $explanation = null,
+        string $explanationParseMode = null,
+        int $openPeriod = null,
+        int $closeDate = null,
         bool $isClosed = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
@@ -1101,6 +1111,10 @@ abstract class Client {
             'type' => $type,
             'allows_multiple_answers' => $allowsMultipleAnswers,
             'correct_option_id' => $correctOptionId,
+            'explanation' => $explanation,
+            'explanation_parse_mode' => $explanationParseMode,
+            'open_period' => $openPeriod,
+            'close_date' => $closeDate,
             'is_closed' => $isClosed,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
@@ -1108,6 +1122,49 @@ abstract class Client {
         ];
 
         return $this->_rawApiCall('sendPoll', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#senddice
+     *
+     * Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param string $emoji
+     *        Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, or “”. Dice can 
+     * have values 1-6 for “” and “”, and values 1-5 for “”. Defaults to “” 
+     *
+     * @param bool $disableNotification
+     *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param int $replyToMessageId
+     *        If the message is a reply, ID of the original message 
+     *
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
+     * instructions to remove reply keyboard or to force a reply from the user. 
+     *
+     * @return mixed
+     */
+    public function sendDice(
+        $chatId,
+        string $emoji = null,
+        bool $disableNotification = null,
+        int $replyToMessageId = null,
+        $replyMarkup = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'emoji' => $emoji,
+            'disable_notification' => $disableNotification,
+            'reply_to_message_id' => $replyToMessageId,
+            'reply_markup' => $replyMarkup,
+        ];
+
+        return $this->_rawApiCall('sendDice', $requestParameters);
     }
 
     /**
@@ -1154,7 +1211,7 @@ abstract class Client {
      *        Sequential number of the first photo to be returned. By default, all photos are returned. 
      *
      * @param int $limit
-     *        Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100. 
+     *        Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100. 
      *
      * @return mixed
      */
@@ -1277,7 +1334,7 @@ abstract class Client {
      *        Unique identifier of the target user 
      *
      * @param Type\ChatPermissions $permissions
-     *        New user permissions 
+     *        A JSON-serialized object for new user permissions 
      *
      * @param int $untilDate
      *        Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less 
@@ -1337,7 +1394,7 @@ abstract class Client {
      *        Pass True, if the administrator can pin messages, supergroups only 
      *
      * @param bool $canPromoteMembers
-     *        Pass True, if the administrator can add new administrators with a subset of his own privileges or demote 
+     *        Pass True, if the administrator can add new administrators with a subset of their own privileges or demote 
      * administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) 
      *
      * @return mixed
@@ -1562,8 +1619,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#pinchatmessage
      *
      * Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for 
-     * this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin 
-     * right in the channel. Returns True on success. 
+     * this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in 
+     * the channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1596,8 +1653,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#unpinchatmessage
      *
      * Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat 
-     * for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ 
-     * admin right in the channel. Returns True on success. 
+     * for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right 
+     * in the channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1801,7 +1858,7 @@ abstract class Client {
      *
      * @param string $url
      *        URL that will be opened by the user's client. If you have created a Game and accepted the conditions via 
-     * @|Botfather, specify the URL that opens your game – note that this will only work if the query comes from a callback_game 
+     * @|Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game 
      * button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. 
      *
      * @param int $cacheTime
@@ -1830,6 +1887,44 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#setmycommands
+     *
+     * Use this method to change the list of the bot's commands. Returns True on success. 
+     *
+     * @param Type\BotCommand[] $commands
+     *        A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be 
+     * specified. 
+     *
+     * @return mixed
+     */
+    public function setMyCommands(
+        array $commands
+    )
+    {
+        $requestParameters = [
+            'commands' => $commands,
+        ];
+
+        return $this->_rawApiCall('setMyCommands', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getmycommands
+     *
+     * Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. 
+     *
+     * @return mixed
+     */
+    public function getMyCommands(
+    )
+    {
+        $requestParameters = [
+        ];
+
+        return $this->_rawApiCall('getMyCommands', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#editmessagetext
      *
      * Use this method to edit text and game messages. On 
@@ -1849,8 +1944,7 @@ abstract class Client {
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your 
-     * bot's message. 
+     *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
      * @param bool $disableWebPagePreview
      *        Disables link previews for links in this message 
@@ -1902,8 +1996,7 @@ abstract class Client {
      *        New caption of the message, 0-1024 characters after entities parsing 
      *
      * @param string $parseMode
-     *        Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the 
-     * media caption. 
+     *        Mode for parsing entities in the message caption. See formatting options for more details. 
      *
      * @param Type\InlineKeyboardMarkup $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
@@ -2050,11 +2143,12 @@ abstract class Client {
      * https://core.telegram.org/bots/api#deletemessage
      *
      * Use this method to delete a message, including service messages, with the following limitations:- A message 
-     * can only be deleted if it was sent less than 48 hours ago.- Bots can delete outgoing messages in private chats, 
-     * groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted 
-     * can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete 
-     * any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can 
-     * delete any message there.Returns True on success. 
+     * can only be deleted if it was sent less than 48 hours ago.- A dice message in a private chat can only be deleted if it was 
+     * sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- 
+     * Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can 
+     * delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- 
+     * If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message 
+     * there.Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2154,7 +2248,7 @@ abstract class Client {
      *        User identifier of sticker file owner 
      *
      * @param Type\AbstractInputFile $pngSticker
-     *        Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
+     *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. More info on Sending Files » 
      *
      * @return mixed
@@ -2175,8 +2269,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#createnewstickerset
      *
-     * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns 
-     * True on success. 
+     * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You 
+     * must use exactly one of the fields png_sticker or tgs_sticker. Returns True on success. 
      *
      * @param int $userId
      *        User identifier of created sticker set owner 
@@ -2189,14 +2283,18 @@ abstract class Client {
      * @param string $title
      *        Sticker set title, 1-64 characters 
      *
+     * @param string $emojis
+     *        One or more emoji corresponding to the sticker 
+     *
      * @param Type\AbstractInputFile|string $pngSticker
-     *        Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
+     *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param string $emojis
-     *        One or more emoji corresponding to the sticker 
+     * @param Type\AbstractInputFile $tgsSticker
+     *        TGS animation with the sticker, uploaded using multipart/form-data. See 
+     * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
      *
      * @param bool $containsMasks
      *        Pass True, if a set of mask stickers should be created 
@@ -2210,8 +2308,9 @@ abstract class Client {
         int $userId,
         string $name,
         string $title,
-        $pngSticker,
         string $emojis,
+        $pngSticker = null,
+        Type\AbstractInputFile $tgsSticker = null,
         bool $containsMasks = null,
         Type\MaskPosition $maskPosition = null
     )
@@ -2221,6 +2320,7 @@ abstract class Client {
             'name' => $name,
             'title' => $title,
             'png_sticker' => $pngSticker,
+            'tgs_sticker' => $tgsSticker,
             'emojis' => $emojis,
             'contains_masks' => $containsMasks,
             'mask_position' => $maskPosition,
@@ -2232,7 +2332,10 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#addstickertoset
      *
-     * Use this method to add a new sticker to a set created by the bot. Returns True on success. 
+     * Use this method to add a new sticker to a set created by the bot. You must use exactly one of the 
+     * fields png_sticker or tgs_sticker. Animated stickers can be added to animated sticker sets and only 
+     * to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns 
+     * True on success. 
      *
      * @param int $userId
      *        User identifier of sticker set owner 
@@ -2240,14 +2343,18 @@ abstract class Client {
      * @param string $name
      *        Sticker set name 
      *
+     * @param string $emojis
+     *        One or more emoji corresponding to the sticker 
+     *
      * @param Type\AbstractInputFile|string $pngSticker
-     *        Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
+     *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param string $emojis
-     *        One or more emoji corresponding to the sticker 
+     * @param Type\AbstractInputFile $tgsSticker
+     *        TGS animation with the sticker, uploaded using multipart/form-data. See 
+     * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
      *
      * @param Type\MaskPosition $maskPosition
      *        A JSON-serialized object for position where the mask should be placed on faces 
@@ -2257,8 +2364,9 @@ abstract class Client {
     public function addStickerToSet(
         int $userId,
         string $name,
-        $pngSticker,
         string $emojis,
+        $pngSticker = null,
+        Type\AbstractInputFile $tgsSticker = null,
         Type\MaskPosition $maskPosition = null
     )
     {
@@ -2266,6 +2374,7 @@ abstract class Client {
             'user_id' => $userId,
             'name' => $name,
             'png_sticker' => $pngSticker,
+            'tgs_sticker' => $tgsSticker,
             'emojis' => $emojis,
             'mask_position' => $maskPosition,
         ];
@@ -2302,9 +2411,7 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#deletestickerfromset
      *
-     * Use this method to delete a sticker from a set created by the bot. Returns True on success. To enable this 
-     * option, send the /setinline command to @|BotFather and provide 
-     * the placeholder text that the user will see in the input field after typing your bot’s name. 
+     * Use this method to delete a sticker from a set created by the bot. Returns True on success. 
      *
      * @param string $sticker
      *        File identifier of the sticker 
@@ -2320,6 +2427,42 @@ abstract class Client {
         ];
 
         return $this->_rawApiCall('deleteStickerFromSet', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setstickersetthumb
+     *
+     * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. 
+     * Returns True on success. To enable this option, send the /setinline command to @|BotFather and provide the placeholder text that the user will see in the input field after typing your bot's name. 
+     *
+     * @param string $name
+     *        Sticker set name 
+     *
+     * @param int $userId
+     *        User identifier of the sticker set owner 
+     *
+     * @param Type\AbstractInputFile|string $thumb
+     *        A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS 
+     * animation with the thumbnail up to 32 kilobytes in size; see 
+     * https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
+     * Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
+     * multipart/form-data. More info on Sending Files ». Animated sticker set thumbnail can't be uploaded via HTTP URL. 
+     *
+     * @return mixed
+     */
+    public function setStickerSetThumb(
+        string $name,
+        int $userId,
+        $thumb = null
+    )
+    {
+        $requestParameters = [
+            'name' => $name,
+            'user_id' => $userId,
+            'thumb' => $thumb,
+        ];
+
+        return $this->_rawApiCall('setStickerSetThumb', $requestParameters);
     }
 
     /**
@@ -2344,7 +2487,7 @@ abstract class Client {
      *
      * @param string $nextOffset
      *        Pass the offset that a client should send in the next query with the same text to receive more results. Pass an 
-     * empty string if there are no more results or if you don‘t support pagination. Offset length can’t exceed 64 bytes. 
+     * empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes. 
      *
      * @param string $switchPmText
      *        If passed, clients will display a button with specified text that switches the user to a private chat with the bot 
@@ -2353,8 +2496,8 @@ abstract class Client {
      * @param string $switchPmParameter
      *        Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 
      * characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to 
-     * connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a ‘Connect your 
-     * YouTube account’ button above the results, or even before showing any. The user presses the button, switches to a 
+     * connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your 
+     * YouTube account' button above the results, or even before showing any. The user presses the button, switches to a 
      * private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once 
      * done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the 
      * bot's inline capabilities. 
@@ -2456,8 +2599,8 @@ abstract class Client {
      * it better when they see what they are paying for. 
      *
      * @param string $providerData
-     *        JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of 
-     * required fields should be provided by the payment provider. 
+     *        A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
+     * description of required fields should be provided by the payment provider. 
      *
      * @param Type\InlineKeyboardMarkup $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not 
@@ -2647,8 +2790,8 @@ abstract class Client {
      *        If the message is a reply, ID of the original message 
      *
      * @param Type\InlineKeyboardMarkup $replyMarkup
-     *        A JSON-serialized object for an inline keyboard. If empty, one ‘Play game_title’ button will be shown. If 
-     * not empty, the first button must launch the game. 
+     *        A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not 
+     * empty, the first button must launch the game. 
      *
      * @return mixed
      */
@@ -2728,7 +2871,7 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#getgamehighscores
      *
-     * Use this method to get data for high score tables. Will return the score of the specified user and several of his 
+     * Use this method to get data for high score tables. Will return the score of the specified user and several of their 
      * neighbors in a game. On success, returns an Array of GameHighScore objects. 
      *
      * @param int $userId

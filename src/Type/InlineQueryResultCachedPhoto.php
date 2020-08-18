@@ -131,8 +131,7 @@ class InlineQueryResultCachedPhoto extends AbstractInlineQueryResult
     protected $caption;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
-     * the media caption. 
+     * Optional. Mode for parsing entities in the photo caption. See formatting options for more details. 
      *
      * @var string|null
      * @SkipWhenEmpty

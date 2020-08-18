@@ -39,26 +39,28 @@ class Message extends AbstractType
             'forward_sender_name',
             'forward_date',
             'reply_to_message',
+            'via_bot',
             'edit_date',
             'media_group_id',
             'author_signature',
             'text',
             'entities',
-            'caption_entities',
+            'animation',
             'audio',
             'document',
-            'animation',
-            'game',
             'photo',
             'sticker',
             'video',
-            'voice',
             'video_note',
+            'voice',
             'caption',
+            'caption_entities',
             'contact',
-            'location',
-            'venue',
+            'dice',
+            'game',
             'poll',
+            'venue',
+            'location',
             'new_chat_members',
             'left_chat_member',
             'new_chat_title',
@@ -97,26 +99,28 @@ class Message extends AbstractType
             'forward_sender_name' => $this->getForwardSenderName(),
             'forward_date' => $this->getForwardDate(),
             'reply_to_message' => $this->getReplyToMessage(),
+            'via_bot' => $this->getViaBot(),
             'edit_date' => $this->getEditDate(),
             'media_group_id' => $this->getMediaGroupId(),
             'author_signature' => $this->getAuthorSignature(),
             'text' => $this->getText(),
             'entities' => $this->getEntities(),
-            'caption_entities' => $this->getCaptionEntities(),
+            'animation' => $this->getAnimation(),
             'audio' => $this->getAudio(),
             'document' => $this->getDocument(),
-            'animation' => $this->getAnimation(),
-            'game' => $this->getGame(),
             'photo' => $this->getPhoto(),
             'sticker' => $this->getSticker(),
             'video' => $this->getVideo(),
-            'voice' => $this->getVoice(),
             'video_note' => $this->getVideoNote(),
+            'voice' => $this->getVoice(),
             'caption' => $this->getCaption(),
+            'caption_entities' => $this->getCaptionEntities(),
             'contact' => $this->getContact(),
-            'location' => $this->getLocation(),
-            'venue' => $this->getVenue(),
+            'dice' => $this->getDice(),
+            'game' => $this->getGame(),
             'poll' => $this->getPoll(),
+            'venue' => $this->getVenue(),
+            'location' => $this->getLocation(),
             'new_chat_members' => $this->getNewChatMembers(),
             'left_chat_member' => $this->getLeftChatMember(),
             'new_chat_title' => $this->getNewChatTitle(),
@@ -262,6 +266,17 @@ class Message extends AbstractType
     protected $replyToMessage;
 
     /**
+     * Optional. Bot through which the message was sent 
+     *
+     * @var User|null
+     * @SkipWhenEmpty
+     * @SerializedName("via_bot")
+     * @Accessor(getter="getViaBot",setter="setViaBot")
+     * @Type("MadmagesTelegram\Types\Type\User")
+     */
+    protected $viaBot;
+
+    /**
      * Optional. Date the message was last edited in Unix time 
      *
      * @var int|null
@@ -317,16 +332,16 @@ class Message extends AbstractType
     protected $entities;
 
     /**
-     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the 
-     * caption 
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field 
+     * is set, the document field will also be set 
      *
-     * @var MessageEntity[]|null
+     * @var Animation|null
      * @SkipWhenEmpty
-     * @SerializedName("caption_entities")
-     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
-     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     * @SerializedName("animation")
+     * @Accessor(getter="getAnimation",setter="setAnimation")
+     * @Type("MadmagesTelegram\Types\Type\Animation")
      */
-    protected $captionEntities;
+    protected $animation;
 
     /**
      * Optional. Message is an audio file, information about the file 
@@ -349,29 +364,6 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Document")
      */
     protected $document;
-
-    /**
-     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field 
-     * is set, the document field will also be set 
-     *
-     * @var Animation|null
-     * @SkipWhenEmpty
-     * @SerializedName("animation")
-     * @Accessor(getter="getAnimation",setter="setAnimation")
-     * @Type("MadmagesTelegram\Types\Type\Animation")
-     */
-    protected $animation;
-
-    /**
-     * Optional. Message is a game, information about the game. More about games » 
-     *
-     * @var Game|null
-     * @SkipWhenEmpty
-     * @SerializedName("game")
-     * @Accessor(getter="getGame",setter="setGame")
-     * @Type("MadmagesTelegram\Types\Type\Game")
-     */
-    protected $game;
 
     /**
      * Optional. Message is a photo, available sizes of the photo 
@@ -407,17 +399,6 @@ class Message extends AbstractType
     protected $video;
 
     /**
-     * Optional. Message is a voice message, information about the file 
-     *
-     * @var Voice|null
-     * @SkipWhenEmpty
-     * @SerializedName("voice")
-     * @Accessor(getter="getVoice",setter="setVoice")
-     * @Type("MadmagesTelegram\Types\Type\Voice")
-     */
-    protected $voice;
-
-    /**
      * Optional. Message is a video note, information about the video message 
      *
      * @var VideoNote|null
@@ -427,6 +408,17 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\VideoNote")
      */
     protected $videoNote;
+
+    /**
+     * Optional. Message is a voice message, information about the file 
+     *
+     * @var Voice|null
+     * @SkipWhenEmpty
+     * @SerializedName("voice")
+     * @Accessor(getter="getVoice",setter="setVoice")
+     * @Type("MadmagesTelegram\Types\Type\Voice")
+     */
+    protected $voice;
 
     /**
      * Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters 
@@ -440,6 +432,18 @@ class Message extends AbstractType
     protected $caption;
 
     /**
+     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the 
+     * caption 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("caption_entities")
+     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $captionEntities;
+
+    /**
      * Optional. Message is a shared contact, information about the contact 
      *
      * @var Contact|null
@@ -451,26 +455,26 @@ class Message extends AbstractType
     protected $contact;
 
     /**
-     * Optional. Message is a shared location, information about the location 
+     * Optional. Message is a dice with random value from 1 to 6 
      *
-     * @var Location|null
+     * @var Dice|null
      * @SkipWhenEmpty
-     * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setLocation")
-     * @Type("MadmagesTelegram\Types\Type\Location")
+     * @SerializedName("dice")
+     * @Accessor(getter="getDice",setter="setDice")
+     * @Type("MadmagesTelegram\Types\Type\Dice")
      */
-    protected $location;
+    protected $dice;
 
     /**
-     * Optional. Message is a venue, information about the venue 
+     * Optional. Message is a game, information about the game. More about games » 
      *
-     * @var Venue|null
+     * @var Game|null
      * @SkipWhenEmpty
-     * @SerializedName("venue")
-     * @Accessor(getter="getVenue",setter="setVenue")
-     * @Type("MadmagesTelegram\Types\Type\Venue")
+     * @SerializedName("game")
+     * @Accessor(getter="getGame",setter="setGame")
+     * @Type("MadmagesTelegram\Types\Type\Game")
      */
-    protected $venue;
+    protected $game;
 
     /**
      * Optional. Message is a native poll, information about the poll 
@@ -482,6 +486,29 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Poll")
      */
     protected $poll;
+
+    /**
+     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the 
+     * location field will also be set 
+     *
+     * @var Venue|null
+     * @SkipWhenEmpty
+     * @SerializedName("venue")
+     * @Accessor(getter="getVenue",setter="setVenue")
+     * @Type("MadmagesTelegram\Types\Type\Venue")
+     */
+    protected $venue;
+
+    /**
+     * Optional. Message is a shared location, information about the location 
+     *
+     * @var Location|null
+     * @SkipWhenEmpty
+     * @SerializedName("location")
+     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Type("MadmagesTelegram\Types\Type\Location")
+     */
+    protected $location;
 
     /**
      * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one 
@@ -551,9 +578,9 @@ class Message extends AbstractType
     protected $groupChatCreated;
 
     /**
-     * Optional. Service message: the supergroup has been created. This field can‘t be received in a message coming 
-     * through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message 
-     * if someone replies to a very first message in a directly created supergroup. 
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming 
+     * through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if 
+     * someone replies to a very first message in a directly created supergroup. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -564,8 +591,8 @@ class Message extends AbstractType
     protected $supergroupChatCreated;
 
     /**
-     * Optional. Service message: the channel has been created. This field can‘t be received in a message coming through 
-     * updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone 
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through 
+     * updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone 
      * replies to a very first message in a channel. 
      *
      * @var bool|null
@@ -881,6 +908,25 @@ class Message extends AbstractType
     }
 
     /**
+     * @param User $viaBot
+     * @return static
+     */
+    public function setViaBot(User $viaBot): self
+    {
+        $this->viaBot = $viaBot;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getViaBot(): ?User
+    {
+        return $this->viaBot;
+    }
+
+    /**
      * @param int $editDate
      * @return static
      */
@@ -976,22 +1022,22 @@ class Message extends AbstractType
     }
 
     /**
-     * @param MessageEntity[] $captionEntities
+     * @param Animation $animation
      * @return static
      */
-    public function setCaptionEntities(array $captionEntities): self
+    public function setAnimation(Animation $animation): self
     {
-        $this->captionEntities = $captionEntities;
+        $this->animation = $animation;
 
         return $this;
     }
 
     /**
-     * @return MessageEntity[]|null
+     * @return Animation|null
      */
-    public function getCaptionEntities(): ?array
+    public function getAnimation(): ?Animation
     {
-        return $this->captionEntities;
+        return $this->animation;
     }
 
     /**
@@ -1030,44 +1076,6 @@ class Message extends AbstractType
     public function getDocument(): ?Document
     {
         return $this->document;
-    }
-
-    /**
-     * @param Animation $animation
-     * @return static
-     */
-    public function setAnimation(Animation $animation): self
-    {
-        $this->animation = $animation;
-
-        return $this;
-    }
-
-    /**
-     * @return Animation|null
-     */
-    public function getAnimation(): ?Animation
-    {
-        return $this->animation;
-    }
-
-    /**
-     * @param Game $game
-     * @return static
-     */
-    public function setGame(Game $game): self
-    {
-        $this->game = $game;
-
-        return $this;
-    }
-
-    /**
-     * @return Game|null
-     */
-    public function getGame(): ?Game
-    {
-        return $this->game;
     }
 
     /**
@@ -1128,25 +1136,6 @@ class Message extends AbstractType
     }
 
     /**
-     * @param Voice $voice
-     * @return static
-     */
-    public function setVoice(Voice $voice): self
-    {
-        $this->voice = $voice;
-
-        return $this;
-    }
-
-    /**
-     * @return Voice|null
-     */
-    public function getVoice(): ?Voice
-    {
-        return $this->voice;
-    }
-
-    /**
      * @param VideoNote $videoNote
      * @return static
      */
@@ -1163,6 +1152,25 @@ class Message extends AbstractType
     public function getVideoNote(): ?VideoNote
     {
         return $this->videoNote;
+    }
+
+    /**
+     * @param Voice $voice
+     * @return static
+     */
+    public function setVoice(Voice $voice): self
+    {
+        $this->voice = $voice;
+
+        return $this;
+    }
+
+    /**
+     * @return Voice|null
+     */
+    public function getVoice(): ?Voice
+    {
+        return $this->voice;
     }
 
     /**
@@ -1185,6 +1193,25 @@ class Message extends AbstractType
     }
 
     /**
+     * @param MessageEntity[] $captionEntities
+     * @return static
+     */
+    public function setCaptionEntities(array $captionEntities): self
+    {
+        $this->captionEntities = $captionEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getCaptionEntities(): ?array
+    {
+        return $this->captionEntities;
+    }
+
+    /**
      * @param Contact $contact
      * @return static
      */
@@ -1204,22 +1231,60 @@ class Message extends AbstractType
     }
 
     /**
-     * @param Location $location
+     * @param Dice $dice
      * @return static
      */
-    public function setLocation(Location $location): self
+    public function setDice(Dice $dice): self
     {
-        $this->location = $location;
+        $this->dice = $dice;
 
         return $this;
     }
 
     /**
-     * @return Location|null
+     * @return Dice|null
      */
-    public function getLocation(): ?Location
+    public function getDice(): ?Dice
     {
-        return $this->location;
+        return $this->dice;
+    }
+
+    /**
+     * @param Game $game
+     * @return static
+     */
+    public function setGame(Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * @return Game|null
+     */
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Poll $poll
+     * @return static
+     */
+    public function setPoll(Poll $poll): self
+    {
+        $this->poll = $poll;
+
+        return $this;
+    }
+
+    /**
+     * @return Poll|null
+     */
+    public function getPoll(): ?Poll
+    {
+        return $this->poll;
     }
 
     /**
@@ -1242,22 +1307,22 @@ class Message extends AbstractType
     }
 
     /**
-     * @param Poll $poll
+     * @param Location $location
      * @return static
      */
-    public function setPoll(Poll $poll): self
+    public function setLocation(Location $location): self
     {
-        $this->poll = $poll;
+        $this->location = $location;
 
         return $this;
     }
 
     /**
-     * @return Poll|null
+     * @return Location|null
      */
-    public function getPoll(): ?Poll
+    public function getLocation(): ?Location
     {
-        return $this->poll;
+        return $this->location;
     }
 
     /**

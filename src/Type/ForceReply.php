@@ -13,8 +13,9 @@ use JMS\Serializer\Annotation\Type;
  * https://core.telegram.org/bots/api#forcereply
  *
  * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the 
- * user has selected the bot‘s message and tapped ’Reply'). This can be extremely useful if you want to create 
- * user-friendly step-by-step interfaces without having to sacrifice privacy mode. 
+ * user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly 
+ * step-by-step interfaces without having to sacrifice privacy 
+ * mode. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -54,7 +55,7 @@ class ForceReply extends AbstractType
     }
 
     /**
-     * Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply' 
+     * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply' 
      *
      * @var bool
      * @SerializedName("force_reply")

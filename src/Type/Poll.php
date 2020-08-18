@@ -37,6 +37,10 @@ class Poll extends AbstractType
             'type',
             'allows_multiple_answers',
             'correct_option_id',
+            'explanation',
+            'explanation_entities',
+            'open_period',
+            'close_date',
         ];
     }
 
@@ -57,6 +61,10 @@ class Poll extends AbstractType
             'type' => $this->getType(),
             'allows_multiple_answers' => $this->getAllowsMultipleAnswers(),
             'correct_option_id' => $this->getCorrectOptionId(),
+            'explanation' => $this->getExplanation(),
+            'explanation_entities' => $this->getExplanationEntities(),
+            'open_period' => $this->getOpenPeriod(),
+            'close_date' => $this->getCloseDate(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -156,6 +164,51 @@ class Poll extends AbstractType
      * @Type("int")
      */
     protected $correctOptionId;
+
+    /**
+     * Optional. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 
+     * 0-200 characters 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("explanation")
+     * @Accessor(getter="getExplanation",setter="setExplanation")
+     * @Type("string")
+     */
+    protected $explanation;
+
+    /**
+     * Optional. Special entities like usernames, URLs, bot commands, etc. that appear in the explanation 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("explanation_entities")
+     * @Accessor(getter="getExplanationEntities",setter="setExplanationEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $explanationEntities;
+
+    /**
+     * Optional. Amount of time in seconds the poll will be active after creation 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("open_period")
+     * @Accessor(getter="getOpenPeriod",setter="setOpenPeriod")
+     * @Type("int")
+     */
+    protected $openPeriod;
+
+    /**
+     * Optional. Point in time (Unix timestamp) when the poll will be automatically closed 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("close_date")
+     * @Accessor(getter="getCloseDate",setter="setCloseDate")
+     * @Type("int")
+     */
+    protected $closeDate;
 
 
     /**
@@ -327,6 +380,82 @@ class Poll extends AbstractType
     public function getCorrectOptionId(): ?int
     {
         return $this->correctOptionId;
+    }
+
+    /**
+     * @param string $explanation
+     * @return static
+     */
+    public function setExplanation(string $explanation): self
+    {
+        $this->explanation = $explanation;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExplanation(): ?string
+    {
+        return $this->explanation;
+    }
+
+    /**
+     * @param MessageEntity[] $explanationEntities
+     * @return static
+     */
+    public function setExplanationEntities(array $explanationEntities): self
+    {
+        $this->explanationEntities = $explanationEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getExplanationEntities(): ?array
+    {
+        return $this->explanationEntities;
+    }
+
+    /**
+     * @param int $openPeriod
+     * @return static
+     */
+    public function setOpenPeriod(int $openPeriod): self
+    {
+        $this->openPeriod = $openPeriod;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOpenPeriod(): ?int
+    {
+        return $this->openPeriod;
+    }
+
+    /**
+     * @param int $closeDate
+     * @return static
+     */
+    public function setCloseDate(int $closeDate): self
+    {
+        $this->closeDate = $closeDate;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCloseDate(): ?int
+    {
+        return $this->closeDate;
     }
 
 }

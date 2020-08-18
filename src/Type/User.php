@@ -86,7 +86,7 @@ class User extends AbstractType
     protected $isBot;
 
     /**
-     * User‘s or bot’s first name 
+     * User's or bot's first name 
      *
      * @var string
      * @SerializedName("first_name")
@@ -96,7 +96,7 @@ class User extends AbstractType
     protected $firstName;
 
     /**
-     * Optional. User‘s or bot’s last name 
+     * Optional. User's or bot's last name 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -107,7 +107,7 @@ class User extends AbstractType
     protected $lastName;
 
     /**
-     * Optional. User‘s or bot’s username 
+     * Optional. User's or bot's username 
      *
      * @var string|null
      * @SkipWhenEmpty

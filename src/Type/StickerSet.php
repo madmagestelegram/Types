@@ -33,6 +33,7 @@ class StickerSet extends AbstractType
             'is_animated',
             'contains_masks',
             'stickers',
+            'thumb',
         ];
     }
 
@@ -49,6 +50,7 @@ class StickerSet extends AbstractType
             'is_animated' => $this->getIsAnimated(),
             'contains_masks' => $this->getContainsMasks(),
             'stickers' => $this->getStickers(),
+            'thumb' => $this->getThumb(),
         ];
 
         $result = array_filter($result, static function($item){ return $item!==null; });
@@ -106,6 +108,17 @@ class StickerSet extends AbstractType
      * @Type("array<MadmagesTelegram\Types\Type\Sticker>")
      */
     protected $stickers;
+
+    /**
+     * Optional. Sticker set thumbnail in the .WEBP or .TGS format 
+     *
+     * @var PhotoSize|null
+     * @SkipWhenEmpty
+     * @SerializedName("thumb")
+     * @Accessor(getter="getThumb",setter="setThumb")
+     * @Type("MadmagesTelegram\Types\Type\PhotoSize")
+     */
+    protected $thumb;
 
 
     /**
@@ -201,6 +214,25 @@ class StickerSet extends AbstractType
     public function getStickers(): array
     {
         return $this->stickers;
+    }
+
+    /**
+     * @param PhotoSize $thumb
+     * @return static
+     */
+    public function setThumb(PhotoSize $thumb): self
+    {
+        $this->thumb = $thumb;
+
+        return $this;
+    }
+
+    /**
+     * @return PhotoSize|null
+     */
+    public function getThumb(): ?PhotoSize
+    {
+        return $this->thumb;
     }
 
 }

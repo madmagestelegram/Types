@@ -65,8 +65,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
     protected $messageText;
 
     /**
-     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in 
-     * your bot's message. 
+     * Optional. Mode for parsing entities in the message text. See formatting options for more details. 
      *
      * @var string|null
      * @SkipWhenEmpty
