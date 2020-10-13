@@ -22,7 +22,7 @@ abstract class TypedClient {
      * @param bool   $withFiles
      * @return string Returned json string
      */
-    abstract public function _rawApiCall(string $method, array $parameters, bool $withFiles = false): string;
+    abstract protected function _rawApiCall(string $method, array $parameters, bool $withFiles = false): string;
 
     /**
      * @return SerializerInterface
