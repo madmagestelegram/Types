@@ -30,6 +30,7 @@ class Message extends AbstractType
         return [
             'message_id',
             'from',
+            'sender_chat',
             'date',
             'chat',
             'forward_from',
@@ -69,6 +70,7 @@ class Message extends AbstractType
             'group_chat_created',
             'supergroup_chat_created',
             'channel_chat_created',
+            'message_auto_delete_timer_changed',
             'migrate_to_chat_id',
             'migrate_from_chat_id',
             'pinned_message',
@@ -76,6 +78,11 @@ class Message extends AbstractType
             'successful_payment',
             'connected_website',
             'passport_data',
+            'proximity_alert_triggered',
+            'voice_chat_scheduled',
+            'voice_chat_started',
+            'voice_chat_ended',
+            'voice_chat_participants_invited',
             'reply_markup',
         ];
     }
@@ -85,11 +92,12 @@ class Message extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'message_id' => $this->getMessageId(),
             'from' => $this->getFrom(),
+            'sender_chat' => $this->getSenderChat(),
             'date' => $this->getDate(),
             'chat' => $this->getChat(),
             'forward_from' => $this->getForwardFrom(),
@@ -129,6 +137,7 @@ class Message extends AbstractType
             'group_chat_created' => $this->getGroupChatCreated(),
             'supergroup_chat_created' => $this->getSupergroupChatCreated(),
             'channel_chat_created' => $this->getChannelChatCreated(),
+            'message_auto_delete_timer_changed' => $this->getMessageAutoDeleteTimerChanged(),
             'migrate_to_chat_id' => $this->getMigrateToChatId(),
             'migrate_from_chat_id' => $this->getMigrateFromChatId(),
             'pinned_message' => $this->getPinnedMessage(),
@@ -136,13 +145,15 @@ class Message extends AbstractType
             'successful_payment' => $this->getSuccessfulPayment(),
             'connected_website' => $this->getConnectedWebsite(),
             'passport_data' => $this->getPassportData(),
+            'proximity_alert_triggered' => $this->getProximityAlertTriggered(),
+            'voice_chat_scheduled' => $this->getVoiceChatScheduled(),
+            'voice_chat_started' => $this->getVoiceChatStarted(),
+            'voice_chat_ended' => $this->getVoiceChatEnded(),
+            'voice_chat_participants_invited' => $this->getVoiceChatParticipantsInvited(),
             'reply_markup' => $this->getReplyMarkup(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -165,6 +176,19 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
+
+    /**
+     * Optional. Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup 
+     * itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the 
+     * discussion group 
+     *
+     * @var Chat|null
+     * @SkipWhenEmpty
+     * @SerializedName("sender_chat")
+     * @Accessor(getter="getSenderChat",setter="setSenderChat")
+     * @Type("MadmagesTelegram\Types\Type\Chat")
+     */
+    protected $senderChat;
 
     /**
      * Date the message was sent in Unix time 
@@ -198,7 +222,8 @@ class Message extends AbstractType
     protected $forwardFrom;
 
     /**
-     * Optional. For messages forwarded from channels, information about the original channel 
+     * Optional. For messages forwarded from channels or from anonymous administrators, information about the original 
+     * sender chat 
      *
      * @var Chat|null
      * @SkipWhenEmpty
@@ -299,7 +324,8 @@ class Message extends AbstractType
     protected $mediaGroupId;
 
     /**
-     * Optional. Signature of the post author for messages in channels 
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group 
+     * administrator 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -455,7 +481,7 @@ class Message extends AbstractType
     protected $contact;
 
     /**
-     * Optional. Message is a dice with random value from 1 to 6 
+     * Optional. Message is a dice with random value 
      *
      * @var Dice|null
      * @SkipWhenEmpty
@@ -604,9 +630,21 @@ class Message extends AbstractType
     protected $channelChatCreated;
 
     /**
-     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 
-     * 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 
-     * 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. 
+     * Optional. Service message: auto-delete timer settings changed in the chat 
+     *
+     * @var MessageAutoDeleteTimerChanged|null
+     * @SkipWhenEmpty
+     * @SerializedName("message_auto_delete_timer_changed")
+     * @Accessor(getter="getMessageAutoDeleteTimerChanged",setter="setMessageAutoDeleteTimerChanged")
+     * @Type("MadmagesTelegram\Types\Type\MessageAutoDeleteTimerChanged")
+     */
+    protected $messageAutoDeleteTimerChanged;
+
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 
+     * 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has 
+     * at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this 
+     * identifier. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -617,9 +655,10 @@ class Message extends AbstractType
     protected $migrateToChatId;
 
     /**
-     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater 
-     * than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller 
-     * than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. 
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more 
+     * than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it 
+     * has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this 
+     * identifier. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -687,6 +726,62 @@ class Message extends AbstractType
     protected $passportData;
 
     /**
+     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live 
+     * Location. 
+     *
+     * @var ProximityAlertTriggered|null
+     * @SkipWhenEmpty
+     * @SerializedName("proximity_alert_triggered")
+     * @Accessor(getter="getProximityAlertTriggered",setter="setProximityAlertTriggered")
+     * @Type("MadmagesTelegram\Types\Type\ProximityAlertTriggered")
+     */
+    protected $proximityAlertTriggered;
+
+    /**
+     * Optional. Service message: voice chat scheduled 
+     *
+     * @var VoiceChatScheduled|null
+     * @SkipWhenEmpty
+     * @SerializedName("voice_chat_scheduled")
+     * @Accessor(getter="getVoiceChatScheduled",setter="setVoiceChatScheduled")
+     * @Type("MadmagesTelegram\Types\Type\VoiceChatScheduled")
+     */
+    protected $voiceChatScheduled;
+
+    /**
+     * Optional. Service message: voice chat started 
+     *
+     * @var VoiceChatStarted|null
+     * @SkipWhenEmpty
+     * @SerializedName("voice_chat_started")
+     * @Accessor(getter="getVoiceChatStarted",setter="setVoiceChatStarted")
+     * @Type("MadmagesTelegram\Types\Type\VoiceChatStarted")
+     */
+    protected $voiceChatStarted;
+
+    /**
+     * Optional. Service message: voice chat ended 
+     *
+     * @var VoiceChatEnded|null
+     * @SkipWhenEmpty
+     * @SerializedName("voice_chat_ended")
+     * @Accessor(getter="getVoiceChatEnded",setter="setVoiceChatEnded")
+     * @Type("MadmagesTelegram\Types\Type\VoiceChatEnded")
+     */
+    protected $voiceChatEnded;
+
+    /**
+     * Optional. Service message: new participants invited to a voice chat 
+     *
+     * @var VoiceChatParticipantsInvited|null
+     * @SkipWhenEmpty
+     * @SerializedName("voice_chat_participants_invited")
+     * @Accessor(getter="getVoiceChatParticipantsInvited",setter="setVoiceChatParticipantsInvited")
+     * @Type("MadmagesTelegram\Types\Type\VoiceChatParticipantsInvited")
+     */
+    protected $voiceChatParticipantsInvited;
+
+    /**
      * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. 
      *
      * @var InlineKeyboardMarkup|null
@@ -734,6 +829,25 @@ class Message extends AbstractType
     public function getFrom(): ?User
     {
         return $this->from;
+    }
+
+    /**
+     * @param Chat $senderChat
+     * @return static
+     */
+    public function setSenderChat(Chat $senderChat): self
+    {
+        $this->senderChat = $senderChat;
+
+        return $this;
+    }
+
+    /**
+     * @return Chat|null
+     */
+    public function getSenderChat(): ?Chat
+    {
+        return $this->senderChat;
     }
 
     /**
@@ -1478,6 +1592,25 @@ class Message extends AbstractType
     }
 
     /**
+     * @param MessageAutoDeleteTimerChanged $messageAutoDeleteTimerChanged
+     * @return static
+     */
+    public function setMessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChanged $messageAutoDeleteTimerChanged): self
+    {
+        $this->messageAutoDeleteTimerChanged = $messageAutoDeleteTimerChanged;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageAutoDeleteTimerChanged|null
+     */
+    public function getMessageAutoDeleteTimerChanged(): ?MessageAutoDeleteTimerChanged
+    {
+        return $this->messageAutoDeleteTimerChanged;
+    }
+
+    /**
      * @param int $migrateToChatId
      * @return static
      */
@@ -1608,6 +1741,101 @@ class Message extends AbstractType
     public function getPassportData(): ?PassportData
     {
         return $this->passportData;
+    }
+
+    /**
+     * @param ProximityAlertTriggered $proximityAlertTriggered
+     * @return static
+     */
+    public function setProximityAlertTriggered(ProximityAlertTriggered $proximityAlertTriggered): self
+    {
+        $this->proximityAlertTriggered = $proximityAlertTriggered;
+
+        return $this;
+    }
+
+    /**
+     * @return ProximityAlertTriggered|null
+     */
+    public function getProximityAlertTriggered(): ?ProximityAlertTriggered
+    {
+        return $this->proximityAlertTriggered;
+    }
+
+    /**
+     * @param VoiceChatScheduled $voiceChatScheduled
+     * @return static
+     */
+    public function setVoiceChatScheduled(VoiceChatScheduled $voiceChatScheduled): self
+    {
+        $this->voiceChatScheduled = $voiceChatScheduled;
+
+        return $this;
+    }
+
+    /**
+     * @return VoiceChatScheduled|null
+     */
+    public function getVoiceChatScheduled(): ?VoiceChatScheduled
+    {
+        return $this->voiceChatScheduled;
+    }
+
+    /**
+     * @param VoiceChatStarted $voiceChatStarted
+     * @return static
+     */
+    public function setVoiceChatStarted(VoiceChatStarted $voiceChatStarted): self
+    {
+        $this->voiceChatStarted = $voiceChatStarted;
+
+        return $this;
+    }
+
+    /**
+     * @return VoiceChatStarted|null
+     */
+    public function getVoiceChatStarted(): ?VoiceChatStarted
+    {
+        return $this->voiceChatStarted;
+    }
+
+    /**
+     * @param VoiceChatEnded $voiceChatEnded
+     * @return static
+     */
+    public function setVoiceChatEnded(VoiceChatEnded $voiceChatEnded): self
+    {
+        $this->voiceChatEnded = $voiceChatEnded;
+
+        return $this;
+    }
+
+    /**
+     * @return VoiceChatEnded|null
+     */
+    public function getVoiceChatEnded(): ?VoiceChatEnded
+    {
+        return $this->voiceChatEnded;
+    }
+
+    /**
+     * @param VoiceChatParticipantsInvited $voiceChatParticipantsInvited
+     * @return static
+     */
+    public function setVoiceChatParticipantsInvited(VoiceChatParticipantsInvited $voiceChatParticipantsInvited): self
+    {
+        $this->voiceChatParticipantsInvited = $voiceChatParticipantsInvited;
+
+        return $this;
+    }
+
+    /**
+     * @return VoiceChatParticipantsInvited|null
+     */
+    public function getVoiceChatParticipantsInvited(): ?VoiceChatParticipantsInvited
+    {
+        return $this->voiceChatParticipantsInvited;
     }
 
     /**

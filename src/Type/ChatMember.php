@@ -31,11 +31,13 @@ class ChatMember extends AbstractType
             'user',
             'status',
             'custom_title',
-            'until_date',
+            'is_anonymous',
             'can_be_edited',
+            'can_manage_chat',
             'can_post_messages',
             'can_edit_messages',
             'can_delete_messages',
+            'can_manage_voice_chats',
             'can_restrict_members',
             'can_promote_members',
             'can_change_info',
@@ -47,6 +49,7 @@ class ChatMember extends AbstractType
             'can_send_polls',
             'can_send_other_messages',
             'can_add_web_page_previews',
+            'until_date',
         ];
     }
 
@@ -55,17 +58,19 @@ class ChatMember extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'user' => $this->getUser(),
             'status' => $this->getStatus(),
             'custom_title' => $this->getCustomTitle(),
-            'until_date' => $this->getUntilDate(),
+            'is_anonymous' => $this->getIsAnonymous(),
             'can_be_edited' => $this->getCanBeEdited(),
+            'can_manage_chat' => $this->getCanManageChat(),
             'can_post_messages' => $this->getCanPostMessages(),
             'can_edit_messages' => $this->getCanEditMessages(),
             'can_delete_messages' => $this->getCanDeleteMessages(),
+            'can_manage_voice_chats' => $this->getCanManageVoiceChats(),
             'can_restrict_members' => $this->getCanRestrictMembers(),
             'can_promote_members' => $this->getCanPromoteMembers(),
             'can_change_info' => $this->getCanChangeInfo(),
@@ -77,12 +82,10 @@ class ChatMember extends AbstractType
             'can_send_polls' => $this->getCanSendPolls(),
             'can_send_other_messages' => $this->getCanSendOtherMessages(),
             'can_add_web_page_previews' => $this->getCanAddWebPagePreviews(),
+            'until_date' => $this->getUntilDate(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -118,15 +121,15 @@ class ChatMember extends AbstractType
     protected $customTitle;
 
     /**
-     * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time 
+     * Optional. Owner and administrators only. True, if the user's presence in the chat is hidden 
      *
-     * @var int|null
+     * @var bool|null
      * @SkipWhenEmpty
-     * @SerializedName("until_date")
-     * @Accessor(getter="getUntilDate",setter="setUntilDate")
-     * @Type("int")
+     * @SerializedName("is_anonymous")
+     * @Accessor(getter="getIsAnonymous",setter="setIsAnonymous")
+     * @Type("bool")
      */
-    protected $untilDate;
+    protected $isAnonymous;
 
     /**
      * Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user 
@@ -138,6 +141,19 @@ class ChatMember extends AbstractType
      * @Type("bool")
      */
     protected $canBeEdited;
+
+    /**
+     * Optional. Administrators only. True, if the administrator can access the chat event log, chat statistics, message 
+     * statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any 
+     * other administrator privilege 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_manage_chat")
+     * @Accessor(getter="getCanManageChat",setter="setCanManageChat")
+     * @Type("bool")
+     */
+    protected $canManageChat;
 
     /**
      * Optional. Administrators only. True, if the administrator can post in the channel; channels only 
@@ -172,6 +188,17 @@ class ChatMember extends AbstractType
      * @Type("bool")
      */
     protected $canDeleteMessages;
+
+    /**
+     * Optional. Administrators only. True, if the administrator can manage voice chats 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_manage_voice_chats")
+     * @Accessor(getter="getCanManageVoiceChats",setter="setCanManageVoiceChats")
+     * @Type("bool")
+     */
+    protected $canManageVoiceChats;
 
     /**
      * Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members 
@@ -299,6 +326,17 @@ class ChatMember extends AbstractType
      */
     protected $canAddWebPagePreviews;
 
+    /**
+     * Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("until_date")
+     * @Accessor(getter="getUntilDate",setter="setUntilDate")
+     * @Type("int")
+     */
+    protected $untilDate;
+
 
     /**
      * @param User $user
@@ -358,22 +396,22 @@ class ChatMember extends AbstractType
     }
 
     /**
-     * @param int $untilDate
+     * @param bool $isAnonymous
      * @return static
      */
-    public function setUntilDate(int $untilDate): self
+    public function setIsAnonymous(bool $isAnonymous): self
     {
-        $this->untilDate = $untilDate;
+        $this->isAnonymous = $isAnonymous;
 
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return bool|null
      */
-    public function getUntilDate(): ?int
+    public function getIsAnonymous(): ?bool
     {
-        return $this->untilDate;
+        return $this->isAnonymous;
     }
 
     /**
@@ -393,6 +431,25 @@ class ChatMember extends AbstractType
     public function getCanBeEdited(): ?bool
     {
         return $this->canBeEdited;
+    }
+
+    /**
+     * @param bool $canManageChat
+     * @return static
+     */
+    public function setCanManageChat(bool $canManageChat): self
+    {
+        $this->canManageChat = $canManageChat;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanManageChat(): ?bool
+    {
+        return $this->canManageChat;
     }
 
     /**
@@ -450,6 +507,25 @@ class ChatMember extends AbstractType
     public function getCanDeleteMessages(): ?bool
     {
         return $this->canDeleteMessages;
+    }
+
+    /**
+     * @param bool $canManageVoiceChats
+     * @return static
+     */
+    public function setCanManageVoiceChats(bool $canManageVoiceChats): self
+    {
+        $this->canManageVoiceChats = $canManageVoiceChats;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanManageVoiceChats(): ?bool
+    {
+        return $this->canManageVoiceChats;
     }
 
     /**
@@ -659,6 +735,25 @@ class ChatMember extends AbstractType
     public function getCanAddWebPagePreviews(): ?bool
     {
         return $this->canAddWebPagePreviews;
+    }
+
+    /**
+     * @param int $untilDate
+     * @return static
+     */
+    public function setUntilDate(int $untilDate): self
+    {
+        $this->untilDate = $untilDate;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUntilDate(): ?int
+    {
+        return $this->untilDate;
     }
 
 }

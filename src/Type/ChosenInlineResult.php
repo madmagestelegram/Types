@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#choseninlineresult
  *
- * Represents a result of an inline query 
- * that was chosen by the user and sent to their chat partner. 
+ * Represents a result of an inline query that was chosen by the user and sent to 
+ * their chat partner. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -42,7 +42,7 @@ class ChosenInlineResult extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'result_id' => $this->getResultId(),
@@ -52,10 +52,7 @@ class ChosenInlineResult extends AbstractType
             'query' => $this->getQuery(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

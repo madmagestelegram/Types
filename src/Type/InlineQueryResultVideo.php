@@ -38,6 +38,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
             'title',
             'caption',
             'parse_mode',
+            'caption_entities',
             'video_width',
             'video_height',
             'video_duration',
@@ -52,7 +53,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -63,6 +64,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
             'title' => $this->getTitle(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
+            'caption_entities' => $this->getCaptionEntities(),
             'video_width' => $this->getVideoWidth(),
             'video_height' => $this->getVideoHeight(),
             'video_duration' => $this->getVideoDuration(),
@@ -71,10 +73,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
             'input_message_content' => $this->getInputMessageContent(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -158,6 +157,17 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
      * @Type("string")
      */
     protected $parseMode;
+
+    /**
+     * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("caption_entities")
+     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $captionEntities;
 
     /**
      * Optional. Video width 
@@ -377,6 +387,25 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     public function getParseMode(): ?string
     {
         return $this->parseMode;
+    }
+
+    /**
+     * @param MessageEntity[] $captionEntities
+     * @return static
+     */
+    public function setCaptionEntities(array $captionEntities): self
+    {
+        $this->captionEntities = $captionEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getCaptionEntities(): ?array
+    {
+        return $this->captionEntities;
     }
 
     /**

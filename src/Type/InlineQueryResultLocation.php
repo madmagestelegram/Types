@@ -34,7 +34,10 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
             'latitude',
             'longitude',
             'title',
+            'horizontal_accuracy',
             'live_period',
+            'heading',
+            'proximity_alert_radius',
             'reply_markup',
             'input_message_content',
             'thumb_url',
@@ -48,7 +51,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -56,7 +59,10 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
             'latitude' => $this->getLatitude(),
             'longitude' => $this->getLongitude(),
             'title' => $this->getTitle(),
+            'horizontal_accuracy' => $this->getHorizontalAccuracy(),
             'live_period' => $this->getLivePeriod(),
+            'heading' => $this->getHeading(),
+            'proximity_alert_radius' => $this->getProximityAlertRadius(),
             'reply_markup' => $this->getReplyMarkup(),
             'input_message_content' => $this->getInputMessageContent(),
             'thumb_url' => $this->getThumbUrl(),
@@ -64,10 +70,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
             'thumb_height' => $this->getThumbHeight(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -121,6 +124,17 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     protected $title;
 
     /**
+     * Optional. The radius of uncertainty for the location, measured in meters; 0-1500 
+     *
+     * @var float|null
+     * @SkipWhenEmpty
+     * @SerializedName("horizontal_accuracy")
+     * @Accessor(getter="getHorizontalAccuracy",setter="setHorizontalAccuracy")
+     * @Type("float")
+     */
+    protected $horizontalAccuracy;
+
+    /**
      * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400. 
      *
      * @var int|null
@@ -130,6 +144,30 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @Type("int")
      */
     protected $livePeriod;
+
+    /**
+     * Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if 
+     * specified. 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("heading")
+     * @Accessor(getter="getHeading",setter="setHeading")
+     * @Type("int")
+     */
+    protected $heading;
+
+    /**
+     * Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in 
+     * meters. Must be between 1 and 100000 if specified. 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("proximity_alert_radius")
+     * @Accessor(getter="getProximityAlertRadius",setter="setProximityAlertRadius")
+     * @Type("int")
+     */
+    protected $proximityAlertRadius;
 
     /**
      * Optional. Inline keyboard attached to the message 
@@ -283,6 +321,25 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     }
 
     /**
+     * @param float $horizontalAccuracy
+     * @return static
+     */
+    public function setHorizontalAccuracy(float $horizontalAccuracy): self
+    {
+        $this->horizontalAccuracy = $horizontalAccuracy;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getHorizontalAccuracy(): ?float
+    {
+        return $this->horizontalAccuracy;
+    }
+
+    /**
      * @param int $livePeriod
      * @return static
      */
@@ -299,6 +356,44 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
     public function getLivePeriod(): ?int
     {
         return $this->livePeriod;
+    }
+
+    /**
+     * @param int $heading
+     * @return static
+     */
+    public function setHeading(int $heading): self
+    {
+        $this->heading = $heading;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getHeading(): ?int
+    {
+        return $this->heading;
+    }
+
+    /**
+     * @param int $proximityAlertRadius
+     * @return static
+     */
+    public function setProximityAlertRadius(int $proximityAlertRadius): self
+    {
+        $this->proximityAlertRadius = $proximityAlertRadius;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProximityAlertRadius(): ?int
+    {
+        return $this->proximityAlertRadius;
     }
 
     /**

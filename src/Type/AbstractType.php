@@ -16,6 +16,15 @@ abstract class AbstractType {
      *
      * @return array
      */
-    abstract public function _getRawData(): array;
+    abstract public function _getData(): array;
+
+    protected function normalizeData(array $data):array {
+        array_filter($data);
+        array_walk_recursive($data, static function(&$item){
+            $item = $item instanceof AbstractType ? $item->_getData(): $item;
+        });
+
+        return $data;
+    }
 
 }

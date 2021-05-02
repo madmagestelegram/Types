@@ -11,7 +11,7 @@ abstract class Client {
      * @param array  $parameters
      * @return mixed
      */
-    abstract public function _rawApiCall(string $method, array $parameters);
+    abstract public function _apiCall(string $method, array $parameters);
 
 
     /**
@@ -36,7 +36,7 @@ abstract class Client {
      * @param string[] $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
      * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
-     * update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the 
+     * update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the 
      * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
      * getUpdates, so unwanted updates may be received for a short period of time. 
      *
@@ -56,7 +56,7 @@ abstract class Client {
             'allowed_updates' => $allowedUpdates,
         ];
 
-        return $this->_rawApiCall('getUpdates', $requestParameters);
+        return $this->_apiCall('getUpdates', $requestParameters);
     }
 
     /**
@@ -75,6 +75,9 @@ abstract class Client {
      *        Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide 
      * for details. 
      *
+     * @param string $ipAddress
+     *        The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS 
+     *
      * @param int $maxConnections
      *        Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults 
      * to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. 
@@ -82,50 +85,62 @@ abstract class Client {
      * @param string[] $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
      * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
-     * update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the 
+     * update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the 
      * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
      * setWebhook, so unwanted updates may be received for a short period of time. 
+     *
+     * @param bool $dropPendingUpdates
+     *        Pass True to drop all pending updates 
      *
      * @return mixed
      */
     public function setWebhook(
         string $url,
         Type\AbstractInputFile $certificate = null,
+        string $ipAddress = null,
         int $maxConnections = null,
-        array $allowedUpdates = null
+        array $allowedUpdates = null,
+        bool $dropPendingUpdates = null
     )
     {
         $requestParameters = [
             'url' => $url,
             'certificate' => $certificate,
+            'ip_address' => $ipAddress,
             'max_connections' => $maxConnections,
             'allowed_updates' => $allowedUpdates,
+            'drop_pending_updates' => $dropPendingUpdates,
         ];
 
-        return $this->_rawApiCall('setWebhook', $requestParameters);
+        return $this->_apiCall('setWebhook', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#deletewebhook
      *
-     * Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. Requires no parameters. 
+     * Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. 
+     *
+     * @param bool $dropPendingUpdates
+     *        Pass True to drop all pending updates 
      *
      * @return mixed
      */
     public function deleteWebhook(
+        bool $dropPendingUpdates = null
     )
     {
         $requestParameters = [
+            'drop_pending_updates' => $dropPendingUpdates,
         ];
 
-        return $this->_rawApiCall('deleteWebhook', $requestParameters);
+        return $this->_apiCall('deleteWebhook', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#getwebhookinfo
      *
-     * Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will 
-     * return an object with the url field empty. 
+     * Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url 
+     * field empty. 
      *
      * @return mixed
      */
@@ -135,7 +150,7 @@ abstract class Client {
         $requestParameters = [
         ];
 
-        return $this->_rawApiCall('getWebhookInfo', $requestParameters);
+        return $this->_apiCall('getWebhookInfo', $requestParameters);
     }
 
     /**
@@ -152,7 +167,44 @@ abstract class Client {
         $requestParameters = [
         ];
 
-        return $this->_rawApiCall('getMe', $requestParameters);
+        return $this->_apiCall('getMe', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#logout
+     *
+     * Use this method to log out from the cloud Bot API server before launching the bot locally. You must 
+     * log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a 
+     * successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 
+     * minutes. Returns True on success. Requires no parameters. 
+     *
+     * @return mixed
+     */
+    public function logOut(
+    )
+    {
+        $requestParameters = [
+        ];
+
+        return $this->_apiCall('logOut', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#close
+     *
+     * Use this method to close the bot instance before moving it from one local server to another. You need to delete the 
+     * webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return 
+     * error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters. 
+     *
+     * @return mixed
+     */
+    public function close(
+    )
+    {
+        $requestParameters = [
+        ];
+
+        return $this->_apiCall('close', $requestParameters);
     }
 
     /**
@@ -169,6 +221,9 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $entities
+     *        List of special entities that appear in message text, which can be specified instead of parse_mode 
+     *
      * @param bool $disableWebPagePreview
      *        Disables link previews for links in this message 
      *
@@ -177,6 +232,9 @@ abstract class Client {
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -188,9 +246,11 @@ abstract class Client {
         $chatId,
         string $text,
         string $parseMode = null,
+        array $entities = null,
         bool $disableWebPagePreview = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -198,19 +258,21 @@ abstract class Client {
             'chat_id' => $chatId,
             'text' => $text,
             'parse_mode' => $parseMode,
+            'entities' => $entities,
             'disable_web_page_preview' => $disableWebPagePreview,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendMessage', $requestParameters);
+        return $this->_apiCall('sendMessage', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#forwardmessage
      *
-     * Use this method to forward messages of any kind. On success, the sent Message is returned. 
+     * Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -241,7 +303,78 @@ abstract class Client {
             'message_id' => $messageId,
         ];
 
-        return $this->_rawApiCall('forwardMessage', $requestParameters);
+        return $this->_apiCall('forwardMessage', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#copymessage
+     *
+     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is 
+     * analogous to the method forwardMessage, but the copied message doesn't have a link to the 
+     * original message. Returns the MessageId of the sent message on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int|string $fromChatId
+     *        Unique identifier for the chat where the original message was sent (or channel username in the format 
+     * @|channelusername) 
+     *
+     * @param int $messageId
+     *        Message identifier in the chat specified in from_chat_id 
+     *
+     * @param string $caption
+     *        New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is 
+     * kept 
+     *
+     * @param string $parseMode
+     *        Mode for parsing entities in the new caption. See formatting options for more details. 
+     *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the new caption, which can be specified instead of parse_mode 
+     *
+     * @param bool $disableNotification
+     *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param int $replyToMessageId
+     *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
+     * instructions to remove reply keyboard or to force a reply from the user. 
+     *
+     * @return mixed
+     */
+    public function copyMessage(
+        $chatId,
+        $fromChatId,
+        int $messageId,
+        string $caption = null,
+        string $parseMode = null,
+        array $captionEntities = null,
+        bool $disableNotification = null,
+        int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
+        $replyMarkup = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'from_chat_id' => $fromChatId,
+            'message_id' => $messageId,
+            'caption' => $caption,
+            'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
+            'disable_notification' => $disableNotification,
+            'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'reply_markup' => $replyMarkup,
+        ];
+
+        return $this->_apiCall('copyMessage', $requestParameters);
     }
 
     /**
@@ -255,7 +388,8 @@ abstract class Client {
      * @param Type\AbstractInputFile|string $photo
      *        Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. 
-     * More info on Sending Files » 
+     * The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height 
+     * ratio must be at most 20. More info on Sending Files » 
      *
      * @param string $caption
      *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing 
@@ -263,11 +397,17 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the photo caption. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -280,8 +420,10 @@ abstract class Client {
         $photo,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -290,21 +432,22 @@ abstract class Client {
             'photo' => $photo,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendPhoto', $requestParameters);
+        return $this->_apiCall('sendPhoto', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#sendaudio
      *
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must 
-     * be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For 
-     * sending voice messages, use the sendVoice method 
-     * instead. 
+     * be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently 
+     * send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -319,6 +462,9 @@ abstract class Client {
      *
      * @param string $parseMode
      *        Mode for parsing entities in the audio caption. See formatting options for more details. 
+     *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
      * @param int $duration
      *        Duration of the audio in seconds 
@@ -342,6 +488,9 @@ abstract class Client {
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
@@ -353,12 +502,14 @@ abstract class Client {
         $audio,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
         int $duration = null,
         string $performer = null,
         string $title = null,
         $thumb = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -367,22 +518,25 @@ abstract class Client {
             'audio' => $audio,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
             'duration' => $duration,
             'performer' => $performer,
             'title' => $title,
             'thumb' => $thumb,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendAudio', $requestParameters);
+        return $this->_apiCall('sendAudio', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#senddocument
      *
-     * Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future. 
+     * Use this method to send general files. On success, the sent Message is returned. Bots can 
+     * currently send files of any type of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -406,11 +560,20 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the document caption. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
+     * @param bool $disableContentTypeDetection
+     *        Disables automatic server-side content type detection for files uploaded using multipart/form-data 
+     *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -424,8 +587,11 @@ abstract class Client {
         $thumb = null,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
+        bool $disableContentTypeDetection = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -435,19 +601,22 @@ abstract class Client {
             'thumb' => $thumb,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
+            'disable_content_type_detection' => $disableContentTypeDetection,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendDocument', $requestParameters);
+        return $this->_apiCall('sendDocument', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#sendvideo
      *
-     * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can 
-     * currently send video files of up to 50 MB in size, this limit may be changed in the future. 
+     * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB 
+     * in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -479,6 +648,9 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the video caption. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
      * @param bool $supportsStreaming
      *        Pass True, if the uploaded video is suitable for streaming 
      *
@@ -487,6 +659,9 @@ abstract class Client {
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -503,9 +678,11 @@ abstract class Client {
         $thumb = null,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
         bool $supportsStreaming = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -518,13 +695,15 @@ abstract class Client {
             'thumb' => $thumb,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
             'supports_streaming' => $supportsStreaming,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendVideo', $requestParameters);
+        return $this->_apiCall('sendVideo', $requestParameters);
     }
 
     /**
@@ -563,11 +742,17 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the animation caption. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -584,8 +769,10 @@ abstract class Client {
         $thumb = null,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -598,19 +785,23 @@ abstract class Client {
             'thumb' => $thumb,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendAnimation', $requestParameters);
+        return $this->_apiCall('sendAnimation', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#sendvoice
      *
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For 
-     * this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
+     * this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio 
+     * or Document). On success, the sent Message is returned. Bots can 
+     * currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -626,6 +817,9 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the voice message caption. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
      * @param int $duration
      *        Duration of the voice message in seconds 
      *
@@ -634,6 +828,9 @@ abstract class Client {
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -646,9 +843,11 @@ abstract class Client {
         $voice,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
         int $duration = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -657,13 +856,15 @@ abstract class Client {
             'voice' => $voice,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
             'duration' => $duration,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendVoice', $requestParameters);
+        return $this->_apiCall('sendVoice', $requestParameters);
     }
 
     /**
@@ -699,6 +900,9 @@ abstract class Client {
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
@@ -713,6 +917,7 @@ abstract class Client {
         $thumb = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -724,28 +929,34 @@ abstract class Client {
             'thumb' => $thumb,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendVideoNote', $requestParameters);
+        return $this->_apiCall('sendVideoNote', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#sendmediagroup
      *
-     * Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned. 
+     * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be 
+     * only grouped in an album with messages of the same type. On success, an array of Messages that 
+     * were sent is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
-     *        A JSON-serialized array describing photos and videos to be sent, must include 2-10 items 
+     * @param Type\InputMediaAudio[]|Type\InputMediaDocument[]|Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
+     *        A JSON-serialized array describing messages to be sent, must include 2-10 items 
      *
      * @param bool $disableNotification
-     *        Sends the messages silently. Users will receive a notification with no sound. 
+     *        Sends messages silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the messages are a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @return mixed
      */
@@ -753,7 +964,8 @@ abstract class Client {
         $chatId,
         $media,
         bool $disableNotification = null,
-        int $replyToMessageId = null
+        int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null
     )
     {
         $requestParameters = [
@@ -761,9 +973,10 @@ abstract class Client {
             'media' => $media,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
         ];
 
-        return $this->_rawApiCall('sendMediaGroup', $requestParameters);
+        return $this->_apiCall('sendMediaGroup', $requestParameters);
     }
 
     /**
@@ -780,14 +993,27 @@ abstract class Client {
      * @param float $longitude
      *        Longitude of the location 
      *
+     * @param float $horizontalAccuracy
+     *        The radius of uncertainty for the location, measured in meters; 0-1500 
+     *
      * @param int $livePeriod
      *        Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400. 
+     *
+     * @param int $heading
+     *        For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
+     *
+     * @param int $proximityAlertRadius
+     *        For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. 
+     * Must be between 1 and 100000 if specified. 
      *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -799,9 +1025,13 @@ abstract class Client {
         $chatId,
         float $latitude,
         float $longitude,
+        float $horizontalAccuracy = null,
         int $livePeriod = null,
+        int $heading = null,
+        int $proximityAlertRadius = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -809,20 +1039,26 @@ abstract class Client {
             'chat_id' => $chatId,
             'latitude' => $latitude,
             'longitude' => $longitude,
+            'horizontal_accuracy' => $horizontalAccuracy,
             'live_period' => $livePeriod,
+            'heading' => $heading,
+            'proximity_alert_radius' => $proximityAlertRadius,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendLocation', $requestParameters);
+        return $this->_apiCall('sendLocation', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#editmessagelivelocation
      *
      * Use this method to edit live location messages. A location can be edited until its live_period expires or 
-     * editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. 
+     * editing is explicitly disabled by a call to stopMessageLiveLocation. On 
+     * success, if the edited message is not an inline message, the edited Message is returned, otherwise 
+     * True is returned. 
      *
      * @param float $latitude
      *        Latitude of new location 
@@ -840,6 +1076,16 @@ abstract class Client {
      * @param string $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
+     * @param float $horizontalAccuracy
+     *        The radius of uncertainty for the location, measured in meters; 0-1500 
+     *
+     * @param int $heading
+     *        Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
+     *
+     * @param int $proximityAlertRadius
+     *        Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 
+     * 100000 if specified. 
+     *
      * @param Type\InlineKeyboardMarkup $replyMarkup
      *        A JSON-serialized object for a new inline keyboard. 
      *
@@ -851,6 +1097,9 @@ abstract class Client {
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
+        float $horizontalAccuracy = null,
+        int $heading = null,
+        int $proximityAlertRadius = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
@@ -860,18 +1109,20 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
             'latitude' => $latitude,
             'longitude' => $longitude,
+            'horizontal_accuracy' => $horizontalAccuracy,
+            'heading' => $heading,
+            'proximity_alert_radius' => $proximityAlertRadius,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('editMessageLiveLocation', $requestParameters);
+        return $this->_apiCall('editMessageLiveLocation', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#stopmessagelivelocation
      *
      * Use this method to stop updating a live location message before live_period expires. On success, if the 
-     * message was sent by the bot, the sent Message is returned, 
-     * otherwise True is returned. 
+     * message was sent by the bot, the sent Message is returned, otherwise True is returned. 
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -902,13 +1153,14 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('stopMessageLiveLocation', $requestParameters);
+        return $this->_apiCall('stopMessageLiveLocation', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#sendvenue
      *
-     * Use this method to send information about a venue. On success, the sent Message is returned. 
+     * Use this method to send information about a venue. On success, the sent Message is 
+     * returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -932,11 +1184,20 @@ abstract class Client {
      *        Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, 
      * “arts_entertainment/aquarium” or “food/icecream”.) 
      *
+     * @param string $googlePlaceId
+     *        Google Places identifier of the venue 
+     *
+     * @param string $googlePlaceType
+     *        Google Places type of the venue. (See supported types.) 
+     *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -952,8 +1213,11 @@ abstract class Client {
         string $address,
         string $foursquareId = null,
         string $foursquareType = null,
+        string $googlePlaceId = null,
+        string $googlePlaceType = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -965,12 +1229,15 @@ abstract class Client {
             'address' => $address,
             'foursquare_id' => $foursquareId,
             'foursquare_type' => $foursquareType,
+            'google_place_id' => $googlePlaceId,
+            'google_place_type' => $googlePlaceType,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendVenue', $requestParameters);
+        return $this->_apiCall('sendVenue', $requestParameters);
     }
 
     /**
@@ -999,6 +1266,9 @@ abstract class Client {
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove keyboard or to force a reply from the user. 
@@ -1013,6 +1283,7 @@ abstract class Client {
         string $vcard = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -1024,10 +1295,11 @@ abstract class Client {
             'vcard' => $vcard,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendContact', $requestParameters);
+        return $this->_apiCall('sendContact', $requestParameters);
     }
 
     /**
@@ -1038,46 +1310,52 @@ abstract class Client {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param string $question
-     *        Poll question, 1-255 characters 
-     *
      * @param string[] $options
      *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
      *
-     * @param bool $isAnonymous
-     *        True, if the poll needs to be anonymous, defaults to True 
-     *
-     * @param string $type
-     *        Poll type, “quiz” or “regular”, defaults to “regular” 
-     *
-     * @param bool $allowsMultipleAnswers
-     *        True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False 
-     *
-     * @param int $correctOptionId
-     *        0-based identifier of the correct answer option, required for polls in quiz mode 
-     *
-     * @param string $explanation
-     *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
-     * characters with at most 2 line feeds after entities parsing 
-     *
-     * @param string $explanationParseMode
-     *        Mode for parsing entities in the explanation. See formatting options for more details. 
+     * @param string $question
+     *        Poll question, 1-300 characters 
      *
      * @param int $openPeriod
      *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
+     * @param int $replyToMessageId
+     *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $disableNotification
+     *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool $isClosed
+     *        Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. 
      *
      * @param int $closeDate
      *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
      * seconds in the future. Can't be used together with open_period. 
      *
-     * @param bool $isClosed
-     *        Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. 
+     * @param string $explanationParseMode
+     *        Mode for parsing entities in the explanation. See formatting options for more details. 
      *
-     * @param bool $disableNotification
-     *        Sends the message silently. Users will receive a notification with no sound. 
+     * @param Type\MessageEntity[] $explanationEntities
+     *        List of special entities that appear in the poll explanation, which can be specified instead of parse_mode 
      *
-     * @param int $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string $explanation
+     *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
+     * characters with at most 2 line feeds after entities parsing 
+     *
+     * @param int $correctOptionId
+     *        0-based identifier of the correct answer option, required for polls in quiz mode 
+     *
+     * @param bool $allowsMultipleAnswers
+     *        True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False 
+     *
+     * @param string $type
+     *        Poll type, “quiz” or “regular”, defaults to “regular” 
+     *
+     * @param bool $isAnonymous
+     *        True, if the poll needs to be anonymous, defaults to True 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1087,19 +1365,21 @@ abstract class Client {
      */
     public function sendPoll(
         $chatId,
-        string $question,
         array $options,
-        bool $isAnonymous = null,
-        string $type = null,
-        bool $allowsMultipleAnswers = null,
-        int $correctOptionId = null,
-        string $explanation = null,
-        string $explanationParseMode = null,
+        string $question,
         int $openPeriod = null,
-        int $closeDate = null,
-        bool $isClosed = null,
-        bool $disableNotification = null,
+        bool $allowSendingWithoutReply = null,
         int $replyToMessageId = null,
+        bool $disableNotification = null,
+        bool $isClosed = null,
+        int $closeDate = null,
+        string $explanationParseMode = null,
+        array $explanationEntities = null,
+        string $explanation = null,
+        int $correctOptionId = null,
+        bool $allowsMultipleAnswers = null,
+        string $type = null,
+        bool $isAnonymous = null,
         $replyMarkup = null
     )
     {
@@ -1113,15 +1393,17 @@ abstract class Client {
             'correct_option_id' => $correctOptionId,
             'explanation' => $explanation,
             'explanation_parse_mode' => $explanationParseMode,
+            'explanation_entities' => $explanationEntities,
             'open_period' => $openPeriod,
             'close_date' => $closeDate,
             'is_closed' => $isClosed,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendPoll', $requestParameters);
+        return $this->_apiCall('sendPoll', $requestParameters);
     }
 
     /**
@@ -1133,14 +1415,18 @@ abstract class Client {
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $emoji
-     *        Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, or “”. Dice can 
-     * have values 1-6 for “” and “”, and values 1-5 for “”. Defaults to “” 
+     *        Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, 
+     * “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 
+     * 1-64 for “”. Defaults to “” 
      *
      * @param bool $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1153,6 +1439,7 @@ abstract class Client {
         string $emoji = null,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -1161,10 +1448,11 @@ abstract class Client {
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendDice', $requestParameters);
+        return $this->_apiCall('sendDice', $requestParameters);
     }
 
     /**
@@ -1180,8 +1468,8 @@ abstract class Client {
      *
      * @param string $action
      *        Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text 
-     * messages, upload_photo for photos, record_video or upload_video for videos, record_audio or upload_audio for audio 
-     * files, upload_document for general files, find_location for location data, record_video_note or 
+     * messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice 
+     * notes, upload_document for general files, find_location for location data, record_video_note or 
      * upload_video_note for video notes. 
      *
      * @return mixed
@@ -1196,7 +1484,7 @@ abstract class Client {
             'action' => $action,
         ];
 
-        return $this->_rawApiCall('sendChatAction', $requestParameters);
+        return $this->_apiCall('sendChatAction', $requestParameters);
     }
 
     /**
@@ -1227,17 +1515,17 @@ abstract class Client {
             'limit' => $limit,
         ];
 
-        return $this->_rawApiCall('getUserProfilePhotos', $requestParameters);
+        return $this->_apiCall('getUserProfilePhotos', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#getfile
      *
      * Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files 
-     * of up to 20MB in size. On success, a File object is 
-     * returned. The file can then be downloaded via the link 
-     * https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for 
-     * at least 1 hour. When the link expires, a new one can be requested by calling getFile again. 
+     * of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the 
+     * link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where 
+     * &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new 
+     * one can be requested by calling getFile again. 
      *
      * @param string $fileId
      *        File identifier to get info about 
@@ -1252,14 +1540,14 @@ abstract class Client {
             'file_id' => $fileId,
         ];
 
-        return $this->_rawApiCall('getFile', $requestParameters);
+        return $this->_apiCall('getFile', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#kickchatmember
      *
      * Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user 
-     * will not be able to return to the group on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. 
+     * will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. 
      * Returns True on success. 
      *
      * @param int|string $chatId
@@ -1271,23 +1559,29 @@ abstract class Client {
      *
      * @param int $untilDate
      *        Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from 
-     * the current time they are considered to be banned forever 
+     * the current time they are considered to be banned forever. Applied for supergroups and channels only. 
+     *
+     * @param bool $revokeMessages
+     *        Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to 
+     * see messages in the group that were sent before the user was removed. Always True for supergroups and channels. 
      *
      * @return mixed
      */
     public function kickChatMember(
         $chatId,
         int $userId,
-        int $untilDate = null
+        int $untilDate = null,
+        bool $revokeMessages = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'user_id' => $userId,
             'until_date' => $untilDate,
+            'revoke_messages' => $revokeMessages,
         ];
 
-        return $this->_rawApiCall('kickChatMember', $requestParameters);
+        return $this->_apiCall('kickChatMember', $requestParameters);
     }
 
     /**
@@ -1295,7 +1589,9 @@ abstract class Client {
      *
      * Use this method to unban a previously kicked user in a supergroup or channel. The user will not 
      * return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this 
-     * to work. Returns True on success. 
+     * to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to 
+     * join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want 
+     * this, use the parameter only_if_banned. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target group or username of the target supergroup or channel (in the format 
@@ -1304,19 +1600,24 @@ abstract class Client {
      * @param int $userId
      *        Unique identifier of the target user 
      *
+     * @param bool $onlyIfBanned
+     *        Do nothing if the user is not banned 
+     *
      * @return mixed
      */
     public function unbanChatMember(
         $chatId,
-        int $userId
+        int $userId,
+        bool $onlyIfBanned = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'user_id' => $userId,
+            'only_if_banned' => $onlyIfBanned,
         ];
 
-        return $this->_rawApiCall('unbanChatMember', $requestParameters);
+        return $this->_apiCall('unbanChatMember', $requestParameters);
     }
 
     /**
@@ -1356,7 +1657,7 @@ abstract class Client {
             'until_date' => $untilDate,
         ];
 
-        return $this->_rawApiCall('restrictChatMember', $requestParameters);
+        return $this->_apiCall('restrictChatMember', $requestParameters);
     }
 
     /**
@@ -1372,8 +1673,13 @@ abstract class Client {
      * @param int $userId
      *        Unique identifier of the target user 
      *
-     * @param bool $canChangeInfo
-     *        Pass True, if the administrator can change chat title, photo and other settings 
+     * @param bool $isAnonymous
+     *        Pass True, if the administrator's presence in the chat is hidden 
+     *
+     * @param bool $canManageChat
+     *        Pass True, if the administrator can access the chat event log, chat statistics, message statistics in 
+     * channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
+     * administrator privilege 
      *
      * @param bool $canPostMessages
      *        Pass True, if the administrator can create channel posts, channels only 
@@ -1384,48 +1690,60 @@ abstract class Client {
      * @param bool $canDeleteMessages
      *        Pass True, if the administrator can delete messages of other users 
      *
-     * @param bool $canInviteUsers
-     *        Pass True, if the administrator can invite new users to the chat 
+     * @param bool $canManageVoiceChats
+     *        Pass True, if the administrator can manage voice chats 
      *
      * @param bool $canRestrictMembers
      *        Pass True, if the administrator can restrict, ban or unban chat members 
      *
-     * @param bool $canPinMessages
-     *        Pass True, if the administrator can pin messages, supergroups only 
-     *
      * @param bool $canPromoteMembers
      *        Pass True, if the administrator can add new administrators with a subset of their own privileges or demote 
      * administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) 
+     *
+     * @param bool $canChangeInfo
+     *        Pass True, if the administrator can change chat title, photo and other settings 
+     *
+     * @param bool $canInviteUsers
+     *        Pass True, if the administrator can invite new users to the chat 
+     *
+     * @param bool $canPinMessages
+     *        Pass True, if the administrator can pin messages, supergroups only 
      *
      * @return mixed
      */
     public function promoteChatMember(
         $chatId,
         int $userId,
-        bool $canChangeInfo = null,
+        bool $isAnonymous = null,
+        bool $canManageChat = null,
         bool $canPostMessages = null,
         bool $canEditMessages = null,
         bool $canDeleteMessages = null,
-        bool $canInviteUsers = null,
+        bool $canManageVoiceChats = null,
         bool $canRestrictMembers = null,
-        bool $canPinMessages = null,
-        bool $canPromoteMembers = null
+        bool $canPromoteMembers = null,
+        bool $canChangeInfo = null,
+        bool $canInviteUsers = null,
+        bool $canPinMessages = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'user_id' => $userId,
-            'can_change_info' => $canChangeInfo,
+            'is_anonymous' => $isAnonymous,
+            'can_manage_chat' => $canManageChat,
             'can_post_messages' => $canPostMessages,
             'can_edit_messages' => $canEditMessages,
             'can_delete_messages' => $canDeleteMessages,
-            'can_invite_users' => $canInviteUsers,
+            'can_manage_voice_chats' => $canManageVoiceChats,
             'can_restrict_members' => $canRestrictMembers,
-            'can_pin_messages' => $canPinMessages,
             'can_promote_members' => $canPromoteMembers,
+            'can_change_info' => $canChangeInfo,
+            'can_invite_users' => $canInviteUsers,
+            'can_pin_messages' => $canPinMessages,
         ];
 
-        return $this->_rawApiCall('promoteChatMember', $requestParameters);
+        return $this->_apiCall('promoteChatMember', $requestParameters);
     }
 
     /**
@@ -1458,7 +1776,7 @@ abstract class Client {
             'custom_title' => $customTitle,
         ];
 
-        return $this->_rawApiCall('setChatAdministratorCustomTitle', $requestParameters);
+        return $this->_apiCall('setChatAdministratorCustomTitle', $requestParameters);
     }
 
     /**
@@ -1486,15 +1804,15 @@ abstract class Client {
             'permissions' => $permissions,
         ];
 
-        return $this->_rawApiCall('setChatPermissions', $requestParameters);
+        return $this->_apiCall('setChatPermissions', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#exportchatinvitelink
      *
-     * Use this method to generate a new invite link for a chat; any previously generated link is revoked. The bot must be an 
-     * administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as 
-     * String on success. 
+     * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new 
+     * invite link as String on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1509,7 +1827,106 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('exportChatInviteLink', $requestParameters);
+        return $this->_apiCall('exportChatInviteLink', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#createchatinvitelink
+     *
+     * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to 
+     * work and must have the appropriate admin rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $expireDate
+     *        Point in time (Unix timestamp) when the link will expire 
+     *
+     * @param int $memberLimit
+     *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
+     * link; 1-99999 
+     *
+     * @return mixed
+     */
+    public function createChatInviteLink(
+        $chatId,
+        int $expireDate = null,
+        int $memberLimit = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'expire_date' => $expireDate,
+            'member_limit' => $memberLimit,
+        ];
+
+        return $this->_apiCall('createChatInviteLink', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#editchatinvitelink
+     *
+     * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for 
+     * this to work and must have the appropriate admin rights. Returns the edited invite link as a ChatInviteLink object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param string $inviteLink
+     *        The invite link to edit 
+     *
+     * @param int $expireDate
+     *        Point in time (Unix timestamp) when the link will expire 
+     *
+     * @param int $memberLimit
+     *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
+     * link; 1-99999 
+     *
+     * @return mixed
+     */
+    public function editChatInviteLink(
+        $chatId,
+        string $inviteLink,
+        int $expireDate = null,
+        int $memberLimit = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'invite_link' => $inviteLink,
+            'expire_date' => $expireDate,
+            'member_limit' => $memberLimit,
+        ];
+
+        return $this->_apiCall('editChatInviteLink', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#revokechatinvitelink
+     *
+     * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically 
+     * generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the 
+     * revoked invite link as ChatInviteLink object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier of the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param string $inviteLink
+     *        The invite link to revoke 
+     *
+     * @return mixed
+     */
+    public function revokeChatInviteLink(
+        $chatId,
+        string $inviteLink
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'invite_link' => $inviteLink,
+        ];
+
+        return $this->_apiCall('revokeChatInviteLink', $requestParameters);
     }
 
     /**
@@ -1536,7 +1953,7 @@ abstract class Client {
             'photo' => $photo,
         ];
 
-        return $this->_rawApiCall('setChatPhoto', $requestParameters);
+        return $this->_apiCall('setChatPhoto', $requestParameters);
     }
 
     /**
@@ -1558,7 +1975,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('deleteChatPhoto', $requestParameters);
+        return $this->_apiCall('deleteChatPhoto', $requestParameters);
     }
 
     /**
@@ -1585,7 +2002,7 @@ abstract class Client {
             'title' => $title,
         ];
 
-        return $this->_rawApiCall('setChatTitle', $requestParameters);
+        return $this->_apiCall('setChatTitle', $requestParameters);
     }
 
     /**
@@ -1612,15 +2029,15 @@ abstract class Client {
             'description' => $description,
         ];
 
-        return $this->_rawApiCall('setChatDescription', $requestParameters);
+        return $this->_apiCall('setChatDescription', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#pinchatmessage
      *
-     * Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for 
-     * this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in 
-     * the channel. Returns True on success. 
+     * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be 
+     * an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 
+     * 'can_edit_messages' admin right in a channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1630,7 +2047,7 @@ abstract class Client {
      *
      * @param bool $disableNotification
      *        Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. 
-     * Notifications are always disabled in channels. 
+     * Notifications are always disabled in channels and private chats. 
      *
      * @return mixed
      */
@@ -1646,22 +2063,51 @@ abstract class Client {
             'disable_notification' => $disableNotification,
         ];
 
-        return $this->_rawApiCall('pinChatMessage', $requestParameters);
+        return $this->_apiCall('pinChatMessage', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#unpinchatmessage
      *
-     * Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat 
-     * for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right 
-     * in the channel. Returns True on success. 
+     * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot 
+     * must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 
+     * 'can_edit_messages' admin right in a channel. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $messageId
+     *        Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be 
+     * unpinned. 
+     *
+     * @return mixed
+     */
+    public function unpinChatMessage(
+        $chatId,
+        int $messageId = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+        ];
+
+        return $this->_apiCall('unpinChatMessage', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#unpinallchatmessages
+     *
+     * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an 
+     * administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' 
+     * admin right in a channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @return mixed
      */
-    public function unpinChatMessage(
+    public function unpinAllChatMessages(
         $chatId
     )
     {
@@ -1669,7 +2115,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('unpinChatMessage', $requestParameters);
+        return $this->_apiCall('unpinAllChatMessages', $requestParameters);
     }
 
     /**
@@ -1691,7 +2137,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('leaveChat', $requestParameters);
+        return $this->_apiCall('leaveChat', $requestParameters);
     }
 
     /**
@@ -1714,7 +2160,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('getChat', $requestParameters);
+        return $this->_apiCall('getChat', $requestParameters);
     }
 
     /**
@@ -1737,7 +2183,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('getChatAdministrators', $requestParameters);
+        return $this->_apiCall('getChatAdministrators', $requestParameters);
     }
 
     /**
@@ -1759,13 +2205,14 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('getChatMembersCount', $requestParameters);
+        return $this->_apiCall('getChatMembersCount', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#getchatmember
      *
-     * Use this method to get information about a member of a chat. Returns a ChatMember object on success. 
+     * Use this method to get information about a member of a chat. Returns a ChatMember object 
+     * on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
@@ -1786,7 +2233,7 @@ abstract class Client {
             'user_id' => $userId,
         ];
 
-        return $this->_rawApiCall('getChatMember', $requestParameters);
+        return $this->_apiCall('getChatMember', $requestParameters);
     }
 
     /**
@@ -1814,7 +2261,7 @@ abstract class Client {
             'sticker_set_name' => $stickerSetName,
         ];
 
-        return $this->_rawApiCall('setChatStickerSet', $requestParameters);
+        return $this->_apiCall('setChatStickerSet', $requestParameters);
     }
 
     /**
@@ -1837,7 +2284,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_rawApiCall('deleteChatStickerSet', $requestParameters);
+        return $this->_apiCall('deleteChatStickerSet', $requestParameters);
     }
 
     /**
@@ -1883,7 +2330,7 @@ abstract class Client {
             'cache_time' => $cacheTime,
         ];
 
-        return $this->_rawApiCall('answerCallbackQuery', $requestParameters);
+        return $this->_apiCall('answerCallbackQuery', $requestParameters);
     }
 
     /**
@@ -1905,7 +2352,7 @@ abstract class Client {
             'commands' => $commands,
         ];
 
-        return $this->_rawApiCall('setMyCommands', $requestParameters);
+        return $this->_apiCall('setMyCommands', $requestParameters);
     }
 
     /**
@@ -1921,14 +2368,14 @@ abstract class Client {
         $requestParameters = [
         ];
 
-        return $this->_rawApiCall('getMyCommands', $requestParameters);
+        return $this->_apiCall('getMyCommands', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#editmessagetext
      *
-     * Use this method to edit text and game messages. On 
-     * success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. 
+     * Use this method to edit text and game messages. On success, if the edited message is not an 
+     * inline message, the edited Message is returned, otherwise True is returned. 
      *
      * @param string $text
      *        New text of the message, 1-4096 characters after entities parsing 
@@ -1946,6 +2393,9 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $entities
+     *        List of special entities that appear in message text, which can be specified instead of parse_mode 
+     *
      * @param bool $disableWebPagePreview
      *        Disables link previews for links in this message 
      *
@@ -1960,6 +2410,7 @@ abstract class Client {
         int $messageId = null,
         string $inlineMessageId = null,
         string $parseMode = null,
+        array $entities = null,
         bool $disableWebPagePreview = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
@@ -1970,17 +2421,18 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
             'text' => $text,
             'parse_mode' => $parseMode,
+            'entities' => $entities,
             'disable_web_page_preview' => $disableWebPagePreview,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('editMessageText', $requestParameters);
+        return $this->_apiCall('editMessageText', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#editmessagecaption
      *
-     * Use this method to edit captions of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. 
+     * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. 
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -1998,6 +2450,9 @@ abstract class Client {
      * @param string $parseMode
      *        Mode for parsing entities in the message caption. See formatting options for more details. 
      *
+     * @param Type\MessageEntity[] $captionEntities
+     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
      * @param Type\InlineKeyboardMarkup $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
      *
@@ -2009,6 +2464,7 @@ abstract class Client {
         string $inlineMessageId = null,
         string $caption = null,
         string $parseMode = null,
+        array $captionEntities = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
@@ -2018,21 +2474,23 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
             'caption' => $caption,
             'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('editMessageCaption', $requestParameters);
+        return $this->_apiCall('editMessageCaption', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#editmessagemedia
      *
-     * Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message 
-     * album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline 
-     * message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if 
-     * the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. 
+     * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, 
+     * then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video 
+     * otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file_id or 
+     * specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, 
+     * otherwise True is returned. 
      *
-     * @param Type\InputMediaAnimation|Type\InputMediaDocument|Type\InputMediaAudio|Type\InputMediaPhoto|Type\InputMediaVideo $media
+     * @param Type\AbstractInputMedia $media
      *        A JSON-serialized object for a new media content of the message 
      *
      * @param int|string $chatId
@@ -2051,7 +2509,7 @@ abstract class Client {
      * @return mixed
      */
     public function editMessageMedia(
-        $media,
+        Type\AbstractInputMedia $media,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
@@ -2066,15 +2524,14 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('editMessageMedia', $requestParameters);
+        return $this->_apiCall('editMessageMedia', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#editmessagereplymarkup
      *
-     * Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited 
-     * Message is returned, otherwise True is 
-     * returned. 
+     * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, 
+     * the edited Message is returned, otherwise True is returned. 
      *
      * @param int|string $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -2105,13 +2562,14 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('editMessageReplyMarkup', $requestParameters);
+        return $this->_apiCall('editMessageReplyMarkup', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#stoppoll
      *
-     * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned. 
+     * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the 
+     * final results is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2136,7 +2594,7 @@ abstract class Client {
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('stopPoll', $requestParameters);
+        return $this->_apiCall('stopPoll', $requestParameters);
     }
 
     /**
@@ -2168,15 +2626,14 @@ abstract class Client {
             'message_id' => $messageId,
         ];
 
-        return $this->_rawApiCall('deleteMessage', $requestParameters);
+        return $this->_apiCall('deleteMessage', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#sendsticker
      *
      * Use this method to send static .WEBP or animated 
-     * .TGS stickers. On success, the sent Message is 
-     * returned. 
+     * .TGS stickers. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2192,6 +2649,9 @@ abstract class Client {
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
@@ -2203,6 +2663,7 @@ abstract class Client {
         $sticker,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -2211,10 +2672,11 @@ abstract class Client {
             'sticker' => $sticker,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendSticker', $requestParameters);
+        return $this->_apiCall('sendSticker', $requestParameters);
     }
 
     /**
@@ -2235,7 +2697,7 @@ abstract class Client {
             'name' => $name,
         ];
 
-        return $this->_rawApiCall('getStickerSet', $requestParameters);
+        return $this->_apiCall('getStickerSet', $requestParameters);
     }
 
     /**
@@ -2263,7 +2725,7 @@ abstract class Client {
             'png_sticker' => $pngSticker,
         ];
 
-        return $this->_rawApiCall('uploadStickerFile', $requestParameters);
+        return $this->_apiCall('uploadStickerFile', $requestParameters);
     }
 
     /**
@@ -2326,7 +2788,7 @@ abstract class Client {
             'mask_position' => $maskPosition,
         ];
 
-        return $this->_rawApiCall('createNewStickerSet', $requestParameters);
+        return $this->_apiCall('createNewStickerSet', $requestParameters);
     }
 
     /**
@@ -2379,7 +2841,7 @@ abstract class Client {
             'mask_position' => $maskPosition,
         ];
 
-        return $this->_rawApiCall('addStickerToSet', $requestParameters);
+        return $this->_apiCall('addStickerToSet', $requestParameters);
     }
 
     /**
@@ -2405,7 +2867,7 @@ abstract class Client {
             'position' => $position,
         ];
 
-        return $this->_rawApiCall('setStickerPositionInSet', $requestParameters);
+        return $this->_apiCall('setStickerPositionInSet', $requestParameters);
     }
 
     /**
@@ -2426,7 +2888,7 @@ abstract class Client {
             'sticker' => $sticker,
         ];
 
-        return $this->_rawApiCall('deleteStickerFromSet', $requestParameters);
+        return $this->_apiCall('deleteStickerFromSet', $requestParameters);
     }
 
     /**
@@ -2462,7 +2924,7 @@ abstract class Client {
             'thumb' => $thumb,
         ];
 
-        return $this->_rawApiCall('setStickerSetThumb', $requestParameters);
+        return $this->_apiCall('setStickerSetThumb', $requestParameters);
     }
 
     /**
@@ -2524,7 +2986,7 @@ abstract class Client {
             'switch_pm_parameter' => $switchPmParameter,
         ];
 
-        return $this->_rawApiCall('answerInlineQuery', $requestParameters);
+        return $this->_apiCall('answerInlineQuery', $requestParameters);
     }
 
     /**
@@ -2532,8 +2994,8 @@ abstract class Client {
      *
      * Use this method to send invoices. On success, the sent Message is returned. 
      *
-     * @param int $chatId
-     *        Unique identifier for the target private chat 
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $description
      *        Product description, 1-255 characters 
@@ -2545,9 +3007,6 @@ abstract class Client {
      * @param string $providerToken
      *        Payments provider token, obtained via Botfather 
      *
-     * @param string $startParameter
-     *        Unique deep-linking parameter that can be used to generate this invoice when used as a start parameter 
-     *
      * @param string $currency
      *        Three-letter ISO 4217 currency code, see more on currencies 
      *
@@ -2558,8 +3017,11 @@ abstract class Client {
      * @param string $title
      *        Product name, 1-32 characters 
      *
-     * @param bool $needShippingAddress
-     *        Pass True, if you require the user's shipping address to complete the order 
+     * @param bool $needEmail
+     *        Pass True, if you require the user's email address to complete the order 
+     *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -2576,11 +3038,11 @@ abstract class Client {
      * @param bool $sendPhoneNumberToProvider
      *        Pass True, if user's phone number should be sent to provider 
      *
+     * @param bool $needShippingAddress
+     *        Pass True, if you require the user's shipping address to complete the order 
+     *
      * @param int $photoWidth
      *        Photo width 
-     *
-     * @param bool $needEmail
-     *        Pass True, if you require the user's email address to complete the order 
      *
      * @param bool $needPhoneNumber
      *        Pass True, if you require the user's phone number to complete the order 
@@ -2602,6 +3064,22 @@ abstract class Client {
      *        A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
      * description of required fields should be provided by the payment provider. 
      *
+     * @param string $startParameter
+     *        Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, 
+     * allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded 
+     * copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used 
+     * as the start parameter 
+     *
+     * @param int[] $suggestedTipAmounts
+     *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
+     * float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a 
+     * strictly increased order and must not exceed max_tip_amount. 
+     *
+     * @param int $maxTipAmount
+     *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
+     * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
+     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
+     *
      * @param Type\InlineKeyboardMarkup $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not 
      * empty, the first button must be a Pay button. 
@@ -2609,28 +3087,31 @@ abstract class Client {
      * @return mixed
      */
     public function sendInvoice(
-        int $chatId,
+        $chatId,
         string $description,
         string $payload,
         string $providerToken,
-        string $startParameter,
         string $currency,
         array $prices,
         string $title,
-        bool $needShippingAddress = null,
+        bool $needEmail = null,
+        bool $allowSendingWithoutReply = null,
         int $replyToMessageId = null,
         bool $disableNotification = null,
         bool $isFlexible = null,
         bool $sendEmailToProvider = null,
         bool $sendPhoneNumberToProvider = null,
+        bool $needShippingAddress = null,
         int $photoWidth = null,
-        bool $needEmail = null,
         bool $needPhoneNumber = null,
         bool $needName = null,
         int $photoHeight = null,
         int $photoSize = null,
         string $photoUrl = null,
         string $providerData = null,
+        string $startParameter = null,
+        array $suggestedTipAmounts = null,
+        int $maxTipAmount = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
@@ -2640,9 +3121,11 @@ abstract class Client {
             'description' => $description,
             'payload' => $payload,
             'provider_token' => $providerToken,
-            'start_parameter' => $startParameter,
             'currency' => $currency,
             'prices' => $prices,
+            'max_tip_amount' => $maxTipAmount,
+            'suggested_tip_amounts' => $suggestedTipAmounts,
+            'start_parameter' => $startParameter,
             'provider_data' => $providerData,
             'photo_url' => $photoUrl,
             'photo_size' => $photoSize,
@@ -2657,18 +3140,19 @@ abstract class Client {
             'is_flexible' => $isFlexible,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendInvoice', $requestParameters);
+        return $this->_apiCall('sendInvoice', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#answershippingquery
      *
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot 
-     * API will send an Update with a 
-     * shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned. 
+     * API will send an Update with a shipping_query field to the bot. Use this method to 
+     * reply to shipping queries. On success, True is returned. 
      *
      * @param string $shippingQueryId
      *        Unique identifier for the query to be answered 
@@ -2701,16 +3185,16 @@ abstract class Client {
             'error_message' => $errorMessage,
         ];
 
-        return $this->_rawApiCall('answerShippingQuery', $requestParameters);
+        return $this->_apiCall('answerShippingQuery', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#answerprecheckoutquery
      *
      * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form 
-     * of an Update with the field 
-     * pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True is returned. Note: The 
-     * Bot API must receive an answer within 10 seconds after the pre-checkout query was sent. 
+     * of an Update with the field pre_checkout_query. Use this method to respond to such 
+     * pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds 
+     * after the pre-checkout query was sent. 
      *
      * @param string $preCheckoutQueryId
      *        Unique identifier for the query to be answered 
@@ -2739,7 +3223,7 @@ abstract class Client {
             'error_message' => $errorMessage,
         ];
 
-        return $this->_rawApiCall('answerPreCheckoutQuery', $requestParameters);
+        return $this->_apiCall('answerPreCheckoutQuery', $requestParameters);
     }
 
     /**
@@ -2754,14 +3238,14 @@ abstract class Client {
      * @param int $userId
      *        User identifier 
      *
-     * @param Type\PassportElementErrorDataField[]|Type\PassportElementErrorFrontSide[]|Type\PassportElementErrorReverseSide[]|Type\PassportElementErrorSelfie[]|Type\PassportElementErrorFile[]|Type\PassportElementErrorFiles[]|Type\PassportElementErrorTranslationFile[]|Type\PassportElementErrorTranslationFiles[]|Type\PassportElementErrorUnspecified[] $errors
+     * @param Type\AbstractPassportElementError[] $errors
      *        A JSON-serialized array describing the errors 
      *
      * @return mixed
      */
     public function setPassportDataErrors(
         int $userId,
-        $errors
+        array $errors
     )
     {
         $requestParameters = [
@@ -2769,7 +3253,7 @@ abstract class Client {
             'errors' => $errors,
         ];
 
-        return $this->_rawApiCall('setPassportDataErrors', $requestParameters);
+        return $this->_apiCall('setPassportDataErrors', $requestParameters);
     }
 
     /**
@@ -2789,6 +3273,9 @@ abstract class Client {
      * @param int $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
+     * @param bool $allowSendingWithoutReply
+     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *
      * @param Type\InlineKeyboardMarkup $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not 
      * empty, the first button must launch the game. 
@@ -2800,6 +3287,7 @@ abstract class Client {
         string $gameShortName,
         bool $disableNotification = null,
         int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
@@ -2808,19 +3296,19 @@ abstract class Client {
             'game_short_name' => $gameShortName,
             'disable_notification' => $disableNotification,
             'reply_to_message_id' => $replyToMessageId,
+            'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this->_rawApiCall('sendGame', $requestParameters);
+        return $this->_apiCall('sendGame', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#setgamescore
      *
      * Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns 
-     * the edited Message, otherwise returns 
-     * True. Returns an error, if the new score is not greater than the user's current score in the chat and force is 
-     * False. 
+     * the edited Message, otherwise returns True. Returns an error, if the new score is 
+     * not greater than the user's current score in the chat and force is False. 
      *
      * @param int $userId
      *        User identifier 
@@ -2865,7 +3353,7 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
         ];
 
-        return $this->_rawApiCall('setGameScore', $requestParameters);
+        return $this->_apiCall('setGameScore', $requestParameters);
     }
 
     /**
@@ -2902,6 +3390,6 @@ abstract class Client {
             'inline_message_id' => $inlineMessageId,
         ];
 
-        return $this->_rawApiCall('getGameHighScores', $requestParameters);
+        return $this->_apiCall('getGameHighScores', $requestParameters);
     }
 }

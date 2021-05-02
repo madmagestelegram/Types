@@ -31,9 +31,10 @@ class InlineQuery extends AbstractType
         return [
             'id',
             'from',
-            'location',
             'query',
             'offset',
+            'chat_type',
+            'location',
         ];
     }
 
@@ -42,20 +43,18 @@ class InlineQuery extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'id' => $this->getId(),
             'from' => $this->getFrom(),
-            'location' => $this->getLocation(),
             'query' => $this->getQuery(),
             'offset' => $this->getOffset(),
+            'chat_type' => $this->getChatType(),
+            'location' => $this->getLocation(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -79,17 +78,6 @@ class InlineQuery extends AbstractType
     protected $from;
 
     /**
-     * Optional. Sender location, only for bots that request user location 
-     *
-     * @var Location|null
-     * @SkipWhenEmpty
-     * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setLocation")
-     * @Type("MadmagesTelegram\Types\Type\Location")
-     */
-    protected $location;
-
-    /**
      * Text of the query (up to 256 characters) 
      *
      * @var string
@@ -108,6 +96,31 @@ class InlineQuery extends AbstractType
      * @Type("string")
      */
     protected $offset;
+
+    /**
+     * Optional. Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with 
+     * the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be 
+     * always known for requests sent from official clients and most third-party clients, unless the request was sent from a 
+     * secret chat 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("chat_type")
+     * @Accessor(getter="getChatType",setter="setChatType")
+     * @Type("string")
+     */
+    protected $chatType;
+
+    /**
+     * Optional. Sender location, only for bots that request user location 
+     *
+     * @var Location|null
+     * @SkipWhenEmpty
+     * @SerializedName("location")
+     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Type("MadmagesTelegram\Types\Type\Location")
+     */
+    protected $location;
 
 
     /**
@@ -149,25 +162,6 @@ class InlineQuery extends AbstractType
     }
 
     /**
-     * @param Location $location
-     * @return static
-     */
-    public function setLocation(Location $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * @return Location|null
-     */
-    public function getLocation(): ?Location
-    {
-        return $this->location;
-    }
-
-    /**
      * @param string $query
      * @return static
      */
@@ -203,6 +197,44 @@ class InlineQuery extends AbstractType
     public function getOffset(): string
     {
         return $this->offset;
+    }
+
+    /**
+     * @param string $chatType
+     * @return static
+     */
+    public function setChatType(string $chatType): self
+    {
+        $this->chatType = $chatType;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getChatType(): ?string
+    {
+        return $this->chatType;
+    }
+
+    /**
+     * @param Location $location
+     * @return static
+     */
+    public function setLocation(Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return Location|null
+     */
+    public function getLocation(): ?Location
+    {
+        return $this->location;
     }
 
 }

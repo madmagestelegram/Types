@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#inputtextmessagecontent
  *
- * Represents the content of a text 
- * message to be sent as the result of an inline query. 
+ * Represents the content of a text message to be sent as the result of an inline 
+ * query. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -31,6 +31,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
         return [
             'message_text',
             'parse_mode',
+            'entities',
             'disable_web_page_preview',
         ];
     }
@@ -40,18 +41,16 @@ class InputTextMessageContent extends AbstractInputMessageContent
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'message_text' => $this->getMessageText(),
             'parse_mode' => $this->getParseMode(),
+            'entities' => $this->getEntities(),
             'disable_web_page_preview' => $this->getDisableWebPagePreview(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -74,6 +73,17 @@ class InputTextMessageContent extends AbstractInputMessageContent
      * @Type("string")
      */
     protected $parseMode;
+
+    /**
+     * Optional. List of special entities that appear in message text, which can be specified instead of parse_mode 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("entities")
+     * @Accessor(getter="getEntities",setter="setEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $entities;
 
     /**
      * Optional. Disables link previews for links in the sent message 
@@ -123,6 +133,25 @@ class InputTextMessageContent extends AbstractInputMessageContent
     public function getParseMode(): ?string
     {
         return $this->parseMode;
+    }
+
+    /**
+     * @param MessageEntity[] $entities
+     * @return static
+     */
+    public function setEntities(array $entities): self
+    {
+        $this->entities = $entities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getEntities(): ?array
+    {
+        return $this->entities;
     }
 
     /**

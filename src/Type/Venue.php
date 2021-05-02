@@ -33,6 +33,8 @@ class Venue extends AbstractType
             'address',
             'foursquare_id',
             'foursquare_type',
+            'google_place_id',
+            'google_place_type',
         ];
     }
 
@@ -41,7 +43,7 @@ class Venue extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'location' => $this->getLocation(),
@@ -49,16 +51,15 @@ class Venue extends AbstractType
             'address' => $this->getAddress(),
             'foursquare_id' => $this->getFoursquareId(),
             'foursquare_type' => $this->getFoursquareType(),
+            'google_place_id' => $this->getGooglePlaceId(),
+            'google_place_type' => $this->getGooglePlaceType(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
-     * Venue location 
+     * Venue location. Can't be a live location 
      *
      * @var Location
      * @SerializedName("location")
@@ -109,6 +110,28 @@ class Venue extends AbstractType
      * @Type("string")
      */
     protected $foursquareType;
+
+    /**
+     * Optional. Google Places identifier of the venue 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("google_place_id")
+     * @Accessor(getter="getGooglePlaceId",setter="setGooglePlaceId")
+     * @Type("string")
+     */
+    protected $googlePlaceId;
+
+    /**
+     * Optional. Google Places type of the venue. (See supported types.) 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("google_place_type")
+     * @Accessor(getter="getGooglePlaceType",setter="setGooglePlaceType")
+     * @Type("string")
+     */
+    protected $googlePlaceType;
 
 
     /**
@@ -204,6 +227,44 @@ class Venue extends AbstractType
     public function getFoursquareType(): ?string
     {
         return $this->foursquareType;
+    }
+
+    /**
+     * @param string $googlePlaceId
+     * @return static
+     */
+    public function setGooglePlaceId(string $googlePlaceId): self
+    {
+        $this->googlePlaceId = $googlePlaceId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGooglePlaceId(): ?string
+    {
+        return $this->googlePlaceId;
+    }
+
+    /**
+     * @param string $googlePlaceType
+     * @return static
+     */
+    public function setGooglePlaceType(string $googlePlaceType): self
+    {
+        $this->googlePlaceType = $googlePlaceType;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGooglePlaceType(): ?string
+    {
+        return $this->googlePlaceType;
     }
 
 }

@@ -2,4 +2,4 @@
 
 namespace MadmagesTelegram\Types\Type;
 
-abstract class AbstractInlineQueryResult {}
+abstract class AbstractInlineQueryResult extends AbstractType {}

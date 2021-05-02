@@ -33,6 +33,7 @@ class InputMediaAudio extends AbstractInputMedia
             'thumb',
             'caption',
             'parse_mode',
+            'caption_entities',
             'duration',
             'performer',
             'title',
@@ -44,7 +45,7 @@ class InputMediaAudio extends AbstractInputMedia
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -52,15 +53,13 @@ class InputMediaAudio extends AbstractInputMedia
             'thumb' => $this->getThumb(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
+            'caption_entities' => $this->getCaptionEntities(),
             'duration' => $this->getDuration(),
             'performer' => $this->getPerformer(),
             'title' => $this->getTitle(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -121,6 +120,17 @@ class InputMediaAudio extends AbstractInputMedia
      * @Type("string")
      */
     protected $parseMode;
+
+    /**
+     * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("caption_entities")
+     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $captionEntities;
 
     /**
      * Optional. Duration of the audio in seconds 
@@ -249,6 +259,25 @@ class InputMediaAudio extends AbstractInputMedia
     public function getParseMode(): ?string
     {
         return $this->parseMode;
+    }
+
+    /**
+     * @param MessageEntity[] $captionEntities
+     * @return static
+     */
+    public function setCaptionEntities(array $captionEntities): self
+    {
+        $this->captionEntities = $captionEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getCaptionEntities(): ?array
+    {
+        return $this->captionEntities;
     }
 
     /**

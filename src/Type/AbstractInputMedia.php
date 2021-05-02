@@ -2,4 +2,4 @@
 
 namespace MadmagesTelegram\Types\Type;
 
-abstract class AbstractInputMedia {}
+abstract class AbstractInputMedia extends AbstractType {}

@@ -37,6 +37,8 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
             'address',
             'foursquare_id',
             'foursquare_type',
+            'google_place_id',
+            'google_place_type',
             'reply_markup',
             'input_message_content',
             'thumb_url',
@@ -50,7 +52,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -61,6 +63,8 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
             'address' => $this->getAddress(),
             'foursquare_id' => $this->getFoursquareId(),
             'foursquare_type' => $this->getFoursquareType(),
+            'google_place_id' => $this->getGooglePlaceId(),
+            'google_place_type' => $this->getGooglePlaceType(),
             'reply_markup' => $this->getReplyMarkup(),
             'input_message_content' => $this->getInputMessageContent(),
             'thumb_url' => $this->getThumbUrl(),
@@ -68,10 +72,7 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
             'thumb_height' => $this->getThumbHeight(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -156,6 +157,28 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
      * @Type("string")
      */
     protected $foursquareType;
+
+    /**
+     * Optional. Google Places identifier of the venue 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("google_place_id")
+     * @Accessor(getter="getGooglePlaceId",setter="setGooglePlaceId")
+     * @Type("string")
+     */
+    protected $googlePlaceId;
+
+    /**
+     * Optional. Google Places type of the venue. (See supported types.) 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("google_place_type")
+     * @Accessor(getter="getGooglePlaceType",setter="setGooglePlaceType")
+     * @Type("string")
+     */
+    protected $googlePlaceType;
 
     /**
      * Optional. Inline keyboard attached to the message 
@@ -363,6 +386,44 @@ class InlineQueryResultVenue extends AbstractInlineQueryResult
     public function getFoursquareType(): ?string
     {
         return $this->foursquareType;
+    }
+
+    /**
+     * @param string $googlePlaceId
+     * @return static
+     */
+    public function setGooglePlaceId(string $googlePlaceId): self
+    {
+        $this->googlePlaceId = $googlePlaceId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGooglePlaceId(): ?string
+    {
+        return $this->googlePlaceId;
+    }
+
+    /**
+     * @param string $googlePlaceType
+     * @return static
+     */
+    public function setGooglePlaceType(string $googlePlaceType): self
+    {
+        $this->googlePlaceType = $googlePlaceType;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGooglePlaceType(): ?string
+    {
+        return $this->googlePlaceType;
     }
 
     /**

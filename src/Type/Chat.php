@@ -35,13 +35,17 @@ class Chat extends AbstractType
             'first_name',
             'last_name',
             'photo',
+            'bio',
             'description',
             'invite_link',
             'pinned_message',
             'permissions',
             'slow_mode_delay',
+            'message_auto_delete_time',
             'sticker_set_name',
             'can_set_sticker_set',
+            'linked_chat_id',
+            'location',
         ];
     }
 
@@ -50,7 +54,7 @@ class Chat extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'id' => $this->getId(),
@@ -60,25 +64,26 @@ class Chat extends AbstractType
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
             'photo' => $this->getPhoto(),
+            'bio' => $this->getBio(),
             'description' => $this->getDescription(),
             'invite_link' => $this->getInviteLink(),
             'pinned_message' => $this->getPinnedMessage(),
             'permissions' => $this->getPermissions(),
             'slow_mode_delay' => $this->getSlowModeDelay(),
+            'message_auto_delete_time' => $this->getMessageAutoDeleteTime(),
             'sticker_set_name' => $this->getStickerSetName(),
             'can_set_sticker_set' => $this->getCanSetStickerSet(),
+            'linked_chat_id' => $this->getLinkedChatId(),
+            'location' => $this->getLocation(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
-     * Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have 
-     * difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type 
-     * are safe for storing this identifier. 
+     * Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages 
+     * may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit 
+     * integer or double-precision float type are safe for storing this identifier. 
      *
      * @var int
      * @SerializedName("id")
@@ -153,6 +158,17 @@ class Chat extends AbstractType
     protected $photo;
 
     /**
+     * Optional. Bio of the other party in a private chat. Returned only in getChat. 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("bio")
+     * @Accessor(getter="getBio",setter="setBio")
+     * @Type("string")
+     */
+    protected $bio;
+
+    /**
      * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat. 
      *
      * @var string|null
@@ -164,8 +180,7 @@ class Chat extends AbstractType
     protected $description;
 
     /**
-     * Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates 
-     * their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. 
+     * Optional. Primary invite link, for groups, supergroups and channel chats. Returned only in getChat. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -176,7 +191,7 @@ class Chat extends AbstractType
     protected $inviteLink;
 
     /**
-     * Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat. 
+     * Optional. The most recent pinned message (by sending date). Returned only in getChat. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -210,6 +225,18 @@ class Chat extends AbstractType
     protected $slowModeDelay;
 
     /**
+     * Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned 
+     * only in getChat. 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("message_auto_delete_time")
+     * @Accessor(getter="getMessageAutoDeleteTime",setter="setMessageAutoDeleteTime")
+     * @Type("int")
+     */
+    protected $messageAutoDeleteTime;
+
+    /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat. 
      *
      * @var string|null
@@ -230,6 +257,31 @@ class Chat extends AbstractType
      * @Type("bool")
      */
     protected $canSetStickerSet;
+
+    /**
+     * Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; 
+     * for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have 
+     * difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type 
+     * are safe for storing this identifier. Returned only in getChat. 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("linked_chat_id")
+     * @Accessor(getter="getLinkedChatId",setter="setLinkedChatId")
+     * @Type("int")
+     */
+    protected $linkedChatId;
+
+    /**
+     * Optional. For supergroups, the location to which the supergroup is connected. Returned only in getChat. 
+     *
+     * @var ChatLocation|null
+     * @SkipWhenEmpty
+     * @SerializedName("location")
+     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Type("MadmagesTelegram\Types\Type\ChatLocation")
+     */
+    protected $location;
 
 
     /**
@@ -366,6 +418,25 @@ class Chat extends AbstractType
     }
 
     /**
+     * @param string $bio
+     * @return static
+     */
+    public function setBio(string $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    /**
      * @param string $description
      * @return static
      */
@@ -461,6 +532,25 @@ class Chat extends AbstractType
     }
 
     /**
+     * @param int $messageAutoDeleteTime
+     * @return static
+     */
+    public function setMessageAutoDeleteTime(int $messageAutoDeleteTime): self
+    {
+        $this->messageAutoDeleteTime = $messageAutoDeleteTime;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMessageAutoDeleteTime(): ?int
+    {
+        return $this->messageAutoDeleteTime;
+    }
+
+    /**
      * @param string $stickerSetName
      * @return static
      */
@@ -496,6 +586,44 @@ class Chat extends AbstractType
     public function getCanSetStickerSet(): ?bool
     {
         return $this->canSetStickerSet;
+    }
+
+    /**
+     * @param int $linkedChatId
+     * @return static
+     */
+    public function setLinkedChatId(int $linkedChatId): self
+    {
+        $this->linkedChatId = $linkedChatId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLinkedChatId(): ?int
+    {
+        return $this->linkedChatId;
+    }
+
+    /**
+     * @param ChatLocation $location
+     * @return static
+     */
+    public function setLocation(ChatLocation $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatLocation|null
+     */
+    public function getLocation(): ?ChatLocation
+    {
+        return $this->location;
     }
 
 }

@@ -14,8 +14,7 @@ use JMS\Serializer\Annotation\Type;
  *
  * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the 
  * user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly 
- * step-by-step interfaces without having to sacrifice privacy 
- * mode. 
+ * step-by-step interfaces without having to sacrifice privacy mode. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -41,17 +40,14 @@ class ForceReply extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'force_reply' => $this->getForceReply(),
             'selective' => $this->getSelective(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

@@ -13,7 +13,8 @@ use JMS\Serializer\Annotation\Type;
  * https://core.telegram.org/bots/api#callbackquery
  *
  * This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field 
- * message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or 
+ * message will be present. If the button was attached to a message sent via the bot (in inline 
+ * mode), the field inline_message_id will be present. Exactly one of the fields data or 
  * game_short_name will be present. 
  *
  * @ExclusionPolicy("none")
@@ -45,7 +46,7 @@ class CallbackQuery extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'id' => $this->getId(),
@@ -57,10 +58,7 @@ class CallbackQuery extends AbstractType
             'game_short_name' => $this->getGameShortName(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

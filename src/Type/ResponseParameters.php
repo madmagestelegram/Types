@@ -38,23 +38,21 @@ class ResponseParameters extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'migrate_to_chat_id' => $this->getMigrateToChatId(),
             'retry_after' => $this->getRetryAfter(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
-     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 
-     * 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 
-     * 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. 
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 
+     * 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has 
+     * at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this 
+     * identifier. 
      *
      * @var int|null
      * @SkipWhenEmpty

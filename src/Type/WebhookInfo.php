@@ -32,6 +32,7 @@ class WebhookInfo extends AbstractType
             'url',
             'has_custom_certificate',
             'pending_update_count',
+            'ip_address',
             'last_error_date',
             'last_error_message',
             'max_connections',
@@ -44,22 +45,20 @@ class WebhookInfo extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'url' => $this->getUrl(),
             'has_custom_certificate' => $this->getHasCustomCertificate(),
             'pending_update_count' => $this->getPendingUpdateCount(),
+            'ip_address' => $this->getIpAddress(),
             'last_error_date' => $this->getLastErrorDate(),
             'last_error_message' => $this->getLastErrorMessage(),
             'max_connections' => $this->getMaxConnections(),
             'allowed_updates' => $this->getAllowedUpdates(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -91,6 +90,17 @@ class WebhookInfo extends AbstractType
      * @Type("int")
      */
     protected $pendingUpdateCount;
+
+    /**
+     * Optional. Currently used webhook IP address 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("ip_address")
+     * @Accessor(getter="getIpAddress",setter="setIpAddress")
+     * @Type("string")
+     */
+    protected $ipAddress;
 
     /**
      * Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook 
@@ -127,7 +137,7 @@ class WebhookInfo extends AbstractType
     protected $maxConnections;
 
     /**
-     * Optional. A list of update types the bot is subscribed to. Defaults to all update types 
+     * Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member 
      *
      * @var string[]|null
      * @SkipWhenEmpty
@@ -193,6 +203,25 @@ class WebhookInfo extends AbstractType
     public function getPendingUpdateCount(): int
     {
         return $this->pendingUpdateCount;
+    }
+
+    /**
+     * @param string $ipAddress
+     * @return static
+     */
+    public function setIpAddress(string $ipAddress): self
+    {
+        $this->ipAddress = $ipAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIpAddress(): ?string
+    {
+        return $this->ipAddress;
     }
 
     /**

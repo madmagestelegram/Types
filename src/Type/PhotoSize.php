@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#photosize
  *
- * This object represents one size of a photo or a file 
- * / sticker thumbnail. 
+ * This object represents one size of a photo or a file / sticker 
+ * thumbnail. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -42,7 +42,7 @@ class PhotoSize extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'file_id' => $this->getFileId(),
@@ -52,10 +52,7 @@ class PhotoSize extends AbstractType
             'file_size' => $this->getFileSize(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

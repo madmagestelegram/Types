@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#inputcontactmessagecontent
  *
- * Represents the content of a contact 
- * message to be sent as the result of an inline query. 
+ * Represents the content of a contact message to be sent as the result of an 
+ * inline query. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -41,7 +41,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'phone_number' => $this->getPhoneNumber(),
@@ -50,10 +50,7 @@ class InputContactMessageContent extends AbstractInputMessageContent
             'vcard' => $this->getVcard(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

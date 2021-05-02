@@ -45,7 +45,7 @@ class InlineKeyboardButton extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'text' => $this->getText(),
@@ -58,10 +58,7 @@ class InlineKeyboardButton extends AbstractType
             'pay' => $this->getPay(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

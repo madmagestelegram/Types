@@ -2,4 +2,4 @@
 
 namespace MadmagesTelegram\Types\Type;
 
-abstract class AbstractInputMessageContent {}
+abstract class AbstractInputMessageContent extends AbstractType {}

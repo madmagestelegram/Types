@@ -35,6 +35,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
             'title',
             'caption',
             'parse_mode',
+            'caption_entities',
             'document_url',
             'mime_type',
             'description',
@@ -51,7 +52,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -59,6 +60,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
             'title' => $this->getTitle(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
+            'caption_entities' => $this->getCaptionEntities(),
             'document_url' => $this->getDocumentUrl(),
             'mime_type' => $this->getMimeType(),
             'description' => $this->getDescription(),
@@ -69,10 +71,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
             'thumb_height' => $this->getThumbHeight(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -126,6 +125,17 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @Type("string")
      */
     protected $parseMode;
+
+    /**
+     * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("caption_entities")
+     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $captionEntities;
 
     /**
      * A valid URL for the file 
@@ -307,6 +317,25 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     public function getParseMode(): ?string
     {
         return $this->parseMode;
+    }
+
+    /**
+     * @param MessageEntity[] $captionEntities
+     * @return static
+     */
+    public function setCaptionEntities(array $captionEntities): self
+    {
+        $this->captionEntities = $captionEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getCaptionEntities(): ?array
+    {
+        return $this->captionEntities;
     }
 
     /**

@@ -42,7 +42,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -52,10 +52,7 @@ class InlineQueryResultCachedSticker extends AbstractInlineQueryResult
             'input_message_content' => $this->getInputMessageContent(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

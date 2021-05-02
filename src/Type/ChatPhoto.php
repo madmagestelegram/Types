@@ -40,7 +40,7 @@ class ChatPhoto extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'small_file_id' => $this->getSmallFileId(),
@@ -49,10 +49,7 @@ class ChatPhoto extends AbstractType
             'big_file_unique_id' => $this->getBigFileUniqueId(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

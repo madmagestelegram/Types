@@ -33,6 +33,7 @@ class Audio extends AbstractType
             'duration',
             'performer',
             'title',
+            'file_name',
             'mime_type',
             'file_size',
             'thumb',
@@ -44,7 +45,7 @@ class Audio extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'file_id' => $this->getFileId(),
@@ -52,15 +53,13 @@ class Audio extends AbstractType
             'duration' => $this->getDuration(),
             'performer' => $this->getPerformer(),
             'title' => $this->getTitle(),
+            'file_name' => $this->getFileName(),
             'mime_type' => $this->getMimeType(),
             'file_size' => $this->getFileSize(),
             'thumb' => $this->getThumb(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -115,6 +114,17 @@ class Audio extends AbstractType
      * @Type("string")
      */
     protected $title;
+
+    /**
+     * Optional. Original filename as defined by sender 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("file_name")
+     * @Accessor(getter="getFileName",setter="setFileName")
+     * @Type("string")
+     */
+    protected $fileName;
 
     /**
      * Optional. MIME type of the file as defined by sender 
@@ -243,6 +253,25 @@ class Audio extends AbstractType
     public function getTitle(): ?string
     {
         return $this->title;
+    }
+
+    /**
+     * @param string $fileName
+     * @return static
+     */
+    public function setFileName(string $fileName): self
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
     }
 
     /**

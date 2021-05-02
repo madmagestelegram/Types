@@ -2,4 +2,4 @@
 
 namespace MadmagesTelegram\Types\Type;
 
-abstract class AbstractPassportElementError {}
+abstract class AbstractPassportElementError extends AbstractType {}

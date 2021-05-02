@@ -40,7 +40,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'type' => $this->getType(),
@@ -49,10 +49,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
             'reply_markup' => $this->getReplyMarkup(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**

@@ -34,6 +34,7 @@ class Video extends AbstractType
             'height',
             'duration',
             'thumb',
+            'file_name',
             'mime_type',
             'file_size',
         ];
@@ -44,7 +45,7 @@ class Video extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'file_id' => $this->getFileId(),
@@ -53,14 +54,12 @@ class Video extends AbstractType
             'height' => $this->getHeight(),
             'duration' => $this->getDuration(),
             'thumb' => $this->getThumb(),
+            'file_name' => $this->getFileName(),
             'mime_type' => $this->getMimeType(),
             'file_size' => $this->getFileSize(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -124,6 +123,17 @@ class Video extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;
+
+    /**
+     * Optional. Original filename as defined by sender 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("file_name")
+     * @Accessor(getter="getFileName",setter="setFileName")
+     * @Type("string")
+     */
+    protected $fileName;
 
     /**
      * Optional. Mime type of a file as defined by sender 
@@ -260,6 +270,25 @@ class Video extends AbstractType
     public function getThumb(): ?PhotoSize
     {
         return $this->thumb;
+    }
+
+    /**
+     * @param string $fileName
+     * @return static
+     */
+    public function setFileName(string $fileName): self
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
     }
 
     /**

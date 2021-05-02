@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#inputvenuemessagecontent
  *
- * Represents the content of a venue 
- * message to be sent as the result of an inline query. 
+ * Represents the content of a venue message to be sent as the result of an inline 
+ * query. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -35,6 +35,8 @@ class InputVenueMessageContent extends AbstractInputMessageContent
             'address',
             'foursquare_id',
             'foursquare_type',
+            'google_place_id',
+            'google_place_type',
         ];
     }
 
@@ -43,7 +45,7 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'latitude' => $this->getLatitude(),
@@ -52,12 +54,11 @@ class InputVenueMessageContent extends AbstractInputMessageContent
             'address' => $this->getAddress(),
             'foursquare_id' => $this->getFoursquareId(),
             'foursquare_type' => $this->getFoursquareType(),
+            'google_place_id' => $this->getGooglePlaceId(),
+            'google_place_type' => $this->getGooglePlaceType(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -122,6 +123,28 @@ class InputVenueMessageContent extends AbstractInputMessageContent
      * @Type("string")
      */
     protected $foursquareType;
+
+    /**
+     * Optional. Google Places identifier of the venue 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("google_place_id")
+     * @Accessor(getter="getGooglePlaceId",setter="setGooglePlaceId")
+     * @Type("string")
+     */
+    protected $googlePlaceId;
+
+    /**
+     * Optional. Google Places type of the venue. (See supported types.) 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("google_place_type")
+     * @Accessor(getter="getGooglePlaceType",setter="setGooglePlaceType")
+     * @Type("string")
+     */
+    protected $googlePlaceType;
 
 
     /**
@@ -236,6 +259,44 @@ class InputVenueMessageContent extends AbstractInputMessageContent
     public function getFoursquareType(): ?string
     {
         return $this->foursquareType;
+    }
+
+    /**
+     * @param string $googlePlaceId
+     * @return static
+     */
+    public function setGooglePlaceId(string $googlePlaceId): self
+    {
+        $this->googlePlaceId = $googlePlaceId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGooglePlaceId(): ?string
+    {
+        return $this->googlePlaceId;
+    }
+
+    /**
+     * @param string $googlePlaceType
+     * @return static
+     */
+    public function setGooglePlaceType(string $googlePlaceType): self
+    {
+        $this->googlePlaceType = $googlePlaceType;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGooglePlaceType(): ?string
+    {
+        return $this->googlePlaceType;
     }
 
 }

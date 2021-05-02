@@ -38,17 +38,14 @@ class Dice extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'emoji' => $this->getEmoji(),
             'value' => $this->getValue(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -62,7 +59,8 @@ class Dice extends AbstractType
     protected $emoji;
 
     /**
-     * Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” base emoji 
+     * Value of the dice, 1-6 for “”, “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” 
+     * base emoji 
      *
      * @var int
      * @SerializedName("value")

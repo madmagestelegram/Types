@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#update
  *
- * This object represents an incoming 
- * update.At most one of the optional parameters can be present in any given update. 
+ * This object represents an incoming update.At most one of 
+ * the optional parameters can be present in any given update. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -41,6 +41,8 @@ class Update extends AbstractType
             'pre_checkout_query',
             'poll',
             'poll_answer',
+            'my_chat_member',
+            'chat_member',
         ];
     }
 
@@ -49,7 +51,7 @@ class Update extends AbstractType
      *
      * @return array
      */
-    public function _getRawData(): array
+    public function _getData(): array
     {
         $result = [
             'update_id' => $this->getUpdateId(),
@@ -64,12 +66,11 @@ class Update extends AbstractType
             'pre_checkout_query' => $this->getPreCheckoutQuery(),
             'poll' => $this->getPoll(),
             'poll_answer' => $this->getPollAnswer(),
+            'my_chat_member' => $this->getMyChatMember(),
+            'chat_member' => $this->getChatMember(),
         ];
 
-        $result = array_filter($result, static function($item){ return $item!==null; });
-        return array_map(static function(&$item){
-            return is_object($item) ? $item->_getRawData():$item;
-        }, $result);
+        return parent::normalizeData($result);
     }
 
     /**
@@ -207,6 +208,30 @@ class Update extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\PollAnswer")
      */
     protected $pollAnswer;
+
+    /**
+     * Optional. The bot's chat member status was updated in a chat. For private chats, this update is received only when the 
+     * bot is blocked or unblocked by the user. 
+     *
+     * @var ChatMemberUpdated|null
+     * @SkipWhenEmpty
+     * @SerializedName("my_chat_member")
+     * @Accessor(getter="getMyChatMember",setter="setMyChatMember")
+     * @Type("MadmagesTelegram\Types\Type\ChatMemberUpdated")
+     */
+    protected $myChatMember;
+
+    /**
+     * Optional. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must 
+     * explicitly specify “chat_member” in the list of allowed_updates to receive these updates. 
+     *
+     * @var ChatMemberUpdated|null
+     * @SkipWhenEmpty
+     * @SerializedName("chat_member")
+     * @Accessor(getter="getChatMember",setter="setChatMember")
+     * @Type("MadmagesTelegram\Types\Type\ChatMemberUpdated")
+     */
+    protected $chatMember;
 
 
     /**
@@ -435,6 +460,44 @@ class Update extends AbstractType
     public function getPollAnswer(): ?PollAnswer
     {
         return $this->pollAnswer;
+    }
+
+    /**
+     * @param ChatMemberUpdated $myChatMember
+     * @return static
+     */
+    public function setMyChatMember(ChatMemberUpdated $myChatMember): self
+    {
+        $this->myChatMember = $myChatMember;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatMemberUpdated|null
+     */
+    public function getMyChatMember(): ?ChatMemberUpdated
+    {
+        return $this->myChatMember;
+    }
+
+    /**
+     * @param ChatMemberUpdated $chatMember
+     * @return static
+     */
+    public function setChatMember(ChatMemberUpdated $chatMember): self
+    {
+        $this->chatMember = $chatMember;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatMemberUpdated|null
+     */
+    public function getChatMember(): ?ChatMemberUpdated
+    {
+        return $this->chatMember;
     }
 
 }
