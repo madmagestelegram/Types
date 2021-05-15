@@ -2,16 +2,10 @@
 
 namespace MadmagesTelegram\Types;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use JMS\Serializer\SerializerBuilder;
-use JMS\Serializer\SerializerInterface;
 use MadmagesTelegram\Types\Type\AbstractInputFile;
-use RuntimeException;
+use JsonException;
 
 abstract class TypedClient {
-
-    /** @var SerializerInterface */
-    private static $serializer;
 
     /**
      * Real request engine
@@ -19,47 +13,40 @@ abstract class TypedClient {
      *
      * @param string $method
      * @param array  $parameters
-     * @param bool   $withFiles
      * @return string Returned json string
      */
     abstract public function _apiCall(string $method, array $parameters): string;
-
-    /**
-     * @return SerializerInterface
-     */
-    private static function _getSerializer(): SerializerInterface
-    {
-        if (self::$serializer === null) {
-            if (!class_exists(AnnotationRegistry::class, false)) {
-                AnnotationRegistry::registerLoader('class_exists');
-            }
-
-            self::$serializer = SerializerBuilder::create()->build();
-        }
-
-        return self::$serializer;
-    }
 
     /**
      * @param string $method
      * @param array  $requestParams
      * @param array  $returnType
      * @return mixed
+     * @throws TelegramException
      */
     private function _requestWithMap(string $method, array $requestParams, array $returnType)
     {
-        $jsonString = $this->_apiCall($method, $this->_prepareRequest($requestParams));
-        if (empty($returnType)) {
-            return json_decode($jsonString, true);
-        }
-
         if (count($returnType) > 1) {
-            throw new RuntimeException('More than one type not implemented');
+            throw new TelegramException('More than one return type is not implemented');
         }
 
-        return self::deserialize($jsonString, $returnType[0]);
+        $responseJson = $this->_apiCall($method, $this->_prepareRequest($requestParams));
+        if (empty($returnType)) {
+            try {
+                return json_decode($responseJson, true, 512, JSON_THROW_ON_ERROR);
+            } catch (JsonException $e) {
+                throw new TelegramException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
+        return Serializer::deserialize($responseJson, $returnType[0]);
     }
 
+    /**
+     * @param array $requestParams
+     * @return array
+     * @throws TelegramException
+     */
     private function _prepareRequest(array $requestParams): array
     {
         $requestParams = array_filter($requestParams);
@@ -67,7 +54,7 @@ abstract class TypedClient {
             return [];
         }
 
-        array_walk_recursive($requestParams, function(&$item)
+        array_walk_recursive($requestParams, static function(&$item)
         {
             if (!is_object($item)) {
                 return;
@@ -75,25 +62,26 @@ abstract class TypedClient {
 
             if ($item instanceof AbstractInputFile) {
                 $item = $item->getFile();
-                if (!is_resource($item) && is_file($item)) {
-                    $item = fopen($item, 'rb');
+                if (!is_resource($item)) {
+                    if (is_file($item)) {
+                        $item = fopen($item, 'rb');
+                        if($item === false) {
+                            throw new TelegramException("Failed to open file: {$item}");
+                        }
+                    } else {
+                        throw new TelegramException("Expecting resource or file path: {$item}");
+                    }
                 }
             } else {
-                $item = json_decode($this->_getSerializer()->serialize($item, 'json'), true);
+                try {
+                    $item = json_decode(Serializer::serialize($item), true, 512, JSON_THROW_ON_ERROR);
+                } catch (JsonException $e) {
+                    throw new TelegramException($e->getMessage(), $e->getCode(), $e);
+                }
             }
         });
 
         return $requestParams;
-    }
-
-    public static function deserialize(string $jsonString, string $type)
-    {
-        return self::_getSerializer()->deserialize($jsonString, $type, 'json');
-    }
-
-    public static function serialize(object $objectToSerialize): string
-    {
-        return self::_getSerializer()->serialize($objectToSerialize, 'json');
     }
 
 
@@ -102,28 +90,29 @@ abstract class TypedClient {
      *
      * Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned. 
      *
-     * @param int $offset
+     * @param int|null $offset
      *        Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of 
      * previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update 
      * is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative 
      * offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All 
      * previous updates will forgotten. 
      *
-     * @param int $limit
+     * @param int|null $limit
      *        Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100. 
      *
-     * @param int $timeout
+     * @param int|null $timeout
      *        Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling 
      * should be used for testing purposes only. 
      *
-     * @param string[] $allowedUpdates
+     * @param string[]|null $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
      * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
      * update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the 
      * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
      * getUpdates, so unwanted updates may be received for a short period of time. 
      *
-     * @return Type\Update[];
+     * @return Type\Update[]
+     * @throws TelegramException
      */
     public function getUpdates(
         int $offset = null,
@@ -158,28 +147,29 @@ abstract class TypedClient {
      * @param string $url
      *        HTTPS url to send updates to. Use an empty string to remove webhook integration 
      *
-     * @param Type\AbstractInputFile $certificate
+     * @param Type\AbstractInputFile|null $certificate
      *        Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide 
      * for details. 
      *
-     * @param string $ipAddress
+     * @param string|null $ipAddress
      *        The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS 
      *
-     * @param int $maxConnections
+     * @param int|null $maxConnections
      *        Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults 
      * to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. 
      *
-     * @param string[] $allowedUpdates
+     * @param string[]|null $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
      * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
      * update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the 
      * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
      * setWebhook, so unwanted updates may be received for a short period of time. 
      *
-     * @param bool $dropPendingUpdates
+     * @param bool|null $dropPendingUpdates
      *        Pass True to drop all pending updates 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setWebhook(
         string $url,
@@ -211,10 +201,11 @@ abstract class TypedClient {
      *
      * Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. 
      *
-     * @param bool $dropPendingUpdates
+     * @param bool|null $dropPendingUpdates
      *        Pass True to drop all pending updates 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function deleteWebhook(
         bool $dropPendingUpdates = null
@@ -237,7 +228,8 @@ abstract class TypedClient {
      * Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url 
      * field empty. 
      *
-     * @return Type\WebhookInfo;
+     * @return Type\WebhookInfo
+     * @throws TelegramException
      */
     public function getWebhookInfo(
     ): Type\WebhookInfo
@@ -258,7 +250,8 @@ abstract class TypedClient {
      * A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot 
      * in form of a User object. 
      *
-     * @return Type\User;
+     * @return Type\User
+     * @throws TelegramException
      */
     public function getMe(
     ): Type\User
@@ -281,7 +274,8 @@ abstract class TypedClient {
      * successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 
      * minutes. Returns True on success. Requires no parameters. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function logOut(
     ): bool
@@ -303,7 +297,8 @@ abstract class TypedClient {
      * webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return 
      * error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function close(
     ): bool
@@ -329,29 +324,30 @@ abstract class TypedClient {
      * @param string $text
      *        Text of the message to be sent, 1-4096 characters after entities parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $entities
+     * @param Type\MessageEntity[]|null $entities
      *        List of special entities that appear in message text, which can be specified instead of parse_mode 
      *
-     * @param bool $disableWebPagePreview
+     * @param bool|null $disableWebPagePreview
      *        Disables link previews for links in this message 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendMessage(
         $chatId,
@@ -399,10 +395,11 @@ abstract class TypedClient {
      * @param int $messageId
      *        Message identifier in the chat specified in from_chat_id 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function forwardMessage(
         $chatId,
@@ -442,30 +439,31 @@ abstract class TypedClient {
      * @param int $messageId
      *        Message identifier in the chat specified in from_chat_id 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is 
      * kept 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the new caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the new caption, which can be specified instead of parse_mode 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\MessageId;
+     * @return Type\MessageId
+     * @throws TelegramException
      */
     public function copyMessage(
         $chatId,
@@ -514,29 +512,30 @@ abstract class TypedClient {
      * The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height 
      * ratio must be at most 20. More info on Sending Files » 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the photo caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendPhoto(
         $chatId,
@@ -584,45 +583,46 @@ abstract class TypedClient {
      * (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        Audio caption, 0-1024 characters after entities parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the audio caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param int $duration
+     * @param int|null $duration
      *        Duration of the audio in seconds 
      *
-     * @param string $performer
+     * @param string|null $performer
      *        Performer 
      *
-     * @param string $title
+     * @param string|null $title
      *        Track name 
      *
-     * @param Type\AbstractInputFile|string $thumb
+     * @param Type\AbstractInputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendAudio(
         $chatId,
@@ -677,40 +677,41 @@ abstract class TypedClient {
      * HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More 
      * info on Sending Files » 
      *
-     * @param Type\AbstractInputFile|string $thumb
+     * @param Type\AbstractInputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities 
      * parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the document caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param bool $disableContentTypeDetection
+     * @param bool|null $disableContentTypeDetection
      *        Disables automatic server-side content type detection for files uploaded using multipart/form-data 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendDocument(
         $chatId,
@@ -761,48 +762,49 @@ abstract class TypedClient {
      * HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. 
      * More info on Sending Files » 
      *
-     * @param int $duration
+     * @param int|null $duration
      *        Duration of sent video in seconds 
      *
-     * @param int $width
+     * @param int|null $width
      *        Video width 
      *
-     * @param int $height
+     * @param int|null $height
      *        Video height 
      *
-     * @param Type\AbstractInputFile|string $thumb
+     * @param Type\AbstractInputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the video caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param bool $supportsStreaming
+     * @param bool|null $supportsStreaming
      *        Pass True, if the uploaded video is suitable for streaming 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendVideo(
         $chatId,
@@ -858,46 +860,47 @@ abstract class TypedClient {
      * (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param int $duration
+     * @param int|null $duration
      *        Duration of sent animation in seconds 
      *
-     * @param int $width
+     * @param int|null $width
      *        Animation width 
      *
-     * @param int $height
+     * @param int|null $height
      *        Animation height 
      *
-     * @param Type\AbstractInputFile|string $thumb
+     * @param Type\AbstractInputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities 
      * parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the animation caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendAnimation(
         $chatId,
@@ -954,32 +957,33 @@ abstract class TypedClient {
      * pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        Voice message caption, 0-1024 characters after entities parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the voice message caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param int $duration
+     * @param int|null $duration
      *        Duration of the voice message in seconds 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendVoice(
         $chatId,
@@ -1028,33 +1032,34 @@ abstract class TypedClient {
      * (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is 
      * currently unsupported 
      *
-     * @param int $duration
+     * @param int|null $duration
      *        Duration of sent video in seconds 
      *
-     * @param int $length
+     * @param int|null $length
      *        Video width and height, i.e. diameter of the video message 
      *
-     * @param Type\AbstractInputFile|string $thumb
+     * @param Type\AbstractInputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
      * multipart/form-data under <file_attach_name>. More info on Sending Files » 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendVideoNote(
         $chatId,
@@ -1100,20 +1105,21 @@ abstract class TypedClient {
      * @param Type\InputMediaAudio[]|Type\InputMediaDocument[]|Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
      *        A JSON-serialized array describing messages to be sent, must include 2-10 items 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends messages silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the messages are a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @return Type\Message[];
+     * @return Type\Message[]
+     * @throws TelegramException
      */
     public function sendMediaGroup(
         $chatId,
-        $media,
+        array $media,
         bool $disableNotification = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null
@@ -1148,33 +1154,34 @@ abstract class TypedClient {
      * @param float $longitude
      *        Longitude of the location 
      *
-     * @param float $horizontalAccuracy
+     * @param float|null $horizontalAccuracy
      *        The radius of uncertainty for the location, measured in meters; 0-1500 
      *
-     * @param int $livePeriod
+     * @param int|null $livePeriod
      *        Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400. 
      *
-     * @param int $heading
+     * @param int|null $heading
      *        For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
      *
-     * @param int $proximityAlertRadius
+     * @param int|null $proximityAlertRadius
      *        For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. 
      * Must be between 1 and 100000 if specified. 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendLocation(
         $chatId,
@@ -1225,30 +1232,31 @@ abstract class TypedClient {
      * @param float $longitude
      *        Longitude of new location 
      *
-     * @param int|string $chatId
+     * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @param float $horizontalAccuracy
+     * @param float|null $horizontalAccuracy
      *        The radius of uncertainty for the location, measured in meters; 0-1500 
      *
-     * @param int $heading
+     * @param int|null $heading
      *        Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
      *
-     * @param int $proximityAlertRadius
+     * @param int|null $proximityAlertRadius
      *        Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 
      * 100000 if specified. 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for a new inline keyboard. 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function editMessageLiveLocation(
         float $latitude,
@@ -1288,20 +1296,21 @@ abstract class TypedClient {
      * Use this method to stop updating a live location message before live_period expires. On success, if the 
      * message was sent by the bot, the sent Message is returned, otherwise True is returned. 
      *
-     * @param int|string $chatId
+     * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the message with live location to stop 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for a new inline keyboard. 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function stopMessageLiveLocation(
         $chatId = null,
@@ -1346,33 +1355,34 @@ abstract class TypedClient {
      * @param string $address
      *        Address of the venue 
      *
-     * @param string $foursquareId
+     * @param string|null $foursquareId
      *        Foursquare identifier of the venue 
      *
-     * @param string $foursquareType
+     * @param string|null $foursquareType
      *        Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, 
      * “arts_entertainment/aquarium” or “food/icecream”.) 
      *
-     * @param string $googlePlaceId
+     * @param string|null $googlePlaceId
      *        Google Places identifier of the venue 
      *
-     * @param string $googlePlaceType
+     * @param string|null $googlePlaceType
      *        Google Places type of the venue. (See supported types.) 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendVenue(
         $chatId,
@@ -1427,26 +1437,27 @@ abstract class TypedClient {
      * @param string $firstName
      *        Contact's first name 
      *
-     * @param string $lastName
+     * @param string|null $lastName
      *        Contact's last name 
      *
-     * @param string $vcard
+     * @param string|null $vcard
      *        Additional data about the contact in the form of a vCard, 0-2048 bytes 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendContact(
         $chatId,
@@ -1493,52 +1504,53 @@ abstract class TypedClient {
      * @param string $question
      *        Poll question, 1-300 characters 
      *
-     * @param int $openPeriod
+     * @param int|null $openPeriod
      *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param bool $isClosed
+     * @param bool|null $isClosed
      *        Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. 
      *
-     * @param int $closeDate
+     * @param int|null $closeDate
      *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
      * seconds in the future. Can't be used together with open_period. 
      *
-     * @param string $explanationParseMode
+     * @param string|null $explanationParseMode
      *        Mode for parsing entities in the explanation. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $explanationEntities
+     * @param Type\MessageEntity[]|null $explanationEntities
      *        List of special entities that appear in the poll explanation, which can be specified instead of parse_mode 
      *
-     * @param string $explanation
+     * @param string|null $explanation
      *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
      * characters with at most 2 line feeds after entities parsing 
      *
-     * @param int $correctOptionId
+     * @param int|null $correctOptionId
      *        0-based identifier of the correct answer option, required for polls in quiz mode 
      *
-     * @param bool $allowsMultipleAnswers
+     * @param bool|null $allowsMultipleAnswers
      *        True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False 
      *
-     * @param string $type
+     * @param string|null $type
      *        Poll type, “quiz” or “regular”, defaults to “regular” 
      *
-     * @param bool $isAnonymous
+     * @param bool|null $isAnonymous
      *        True, if the poll needs to be anonymous, defaults to True 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendPoll(
         $chatId,
@@ -1595,25 +1607,26 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param string $emoji
+     * @param string|null $emoji
      *        Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, 
      * “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 
      * 1-64 for “”. Defaults to “” 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendDice(
         $chatId,
@@ -1657,7 +1670,8 @@ abstract class TypedClient {
      * notes, upload_document for general files, find_location for location data, record_video_note or 
      * upload_video_note for video notes. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function sendChatAction(
         $chatId,
@@ -1684,13 +1698,14 @@ abstract class TypedClient {
      * @param int $userId
      *        Unique identifier of the target user 
      *
-     * @param int $offset
+     * @param int|null $offset
      *        Sequential number of the first photo to be returned. By default, all photos are returned. 
      *
-     * @param int $limit
+     * @param int|null $limit
      *        Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100. 
      *
-     * @return Type\UserProfilePhotos;
+     * @return Type\UserProfilePhotos
+     * @throws TelegramException
      */
     public function getUserProfilePhotos(
         int $userId,
@@ -1723,7 +1738,8 @@ abstract class TypedClient {
      * @param string $fileId
      *        File identifier to get info about 
      *
-     * @return Type\File;
+     * @return Type\File
+     * @throws TelegramException
      */
     public function getFile(
         string $fileId
@@ -1754,15 +1770,16 @@ abstract class TypedClient {
      * @param int $userId
      *        Unique identifier of the target user 
      *
-     * @param int $untilDate
+     * @param int|null $untilDate
      *        Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from 
      * the current time they are considered to be banned forever. Applied for supergroups and channels only. 
      *
-     * @param bool $revokeMessages
+     * @param bool|null $revokeMessages
      *        Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to 
      * see messages in the group that were sent before the user was removed. Always True for supergroups and channels. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function kickChatMember(
         $chatId,
@@ -1801,10 +1818,11 @@ abstract class TypedClient {
      * @param int $userId
      *        Unique identifier of the target user 
      *
-     * @param bool $onlyIfBanned
+     * @param bool|null $onlyIfBanned
      *        Do nothing if the user is not banned 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function unbanChatMember(
         $chatId,
@@ -1842,11 +1860,12 @@ abstract class TypedClient {
      * @param Type\ChatPermissions $permissions
      *        A JSON-serialized object for new user permissions 
      *
-     * @param int $untilDate
+     * @param int|null $untilDate
      *        Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less 
      * than 30 seconds from the current time, they are considered to be restricted forever 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function restrictChatMember(
         $chatId,
@@ -1882,43 +1901,44 @@ abstract class TypedClient {
      * @param int $userId
      *        Unique identifier of the target user 
      *
-     * @param bool $isAnonymous
+     * @param bool|null $isAnonymous
      *        Pass True, if the administrator's presence in the chat is hidden 
      *
-     * @param bool $canManageChat
+     * @param bool|null $canManageChat
      *        Pass True, if the administrator can access the chat event log, chat statistics, message statistics in 
      * channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
      * administrator privilege 
      *
-     * @param bool $canPostMessages
+     * @param bool|null $canPostMessages
      *        Pass True, if the administrator can create channel posts, channels only 
      *
-     * @param bool $canEditMessages
+     * @param bool|null $canEditMessages
      *        Pass True, if the administrator can edit messages of other users and can pin messages, channels only 
      *
-     * @param bool $canDeleteMessages
+     * @param bool|null $canDeleteMessages
      *        Pass True, if the administrator can delete messages of other users 
      *
-     * @param bool $canManageVoiceChats
+     * @param bool|null $canManageVoiceChats
      *        Pass True, if the administrator can manage voice chats 
      *
-     * @param bool $canRestrictMembers
+     * @param bool|null $canRestrictMembers
      *        Pass True, if the administrator can restrict, ban or unban chat members 
      *
-     * @param bool $canPromoteMembers
+     * @param bool|null $canPromoteMembers
      *        Pass True, if the administrator can add new administrators with a subset of their own privileges or demote 
      * administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) 
      *
-     * @param bool $canChangeInfo
+     * @param bool|null $canChangeInfo
      *        Pass True, if the administrator can change chat title, photo and other settings 
      *
-     * @param bool $canInviteUsers
+     * @param bool|null $canInviteUsers
      *        Pass True, if the administrator can invite new users to the chat 
      *
-     * @param bool $canPinMessages
+     * @param bool|null $canPinMessages
      *        Pass True, if the administrator can pin messages, supergroups only 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function promoteChatMember(
         $chatId,
@@ -1975,7 +1995,8 @@ abstract class TypedClient {
      * @param string $customTitle
      *        New custom title for the administrator; 0-16 characters, emoji are not allowed 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setChatAdministratorCustomTitle(
         $chatId,
@@ -2009,7 +2030,8 @@ abstract class TypedClient {
      * @param Type\ChatPermissions $permissions
      *        New default chat permissions 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setChatPermissions(
         $chatId,
@@ -2038,7 +2060,8 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @return string;
+     * @return string
+     * @throws TelegramException
      */
     public function exportChatInviteLink(
         $chatId
@@ -2064,14 +2087,15 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param int $expireDate
+     * @param int|null $expireDate
      *        Point in time (Unix timestamp) when the link will expire 
      *
-     * @param int $memberLimit
+     * @param int|null $memberLimit
      *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
      * link; 1-99999 
      *
-     * @return Type\ChatInviteLink;
+     * @return Type\ChatInviteLink
+     * @throws TelegramException
      */
     public function createChatInviteLink(
         $chatId,
@@ -2104,14 +2128,15 @@ abstract class TypedClient {
      * @param string $inviteLink
      *        The invite link to edit 
      *
-     * @param int $expireDate
+     * @param int|null $expireDate
      *        Point in time (Unix timestamp) when the link will expire 
      *
-     * @param int $memberLimit
+     * @param int|null $memberLimit
      *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
      * link; 1-99999 
      *
-     * @return Type\ChatInviteLink;
+     * @return Type\ChatInviteLink
+     * @throws TelegramException
      */
     public function editChatInviteLink(
         $chatId,
@@ -2147,7 +2172,8 @@ abstract class TypedClient {
      * @param string $inviteLink
      *        The invite link to revoke 
      *
-     * @return Type\ChatInviteLink;
+     * @return Type\ChatInviteLink
+     * @throws TelegramException
      */
     public function revokeChatInviteLink(
         $chatId,
@@ -2178,7 +2204,8 @@ abstract class TypedClient {
      * @param Type\AbstractInputFile $photo
      *        New chat photo, uploaded using multipart/form-data 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setChatPhoto(
         $chatId,
@@ -2206,7 +2233,8 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function deleteChatPhoto(
         $chatId
@@ -2235,7 +2263,8 @@ abstract class TypedClient {
      * @param string $title
      *        New chat title, 1-255 characters 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setChatTitle(
         $chatId,
@@ -2263,10 +2292,11 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param string $description
+     * @param string|null $description
      *        New chat description, 0-255 characters 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setChatDescription(
         $chatId,
@@ -2298,11 +2328,12 @@ abstract class TypedClient {
      * @param int $messageId
      *        Identifier of a message to pin 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. 
      * Notifications are always disabled in channels and private chats. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function pinChatMessage(
         $chatId,
@@ -2333,11 +2364,12 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be 
      * unpinned. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function unpinChatMessage(
         $chatId,
@@ -2366,7 +2398,8 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function unpinAllChatMessages(
         $chatId
@@ -2392,7 +2425,8 @@ abstract class TypedClient {
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
      * @|channelusername) 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function leaveChat(
         $chatId
@@ -2419,7 +2453,8 @@ abstract class TypedClient {
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
      * @|channelusername) 
      *
-     * @return Type\Chat;
+     * @return Type\Chat
+     * @throws TelegramException
      */
     public function getChat(
         $chatId
@@ -2446,7 +2481,8 @@ abstract class TypedClient {
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
      * @|channelusername) 
      *
-     * @return Type\ChatMember[];
+     * @return Type\ChatMember[]
+     * @throws TelegramException
      */
     public function getChatAdministrators(
         $chatId
@@ -2472,7 +2508,8 @@ abstract class TypedClient {
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
      * @|channelusername) 
      *
-     * @return int;
+     * @return int
+     * @throws TelegramException
      */
     public function getChatMembersCount(
         $chatId
@@ -2502,7 +2539,8 @@ abstract class TypedClient {
      * @param int $userId
      *        Unique identifier of the target user 
      *
-     * @return Type\ChatMember;
+     * @return Type\ChatMember
+     * @throws TelegramException
      */
     public function getChatMember(
         $chatId,
@@ -2534,7 +2572,8 @@ abstract class TypedClient {
      * @param string $stickerSetName
      *        Name of the sticker set to be set as the group sticker set 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setChatStickerSet(
         $chatId,
@@ -2563,7 +2602,8 @@ abstract class TypedClient {
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
      * @|supergroupusername) 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function deleteChatStickerSet(
         $chatId
@@ -2589,23 +2629,24 @@ abstract class TypedClient {
      * @param string $callbackQueryId
      *        Unique identifier for the query to be answered 
      *
-     * @param string $text
+     * @param string|null $text
      *        Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters 
      *
-     * @param bool $showAlert
+     * @param bool|null $showAlert
      *        If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to 
      * false. 
      *
-     * @param string $url
+     * @param string|null $url
      *        URL that will be opened by the user's client. If you have created a Game and accepted the conditions via 
      * @|Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game 
      * button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. 
      *
-     * @param int $cacheTime
+     * @param int|null $cacheTime
      *        The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram 
      * apps will support caching starting in version 3.14. Defaults to 0. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function answerCallbackQuery(
         string $callbackQueryId,
@@ -2639,7 +2680,8 @@ abstract class TypedClient {
      *        A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be 
      * specified. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setMyCommands(
         array $commands
@@ -2661,7 +2703,8 @@ abstract class TypedClient {
      *
      * Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. 
      *
-     * @return Type\BotCommand[];
+     * @return Type\BotCommand[]
+     * @throws TelegramException
      */
     public function getMyCommands(
     ): array
@@ -2685,29 +2728,30 @@ abstract class TypedClient {
      * @param string $text
      *        New text of the message, 1-4096 characters after entities parsing 
      *
-     * @param int|string $chatId
+     * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $entities
+     * @param Type\MessageEntity[]|null $entities
      *        List of special entities that appear in message text, which can be specified instead of parse_mode 
      *
-     * @param bool $disableWebPagePreview
+     * @param bool|null $disableWebPagePreview
      *        Disables link previews for links in this message 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function editMessageText(
         string $text,
@@ -2744,29 +2788,30 @@ abstract class TypedClient {
      *
      * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. 
      *
-     * @param int|string $chatId
+     * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @param string $caption
+     * @param string|null $caption
      *        New caption of the message, 0-1024 characters after entities parsing 
      *
-     * @param string $parseMode
+     * @param string|null $parseMode
      *        Mode for parsing entities in the message caption. See formatting options for more details. 
      *
-     * @param Type\MessageEntity[] $captionEntities
+     * @param Type\MessageEntity[]|null $captionEntities
      *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function editMessageCaption(
         $chatId = null,
@@ -2808,20 +2853,21 @@ abstract class TypedClient {
      * @param Type\AbstractInputMedia $media
      *        A JSON-serialized object for a new media content of the message 
      *
-     * @param int|string $chatId
+     * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for a new inline keyboard. 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function editMessageMedia(
         Type\AbstractInputMedia $media,
@@ -2853,20 +2899,21 @@ abstract class TypedClient {
      * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, 
      * the edited Message is returned, otherwise True is returned. 
      *
-     * @param int|string $chatId
+     * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the message to edit 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function editMessageReplyMarkup(
         $chatId = null,
@@ -2902,10 +2949,11 @@ abstract class TypedClient {
      * @param int $messageId
      *        Identifier of the original message with the poll 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for a new message inline keyboard. 
      *
-     * @return Type\Poll;
+     * @return Type\Poll
+     * @throws TelegramException
      */
     public function stopPoll(
         $chatId,
@@ -2943,7 +2991,8 @@ abstract class TypedClient {
      * @param int $messageId
      *        Identifier of the message to delete 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function deleteMessage(
         $chatId,
@@ -2976,20 +3025,21 @@ abstract class TypedClient {
      * an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply $replyMarkup
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
      * instructions to remove reply keyboard or to force a reply from the user. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendSticker(
         $chatId,
@@ -3024,7 +3074,8 @@ abstract class TypedClient {
      * @param string $name
      *        Name of the sticker set 
      *
-     * @return Type\StickerSet;
+     * @return Type\StickerSet
+     * @throws TelegramException
      */
     public function getStickerSet(
         string $name
@@ -3054,7 +3105,8 @@ abstract class TypedClient {
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. More info on Sending Files » 
      *
-     * @return Type\File;
+     * @return Type\File
+     * @throws TelegramException
      */
     public function uploadStickerFile(
         int $userId,
@@ -3093,23 +3145,24 @@ abstract class TypedClient {
      * @param string $emojis
      *        One or more emoji corresponding to the sticker 
      *
-     * @param Type\AbstractInputFile|string $pngSticker
+     * @param Type\AbstractInputFile|string|null $pngSticker
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param Type\AbstractInputFile $tgsSticker
+     * @param Type\AbstractInputFile|null $tgsSticker
      *        TGS animation with the sticker, uploaded using multipart/form-data. See 
      * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
      *
-     * @param bool $containsMasks
+     * @param bool|null $containsMasks
      *        Pass True, if a set of mask stickers should be created 
      *
-     * @param Type\MaskPosition $maskPosition
+     * @param Type\MaskPosition|null $maskPosition
      *        A JSON-serialized object for position where the mask should be placed on faces 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function createNewStickerSet(
         int $userId,
@@ -3157,20 +3210,21 @@ abstract class TypedClient {
      * @param string $emojis
      *        One or more emoji corresponding to the sticker 
      *
-     * @param Type\AbstractInputFile|string $pngSticker
+     * @param Type\AbstractInputFile|string|null $pngSticker
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param Type\AbstractInputFile $tgsSticker
+     * @param Type\AbstractInputFile|null $tgsSticker
      *        TGS animation with the sticker, uploaded using multipart/form-data. See 
      * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
      *
-     * @param Type\MaskPosition $maskPosition
+     * @param Type\MaskPosition|null $maskPosition
      *        A JSON-serialized object for position where the mask should be placed on faces 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function addStickerToSet(
         int $userId,
@@ -3208,7 +3262,8 @@ abstract class TypedClient {
      * @param int $position
      *        New sticker position in the set, zero-based 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setStickerPositionInSet(
         string $sticker,
@@ -3235,7 +3290,8 @@ abstract class TypedClient {
      * @param string $sticker
      *        File identifier of the sticker 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function deleteStickerFromSet(
         string $sticker
@@ -3264,14 +3320,15 @@ abstract class TypedClient {
      * @param int $userId
      *        User identifier of the sticker set owner 
      *
-     * @param Type\AbstractInputFile|string $thumb
+     * @param Type\AbstractInputFile|string|null $thumb
      *        A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS 
      * animation with the thumbnail up to 32 kilobytes in size; see 
      * https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
      * Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files ». Animated sticker set thumbnail can't be uploaded via HTTP URL. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setStickerSetThumb(
         string $name,
@@ -3304,23 +3361,23 @@ abstract class TypedClient {
      * @param Type\AbstractInlineQueryResult[] $results
      *        A JSON-serialized array of results for the inline query 
      *
-     * @param int $cacheTime
+     * @param int|null $cacheTime
      *        The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 
      * 300. 
      *
-     * @param bool $isPersonal
+     * @param bool|null $isPersonal
      *        Pass True, if results may be cached on the server side only for the user that sent the query. By default, results 
      * may be returned to any user who sends the same query 
      *
-     * @param string $nextOffset
+     * @param string|null $nextOffset
      *        Pass the offset that a client should send in the next query with the same text to receive more results. Pass an 
      * empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes. 
      *
-     * @param string $switchPmText
+     * @param string|null $switchPmText
      *        If passed, clients will display a button with specified text that switches the user to a private chat with the bot 
      * and sends the bot a start message with the parameter switch_pm_parameter 
      *
-     * @param string $switchPmParameter
+     * @param string|null $switchPmParameter
      *        Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 
      * characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to 
      * connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your 
@@ -3329,7 +3386,8 @@ abstract class TypedClient {
      * done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the 
      * bot's inline capabilities. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function answerInlineQuery(
         string $inlineQueryId,
@@ -3386,74 +3444,75 @@ abstract class TypedClient {
      * @param string $title
      *        Product name, 1-32 characters 
      *
-     * @param bool $needEmail
+     * @param bool|null $needEmail
      *        Pass True, if you require the user's email address to complete the order 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param bool $isFlexible
+     * @param bool|null $isFlexible
      *        Pass True, if the final price depends on the shipping method 
      *
-     * @param bool $sendEmailToProvider
+     * @param bool|null $sendEmailToProvider
      *        Pass True, if user's email address should be sent to provider 
      *
-     * @param bool $sendPhoneNumberToProvider
+     * @param bool|null $sendPhoneNumberToProvider
      *        Pass True, if user's phone number should be sent to provider 
      *
-     * @param bool $needShippingAddress
+     * @param bool|null $needShippingAddress
      *        Pass True, if you require the user's shipping address to complete the order 
      *
-     * @param int $photoWidth
+     * @param int|null $photoWidth
      *        Photo width 
      *
-     * @param bool $needPhoneNumber
+     * @param bool|null $needPhoneNumber
      *        Pass True, if you require the user's phone number to complete the order 
      *
-     * @param bool $needName
+     * @param bool|null $needName
      *        Pass True, if you require the user's full name to complete the order 
      *
-     * @param int $photoHeight
+     * @param int|null $photoHeight
      *        Photo height 
      *
-     * @param int $photoSize
+     * @param int|null $photoSize
      *        Photo size 
      *
-     * @param string $photoUrl
+     * @param string|null $photoUrl
      *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like 
      * it better when they see what they are paying for. 
      *
-     * @param string $providerData
+     * @param string|null $providerData
      *        A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
      * description of required fields should be provided by the payment provider. 
      *
-     * @param string $startParameter
+     * @param string|null $startParameter
      *        Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, 
      * allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded 
      * copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used 
      * as the start parameter 
      *
-     * @param int[] $suggestedTipAmounts
+     * @param int[]|null $suggestedTipAmounts
      *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
      * float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a 
      * strictly increased order and must not exceed max_tip_amount. 
      *
-     * @param int $maxTipAmount
+     * @param int|null $maxTipAmount
      *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
      * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
      * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not 
      * empty, the first button must be a Pay button. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendInvoice(
         $chatId,
@@ -3534,15 +3593,16 @@ abstract class TypedClient {
      *        Specify True if delivery to the specified address is possible and False if there are any problems (for example, 
      * if delivery to the specified address is not possible) 
      *
-     * @param Type\ShippingOption[] $shippingOptions
+     * @param Type\ShippingOption[]|null $shippingOptions
      *        Required if ok is True. A JSON-serialized array of available shipping options. 
      *
-     * @param string $errorMessage
+     * @param string|null $errorMessage
      *        Required if ok is False. Error message in human readable form that explains why it is impossible to complete the 
      * order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the 
      * user. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function answerShippingQuery(
         string $shippingQueryId,
@@ -3580,13 +3640,14 @@ abstract class TypedClient {
      *        Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. 
      * Use False if there are any problems. 
      *
-     * @param string $errorMessage
+     * @param string|null $errorMessage
      *        Required if ok is False. Error message in human readable form that explains the reason for failure to proceed 
      * with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy 
      * filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to 
      * the user. 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function answerPreCheckoutQuery(
         string $preCheckoutQueryId,
@@ -3622,7 +3683,8 @@ abstract class TypedClient {
      * @param Type\AbstractPassportElementError[] $errors
      *        A JSON-serialized array describing the errors 
      *
-     * @return bool;
+     * @return bool
+     * @throws TelegramException
      */
     public function setPassportDataErrors(
         int $userId,
@@ -3652,20 +3714,21 @@ abstract class TypedClient {
      * @param string $gameShortName
      *        Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather. 
      *
-     * @param bool $disableNotification
+     * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param int $replyToMessageId
+     * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
-     * @param bool $allowSendingWithoutReply
+     * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
-     * @param Type\InlineKeyboardMarkup $replyMarkup
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not 
      * empty, the first button must launch the game. 
      *
-     * @return Type\Message;
+     * @return Type\Message
+     * @throws TelegramException
      */
     public function sendGame(
         int $chatId,
@@ -3705,22 +3768,23 @@ abstract class TypedClient {
      * @param int $score
      *        New score, must be non-negative 
      *
-     * @param bool $force
+     * @param bool|null $force
      *        Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters 
      *
-     * @param bool $disableEditMessage
+     * @param bool|null $disableEditMessage
      *        Pass True, if the game message should not be automatically edited to include the current scoreboard 
      *
-     * @param int $chatId
+     * @param int|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the sent message 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @return Type\Message|bool;
+     * @return Type\Message|bool
+     * @throws TelegramException
      */
     public function setGameScore(
         int $userId,
@@ -3759,16 +3823,17 @@ abstract class TypedClient {
      * @param int $userId
      *        Target user id 
      *
-     * @param int $chatId
+     * @param int|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat 
      *
-     * @param int $messageId
+     * @param int|null $messageId
      *        Required if inline_message_id is not specified. Identifier of the sent message 
      *
-     * @param string $inlineMessageId
+     * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
      *
-     * @return Type\GameHighScore[];
+     * @return Type\GameHighScore[]
+     * @throws TelegramException
      */
     public function getGameHighScores(
         int $userId,
