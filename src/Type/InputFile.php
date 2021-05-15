@@ -2,7 +2,7 @@
 
 namespace MadmagesTelegram\Types\Type;
 
-class AbstractInputFile
+class InputFile
 {
 
     /** @var resource|string */

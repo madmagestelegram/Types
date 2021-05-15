@@ -2,7 +2,7 @@
 
 namespace MadmagesTelegram\Types;
 
-use MadmagesTelegram\Types\Type\AbstractInputFile;
+use MadmagesTelegram\Types\Type\InputFile;
 use JsonException;
 
 abstract class TypedClient {
@@ -60,7 +60,7 @@ abstract class TypedClient {
                 return;
             }
 
-            if ($item instanceof AbstractInputFile) {
+            if ($item instanceof InputFile) {
                 $item = $item->getFile();
                 if (!is_resource($item)) {
                     if (is_file($item)) {
@@ -147,7 +147,7 @@ abstract class TypedClient {
      * @param string $url
      *        HTTPS url to send updates to. Use an empty string to remove webhook integration 
      *
-     * @param Type\AbstractInputFile|null $certificate
+     * @param Type\InputFile|null $certificate
      *        Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide 
      * for details. 
      *
@@ -173,7 +173,7 @@ abstract class TypedClient {
      */
     public function setWebhook(
         string $url,
-        Type\AbstractInputFile $certificate = null,
+        Type\InputFile $certificate = null,
         string $ipAddress = null,
         int $maxConnections = null,
         array $allowedUpdates = null,
@@ -506,7 +506,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $photo
+     * @param Type\InputFile|string $photo
      *        Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. 
      * The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height 
@@ -578,7 +578,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $audio
+     * @param Type\InputFile|string $audio
      *        Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
@@ -601,7 +601,7 @@ abstract class TypedClient {
      * @param string|null $title
      *        Track name 
      *
-     * @param Type\AbstractInputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -672,12 +672,12 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $document
+     * @param Type\InputFile|string $document
      *        File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More 
      * info on Sending Files » 
      *
-     * @param Type\AbstractInputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -757,7 +757,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $video
+     * @param Type\InputFile|string $video
      *        Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. 
      * More info on Sending Files » 
@@ -771,7 +771,7 @@ abstract class TypedClient {
      * @param int|null $height
      *        Video height 
      *
-     * @param Type\AbstractInputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -855,7 +855,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $animation
+     * @param Type\InputFile|string $animation
      *        Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using 
      * multipart/form-data. More info on Sending Files » 
@@ -869,7 +869,7 @@ abstract class TypedClient {
      * @param int|null $height
      *        Animation height 
      *
-     * @param Type\AbstractInputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -952,7 +952,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $voice
+     * @param Type\InputFile|string $voice
      *        Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), 
      * pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
@@ -1027,7 +1027,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $videoNote
+     * @param Type\InputFile|string $videoNote
      *        Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers 
      * (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is 
      * currently unsupported 
@@ -1038,7 +1038,7 @@ abstract class TypedClient {
      * @param int|null $length
      *        Video width and height, i.e. diameter of the video message 
      *
-     * @param Type\AbstractInputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -2201,7 +2201,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile $photo
+     * @param Type\InputFile $photo
      *        New chat photo, uploaded using multipart/form-data 
      *
      * @return bool
@@ -2209,7 +2209,7 @@ abstract class TypedClient {
      */
     public function setChatPhoto(
         $chatId,
-        Type\AbstractInputFile $photo
+        Type\InputFile $photo
     ): bool
     {
         $requestParameters = [
@@ -3020,7 +3020,7 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param Type\AbstractInputFile|string $sticker
+     * @param Type\InputFile|string $sticker
      *        Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass 
      * an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
@@ -3101,7 +3101,7 @@ abstract class TypedClient {
      * @param int $userId
      *        User identifier of sticker file owner 
      *
-     * @param Type\AbstractInputFile $pngSticker
+     * @param Type\InputFile $pngSticker
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. More info on Sending Files » 
      *
@@ -3110,7 +3110,7 @@ abstract class TypedClient {
      */
     public function uploadStickerFile(
         int $userId,
-        Type\AbstractInputFile $pngSticker
+        Type\InputFile $pngSticker
     ): Type\File
     {
         $requestParameters = [
@@ -3145,13 +3145,13 @@ abstract class TypedClient {
      * @param string $emojis
      *        One or more emoji corresponding to the sticker 
      *
-     * @param Type\AbstractInputFile|string|null $pngSticker
+     * @param Type\InputFile|string|null $pngSticker
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param Type\AbstractInputFile|null $tgsSticker
+     * @param Type\InputFile|null $tgsSticker
      *        TGS animation with the sticker, uploaded using multipart/form-data. See 
      * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
      *
@@ -3170,7 +3170,7 @@ abstract class TypedClient {
         string $title,
         string $emojis,
         $pngSticker = null,
-        Type\AbstractInputFile $tgsSticker = null,
+        Type\InputFile $tgsSticker = null,
         bool $containsMasks = null,
         Type\MaskPosition $maskPosition = null
     ): bool
@@ -3210,13 +3210,13 @@ abstract class TypedClient {
      * @param string $emojis
      *        One or more emoji corresponding to the sticker 
      *
-     * @param Type\AbstractInputFile|string|null $pngSticker
+     * @param Type\InputFile|string|null $pngSticker
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More info on Sending Files » 
      *
-     * @param Type\AbstractInputFile|null $tgsSticker
+     * @param Type\InputFile|null $tgsSticker
      *        TGS animation with the sticker, uploaded using multipart/form-data. See 
      * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
      *
@@ -3231,7 +3231,7 @@ abstract class TypedClient {
         string $name,
         string $emojis,
         $pngSticker = null,
-        Type\AbstractInputFile $tgsSticker = null,
+        Type\InputFile $tgsSticker = null,
         Type\MaskPosition $maskPosition = null
     ): bool
     {
@@ -3320,7 +3320,7 @@ abstract class TypedClient {
      * @param int $userId
      *        User identifier of the sticker set owner 
      *
-     * @param Type\AbstractInputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumb
      *        A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS 
      * animation with the thumbnail up to 32 kilobytes in size; see 
      * https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 

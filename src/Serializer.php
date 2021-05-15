@@ -9,7 +9,7 @@ use JMS\Serializer\SerializerInterface;
 class Serializer
 {
 
-    private static SerializerInterface $serializer;
+    private static ?SerializerInterface $serializer = null;
 
     public static function deserialize(string $jsonString, string $type)
     {

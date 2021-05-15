@@ -93,7 +93,7 @@ class InputMediaVideo extends AbstractInputMedia
      * file, so you can pass “attach://” if the thumbnail was uploaded using multipart/form-data 
      * under . More info on Sending Files » 
      *
-     * @var AbstractInputFile|string|null
+     * @var InputFile|string|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
      * @Accessor(getter="getThumb",setter="setThumb")
@@ -218,7 +218,7 @@ class InputMediaVideo extends AbstractInputMedia
     }
 
     /**
-     * @param AbstractInputFile|string $thumb
+     * @param InputFile|string $thumb
      * @return static
      */
     public function setThumb( $thumb): self
@@ -229,7 +229,7 @@ class InputMediaVideo extends AbstractInputMedia
     }
 
     /**
-     * @return AbstractInputFile|string|null
+     * @return InputFile|string|null
      */
     public function getThumb()
     {
