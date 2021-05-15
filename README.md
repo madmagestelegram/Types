@@ -14,7 +14,7 @@ $message->setText('Hello world!');
 
 echo $message->getText(); // "Hello world!"
 // as assoc array
-print_r($message->_getRawData());// ['text' => 'Hello world!']
+print_r($message->_getData());// ['text' => 'Hello world!']
 ```
 
 more fields
@@ -40,7 +40,7 @@ $message = ( new Message() )
                 ->setLongitude(60.60)
         );
 
-    print_r($message->_getRawData());
+    print_r($message->_getData());
     
 /*
     
