@@ -19,7 +19,7 @@ abstract class AbstractType {
     abstract public function _getData(): array;
 
     protected function normalizeData(array $data):array {
-        $data = array_filter($data);
+        $data = array_filter($data, fn($item) => $item !== null);
         array_walk_recursive($data, static function(&$item){
             $item = $item instanceof AbstractType ? $item->_getData(): $item;
         });
