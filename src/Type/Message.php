@@ -39,9 +39,11 @@ class Message extends AbstractType
             'forward_signature',
             'forward_sender_name',
             'forward_date',
+            'is_automatic_forward',
             'reply_to_message',
             'via_bot',
             'edit_date',
+            'has_protected_content',
             'media_group_id',
             'author_signature',
             'text',
@@ -106,9 +108,11 @@ class Message extends AbstractType
             'forward_signature' => $this->getForwardSignature(),
             'forward_sender_name' => $this->getForwardSenderName(),
             'forward_date' => $this->getForwardDate(),
+            'is_automatic_forward' => $this->getIsAutomaticForward(),
             'reply_to_message' => $this->getReplyToMessage(),
             'via_bot' => $this->getViaBot(),
             'edit_date' => $this->getEditDate(),
+            'has_protected_content' => $this->getHasProtectedContent(),
             'media_group_id' => $this->getMediaGroupId(),
             'author_signature' => $this->getAuthorSignature(),
             'text' => $this->getText(),
@@ -167,7 +171,8 @@ class Message extends AbstractType
     protected $messageId;
 
     /**
-     * Optional. Sender, empty for messages sent to channels 
+     * Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field 
+     * contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. 
      *
      * @var User|null
      * @SkipWhenEmpty
@@ -178,9 +183,10 @@ class Message extends AbstractType
     protected $from;
 
     /**
-     * Optional. Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup 
-     * itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the 
-     * discussion group 
+     * Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the 
+     * supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically 
+     * forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel 
+     * chats, if the message was sent on behalf of a chat. 
      *
      * @var Chat|null
      * @SkipWhenEmpty
@@ -245,7 +251,8 @@ class Message extends AbstractType
     protected $forwardFromMessageId;
 
     /**
-     * Optional. For messages forwarded from channels, signature of the post author if present 
+     * Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, 
+     * signature of the message sender if present 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -277,6 +284,17 @@ class Message extends AbstractType
      * @Type("int")
      */
     protected $forwardDate;
+
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_automatic_forward")
+     * @Accessor(getter="getIsAutomaticForward",setter="setIsAutomaticForward")
+     * @Type("bool")
+     */
+    protected $isAutomaticForward;
 
     /**
      * Optional. For replies, the original message. Note that the Message object in this field will not contain further 
@@ -311,6 +329,17 @@ class Message extends AbstractType
      * @Type("int")
      */
     protected $editDate;
+
+    /**
+     * Optional. True, if the message can't be forwarded 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_protected_content")
+     * @Accessor(getter="getHasProtectedContent",setter="setHasProtectedContent")
+     * @Type("bool")
+     */
+    protected $hasProtectedContent;
 
     /**
      * Optional. The unique identifier of a media message group this message belongs to 
@@ -1003,6 +1032,25 @@ class Message extends AbstractType
     }
 
     /**
+     * @param bool $isAutomaticForward
+     * @return static
+     */
+    public function setIsAutomaticForward(bool $isAutomaticForward): self
+    {
+        $this->isAutomaticForward = $isAutomaticForward;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsAutomaticForward(): ?bool
+    {
+        return $this->isAutomaticForward;
+    }
+
+    /**
      * @param Message $replyToMessage
      * @return static
      */
@@ -1057,6 +1105,25 @@ class Message extends AbstractType
     public function getEditDate(): ?int
     {
         return $this->editDate;
+    }
+
+    /**
+     * @param bool $hasProtectedContent
+     * @return static
+     */
+    public function setHasProtectedContent(bool $hasProtectedContent): self
+    {
+        $this->hasProtectedContent = $hasProtectedContent;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasProtectedContent(): ?bool
+    {
+        return $this->hasProtectedContent;
     }
 
     /**

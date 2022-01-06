@@ -160,7 +160,7 @@ class Sticker extends AbstractType
     protected $maskPosition;
 
     /**
-     * Optional. File size 
+     * Optional. File size in bytes 
      *
      * @var int|null
      * @SkipWhenEmpty

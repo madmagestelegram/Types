@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#voicechatended
+ * https://core.telegram.org/bots/api#botcommandscope
  *
- * This object represents a service message about a voice chat ended in the chat. 
+ * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported: 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class VoiceChatEnded extends AbstractType
+class BotCommandScope extends AbstractType
 {
 
     /**
@@ -28,7 +28,6 @@ class VoiceChatEnded extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'duration',
         ];
     }
 
@@ -40,40 +39,10 @@ class VoiceChatEnded extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'duration' => $this->getDuration(),
         ];
 
         return parent::normalizeData($result);
     }
 
-    /**
-     * Voice chat duration in seconds 
-     *
-     * @var int
-     * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setDuration")
-     * @Type("int")
-     */
-    protected $duration;
-
-
-    /**
-     * @param int $duration
-     * @return static
-     */
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDuration(): int
-    {
-        return $this->duration;
-    }
 
 }

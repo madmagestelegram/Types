@@ -127,7 +127,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $mpeg4Height;
 
     /**
-     * Optional. Video duration 
+     * Optional. Video duration in seconds 
      *
      * @var int|null
      * @SkipWhenEmpty

@@ -157,7 +157,7 @@ class InputMediaVideo extends AbstractInputMedia
     protected $height;
 
     /**
-     * Optional. Video duration 
+     * Optional. Video duration in seconds 
      *
      * @var int|null
      * @SkipWhenEmpty

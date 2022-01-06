@@ -43,6 +43,7 @@ class Update extends AbstractType
             'poll_answer',
             'my_chat_member',
             'chat_member',
+            'chat_join_request',
         ];
     }
 
@@ -68,6 +69,7 @@ class Update extends AbstractType
             'poll_answer' => $this->getPollAnswer(),
             'my_chat_member' => $this->getMyChatMember(),
             'chat_member' => $this->getChatMember(),
+            'chat_join_request' => $this->getChatJoinRequest(),
         ];
 
         return parent::normalizeData($result);
@@ -232,6 +234,18 @@ class Update extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatMemberUpdated")
      */
     protected $chatMember;
+
+    /**
+     * Optional. A request to join the chat has been sent. The bot must have the can_invite_users administrator right in the 
+     * chat to receive these updates. 
+     *
+     * @var ChatJoinRequest|null
+     * @SkipWhenEmpty
+     * @SerializedName("chat_join_request")
+     * @Accessor(getter="getChatJoinRequest",setter="setChatJoinRequest")
+     * @Type("MadmagesTelegram\Types\Type\ChatJoinRequest")
+     */
+    protected $chatJoinRequest;
 
 
     /**
@@ -498,6 +512,25 @@ class Update extends AbstractType
     public function getChatMember(): ?ChatMemberUpdated
     {
         return $this->chatMember;
+    }
+
+    /**
+     * @param ChatJoinRequest $chatJoinRequest
+     * @return static
+     */
+    public function setChatJoinRequest(ChatJoinRequest $chatJoinRequest): self
+    {
+        $this->chatJoinRequest = $chatJoinRequest;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatJoinRequest|null
+     */
+    public function getChatJoinRequest(): ?ChatJoinRequest
+    {
+        return $this->chatJoinRequest;
     }
 
 }

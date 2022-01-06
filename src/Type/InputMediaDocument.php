@@ -130,7 +130,7 @@ class InputMediaDocument extends AbstractInputMedia
 
     /**
      * Optional. Disables automatic server-side content type detection for files uploaded using multipart/form-data. 
-     * Always true, if the document is sent as part of an album. 
+     * Always True, if the document is sent as part of an album. 
      *
      * @var bool|null
      * @SkipWhenEmpty

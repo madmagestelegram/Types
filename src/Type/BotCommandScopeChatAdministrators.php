@@ -10,14 +10,15 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#botcommand
+ * https://core.telegram.org/bots/api#botcommandscopechatadministrators
  *
- * This object represents a bot command. 
+ * Represents the scope of bot commands, covering all administrators of a specific 
+ * group or supergroup chat. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class BotCommand extends AbstractType
+class BotCommandScopeChatAdministrators extends AbstractType
 {
 
     /**
@@ -28,8 +29,8 @@ class BotCommand extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'command',
-            'description',
+            'type',
+            'chat_id',
         ];
     }
 
@@ -41,41 +42,41 @@ class BotCommand extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'command' => $this->getCommand(),
-            'description' => $this->getDescription(),
+            'type' => $this->getType(),
+            'chat_id' => $this->getChatId(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores. 
+     * Scope type, must be chat_administrators 
      *
      * @var string
-     * @SerializedName("command")
-     * @Accessor(getter="getCommand",setter="setCommand")
+     * @SerializedName("type")
+     * @Accessor(getter="getType",setter="setType")
      * @Type("string")
      */
-    protected $command;
+    protected $type;
 
     /**
-     * Description of the command; 1-256 characters. 
+     * Unique identifier for the target chat or username of the target supergroup (in the format @|supergroupusername) 
      *
-     * @var string
-     * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setDescription")
+     * @var int|string
+     * @SerializedName("chat_id")
+     * @Accessor(getter="getChatId",setter="setChatId")
      * @Type("string")
      */
-    protected $description;
+    protected $chatId;
 
 
     /**
-     * @param string $command
+     * @param string $type
      * @return static
      */
-    public function setCommand(string $command): self
+    public function setType(string $type): self
     {
-        $this->command = $command;
+        $this->type = $type;
 
         return $this;
     }
@@ -83,28 +84,28 @@ class BotCommand extends AbstractType
     /**
      * @return string
      */
-    public function getCommand(): string
+    public function getType(): string
     {
-        return $this->command;
+        return $this->type;
     }
 
     /**
-     * @param string $description
+     * @param int|string $chatId
      * @return static
      */
-    public function setDescription(string $description): self
+    public function setChatId( $chatId): self
     {
-        $this->description = $description;
+        $this->chatId = $chatId;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return int|string
      */
-    public function getDescription(): string
+    public function getChatId()
     {
-        return $this->description;
+        return $this->chatId;
     }
 
 }

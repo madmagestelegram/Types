@@ -127,7 +127,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $gifHeight;
 
     /**
-     * Optional. Duration of the GIF 
+     * Optional. Duration of the GIF in seconds 
      *
      * @var int|null
      * @SkipWhenEmpty

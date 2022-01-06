@@ -32,6 +32,7 @@ class ReplyKeyboardMarkup extends AbstractType
             'keyboard',
             'resize_keyboard',
             'one_time_keyboard',
+            'input_field_placeholder',
             'selective',
         ];
     }
@@ -47,6 +48,7 @@ class ReplyKeyboardMarkup extends AbstractType
             'keyboard' => $this->getKeyboard(),
             'resize_keyboard' => $this->getResizeKeyboard(),
             'one_time_keyboard' => $this->getOneTimeKeyboard(),
+            'input_field_placeholder' => $this->getInputFieldPlaceholder(),
             'selective' => $this->getSelective(),
         ];
 
@@ -88,6 +90,17 @@ class ReplyKeyboardMarkup extends AbstractType
      * @Type("bool")
      */
     protected $oneTimeKeyboard;
+
+    /**
+     * Optional. The placeholder to be shown in the input field when the keyboard is active; 1-64 characters 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("input_field_placeholder")
+     * @Accessor(getter="getInputFieldPlaceholder",setter="setInputFieldPlaceholder")
+     * @Type("string")
+     */
+    protected $inputFieldPlaceholder;
 
     /**
      * Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are 
@@ -159,6 +172,25 @@ class ReplyKeyboardMarkup extends AbstractType
     public function getOneTimeKeyboard(): ?bool
     {
         return $this->oneTimeKeyboard;
+    }
+
+    /**
+     * @param string $inputFieldPlaceholder
+     * @return static
+     */
+    public function setInputFieldPlaceholder(string $inputFieldPlaceholder): self
+    {
+        $this->inputFieldPlaceholder = $inputFieldPlaceholder;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getInputFieldPlaceholder(): ?string
+    {
+        return $this->inputFieldPlaceholder;
     }
 
     /**

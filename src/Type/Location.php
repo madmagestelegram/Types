@@ -88,7 +88,7 @@ class Location extends AbstractType
     protected $horizontalAccuracy;
 
     /**
-     * Optional. Time relative to the message sending date, during which the location can be updated, in seconds. For 
+     * Optional. Time relative to the message sending date, during which the location can be updated; in seconds. For 
      * active live locations only. 
      *
      * @var int|null

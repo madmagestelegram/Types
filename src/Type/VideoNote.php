@@ -110,7 +110,7 @@ class VideoNote extends AbstractType
     protected $thumb;
 
     /**
-     * Optional. File size 
+     * Optional. File size in bytes 
      *
      * @var int|null
      * @SkipWhenEmpty

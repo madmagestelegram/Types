@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#chatmemberupdated
+ * https://core.telegram.org/bots/api#chatjoinrequest
  *
- * This object represents changes in the status of a chat member. 
+ * Represents a join request sent to a chat. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class ChatMemberUpdated extends AbstractType
+class ChatJoinRequest extends AbstractType
 {
 
     /**
@@ -31,8 +31,7 @@ class ChatMemberUpdated extends AbstractType
             'chat',
             'from',
             'date',
-            'old_chat_member',
-            'new_chat_member',
+            'bio',
             'invite_link',
         ];
     }
@@ -48,8 +47,7 @@ class ChatMemberUpdated extends AbstractType
             'chat' => $this->getChat(),
             'from' => $this->getFrom(),
             'date' => $this->getDate(),
-            'old_chat_member' => $this->getOldChatMember(),
-            'new_chat_member' => $this->getNewChatMember(),
+            'bio' => $this->getBio(),
             'invite_link' => $this->getInviteLink(),
         ];
 
@@ -57,7 +55,7 @@ class ChatMemberUpdated extends AbstractType
     }
 
     /**
-     * Chat the user belongs to 
+     * Chat to which the request was sent 
      *
      * @var Chat
      * @SerializedName("chat")
@@ -67,7 +65,7 @@ class ChatMemberUpdated extends AbstractType
     protected $chat;
 
     /**
-     * Performer of the action, which resulted in the change 
+     * User that sent the join request 
      *
      * @var User
      * @SerializedName("from")
@@ -77,7 +75,7 @@ class ChatMemberUpdated extends AbstractType
     protected $from;
 
     /**
-     * Date the change was done in Unix time 
+     * Date the request was sent in Unix time 
      *
      * @var int
      * @SerializedName("date")
@@ -87,27 +85,18 @@ class ChatMemberUpdated extends AbstractType
     protected $date;
 
     /**
-     * Previous information about the chat member 
+     * Optional. Bio of the user. 
      *
-     * @var AbstractChatMember
-     * @SerializedName("old_chat_member")
-     * @Accessor(getter="getOldChatMember",setter="setOldChatMember")
-     * @Type("MadmagesTelegram\Types\Type\AbstractChatMember")
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("bio")
+     * @Accessor(getter="getBio",setter="setBio")
+     * @Type("string")
      */
-    protected $oldChatMember;
+    protected $bio;
 
     /**
-     * New information about the chat member 
-     *
-     * @var AbstractChatMember
-     * @SerializedName("new_chat_member")
-     * @Accessor(getter="getNewChatMember",setter="setNewChatMember")
-     * @Type("MadmagesTelegram\Types\Type\AbstractChatMember")
-     */
-    protected $newChatMember;
-
-    /**
-     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only. 
+     * Optional. Chat invite link that was used by the user to send the join request 
      *
      * @var ChatInviteLink|null
      * @SkipWhenEmpty
@@ -176,41 +165,22 @@ class ChatMemberUpdated extends AbstractType
     }
 
     /**
-     * @param AbstractChatMember $oldChatMember
+     * @param string $bio
      * @return static
      */
-    public function setOldChatMember(AbstractChatMember $oldChatMember): self
+    public function setBio(string $bio): self
     {
-        $this->oldChatMember = $oldChatMember;
+        $this->bio = $bio;
 
         return $this;
     }
 
     /**
-     * @return AbstractChatMember
+     * @return string|null
      */
-    public function getOldChatMember(): AbstractChatMember
+    public function getBio(): ?string
     {
-        return $this->oldChatMember;
-    }
-
-    /**
-     * @param AbstractChatMember $newChatMember
-     * @return static
-     */
-    public function setNewChatMember(AbstractChatMember $newChatMember): self
-    {
-        $this->newChatMember = $newChatMember;
-
-        return $this;
-    }
-
-    /**
-     * @return AbstractChatMember
-     */
-    public function getNewChatMember(): AbstractChatMember
-    {
-        return $this->newChatMember;
+        return $this->bio;
     }
 
     /**

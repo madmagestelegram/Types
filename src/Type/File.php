@@ -76,7 +76,7 @@ class File extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Optional. File size, if known 
+     * Optional. File size in bytes, if known 
      *
      * @var int|null
      * @SkipWhenEmpty

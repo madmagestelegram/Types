@@ -75,7 +75,7 @@ class PassportFile extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * File size 
+     * File size in bytes 
      *
      * @var int
      * @SerializedName("file_size")

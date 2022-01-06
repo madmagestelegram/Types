@@ -155,7 +155,7 @@ class InputMediaAnimation extends AbstractInputMedia
     protected $height;
 
     /**
-     * Optional. Animation duration 
+     * Optional. Animation duration in seconds 
      *
      * @var int|null
      * @SkipWhenEmpty

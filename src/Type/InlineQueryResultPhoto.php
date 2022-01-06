@@ -92,7 +92,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB 
+     * A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB 
      *
      * @var string
      * @SerializedName("photo_url")

@@ -36,12 +36,14 @@ class Chat extends AbstractType
             'last_name',
             'photo',
             'bio',
+            'has_private_forwards',
             'description',
             'invite_link',
             'pinned_message',
             'permissions',
             'slow_mode_delay',
             'message_auto_delete_time',
+            'has_protected_content',
             'sticker_set_name',
             'can_set_sticker_set',
             'linked_chat_id',
@@ -65,12 +67,14 @@ class Chat extends AbstractType
             'last_name' => $this->getLastName(),
             'photo' => $this->getPhoto(),
             'bio' => $this->getBio(),
+            'has_private_forwards' => $this->getHasPrivateForwards(),
             'description' => $this->getDescription(),
             'invite_link' => $this->getInviteLink(),
             'pinned_message' => $this->getPinnedMessage(),
             'permissions' => $this->getPermissions(),
             'slow_mode_delay' => $this->getSlowModeDelay(),
             'message_auto_delete_time' => $this->getMessageAutoDeleteTime(),
+            'has_protected_content' => $this->getHasProtectedContent(),
             'sticker_set_name' => $this->getStickerSetName(),
             'can_set_sticker_set' => $this->getCanSetStickerSet(),
             'linked_chat_id' => $this->getLinkedChatId(),
@@ -169,6 +173,18 @@ class Chat extends AbstractType
     protected $bio;
 
     /**
+     * Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id= 
+     * links only in chats with the user. Returned only in getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_private_forwards")
+     * @Accessor(getter="getHasPrivateForwards",setter="setHasPrivateForwards")
+     * @Type("bool")
+     */
+    protected $hasPrivateForwards;
+
+    /**
      * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat. 
      *
      * @var string|null
@@ -214,7 +230,7 @@ class Chat extends AbstractType
 
     /**
      * Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged 
-     * user. Returned only in getChat. 
+     * user; in seconds. Returned only in getChat. 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -235,6 +251,17 @@ class Chat extends AbstractType
      * @Type("int")
      */
     protected $messageAutoDeleteTime;
+
+    /**
+     * Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_protected_content")
+     * @Accessor(getter="getHasProtectedContent",setter="setHasProtectedContent")
+     * @Type("bool")
+     */
+    protected $hasProtectedContent;
 
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat. 
@@ -437,6 +464,25 @@ class Chat extends AbstractType
     }
 
     /**
+     * @param bool $hasPrivateForwards
+     * @return static
+     */
+    public function setHasPrivateForwards(bool $hasPrivateForwards): self
+    {
+        $this->hasPrivateForwards = $hasPrivateForwards;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasPrivateForwards(): ?bool
+    {
+        return $this->hasPrivateForwards;
+    }
+
+    /**
      * @param string $description
      * @return static
      */
@@ -548,6 +594,25 @@ class Chat extends AbstractType
     public function getMessageAutoDeleteTime(): ?int
     {
         return $this->messageAutoDeleteTime;
+    }
+
+    /**
+     * @param bool $hasProtectedContent
+     * @return static
+     */
+    public function setHasProtectedContent(bool $hasProtectedContent): self
+    {
+        $this->hasProtectedContent = $hasProtectedContent;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasProtectedContent(): ?bool
+    {
+        return $this->hasProtectedContent;
     }
 
     /**

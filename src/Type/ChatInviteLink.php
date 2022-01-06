@@ -30,10 +30,13 @@ class ChatInviteLink extends AbstractType
         return [
             'invite_link',
             'creator',
+            'creates_join_request',
             'is_primary',
             'is_revoked',
+            'name',
             'expire_date',
             'member_limit',
+            'pending_join_request_count',
         ];
     }
 
@@ -47,10 +50,13 @@ class ChatInviteLink extends AbstractType
         $result = [
             'invite_link' => $this->getInviteLink(),
             'creator' => $this->getCreator(),
+            'creates_join_request' => $this->getCreatesJoinRequest(),
             'is_primary' => $this->getIsPrimary(),
             'is_revoked' => $this->getIsRevoked(),
+            'name' => $this->getName(),
             'expire_date' => $this->getExpireDate(),
             'member_limit' => $this->getMemberLimit(),
+            'pending_join_request_count' => $this->getPendingJoinRequestCount(),
         ];
 
         return parent::normalizeData($result);
@@ -78,6 +84,16 @@ class ChatInviteLink extends AbstractType
     protected $creator;
 
     /**
+     * True, if users joining the chat via the link need to be approved by chat administrators 
+     *
+     * @var bool
+     * @SerializedName("creates_join_request")
+     * @Accessor(getter="getCreatesJoinRequest",setter="setCreatesJoinRequest")
+     * @Type("bool")
+     */
+    protected $createsJoinRequest;
+
+    /**
      * True, if the link is primary 
      *
      * @var bool
@@ -96,6 +112,17 @@ class ChatInviteLink extends AbstractType
      * @Type("bool")
      */
     protected $isRevoked;
+
+    /**
+     * Optional. Invite link name 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("name")
+     * @Accessor(getter="getName",setter="setName")
+     * @Type("string")
+     */
+    protected $name;
 
     /**
      * Optional. Point in time (Unix timestamp) when the link will expire or has been expired 
@@ -119,6 +146,17 @@ class ChatInviteLink extends AbstractType
      * @Type("int")
      */
     protected $memberLimit;
+
+    /**
+     * Optional. Number of pending join requests created using this link 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("pending_join_request_count")
+     * @Accessor(getter="getPendingJoinRequestCount",setter="setPendingJoinRequestCount")
+     * @Type("int")
+     */
+    protected $pendingJoinRequestCount;
 
 
     /**
@@ -160,6 +198,25 @@ class ChatInviteLink extends AbstractType
     }
 
     /**
+     * @param bool $createsJoinRequest
+     * @return static
+     */
+    public function setCreatesJoinRequest(bool $createsJoinRequest): self
+    {
+        $this->createsJoinRequest = $createsJoinRequest;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCreatesJoinRequest(): bool
+    {
+        return $this->createsJoinRequest;
+    }
+
+    /**
      * @param bool $isPrimary
      * @return static
      */
@@ -198,6 +255,25 @@ class ChatInviteLink extends AbstractType
     }
 
     /**
+     * @param string $name
+     * @return static
+     */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
      * @param int $expireDate
      * @return static
      */
@@ -233,6 +309,25 @@ class ChatInviteLink extends AbstractType
     public function getMemberLimit(): ?int
     {
         return $this->memberLimit;
+    }
+
+    /**
+     * @param int $pendingJoinRequestCount
+     * @return static
+     */
+    public function setPendingJoinRequestCount(int $pendingJoinRequestCount): self
+    {
+        $this->pendingJoinRequestCount = $pendingJoinRequestCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPendingJoinRequestCount(): ?int
+    {
+        return $this->pendingJoinRequestCount;
     }
 
 }

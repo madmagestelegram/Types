@@ -31,6 +31,7 @@ class ForceReply extends AbstractType
     {
         return [
             'force_reply',
+            'input_field_placeholder',
             'selective',
         ];
     }
@@ -44,6 +45,7 @@ class ForceReply extends AbstractType
     {
         $result = [
             'force_reply' => $this->getForceReply(),
+            'input_field_placeholder' => $this->getInputFieldPlaceholder(),
             'selective' => $this->getSelective(),
         ];
 
@@ -59,6 +61,17 @@ class ForceReply extends AbstractType
      * @Type("bool")
      */
     protected $forceReply;
+
+    /**
+     * Optional. The placeholder to be shown in the input field when the reply is active; 1-64 characters 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("input_field_placeholder")
+     * @Accessor(getter="getInputFieldPlaceholder",setter="setInputFieldPlaceholder")
+     * @Type("string")
+     */
+    protected $inputFieldPlaceholder;
 
     /**
      * Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are 
@@ -91,6 +104,25 @@ class ForceReply extends AbstractType
     public function getForceReply(): bool
     {
         return $this->forceReply;
+    }
+
+    /**
+     * @param string $inputFieldPlaceholder
+     * @return static
+     */
+    public function setInputFieldPlaceholder(string $inputFieldPlaceholder): self
+    {
+        $this->inputFieldPlaceholder = $inputFieldPlaceholder;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getInputFieldPlaceholder(): ?string
+    {
+        return $this->inputFieldPlaceholder;
     }
 
     /**

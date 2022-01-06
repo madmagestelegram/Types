@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#messageautodeletetimerchanged
+ * https://core.telegram.org/bots/api#botcommandscopeallprivatechats
  *
- * This object represents a service message about a change in auto-delete timer settings. 
+ * Represents the scope of bot commands, covering all private chats. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class MessageAutoDeleteTimerChanged extends AbstractType
+class BotCommandScopeAllPrivateChats extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class MessageAutoDeleteTimerChanged extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'message_auto_delete_time',
+            'type',
         ];
     }
 
@@ -40,40 +40,40 @@ class MessageAutoDeleteTimerChanged extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'message_auto_delete_time' => $this->getMessageAutoDeleteTime(),
+            'type' => $this->getType(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * New auto-delete time for messages in the chat; in seconds 
+     * Scope type, must be all_private_chats 
      *
-     * @var int
-     * @SerializedName("message_auto_delete_time")
-     * @Accessor(getter="getMessageAutoDeleteTime",setter="setMessageAutoDeleteTime")
-     * @Type("int")
+     * @var string
+     * @SerializedName("type")
+     * @Accessor(getter="getType",setter="setType")
+     * @Type("string")
      */
-    protected $messageAutoDeleteTime;
+    protected $type;
 
 
     /**
-     * @param int $messageAutoDeleteTime
+     * @param string $type
      * @return static
      */
-    public function setMessageAutoDeleteTime(int $messageAutoDeleteTime): self
+    public function setType(string $type): self
     {
-        $this->messageAutoDeleteTime = $messageAutoDeleteTime;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getMessageAutoDeleteTime(): int
+    public function getType(): string
     {
-        return $this->messageAutoDeleteTime;
+        return $this->type;
     }
 
 }

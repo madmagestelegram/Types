@@ -147,7 +147,7 @@ class Video extends AbstractType
     protected $mimeType;
 
     /**
-     * Optional. File size 
+     * Optional. File size in bytes 
      *
      * @var int|null
      * @SkipWhenEmpty

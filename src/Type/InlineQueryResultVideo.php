@@ -117,7 +117,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $mimeType;
 
     /**
-     * URL of the thumbnail (jpeg only) for the video 
+     * URL of the thumbnail (JPEG only) for the video 
      *
      * @var string
      * @SerializedName("thumb_url")

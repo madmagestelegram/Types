@@ -191,7 +191,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $inputMessageContent;
 
     /**
-     * Optional. URL of the thumbnail (jpeg only) for the file 
+     * Optional. URL of the thumbnail (JPEG only) for the file 
      *
      * @var string|null
      * @SkipWhenEmpty

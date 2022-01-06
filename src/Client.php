@@ -156,8 +156,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#getme
      *
-     * A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot 
-     * in form of a User object. 
+     * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information 
+     * about the bot in form of a User object. 
      *
      * @return mixed
      */
@@ -222,13 +222,17 @@ abstract class Client {
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $entities
-     *        List of special entities that appear in message text, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in message text, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $disableWebPagePreview
      *        Disables link previews for links in this message 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -249,6 +253,7 @@ abstract class Client {
         array $entities = null,
         bool $disableWebPagePreview = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -261,6 +266,7 @@ abstract class Client {
             'entities' => $entities,
             'disable_web_page_preview' => $disableWebPagePreview,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -287,19 +293,24 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the forwarded message from forwarding and saving 
+     *
      * @return mixed
      */
     public function forwardMessage(
         $chatId,
         $fromChatId,
         int $messageId,
-        bool $disableNotification = null
+        bool $disableNotification = null,
+        bool $protectContent = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'from_chat_id' => $fromChatId,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'message_id' => $messageId,
         ];
 
@@ -331,10 +342,14 @@ abstract class Client {
      *        Mode for parsing entities in the new caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the new caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -356,6 +371,7 @@ abstract class Client {
         string $parseMode = null,
         array $captionEntities = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -369,6 +385,7 @@ abstract class Client {
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -398,10 +415,14 @@ abstract class Client {
      *        Mode for parsing entities in the photo caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -422,6 +443,7 @@ abstract class Client {
         string $parseMode = null,
         array $captionEntities = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -434,6 +456,7 @@ abstract class Client {
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -464,7 +487,8 @@ abstract class Client {
      *        Mode for parsing entities in the audio caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param int|null $duration
      *        Duration of the audio in seconds 
@@ -484,6 +508,9 @@ abstract class Client {
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -508,6 +535,7 @@ abstract class Client {
         string $title = null,
         $thumb = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -524,6 +552,7 @@ abstract class Client {
             'title' => $title,
             'thumb' => $thumb,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -561,13 +590,17 @@ abstract class Client {
      *        Mode for parsing entities in the document caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $disableContentTypeDetection
      *        Disables automatic server-side content type detection for files uploaded using multipart/form-data 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -590,6 +623,7 @@ abstract class Client {
         array $captionEntities = null,
         bool $disableContentTypeDetection = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -604,6 +638,7 @@ abstract class Client {
             'caption_entities' => $captionEntities,
             'disable_content_type_detection' => $disableContentTypeDetection,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -649,13 +684,17 @@ abstract class Client {
      *        Mode for parsing entities in the video caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $supportsStreaming
      *        Pass True, if the uploaded video is suitable for streaming 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -681,6 +720,7 @@ abstract class Client {
         array $captionEntities = null,
         bool $supportsStreaming = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -698,6 +738,7 @@ abstract class Client {
             'caption_entities' => $captionEntities,
             'supports_streaming' => $supportsStreaming,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -743,10 +784,14 @@ abstract class Client {
      *        Mode for parsing entities in the animation caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -771,6 +816,7 @@ abstract class Client {
         string $parseMode = null,
         array $captionEntities = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -787,6 +833,7 @@ abstract class Client {
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -818,13 +865,17 @@ abstract class Client {
      *        Mode for parsing entities in the voice message caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param int|null $duration
      *        Duration of the voice message in seconds 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -846,6 +897,7 @@ abstract class Client {
         array $captionEntities = null,
         int $duration = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -859,6 +911,7 @@ abstract class Client {
             'caption_entities' => $captionEntities,
             'duration' => $duration,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -897,6 +950,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -916,6 +972,7 @@ abstract class Client {
         int $length = null,
         $thumb = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -928,6 +985,7 @@ abstract class Client {
             'length' => $length,
             'thumb' => $thumb,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -952,6 +1010,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends messages silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent messages from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the messages are a reply, ID of the original message 
      *
@@ -964,6 +1025,7 @@ abstract class Client {
         $chatId,
         array $media,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null
     )
@@ -972,6 +1034,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'media' => $media,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
         ];
@@ -1009,6 +1072,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -1030,6 +1096,7 @@ abstract class Client {
         int $heading = null,
         int $proximityAlertRadius = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -1044,6 +1111,7 @@ abstract class Client {
             'heading' => $heading,
             'proximity_alert_radius' => $proximityAlertRadius,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -1122,7 +1190,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#stopmessagelivelocation
      *
      * Use this method to stop updating a live location message before live_period expires. On success, if the 
-     * message was sent by the bot, the sent Message is returned, otherwise True is returned. 
+     * message is not an inline message, the edited Message is returned, otherwise True is 
+     * returned. 
      *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -1193,6 +1262,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -1216,6 +1288,7 @@ abstract class Client {
         string $googlePlaceId = null,
         string $googlePlaceType = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -1232,6 +1305,7 @@ abstract class Client {
             'google_place_id' => $googlePlaceId,
             'google_place_type' => $googlePlaceType,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -1263,6 +1337,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -1282,6 +1359,7 @@ abstract class Client {
         string $lastName = null,
         string $vcard = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -1294,6 +1372,7 @@ abstract class Client {
             'last_name' => $lastName,
             'vcard' => $vcard,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -1310,20 +1389,20 @@ abstract class Client {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
-     * @param string[] $options
-     *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
-     *
      * @param string $question
      *        Poll question, 1-300 characters 
      *
-     * @param int|null $openPeriod
-     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
+     * @param string[] $options
+     *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
      *
      * @param bool|null $allowSendingWithoutReply
      *        Pass True, if the message should be sent even if the specified replied-to message is not found 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -1335,11 +1414,15 @@ abstract class Client {
      *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
      * seconds in the future. Can't be used together with open_period. 
      *
+     * @param Type\MessageEntity[]|null $explanationEntities
+     *        A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead 
+     * of parse_mode 
+     *
+     * @param int|null $openPeriod
+     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
+     *
      * @param string|null $explanationParseMode
      *        Mode for parsing entities in the explanation. See formatting options for more details. 
-     *
-     * @param Type\MessageEntity[]|null $explanationEntities
-     *        List of special entities that appear in the poll explanation, which can be specified instead of parse_mode 
      *
      * @param string|null $explanation
      *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
@@ -1365,16 +1448,17 @@ abstract class Client {
      */
     public function sendPoll(
         $chatId,
-        array $options,
         string $question,
-        int $openPeriod = null,
+        array $options,
         bool $allowSendingWithoutReply = null,
         int $replyToMessageId = null,
+        bool $protectContent = null,
         bool $disableNotification = null,
         bool $isClosed = null,
         int $closeDate = null,
-        string $explanationParseMode = null,
         array $explanationEntities = null,
+        int $openPeriod = null,
+        string $explanationParseMode = null,
         string $explanation = null,
         int $correctOptionId = null,
         bool $allowsMultipleAnswers = null,
@@ -1398,6 +1482,7 @@ abstract class Client {
             'close_date' => $closeDate,
             'is_closed' => $isClosed,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -1422,6 +1507,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -1438,6 +1526,7 @@ abstract class Client {
         $chatId,
         string $emoji = null,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -1447,6 +1536,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -1469,8 +1559,8 @@ abstract class Client {
      * @param string $action
      *        Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text 
      * messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice 
-     * notes, upload_document for general files, find_location for location data, record_video_note or 
-     * upload_video_note for video notes. 
+     * notes, upload_document for general files, choose_sticker for stickers, find_location for location data, 
+     * record_video_note or upload_video_note for video notes. 
      *
      * @return mixed
      */
@@ -1544,11 +1634,11 @@ abstract class Client {
     }
 
     /**
-     * https://core.telegram.org/bots/api#kickchatmember
+     * https://core.telegram.org/bots/api#banchatmember
      *
-     * Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user 
-     * will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. 
-     * Returns True on success. 
+     * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user 
+     * will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator 
+     * rights. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target group or username of the target supergroup or channel (in the format 
@@ -1567,7 +1657,7 @@ abstract class Client {
      *
      * @return mixed
      */
-    public function kickChatMember(
+    public function banChatMember(
         $chatId,
         int $userId,
         int $untilDate = null,
@@ -1581,13 +1671,13 @@ abstract class Client {
             'revoke_messages' => $revokeMessages,
         ];
 
-        return $this->_apiCall('kickChatMember', $requestParameters);
+        return $this->_apiCall('banChatMember', $requestParameters);
     }
 
     /**
      * https://core.telegram.org/bots/api#unbanchatmember
      *
-     * Use this method to unban a previously kicked user in a supergroup or channel. The user will not 
+     * Use this method to unban a previously banned user in a supergroup or channel. The user will not 
      * return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this 
      * to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to 
      * join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want 
@@ -1624,8 +1714,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#restrictchatmember
      *
      * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work 
-     * and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. 
-     * Returns True on success. 
+     * and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from 
+     * a user. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
@@ -1664,8 +1754,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#promotechatmember
      *
      * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for 
-     * this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. 
-     * Returns True on success. 
+     * this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to 
+     * demote a user. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1780,17 +1870,73 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#banchatsenderchat
+     *
+     * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels. The 
+     * bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator 
+     * rights. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $senderChatId
+     *        Unique identifier of the target sender chat 
+     *
+     * @return mixed
+     */
+    public function banChatSenderChat(
+        $chatId,
+        int $senderChatId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'sender_chat_id' => $senderChatId,
+        ];
+
+        return $this->_apiCall('banChatSenderChat', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#unbanchatsenderchat
+     *
+     * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator 
+     * for this to work and must have the appropriate administrator rights. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $senderChatId
+     *        Unique identifier of the target sender chat 
+     *
+     * @return mixed
+     */
+    public function unbanChatSenderChat(
+        $chatId,
+        int $senderChatId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'sender_chat_id' => $senderChatId,
+        ];
+
+        return $this->_apiCall('unbanChatSenderChat', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#setchatpermissions
      *
      * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a 
-     * supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success. 
+     * supergroup for this to work and must have the can_restrict_members administrator rights. Returns True on 
+     * success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
      * @|supergroupusername) 
      *
      * @param Type\ChatPermissions $permissions
-     *        New default chat permissions 
+     *        A JSON-serialized object for new default chat permissions 
      *
      * @return mixed
      */
@@ -1811,8 +1957,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#exportchatinvitelink
      *
      * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. 
-     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new 
-     * invite link as String on success. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns 
+     * the new invite link as String on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1834,10 +1980,13 @@ abstract class Client {
      * https://core.telegram.org/bots/api#createchatinvitelink
      *
      * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to 
-     * work and must have the appropriate admin rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. 
+     * work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param string|null $name
+     *        Invite link name; 0-32 characters 
      *
      * @param int|null $expireDate
      *        Point in time (Unix timestamp) when the link will expire 
@@ -1846,18 +1995,26 @@ abstract class Client {
      *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
      * link; 1-99999 
      *
+     * @param bool|null $createsJoinRequest
+     *        True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit 
+     * can't be specified 
+     *
      * @return mixed
      */
     public function createChatInviteLink(
         $chatId,
+        string $name = null,
         int $expireDate = null,
-        int $memberLimit = null
+        int $memberLimit = null,
+        bool $createsJoinRequest = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'name' => $name,
             'expire_date' => $expireDate,
             'member_limit' => $memberLimit,
+            'creates_join_request' => $createsJoinRequest,
         ];
 
         return $this->_apiCall('createChatInviteLink', $requestParameters);
@@ -1867,13 +2024,16 @@ abstract class Client {
      * https://core.telegram.org/bots/api#editchatinvitelink
      *
      * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for 
-     * this to work and must have the appropriate admin rights. Returns the edited invite link as a ChatInviteLink object. 
+     * this to work and must have the appropriate administrator rights. Returns the edited invite link as a ChatInviteLink object. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $inviteLink
      *        The invite link to edit 
+     *
+     * @param string|null $name
+     *        Invite link name; 0-32 characters 
      *
      * @param int|null $expireDate
      *        Point in time (Unix timestamp) when the link will expire 
@@ -1882,20 +2042,28 @@ abstract class Client {
      *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
      * link; 1-99999 
      *
+     * @param bool|null $createsJoinRequest
+     *        True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit 
+     * can't be specified 
+     *
      * @return mixed
      */
     public function editChatInviteLink(
         $chatId,
         string $inviteLink,
+        string $name = null,
         int $expireDate = null,
-        int $memberLimit = null
+        int $memberLimit = null,
+        bool $createsJoinRequest = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'invite_link' => $inviteLink,
+            'name' => $name,
             'expire_date' => $expireDate,
             'member_limit' => $memberLimit,
+            'creates_join_request' => $createsJoinRequest,
         ];
 
         return $this->_apiCall('editChatInviteLink', $requestParameters);
@@ -1905,8 +2073,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#revokechatinvitelink
      *
      * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically 
-     * generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the 
-     * revoked invite link as ChatInviteLink object. 
+     * generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. 
+     * Returns the revoked invite link as ChatInviteLink object. 
      *
      * @param int|string $chatId
      *        Unique identifier of the target chat or username of the target channel (in the format @|channelusername) 
@@ -1930,10 +2098,64 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#approvechatjoinrequest
+     *
+     * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must 
+     * have the can_invite_users administrator right. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user 
+     *
+     * @return mixed
+     */
+    public function approveChatJoinRequest(
+        $chatId,
+        int $userId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'user_id' => $userId,
+        ];
+
+        return $this->_apiCall('approveChatJoinRequest', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#declinechatjoinrequest
+     *
+     * Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must 
+     * have the can_invite_users administrator right. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user 
+     *
+     * @return mixed
+     */
+    public function declineChatJoinRequest(
+        $chatId,
+        int $userId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'user_id' => $userId,
+        ];
+
+        return $this->_apiCall('declineChatJoinRequest', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#setchatphoto
      *
      * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an 
-     * administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. 
+     * administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1960,7 +2182,7 @@ abstract class Client {
      * https://core.telegram.org/bots/api#deletechatphoto
      *
      * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in 
-     * the chat for this to work and must have the appropriate admin rights. Returns True on success. 
+     * the chat for this to work and must have the appropriate administrator rights. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -1982,7 +2204,7 @@ abstract class Client {
      * https://core.telegram.org/bots/api#setchattitle
      *
      * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an 
-     * administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. 
+     * administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2009,7 +2231,7 @@ abstract class Client {
      * https://core.telegram.org/bots/api#setchatdescription
      *
      * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the 
-     * chat for this to work and must have the appropriate admin rights. Returns True on success. 
+     * chat for this to work and must have the appropriate administrator rights. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2036,8 +2258,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#pinchatmessage
      *
      * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be 
-     * an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 
-     * 'can_edit_messages' admin right in a channel. Returns True on success. 
+     * an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup 
+     * or 'can_edit_messages' administrator right in a channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2070,8 +2292,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#unpinchatmessage
      *
      * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot 
-     * must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 
-     * 'can_edit_messages' admin right in a channel. Returns True on success. 
+     * must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a 
+     * supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2099,8 +2321,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#unpinallchatmessages
      *
      * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an 
-     * administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' 
-     * admin right in a channel. Returns True on success. 
+     * administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 
+     * 'can_edit_messages' administrator right in a channel. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2187,7 +2409,7 @@ abstract class Client {
     }
 
     /**
-     * https://core.telegram.org/bots/api#getchatmemberscount
+     * https://core.telegram.org/bots/api#getchatmembercount
      *
      * Use this method to get the number of members in a chat. Returns Int on success. 
      *
@@ -2197,7 +2419,7 @@ abstract class Client {
      *
      * @return mixed
      */
-    public function getChatMembersCount(
+    public function getChatMemberCount(
         $chatId
     )
     {
@@ -2205,7 +2427,7 @@ abstract class Client {
             'chat_id' => $chatId,
         ];
 
-        return $this->_apiCall('getChatMembersCount', $requestParameters);
+        return $this->_apiCall('getChatMemberCount', $requestParameters);
     }
 
     /**
@@ -2240,7 +2462,9 @@ abstract class Client {
      * https://core.telegram.org/bots/api#setchatstickerset
      *
      * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to 
-     * work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success. 
+     * work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally 
+     * returned in getChat requests to check if the bot can use this method. Returns True on 
+     * success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
@@ -2268,7 +2492,9 @@ abstract class Client {
      * https://core.telegram.org/bots/api#deletechatstickerset
      *
      * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to 
-     * work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success. 
+     * work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally 
+     * returned in getChat requests to check if the bot can use this method. Returns True on 
+     * success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
@@ -2300,7 +2526,7 @@ abstract class Client {
      *        Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters 
      *
      * @param bool|null $showAlert
-     *        If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to 
+     *        If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to 
      * false. 
      *
      * @param string|null $url
@@ -2336,36 +2562,87 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#setmycommands
      *
-     * Use this method to change the list of the bot's commands. Returns True on success. 
+     * Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more 
+     * details about bot commands. Returns True on success. 
      *
      * @param Type\BotCommand[] $commands
      *        A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be 
      * specified. 
      *
+     * @param Type\BotCommandScope|null $scope
+     *        A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to 
+     * BotCommandScopeDefault. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for 
+     * whose language there are no dedicated commands 
+     *
      * @return mixed
      */
     public function setMyCommands(
-        array $commands
+        array $commands,
+        Type\BotCommandScope $scope = null,
+        string $languageCode = null
     )
     {
         $requestParameters = [
             'commands' => $commands,
+            'scope' => $scope,
+            'language_code' => $languageCode,
         ];
 
         return $this->_apiCall('setMyCommands', $requestParameters);
     }
 
     /**
+     * https://core.telegram.org/bots/api#deletemycommands
+     *
+     * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success. 
+     *
+     * @param Type\BotCommandScope|null $scope
+     *        A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to 
+     * BotCommandScopeDefault. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for 
+     * whose language there are no dedicated commands 
+     *
+     * @return mixed
+     */
+    public function deleteMyCommands(
+        Type\BotCommandScope $scope = null,
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'scope' => $scope,
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('deleteMyCommands', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#getmycommands
      *
-     * Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. 
+     * Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned. 
+     *
+     * @param Type\BotCommandScope|null $scope
+     *        A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code or an empty string 
      *
      * @return mixed
      */
     public function getMyCommands(
+        Type\BotCommandScope $scope = null,
+        string $languageCode = null
     )
     {
         $requestParameters = [
+            'scope' => $scope,
+            'language_code' => $languageCode,
         ];
 
         return $this->_apiCall('getMyCommands', $requestParameters);
@@ -2394,7 +2671,8 @@ abstract class Client {
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $entities
-     *        List of special entities that appear in message text, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in message text, which can be specified instead of 
+     * parse_mode 
      *
      * @param bool|null $disableWebPagePreview
      *        Disables link previews for links in this message 
@@ -2451,7 +2729,8 @@ abstract class Client {
      *        Mode for parsing entities in the message caption. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $captionEntities
-     *        List of special entities that appear in the caption, which can be specified instead of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
@@ -2486,9 +2765,9 @@ abstract class Client {
      *
      * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, 
      * then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video 
-     * otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file_id or 
-     * specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, 
-     * otherwise True is returned. 
+     * otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or 
+     * specify a URL. On success, if the edited message is not an inline message, the edited Message is 
+     * returned, otherwise True is returned. 
      *
      * @param Type\AbstractInputMedia $media
      *        A JSON-serialized object for a new media content of the message 
@@ -2568,8 +2847,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#stoppoll
      *
-     * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the 
-     * final results is returned. 
+     * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is 
+     * returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2646,6 +2925,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -2662,6 +2944,7 @@ abstract class Client {
         $chatId,
         $sticker,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         $replyMarkup = null
@@ -2671,6 +2954,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'sticker' => $sticker,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -2960,7 +3244,7 @@ abstract class Client {
      * characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to 
      * connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your 
      * YouTube account' button above the results, or even before showing any. The user presses the button, switches to a 
-     * private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once 
+     * private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once 
      * done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the 
      * bot's inline capabilities. 
      *
@@ -3025,6 +3309,9 @@ abstract class Client {
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -3097,6 +3384,7 @@ abstract class Client {
         bool $needEmail = null,
         bool $allowSendingWithoutReply = null,
         int $replyToMessageId = null,
+        bool $protectContent = null,
         bool $disableNotification = null,
         bool $isFlexible = null,
         bool $sendEmailToProvider = null,
@@ -3139,6 +3427,7 @@ abstract class Client {
             'send_email_to_provider' => $sendEmailToProvider,
             'is_flexible' => $isFlexible,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -3193,8 +3482,8 @@ abstract class Client {
      *
      * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form 
      * of an Update with the field pre_checkout_query. Use this method to respond to such 
-     * pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds 
-     * after the pre-checkout query was sent. 
+     * pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 
+     * 10 seconds after the pre-checkout query was sent. 
      *
      * @param string $preCheckoutQueryId
      *        Unique identifier for the query to be answered 
@@ -3270,6 +3559,9 @@ abstract class Client {
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
      *
@@ -3286,6 +3578,7 @@ abstract class Client {
         int $chatId,
         string $gameShortName,
         bool $disableNotification = null,
+        bool $protectContent = null,
         int $replyToMessageId = null,
         bool $allowSendingWithoutReply = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
@@ -3295,6 +3588,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'game_short_name' => $gameShortName,
             'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
             'allow_sending_without_reply' => $allowSendingWithoutReply,
             'reply_markup' => $replyMarkup,
@@ -3306,9 +3600,9 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#setgamescore
      *
-     * Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns 
-     * the edited Message, otherwise returns True. Returns an error, if the new score is 
-     * not greater than the user's current score in the chat and force is False. 
+     * Use this method to set the score of the specified user in a game message. On success, if the message is not an inline 
+     * message, the Message is returned, otherwise True is returned. Returns an error, if the 
+     * new score is not greater than the user's current score in the chat and force is False. 
      *
      * @param int $userId
      *        User identifier 

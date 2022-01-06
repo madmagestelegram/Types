@@ -10,14 +10,16 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#voicechatended
+ * https://core.telegram.org/bots/api#determining-list-of-commands
  *
- * This object represents a service message about a voice chat ended in the chat. 
+ * The following algorithm is used to determine the list of commands for a particular user viewing the bot menu. The first 
+ * list of commands which is set is returned: 
+ * Commands in the chat with the bot 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class VoiceChatEnded extends AbstractType
+class Determining list of commands extends AbstractType
 {
 
     /**
@@ -28,7 +30,6 @@ class VoiceChatEnded extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'duration',
         ];
     }
 
@@ -40,40 +41,10 @@ class VoiceChatEnded extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'duration' => $this->getDuration(),
         ];
 
         return parent::normalizeData($result);
     }
 
-    /**
-     * Voice chat duration in seconds 
-     *
-     * @var int
-     * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setDuration")
-     * @Type("int")
-     */
-    protected $duration;
-
-
-    /**
-     * @param int $duration
-     * @return static
-     */
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDuration(): int
-    {
-        return $this->duration;
-    }
 
 }
