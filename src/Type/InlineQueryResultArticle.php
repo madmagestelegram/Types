@@ -129,7 +129,7 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     protected $url;
 
     /**
-     * Optional. Pass True, if you don't want the URL to be shown in the message 
+     * Optional. Pass True if you don't want the URL to be shown in the message 
      *
      * @var bool|null
      * @SkipWhenEmpty

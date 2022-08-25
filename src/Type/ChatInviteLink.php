@@ -136,7 +136,7 @@ class ChatInviteLink extends AbstractType
     protected $expireDate;
 
     /**
-     * Optional. Maximum number of users that can be members of the chat simultaneously after joining the chat via this 
+     * Optional. The maximum number of users that can be members of the chat simultaneously after joining the chat via this 
      * invite link; 1-99999 
      *
      * @var int|null

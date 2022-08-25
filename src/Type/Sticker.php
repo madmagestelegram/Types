@@ -30,13 +30,17 @@ class Sticker extends AbstractType
         return [
             'file_id',
             'file_unique_id',
+            'type',
             'width',
             'height',
             'is_animated',
+            'is_video',
             'thumb',
             'emoji',
             'set_name',
+            'premium_animation',
             'mask_position',
+            'custom_emoji_id',
             'file_size',
         ];
     }
@@ -51,13 +55,17 @@ class Sticker extends AbstractType
         $result = [
             'file_id' => $this->getFileId(),
             'file_unique_id' => $this->getFileUniqueId(),
+            'type' => $this->getType(),
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'is_animated' => $this->getIsAnimated(),
+            'is_video' => $this->getIsVideo(),
             'thumb' => $this->getThumb(),
             'emoji' => $this->getEmoji(),
             'set_name' => $this->getSetName(),
+            'premium_animation' => $this->getPremiumAnimation(),
             'mask_position' => $this->getMaskPosition(),
+            'custom_emoji_id' => $this->getCustomEmojiId(),
             'file_size' => $this->getFileSize(),
         ];
 
@@ -84,6 +92,17 @@ class Sticker extends AbstractType
      * @Type("string")
      */
     protected $fileUniqueId;
+
+    /**
+     * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is 
+     * independent from its format, which is determined by the fields is_animated and is_video. 
+     *
+     * @var string
+     * @SerializedName("type")
+     * @Accessor(getter="getType",setter="setType")
+     * @Type("string")
+     */
+    protected $type;
 
     /**
      * Sticker width 
@@ -114,6 +133,16 @@ class Sticker extends AbstractType
      * @Type("bool")
      */
     protected $isAnimated;
+
+    /**
+     * True, if the sticker is a video sticker 
+     *
+     * @var bool
+     * @SerializedName("is_video")
+     * @Accessor(getter="getIsVideo",setter="setIsVideo")
+     * @Type("bool")
+     */
+    protected $isVideo;
 
     /**
      * Optional. Sticker thumbnail in the .WEBP or .JPG format 
@@ -149,6 +178,17 @@ class Sticker extends AbstractType
     protected $setName;
 
     /**
+     * Optional. For premium regular stickers, premium animation for the sticker 
+     *
+     * @var File|null
+     * @SkipWhenEmpty
+     * @SerializedName("premium_animation")
+     * @Accessor(getter="getPremiumAnimation",setter="setPremiumAnimation")
+     * @Type("MadmagesTelegram\Types\Type\File")
+     */
+    protected $premiumAnimation;
+
+    /**
      * Optional. For mask stickers, the position where the mask should be placed 
      *
      * @var MaskPosition|null
@@ -158,6 +198,17 @@ class Sticker extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\MaskPosition")
      */
     protected $maskPosition;
+
+    /**
+     * Optional. For custom emoji stickers, unique identifier of the custom emoji 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("custom_emoji_id")
+     * @Accessor(getter="getCustomEmojiId",setter="setCustomEmojiId")
+     * @Type("string")
+     */
+    protected $customEmojiId;
 
     /**
      * Optional. File size in bytes 
@@ -207,6 +258,25 @@ class Sticker extends AbstractType
     public function getFileUniqueId(): string
     {
         return $this->fileUniqueId;
+    }
+
+    /**
+     * @param string $type
+     * @return static
+     */
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     /**
@@ -267,6 +337,25 @@ class Sticker extends AbstractType
     }
 
     /**
+     * @param bool $isVideo
+     * @return static
+     */
+    public function setIsVideo(bool $isVideo): self
+    {
+        $this->isVideo = $isVideo;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsVideo(): bool
+    {
+        return $this->isVideo;
+    }
+
+    /**
      * @param PhotoSize $thumb
      * @return static
      */
@@ -324,6 +413,25 @@ class Sticker extends AbstractType
     }
 
     /**
+     * @param File $premiumAnimation
+     * @return static
+     */
+    public function setPremiumAnimation(File $premiumAnimation): self
+    {
+        $this->premiumAnimation = $premiumAnimation;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getPremiumAnimation(): ?File
+    {
+        return $this->premiumAnimation;
+    }
+
+    /**
      * @param MaskPosition $maskPosition
      * @return static
      */
@@ -340,6 +448,25 @@ class Sticker extends AbstractType
     public function getMaskPosition(): ?MaskPosition
     {
         return $this->maskPosition;
+    }
+
+    /**
+     * @param string $customEmojiId
+     * @return static
+     */
+    public function setCustomEmojiId(string $customEmojiId): self
+    {
+        $this->customEmojiId = $customEmojiId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCustomEmojiId(): ?string
+    {
+        return $this->customEmojiId;
     }
 
     /**

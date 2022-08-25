@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#passportdata
+ * https://core.telegram.org/bots/api#webappdata
  *
- * Describes Telegram Passport data shared with the bot by the user. 
+ * Describes data sent from a Web App to the bot. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class PassportData extends AbstractType
+class WebAppData extends AbstractType
 {
 
     /**
@@ -29,7 +29,7 @@ class PassportData extends AbstractType
     {
         return [
             'data',
-            'credentials',
+            'button_text',
         ];
     }
 
@@ -42,38 +42,39 @@ class PassportData extends AbstractType
     {
         $result = [
             'data' => $this->getData(),
-            'credentials' => $this->getCredentials(),
+            'button_text' => $this->getButtonText(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Array with information about documents and other Telegram Passport elements that was shared with the bot 
+     * The data. Be aware that a bad client can send arbitrary data in this field. 
      *
-     * @var EncryptedPassportElement[]
+     * @var string
      * @SerializedName("data")
      * @Accessor(getter="getData",setter="setData")
-     * @Type("array<MadmagesTelegram\Types\Type\EncryptedPassportElement>")
+     * @Type("string")
      */
     protected $data;
 
     /**
-     * Encrypted credentials required to decrypt the data 
+     * Text of the web_app keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary 
+     * data in this field. 
      *
-     * @var EncryptedCredentials
-     * @SerializedName("credentials")
-     * @Accessor(getter="getCredentials",setter="setCredentials")
-     * @Type("MadmagesTelegram\Types\Type\EncryptedCredentials")
+     * @var string
+     * @SerializedName("button_text")
+     * @Accessor(getter="getButtonText",setter="setButtonText")
+     * @Type("string")
      */
-    protected $credentials;
+    protected $buttonText;
 
 
     /**
-     * @param EncryptedPassportElement[] $data
+     * @param string $data
      * @return static
      */
-    public function setData(array $data): self
+    public function setData(string $data): self
     {
         $this->data = $data;
 
@@ -81,30 +82,30 @@ class PassportData extends AbstractType
     }
 
     /**
-     * @return EncryptedPassportElement[]
+     * @return string
      */
-    public function getData(): array
+    public function getData(): string
     {
         return $this->data;
     }
 
     /**
-     * @param EncryptedCredentials $credentials
+     * @param string $buttonText
      * @return static
      */
-    public function setCredentials(EncryptedCredentials $credentials): self
+    public function setButtonText(string $buttonText): self
     {
-        $this->credentials = $credentials;
+        $this->buttonText = $buttonText;
 
         return $this;
     }
 
     /**
-     * @return EncryptedCredentials
+     * @return string
      */
-    public function getCredentials(): EncryptedCredentials
+    public function getButtonText(): string
     {
-        return $this->credentials;
+        return $this->buttonText;
     }
 
 }

@@ -30,8 +30,9 @@ class StickerSet extends AbstractType
         return [
             'name',
             'title',
+            'sticker_type',
             'is_animated',
-            'contains_masks',
+            'is_video',
             'stickers',
             'thumb',
         ];
@@ -47,8 +48,9 @@ class StickerSet extends AbstractType
         $result = [
             'name' => $this->getName(),
             'title' => $this->getTitle(),
+            'sticker_type' => $this->getStickerType(),
             'is_animated' => $this->getIsAnimated(),
-            'contains_masks' => $this->getContainsMasks(),
+            'is_video' => $this->getIsVideo(),
             'stickers' => $this->getStickers(),
             'thumb' => $this->getThumb(),
         ];
@@ -77,6 +79,16 @@ class StickerSet extends AbstractType
     protected $title;
 
     /**
+     * Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji” 
+     *
+     * @var string
+     * @SerializedName("sticker_type")
+     * @Accessor(getter="getStickerType",setter="setStickerType")
+     * @Type("string")
+     */
+    protected $stickerType;
+
+    /**
      * True, if the sticker set contains animated stickers 
      *
      * @var bool
@@ -87,14 +99,14 @@ class StickerSet extends AbstractType
     protected $isAnimated;
 
     /**
-     * True, if the sticker set contains masks 
+     * True, if the sticker set contains video stickers 
      *
      * @var bool
-     * @SerializedName("contains_masks")
-     * @Accessor(getter="getContainsMasks",setter="setContainsMasks")
+     * @SerializedName("is_video")
+     * @Accessor(getter="getIsVideo",setter="setIsVideo")
      * @Type("bool")
      */
-    protected $containsMasks;
+    protected $isVideo;
 
     /**
      * List of all set stickers 
@@ -107,7 +119,7 @@ class StickerSet extends AbstractType
     protected $stickers;
 
     /**
-     * Optional. Sticker set thumbnail in the .WEBP or .TGS format 
+     * Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -157,6 +169,25 @@ class StickerSet extends AbstractType
     }
 
     /**
+     * @param string $stickerType
+     * @return static
+     */
+    public function setStickerType(string $stickerType): self
+    {
+        $this->stickerType = $stickerType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStickerType(): string
+    {
+        return $this->stickerType;
+    }
+
+    /**
      * @param bool $isAnimated
      * @return static
      */
@@ -176,12 +207,12 @@ class StickerSet extends AbstractType
     }
 
     /**
-     * @param bool $containsMasks
+     * @param bool $isVideo
      * @return static
      */
-    public function setContainsMasks(bool $containsMasks): self
+    public function setIsVideo(bool $isVideo): self
     {
-        $this->containsMasks = $containsMasks;
+        $this->isVideo = $isVideo;
 
         return $this;
     }
@@ -189,9 +220,9 @@ class StickerSet extends AbstractType
     /**
      * @return bool
      */
-    public function getContainsMasks(): bool
+    public function getIsVideo(): bool
     {
-        return $this->containsMasks;
+        return $this->isVideo;
     }
 
     /**

@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#webhookinfo
  *
- * Contains information about the current status of a webhook. 
+ * Describes the current status of a webhook. 
  * It is safe to use 32-bit signed integers for storing all Integer fields unless otherwise noted. 
  *
  * @ExclusionPolicy("none")
@@ -35,6 +35,7 @@ class WebhookInfo extends AbstractType
             'ip_address',
             'last_error_date',
             'last_error_message',
+            'last_synchronization_error_date',
             'max_connections',
             'allowed_updates',
         ];
@@ -54,6 +55,7 @@ class WebhookInfo extends AbstractType
             'ip_address' => $this->getIpAddress(),
             'last_error_date' => $this->getLastErrorDate(),
             'last_error_message' => $this->getLastErrorMessage(),
+            'last_synchronization_error_date' => $this->getLastSynchronizationErrorDate(),
             'max_connections' => $this->getMaxConnections(),
             'allowed_updates' => $this->getAllowedUpdates(),
         ];
@@ -126,7 +128,19 @@ class WebhookInfo extends AbstractType
     protected $lastErrorMessage;
 
     /**
-     * Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery 
+     * Optional. Unix time of the most recent error that happened when trying to synchronize available updates with 
+     * Telegram datacenters 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("last_synchronization_error_date")
+     * @Accessor(getter="getLastSynchronizationErrorDate",setter="setLastSynchronizationErrorDate")
+     * @Type("int")
+     */
+    protected $lastSynchronizationErrorDate;
+
+    /**
+     * Optional. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -260,6 +274,25 @@ class WebhookInfo extends AbstractType
     public function getLastErrorMessage(): ?string
     {
         return $this->lastErrorMessage;
+    }
+
+    /**
+     * @param int $lastSynchronizationErrorDate
+     * @return static
+     */
+    public function setLastSynchronizationErrorDate(int $lastSynchronizationErrorDate): self
+    {
+        $this->lastSynchronizationErrorDate = $lastSynchronizationErrorDate;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLastSynchronizationErrorDate(): ?int
+    {
+        return $this->lastSynchronizationErrorDate;
     }
 
     /**

@@ -81,10 +81,11 @@ class Message extends AbstractType
             'connected_website',
             'passport_data',
             'proximity_alert_triggered',
-            'voice_chat_scheduled',
-            'voice_chat_started',
-            'voice_chat_ended',
-            'voice_chat_participants_invited',
+            'video_chat_scheduled',
+            'video_chat_started',
+            'video_chat_ended',
+            'video_chat_participants_invited',
+            'web_app_data',
             'reply_markup',
         ];
     }
@@ -150,10 +151,11 @@ class Message extends AbstractType
             'connected_website' => $this->getConnectedWebsite(),
             'passport_data' => $this->getPassportData(),
             'proximity_alert_triggered' => $this->getProximityAlertTriggered(),
-            'voice_chat_scheduled' => $this->getVoiceChatScheduled(),
-            'voice_chat_started' => $this->getVoiceChatStarted(),
-            'voice_chat_ended' => $this->getVoiceChatEnded(),
-            'voice_chat_participants_invited' => $this->getVoiceChatParticipantsInvited(),
+            'video_chat_scheduled' => $this->getVideoChatScheduled(),
+            'video_chat_started' => $this->getVideoChatStarted(),
+            'video_chat_ended' => $this->getVideoChatEnded(),
+            'video_chat_participants_invited' => $this->getVideoChatParticipantsInvited(),
+            'web_app_data' => $this->getWebAppData(),
             'reply_markup' => $this->getReplyMarkup(),
         ];
 
@@ -365,7 +367,7 @@ class Message extends AbstractType
     protected $authorSignature;
 
     /**
-     * Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters 
+     * Optional. For text messages, the actual UTF-8 text of the message 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -476,7 +478,7 @@ class Message extends AbstractType
     protected $voice;
 
     /**
-     * Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters 
+     * Optional. Caption for the animation, audio, document, photo, video or voice 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -767,48 +769,59 @@ class Message extends AbstractType
     protected $proximityAlertTriggered;
 
     /**
-     * Optional. Service message: voice chat scheduled 
+     * Optional. Service message: video chat scheduled 
      *
-     * @var VoiceChatScheduled|null
+     * @var VideoChatScheduled|null
      * @SkipWhenEmpty
-     * @SerializedName("voice_chat_scheduled")
-     * @Accessor(getter="getVoiceChatScheduled",setter="setVoiceChatScheduled")
-     * @Type("MadmagesTelegram\Types\Type\VoiceChatScheduled")
+     * @SerializedName("video_chat_scheduled")
+     * @Accessor(getter="getVideoChatScheduled",setter="setVideoChatScheduled")
+     * @Type("MadmagesTelegram\Types\Type\VideoChatScheduled")
      */
-    protected $voiceChatScheduled;
+    protected $videoChatScheduled;
 
     /**
-     * Optional. Service message: voice chat started 
+     * Optional. Service message: video chat started 
      *
-     * @var VoiceChatStarted|null
+     * @var VideoChatStarted|null
      * @SkipWhenEmpty
-     * @SerializedName("voice_chat_started")
-     * @Accessor(getter="getVoiceChatStarted",setter="setVoiceChatStarted")
-     * @Type("MadmagesTelegram\Types\Type\VoiceChatStarted")
+     * @SerializedName("video_chat_started")
+     * @Accessor(getter="getVideoChatStarted",setter="setVideoChatStarted")
+     * @Type("MadmagesTelegram\Types\Type\VideoChatStarted")
      */
-    protected $voiceChatStarted;
+    protected $videoChatStarted;
 
     /**
-     * Optional. Service message: voice chat ended 
+     * Optional. Service message: video chat ended 
      *
-     * @var VoiceChatEnded|null
+     * @var VideoChatEnded|null
      * @SkipWhenEmpty
-     * @SerializedName("voice_chat_ended")
-     * @Accessor(getter="getVoiceChatEnded",setter="setVoiceChatEnded")
-     * @Type("MadmagesTelegram\Types\Type\VoiceChatEnded")
+     * @SerializedName("video_chat_ended")
+     * @Accessor(getter="getVideoChatEnded",setter="setVideoChatEnded")
+     * @Type("MadmagesTelegram\Types\Type\VideoChatEnded")
      */
-    protected $voiceChatEnded;
+    protected $videoChatEnded;
 
     /**
-     * Optional. Service message: new participants invited to a voice chat 
+     * Optional. Service message: new participants invited to a video chat 
      *
-     * @var VoiceChatParticipantsInvited|null
+     * @var VideoChatParticipantsInvited|null
      * @SkipWhenEmpty
-     * @SerializedName("voice_chat_participants_invited")
-     * @Accessor(getter="getVoiceChatParticipantsInvited",setter="setVoiceChatParticipantsInvited")
-     * @Type("MadmagesTelegram\Types\Type\VoiceChatParticipantsInvited")
+     * @SerializedName("video_chat_participants_invited")
+     * @Accessor(getter="getVideoChatParticipantsInvited",setter="setVideoChatParticipantsInvited")
+     * @Type("MadmagesTelegram\Types\Type\VideoChatParticipantsInvited")
      */
-    protected $voiceChatParticipantsInvited;
+    protected $videoChatParticipantsInvited;
+
+    /**
+     * Optional. Service message: data sent by a Web App 
+     *
+     * @var WebAppData|null
+     * @SkipWhenEmpty
+     * @SerializedName("web_app_data")
+     * @Accessor(getter="getWebAppData",setter="setWebAppData")
+     * @Type("MadmagesTelegram\Types\Type\WebAppData")
+     */
+    protected $webAppData;
 
     /**
      * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. 
@@ -1830,79 +1843,98 @@ class Message extends AbstractType
     }
 
     /**
-     * @param VoiceChatScheduled $voiceChatScheduled
+     * @param VideoChatScheduled $videoChatScheduled
      * @return static
      */
-    public function setVoiceChatScheduled(VoiceChatScheduled $voiceChatScheduled): self
+    public function setVideoChatScheduled(VideoChatScheduled $videoChatScheduled): self
     {
-        $this->voiceChatScheduled = $voiceChatScheduled;
+        $this->videoChatScheduled = $videoChatScheduled;
 
         return $this;
     }
 
     /**
-     * @return VoiceChatScheduled|null
+     * @return VideoChatScheduled|null
      */
-    public function getVoiceChatScheduled(): ?VoiceChatScheduled
+    public function getVideoChatScheduled(): ?VideoChatScheduled
     {
-        return $this->voiceChatScheduled;
+        return $this->videoChatScheduled;
     }
 
     /**
-     * @param VoiceChatStarted $voiceChatStarted
+     * @param VideoChatStarted $videoChatStarted
      * @return static
      */
-    public function setVoiceChatStarted(VoiceChatStarted $voiceChatStarted): self
+    public function setVideoChatStarted(VideoChatStarted $videoChatStarted): self
     {
-        $this->voiceChatStarted = $voiceChatStarted;
+        $this->videoChatStarted = $videoChatStarted;
 
         return $this;
     }
 
     /**
-     * @return VoiceChatStarted|null
+     * @return VideoChatStarted|null
      */
-    public function getVoiceChatStarted(): ?VoiceChatStarted
+    public function getVideoChatStarted(): ?VideoChatStarted
     {
-        return $this->voiceChatStarted;
+        return $this->videoChatStarted;
     }
 
     /**
-     * @param VoiceChatEnded $voiceChatEnded
+     * @param VideoChatEnded $videoChatEnded
      * @return static
      */
-    public function setVoiceChatEnded(VoiceChatEnded $voiceChatEnded): self
+    public function setVideoChatEnded(VideoChatEnded $videoChatEnded): self
     {
-        $this->voiceChatEnded = $voiceChatEnded;
+        $this->videoChatEnded = $videoChatEnded;
 
         return $this;
     }
 
     /**
-     * @return VoiceChatEnded|null
+     * @return VideoChatEnded|null
      */
-    public function getVoiceChatEnded(): ?VoiceChatEnded
+    public function getVideoChatEnded(): ?VideoChatEnded
     {
-        return $this->voiceChatEnded;
+        return $this->videoChatEnded;
     }
 
     /**
-     * @param VoiceChatParticipantsInvited $voiceChatParticipantsInvited
+     * @param VideoChatParticipantsInvited $videoChatParticipantsInvited
      * @return static
      */
-    public function setVoiceChatParticipantsInvited(VoiceChatParticipantsInvited $voiceChatParticipantsInvited): self
+    public function setVideoChatParticipantsInvited(VideoChatParticipantsInvited $videoChatParticipantsInvited): self
     {
-        $this->voiceChatParticipantsInvited = $voiceChatParticipantsInvited;
+        $this->videoChatParticipantsInvited = $videoChatParticipantsInvited;
 
         return $this;
     }
 
     /**
-     * @return VoiceChatParticipantsInvited|null
+     * @return VideoChatParticipantsInvited|null
      */
-    public function getVoiceChatParticipantsInvited(): ?VoiceChatParticipantsInvited
+    public function getVideoChatParticipantsInvited(): ?VideoChatParticipantsInvited
     {
-        return $this->voiceChatParticipantsInvited;
+        return $this->videoChatParticipantsInvited;
+    }
+
+    /**
+     * @param WebAppData $webAppData
+     * @return static
+     */
+    public function setWebAppData(WebAppData $webAppData): self
+    {
+        $this->webAppData = $webAppData;
+
+        return $this;
+    }
+
+    /**
+     * @return WebAppData|null
+     */
+    public function getWebAppData(): ?WebAppData
+    {
+        return $this->webAppData;
     }
 
     /**

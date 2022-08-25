@@ -34,6 +34,7 @@ class MessageEntity extends AbstractType
             'url',
             'user',
             'language',
+            'custom_emoji_id',
         ];
     }
 
@@ -51,6 +52,7 @@ class MessageEntity extends AbstractType
             'url' => $this->getUrl(),
             'user' => $this->getUser(),
             'language' => $this->getLanguage(),
+            'custom_emoji_id' => $this->getCustomEmojiId(),
         ];
 
         return parent::normalizeData($result);
@@ -62,7 +64,7 @@ class MessageEntity extends AbstractType
      * (do-not-reply@|telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” 
      * (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth 
      * string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without 
-     * usernames) 
+     * usernames), “custom_emoji” (for inline custom emoji stickers) 
      *
      * @var string
      * @SerializedName("type")
@@ -92,7 +94,7 @@ class MessageEntity extends AbstractType
     protected $length;
 
     /**
-     * Optional. For “text_link” only, url that will be opened after user taps on the text 
+     * Optional. For “text_link” only, URL that will be opened after user taps on the text 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -123,6 +125,18 @@ class MessageEntity extends AbstractType
      * @Type("string")
      */
     protected $language;
+
+    /**
+     * Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get 
+     * full information about the sticker 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("custom_emoji_id")
+     * @Accessor(getter="getCustomEmojiId",setter="setCustomEmojiId")
+     * @Type("string")
+     */
+    protected $customEmojiId;
 
 
     /**
@@ -237,6 +251,25 @@ class MessageEntity extends AbstractType
     public function getLanguage(): ?string
     {
         return $this->language;
+    }
+
+    /**
+     * @param string $customEmojiId
+     * @return static
+     */
+    public function setCustomEmojiId(string $customEmojiId): self
+    {
+        $this->customEmojiId = $customEmojiId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCustomEmojiId(): ?string
+    {
+        return $this->customEmojiId;
     }
 
 }

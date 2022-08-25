@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Type;
  * https://core.telegram.org/bots/api#keyboardbutton
  *
  * This object represents one button of the reply keyboard. For simple text buttons String can be used instead 
- * of this object to specify text of the button. Optional fields request_contact, 
+ * of this object to specify text of the button. Optional fields web_app, request_contact, 
  * request_location, and request_poll are mutually exclusive. 
  *
  * @ExclusionPolicy("none")
@@ -34,6 +34,7 @@ class KeyboardButton extends AbstractType
             'request_contact',
             'request_location',
             'request_poll',
+            'web_app',
         ];
     }
 
@@ -49,6 +50,7 @@ class KeyboardButton extends AbstractType
             'request_contact' => $this->getRequestContact(),
             'request_location' => $this->getRequestLocation(),
             'request_poll' => $this->getRequestPoll(),
+            'web_app' => $this->getWebApp(),
         ];
 
         return parent::normalizeData($result);
@@ -67,7 +69,7 @@ class KeyboardButton extends AbstractType
 
     /**
      * Optional. If True, the user's phone number will be sent as a contact when the button is pressed. Available in private 
-     * chats only 
+     * chats only. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -79,7 +81,7 @@ class KeyboardButton extends AbstractType
 
     /**
      * Optional. If True, the user's current location will be sent when the button is pressed. Available in private chats 
-     * only 
+     * only. 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -91,7 +93,7 @@ class KeyboardButton extends AbstractType
 
     /**
      * Optional. If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. 
-     * Available in private chats only 
+     * Available in private chats only. 
      *
      * @var KeyboardButtonPollType|null
      * @SkipWhenEmpty
@@ -100,6 +102,18 @@ class KeyboardButton extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\KeyboardButtonPollType")
      */
     protected $requestPoll;
+
+    /**
+     * Optional. If specified, the described Web App will be launched when the button is pressed. The Web App will be able to 
+     * send a “web_app_data” service message. Available in private chats only. 
+     *
+     * @var WebAppInfo|null
+     * @SkipWhenEmpty
+     * @SerializedName("web_app")
+     * @Accessor(getter="getWebApp",setter="setWebApp")
+     * @Type("MadmagesTelegram\Types\Type\WebAppInfo")
+     */
+    protected $webApp;
 
 
     /**
@@ -176,6 +190,25 @@ class KeyboardButton extends AbstractType
     public function getRequestPoll(): ?KeyboardButtonPollType
     {
         return $this->requestPoll;
+    }
+
+    /**
+     * @param WebAppInfo $webApp
+     * @return static
+     */
+    public function setWebApp(WebAppInfo $webApp): self
+    {
+        $this->webApp = $webApp;
+
+        return $this;
+    }
+
+    /**
+     * @return WebAppInfo|null
+     */
+    public function getWebApp(): ?WebAppInfo
+    {
+        return $this->webApp;
     }
 
 }

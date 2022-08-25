@@ -95,7 +95,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL for the MP4 file. File size must not exceed 1MB 
+     * A valid URL for the MPEG4 file. File size must not exceed 1MB 
      *
      * @var string
      * @SerializedName("mpeg4_url")

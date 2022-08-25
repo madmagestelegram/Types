@@ -148,7 +148,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
     protected $documentUrl;
 
     /**
-     * Mime type of the content of the file, either “application/pdf” or “application/zip” 
+     * MIME type of the content of the file, either “application/pdf” or “application/zip” 
      *
      * @var string
      * @SerializedName("mime_type")

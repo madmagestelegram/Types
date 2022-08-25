@@ -116,7 +116,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $payload;
 
     /**
-     * Payment provider token, obtained via Botfather 
+     * Payment provider token, obtained via @|BotFather 
      *
      * @var string
      * @SerializedName("provider_token")
@@ -186,7 +186,6 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
 
     /**
      * Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. 
-     * People like it better when they see what they are paying for. 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -197,7 +196,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $photoUrl;
 
     /**
-     * Optional. Photo size 
+     * Optional. Photo size in bytes 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -230,7 +229,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $photoHeight;
 
     /**
-     * Optional. Pass True, if you require the user's full name to complete the order 
+     * Optional. Pass True if you require the user's full name to complete the order 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -241,7 +240,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $needName;
 
     /**
-     * Optional. Pass True, if you require the user's phone number to complete the order 
+     * Optional. Pass True if you require the user's phone number to complete the order 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -252,7 +251,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $needPhoneNumber;
 
     /**
-     * Optional. Pass True, if you require the user's email address to complete the order 
+     * Optional. Pass True if you require the user's email address to complete the order 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -263,7 +262,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $needEmail;
 
     /**
-     * Optional. Pass True, if you require the user's shipping address to complete the order 
+     * Optional. Pass True if you require the user's shipping address to complete the order 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -274,7 +273,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $needShippingAddress;
 
     /**
-     * Optional. Pass True, if user's phone number should be sent to provider 
+     * Optional. Pass True if the user's phone number should be sent to provider 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -285,7 +284,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $sendPhoneNumberToProvider;
 
     /**
-     * Optional. Pass True, if user's email address should be sent to provider 
+     * Optional. Pass True if the user's email address should be sent to provider 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -296,7 +295,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
     protected $sendEmailToProvider;
 
     /**
-     * Optional. Pass True, if the final price depends on the shipping method 
+     * Optional. Pass True if the final price depends on the shipping method 
      *
      * @var bool|null
      * @SkipWhenEmpty

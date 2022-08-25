@@ -116,7 +116,8 @@ class CallbackQuery extends AbstractType
     protected $chatInstance;
 
     /**
-     * Optional. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field. 
+     * Optional. Data associated with the callback button. Be aware that the message originated the query can contain no 
+     * callback buttons with this data. 
      *
      * @var string|null
      * @SkipWhenEmpty

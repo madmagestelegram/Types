@@ -85,7 +85,7 @@ class InlineQueryResultCachedMpeg4Gif extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid file identifier for the MP4 file 
+     * A valid file identifier for the MPEG4 file 
      *
      * @var string
      * @SerializedName("mpeg4_file_id")

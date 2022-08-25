@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#voicechatstarted
+ * https://core.telegram.org/bots/api#menubutton
  *
- * This object represents a service message about a voice chat started in the chat. Currently holds no information. 
+ * This object describes the bot's menu button in a private chat. It should be one of 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class VoiceChatStarted extends AbstractType
+class MenuButton extends AbstractType
 {
 
     /**

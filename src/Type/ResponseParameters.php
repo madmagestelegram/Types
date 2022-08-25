@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#responseparameters
  *
- * Contains information about why a request was unsuccessful. 
+ * Describes why a request was unsuccessful. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")

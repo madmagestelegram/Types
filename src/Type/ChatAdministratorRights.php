@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#chatmemberadministrator
+ * https://core.telegram.org/bots/api#chatadministratorrights
  *
- * Represents a chat member that has some additional privileges. 
+ * Represents the rights of an administrator in a chat. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class ChatMemberAdministrator extends AbstractChatMember
+class ChatAdministratorRights extends AbstractType
 {
 
     /**
@@ -28,9 +28,6 @@ class ChatMemberAdministrator extends AbstractChatMember
     public static function _getPropertyNames(): array
     {
         return [
-            'status',
-            'user',
-            'can_be_edited',
             'is_anonymous',
             'can_manage_chat',
             'can_delete_messages',
@@ -42,7 +39,6 @@ class ChatMemberAdministrator extends AbstractChatMember
             'can_post_messages',
             'can_edit_messages',
             'can_pin_messages',
-            'custom_title',
         ];
     }
 
@@ -54,9 +50,6 @@ class ChatMemberAdministrator extends AbstractChatMember
     public function _getData(): array
     {
         $result = [
-            'status' => $this->getStatus(),
-            'user' => $this->getUser(),
-            'can_be_edited' => $this->getCanBeEdited(),
             'is_anonymous' => $this->getIsAnonymous(),
             'can_manage_chat' => $this->getCanManageChat(),
             'can_delete_messages' => $this->getCanDeleteMessages(),
@@ -68,41 +61,10 @@ class ChatMemberAdministrator extends AbstractChatMember
             'can_post_messages' => $this->getCanPostMessages(),
             'can_edit_messages' => $this->getCanEditMessages(),
             'can_pin_messages' => $this->getCanPinMessages(),
-            'custom_title' => $this->getCustomTitle(),
         ];
 
         return parent::normalizeData($result);
     }
-
-    /**
-     * The member's status in the chat, always “administrator” 
-     *
-     * @var string
-     * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setStatus")
-     * @Type("string")
-     */
-    protected $status;
-
-    /**
-     * Information about the user 
-     *
-     * @var User
-     * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
-     * @Type("MadmagesTelegram\Types\Type\User")
-     */
-    protected $user;
-
-    /**
-     * True, if the bot is allowed to edit administrator privileges of that user 
-     *
-     * @var bool
-     * @SerializedName("can_be_edited")
-     * @Accessor(getter="getCanBeEdited",setter="setCanBeEdited")
-     * @Type("bool")
-     */
-    protected $canBeEdited;
 
     /**
      * True, if the user's presence in the chat is hidden 
@@ -220,74 +182,6 @@ class ChatMemberAdministrator extends AbstractChatMember
      */
     protected $canPinMessages;
 
-    /**
-     * Optional. Custom title for this user 
-     *
-     * @var string|null
-     * @SkipWhenEmpty
-     * @SerializedName("custom_title")
-     * @Accessor(getter="getCustomTitle",setter="setCustomTitle")
-     * @Type("string")
-     */
-    protected $customTitle;
-
-
-    /**
-     * @param string $status
-     * @return static
-     */
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param User $user
-     * @return static
-     */
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param bool $canBeEdited
-     * @return static
-     */
-    public function setCanBeEdited(bool $canBeEdited): self
-    {
-        $this->canBeEdited = $canBeEdited;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getCanBeEdited(): bool
-    {
-        return $this->canBeEdited;
-    }
 
     /**
      * @param bool $isAnonymous
@@ -496,25 +390,6 @@ class ChatMemberAdministrator extends AbstractChatMember
     public function getCanPinMessages(): ?bool
     {
         return $this->canPinMessages;
-    }
-
-    /**
-     * @param string $customTitle
-     * @return static
-     */
-    public function setCustomTitle(string $customTitle): self
-    {
-        $this->customTitle = $customTitle;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCustomTitle(): ?string
-    {
-        return $this->customTitle;
     }
 
 }

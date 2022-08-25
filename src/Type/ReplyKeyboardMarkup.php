@@ -80,7 +80,7 @@ class ReplyKeyboardMarkup extends AbstractType
 
     /**
      * Optional. Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but 
-     * clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input 
+     * clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input 
      * field to see the custom keyboard again. Defaults to false. 
      *
      * @var bool|null

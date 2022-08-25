@@ -57,7 +57,7 @@ class ShippingAddress extends AbstractType
     }
 
     /**
-     * ISO 3166-1 alpha-2 country code 
+     * Two-letter ISO 3166-1 alpha-2 country code 
      *
      * @var string
      * @SerializedName("country_code")

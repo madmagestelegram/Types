@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#encryptedpassportelement
  *
- * Contains information about documents or other Telegram Passport elements shared with the bot by the user. 
+ * Describes documents or other Telegram Passport elements shared with the bot by the user. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")

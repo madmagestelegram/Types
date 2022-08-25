@@ -77,7 +77,7 @@ class Update extends AbstractType
 
     /**
      * The update's unique identifier. Update identifiers start from a certain positive number and increase 
-     * sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to 
+     * sequentially. This ID becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to 
      * restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then 
      * identifier of the next update will be chosen randomly instead of sequentially. 
      *
@@ -89,7 +89,7 @@ class Update extends AbstractType
     protected $updateId;
 
     /**
-     * Optional. New incoming message of any kind — text, photo, sticker, etc. 
+     * Optional. New incoming message of any kind - text, photo, sticker, etc. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -111,7 +111,7 @@ class Update extends AbstractType
     protected $editedMessage;
 
     /**
-     * Optional. New incoming channel post of any kind — text, photo, sticker, etc. 
+     * Optional. New incoming channel post of any kind - text, photo, sticker, etc. 
      *
      * @var Message|null
      * @SkipWhenEmpty

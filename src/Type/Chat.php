@@ -37,6 +37,9 @@ class Chat extends AbstractType
             'photo',
             'bio',
             'has_private_forwards',
+            'has_restricted_voice_and_video_messages',
+            'join_to_send_messages',
+            'join_by_request',
             'description',
             'invite_link',
             'pinned_message',
@@ -68,6 +71,9 @@ class Chat extends AbstractType
             'photo' => $this->getPhoto(),
             'bio' => $this->getBio(),
             'has_private_forwards' => $this->getHasPrivateForwards(),
+            'has_restricted_voice_and_video_messages' => $this->getHasRestrictedVoiceAndVideoMessages(),
+            'join_to_send_messages' => $this->getJoinToSendMessages(),
+            'join_by_request' => $this->getJoinByRequest(),
             'description' => $this->getDescription(),
             'invite_link' => $this->getInviteLink(),
             'pinned_message' => $this->getPinnedMessage(),
@@ -183,6 +189,41 @@ class Chat extends AbstractType
      * @Type("bool")
      */
     protected $hasPrivateForwards;
+
+    /**
+     * Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the 
+     * private chat. Returned only in getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_restricted_voice_and_video_messages")
+     * @Accessor(getter="getHasRestrictedVoiceAndVideoMessages",setter="setHasRestrictedVoiceAndVideoMessages")
+     * @Type("bool")
+     */
+    protected $hasRestrictedVoiceAndVideoMessages;
+
+    /**
+     * Optional. True, if users need to join the supergroup before they can send messages. Returned only in getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("join_to_send_messages")
+     * @Accessor(getter="getJoinToSendMessages",setter="setJoinToSendMessages")
+     * @Type("bool")
+     */
+    protected $joinToSendMessages;
+
+    /**
+     * Optional. True, if all users directly joining the supergroup need to be approved by supergroup administrators. 
+     * Returned only in getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("join_by_request")
+     * @Accessor(getter="getJoinByRequest",setter="setJoinByRequest")
+     * @Type("bool")
+     */
+    protected $joinByRequest;
 
     /**
      * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat. 
@@ -480,6 +521,63 @@ class Chat extends AbstractType
     public function getHasPrivateForwards(): ?bool
     {
         return $this->hasPrivateForwards;
+    }
+
+    /**
+     * @param bool $hasRestrictedVoiceAndVideoMessages
+     * @return static
+     */
+    public function setHasRestrictedVoiceAndVideoMessages(bool $hasRestrictedVoiceAndVideoMessages): self
+    {
+        $this->hasRestrictedVoiceAndVideoMessages = $hasRestrictedVoiceAndVideoMessages;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasRestrictedVoiceAndVideoMessages(): ?bool
+    {
+        return $this->hasRestrictedVoiceAndVideoMessages;
+    }
+
+    /**
+     * @param bool $joinToSendMessages
+     * @return static
+     */
+    public function setJoinToSendMessages(bool $joinToSendMessages): self
+    {
+        $this->joinToSendMessages = $joinToSendMessages;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getJoinToSendMessages(): ?bool
+    {
+        return $this->joinToSendMessages;
+    }
+
+    /**
+     * @param bool $joinByRequest
+     * @return static
+     */
+    public function setJoinByRequest(bool $joinByRequest): self
+    {
+        $this->joinByRequest = $joinByRequest;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getJoinByRequest(): ?bool
+    {
+        return $this->joinByRequest;
     }
 
     /**

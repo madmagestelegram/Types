@@ -34,6 +34,8 @@ class User extends AbstractType
             'last_name',
             'username',
             'language_code',
+            'is_premium',
+            'added_to_attachment_menu',
             'can_join_groups',
             'can_read_all_group_messages',
             'supports_inline_queries',
@@ -54,6 +56,8 @@ class User extends AbstractType
             'last_name' => $this->getLastName(),
             'username' => $this->getUsername(),
             'language_code' => $this->getLanguageCode(),
+            'is_premium' => $this->getIsPremium(),
+            'added_to_attachment_menu' => $this->getAddedToAttachmentMenu(),
             'can_join_groups' => $this->getCanJoinGroups(),
             'can_read_all_group_messages' => $this->getCanReadAllGroupMessages(),
             'supports_inline_queries' => $this->getSupportsInlineQueries(),
@@ -126,6 +130,28 @@ class User extends AbstractType
      * @Type("string")
      */
     protected $languageCode;
+
+    /**
+     * Optional. True, if this user is a Telegram Premium user 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_premium")
+     * @Accessor(getter="getIsPremium",setter="setIsPremium")
+     * @Type("bool")
+     */
+    protected $isPremium;
+
+    /**
+     * Optional. True, if this user added the bot to the attachment menu 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("added_to_attachment_menu")
+     * @Accessor(getter="getAddedToAttachmentMenu",setter="setAddedToAttachmentMenu")
+     * @Type("bool")
+     */
+    protected $addedToAttachmentMenu;
 
     /**
      * Optional. True, if the bot can be invited to groups. Returned only in getMe. 
@@ -273,6 +299,44 @@ class User extends AbstractType
     public function getLanguageCode(): ?string
     {
         return $this->languageCode;
+    }
+
+    /**
+     * @param bool $isPremium
+     * @return static
+     */
+    public function setIsPremium(bool $isPremium): self
+    {
+        $this->isPremium = $isPremium;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsPremium(): ?bool
+    {
+        return $this->isPremium;
+    }
+
+    /**
+     * @param bool $addedToAttachmentMenu
+     * @return static
+     */
+    public function setAddedToAttachmentMenu(bool $addedToAttachmentMenu): self
+    {
+        $this->addedToAttachmentMenu = $addedToAttachmentMenu;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getAddedToAttachmentMenu(): ?bool
+    {
+        return $this->addedToAttachmentMenu;
     }
 
     /**

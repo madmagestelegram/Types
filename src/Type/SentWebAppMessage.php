@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#voicechatparticipantsinvited
+ * https://core.telegram.org/bots/api#sentwebappmessage
  *
- * This object represents a service message about new members invited to a voice chat. 
+ * Describes an inline message sent by a Web App on behalf of a user. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class VoiceChatParticipantsInvited extends AbstractType
+class SentWebAppMessage extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class VoiceChatParticipantsInvited extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'users',
+            'inline_message_id',
         ];
     }
 
@@ -40,41 +40,42 @@ class VoiceChatParticipantsInvited extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'users' => $this->getUsers(),
+            'inline_message_id' => $this->getInlineMessageId(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Optional. New members that were invited to the voice chat 
+     * Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the 
+     * message. 
      *
-     * @var User[]|null
+     * @var string|null
      * @SkipWhenEmpty
-     * @SerializedName("users")
-     * @Accessor(getter="getUsers",setter="setUsers")
-     * @Type("array<MadmagesTelegram\Types\Type\User>")
+     * @SerializedName("inline_message_id")
+     * @Accessor(getter="getInlineMessageId",setter="setInlineMessageId")
+     * @Type("string")
      */
-    protected $users;
+    protected $inlineMessageId;
 
 
     /**
-     * @param User[] $users
+     * @param string $inlineMessageId
      * @return static
      */
-    public function setUsers(array $users): self
+    public function setInlineMessageId(string $inlineMessageId): self
     {
-        $this->users = $users;
+        $this->inlineMessageId = $inlineMessageId;
 
         return $this;
     }
 
     /**
-     * @return User[]|null
+     * @return string|null
      */
-    public function getUsers(): ?array
+    public function getInlineMessageId(): ?string
     {
-        return $this->users;
+        return $this->inlineMessageId;
     }
 
 }

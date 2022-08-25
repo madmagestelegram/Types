@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#voicechatended
+ * https://core.telegram.org/bots/api#videochatparticipantsinvited
  *
- * This object represents a service message about a voice chat ended in the chat. 
+ * This object represents a service message about new members invited to a video chat. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class VoiceChatEnded extends AbstractType
+class VideoChatParticipantsInvited extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class VoiceChatEnded extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'duration',
+            'users',
         ];
     }
 
@@ -40,40 +40,40 @@ class VoiceChatEnded extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'duration' => $this->getDuration(),
+            'users' => $this->getUsers(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Voice chat duration in seconds 
+     * New members that were invited to the video chat 
      *
-     * @var int
-     * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setDuration")
-     * @Type("int")
+     * @var User[]
+     * @SerializedName("users")
+     * @Accessor(getter="getUsers",setter="setUsers")
+     * @Type("array<MadmagesTelegram\Types\Type\User>")
      */
-    protected $duration;
+    protected $users;
 
 
     /**
-     * @param int $duration
+     * @param User[] $users
      * @return static
      */
-    public function setDuration(int $duration): self
+    public function setUsers(array $users): self
     {
-        $this->duration = $duration;
+        $this->users = $users;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return User[]
      */
-    public function getDuration(): int
+    public function getUsers(): array
     {
-        return $this->duration;
+        return $this->users;
     }
 
 }

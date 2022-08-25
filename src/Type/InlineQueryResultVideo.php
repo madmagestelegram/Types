@@ -107,7 +107,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     protected $videoUrl;
 
     /**
-     * Mime type of the content of video url, “text/html” or “video/mp4” 
+     * MIME type of the content of the video URL, “text/html” or “video/mp4” 
      *
      * @var string
      * @SerializedName("mime_type")

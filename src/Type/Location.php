@@ -111,8 +111,8 @@ class Location extends AbstractType
     protected $heading;
 
     /**
-     * Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live 
-     * locations only. 
+     * Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent 
+     * live locations only. 
      *
      * @var int|null
      * @SkipWhenEmpty

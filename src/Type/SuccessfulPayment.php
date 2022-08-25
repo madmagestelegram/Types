@@ -102,7 +102,7 @@ class SuccessfulPayment extends AbstractType
     protected $shippingOptionId;
 
     /**
-     * Optional. Order info provided by the user 
+     * Optional. Order information provided by the user 
      *
      * @var OrderInfo|null
      * @SkipWhenEmpty

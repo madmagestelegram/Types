@@ -88,7 +88,7 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#getupdates
      *
-     * Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned. 
+     * Use this method to receive incoming updates using long polling (wiki). Returns an Array of Update objects. 
      *
      * @param int|null $offset
      *        Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of 
@@ -138,14 +138,14 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#setwebhook
      *
-     * Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for 
-     * the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on 
-     * success. If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, 
-     * e.g. https://www.example.com/&lt;token&gt;. Since nobody else knows your bot's token, you can be 
-     * pretty sure it's us. 
+     * Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for 
+     * the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on 
+     * success. If you'd like to make sure that the webhook was set by you, you can specify secret data in the parameter 
+     * secret_token. If specified, the request will contain a header “X-Telegram-Bot-Api-Secret-Token” with the secret token as 
+     * content. 
      *
      * @param string $url
-     *        HTTPS url to send updates to. Use an empty string to remove webhook integration 
+     *        HTTPS URL to send updates to. Use an empty string to remove webhook integration 
      *
      * @param Type\InputFile|null $certificate
      *        Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide 
@@ -155,8 +155,9 @@ abstract class TypedClient {
      *        The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS 
      *
      * @param int|null $maxConnections
-     *        Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults 
-     * to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. 
+     *        The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. 
+     * Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's 
+     * throughput. 
      *
      * @param string[]|null $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
@@ -168,6 +169,11 @@ abstract class TypedClient {
      * @param bool|null $dropPendingUpdates
      *        Pass True to drop all pending updates 
      *
+     * @param string|null $secretToken
+     *        A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 
+     * characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a 
+     * webhook set by you. 
+     *
      * @return bool
      * @throws TelegramException
      */
@@ -177,7 +183,8 @@ abstract class TypedClient {
         string $ipAddress = null,
         int $maxConnections = null,
         array $allowedUpdates = null,
-        bool $dropPendingUpdates = null
+        bool $dropPendingUpdates = null,
+        string $secretToken = null
     ): bool
     {
         $requestParameters = [
@@ -187,6 +194,7 @@ abstract class TypedClient {
             'max_connections' => $maxConnections,
             'allowed_updates' => $allowedUpdates,
             'drop_pending_updates' => $dropPendingUpdates,
+            'secret_token' => $secretToken,
         ];
 
         $returnType = [
@@ -344,7 +352,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -436,8 +444,8 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#copymessage
      *
-     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is 
-     * analogous to the method forwardMessage, but the copied message doesn't have a link to the 
+     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous 
+     * to the method forwardMessage, but the copied message doesn't have a link to the 
      * original message. Returns the MessageId of the sent message on success. 
      *
      * @param int|string $chatId
@@ -471,7 +479,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -527,7 +535,7 @@ abstract class TypedClient {
      *        Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. 
      * The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height 
-     * ratio must be at most 20. More info on Sending Files » 
+     * ratio must be at most 20. More information on Sending Files » 
      *
      * @param string|null $caption
      *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing 
@@ -549,7 +557,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -604,7 +612,7 @@ abstract class TypedClient {
      * @param Type\InputFile|string $audio
      *        Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using 
-     * multipart/form-data. More info on Sending Files » 
+     * multipart/form-data. More information on Sending Files » 
      *
      * @param string|null $caption
      *        Audio caption, 0-1024 characters after entities parsing 
@@ -630,7 +638,7 @@ abstract class TypedClient {
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
-     * multipart/form-data under <file_attach_name>. More info on Sending Files » 
+     * multipart/form-data under <file_attach_name>. More information on Sending Files » 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -642,7 +650,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -704,14 +712,14 @@ abstract class TypedClient {
      * @param Type\InputFile|string $document
      *        File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More 
-     * info on Sending Files » 
+     * information on Sending Files » 
      *
      * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
-     * multipart/form-data under <file_attach_name>. More info on Sending Files » 
+     * multipart/form-data under <file_attach_name>. More information on Sending Files » 
      *
      * @param string|null $caption
      *        Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities 
@@ -737,7 +745,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -786,7 +794,7 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#sendvideo
      *
-     * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB 
+     * Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB 
      * in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
@@ -795,7 +803,7 @@ abstract class TypedClient {
      * @param Type\InputFile|string $video
      *        Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. 
-     * More info on Sending Files » 
+     * More information on Sending Files » 
      *
      * @param int|null $duration
      *        Duration of sent video in seconds 
@@ -811,7 +819,7 @@ abstract class TypedClient {
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
-     * multipart/form-data under <file_attach_name>. More info on Sending Files » 
+     * multipart/form-data under <file_attach_name>. More information on Sending Files » 
      *
      * @param string|null $caption
      *        Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing 
@@ -824,7 +832,7 @@ abstract class TypedClient {
      * parse_mode 
      *
      * @param bool|null $supportsStreaming
-     *        Pass True, if the uploaded video is suitable for streaming 
+     *        Pass True if the uploaded video is suitable for streaming 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -836,7 +844,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -899,7 +907,7 @@ abstract class TypedClient {
      * @param Type\InputFile|string $animation
      *        Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using 
-     * multipart/form-data. More info on Sending Files » 
+     * multipart/form-data. More information on Sending Files » 
      *
      * @param int|null $duration
      *        Duration of sent animation in seconds 
@@ -915,7 +923,7 @@ abstract class TypedClient {
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
-     * multipart/form-data under <file_attach_name>. More info on Sending Files » 
+     * multipart/form-data under <file_attach_name>. More information on Sending Files » 
      *
      * @param string|null $caption
      *        Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities 
@@ -938,7 +946,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1002,7 +1010,7 @@ abstract class TypedClient {
      * @param Type\InputFile|string $voice
      *        Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), 
      * pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More info on Sending Files » 
+     * multipart/form-data. More information on Sending Files » 
      *
      * @param string|null $caption
      *        Voice message caption, 0-1024 characters after entities parsing 
@@ -1027,7 +1035,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1075,15 +1083,15 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#sendvideonote
      *
      * As of v.4.0, Telegram clients 
-     * support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned. 
+     * support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param Type\InputFile|string $videoNote
      *        Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers 
-     * (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is 
-     * currently unsupported 
+     * (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a 
+     * URL is currently unsupported 
      *
      * @param int|null $duration
      *        Duration of sent video in seconds 
@@ -1096,7 +1104,7 @@ abstract class TypedClient {
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
      * new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using 
-     * multipart/form-data under <file_attach_name>. More info on Sending Files » 
+     * multipart/form-data under <file_attach_name>. More information on Sending Files » 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -1108,7 +1116,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1173,7 +1181,7 @@ abstract class TypedClient {
      *        If the messages are a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @return Type\Message[]
      * @throws TelegramException
@@ -1240,7 +1248,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1317,8 +1325,8 @@ abstract class TypedClient {
      *        Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
      *
      * @param int|null $proximityAlertRadius
-     *        Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 
-     * 100000 if specified. 
+     *        The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 
+     * and 100000 if specified. 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for a new inline keyboard. 
@@ -1447,7 +1455,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1527,7 +1535,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1584,7 +1592,7 @@ abstract class TypedClient {
      *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -1596,7 +1604,7 @@ abstract class TypedClient {
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param bool|null $isClosed
-     *        Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. 
+     *        Pass True if the poll needs to be immediately closed. This can be useful for poll preview. 
      *
      * @param int|null $closeDate
      *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
@@ -1707,7 +1715,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1819,14 +1827,14 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#getfile
      *
-     * Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files 
-     * of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the 
-     * link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where 
+     * Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can 
+     * download files of up to 20MB in size. On success, a File object is returned. The file can then be 
+     * downloaded via the link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where 
      * &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new 
      * one can be requested by calling getFile again. 
      *
      * @param string $fileId
-     *        File identifier to get info about 
+     *        File identifier to get information about 
      *
      * @return Type\File
      * @throws TelegramException
@@ -1903,7 +1911,7 @@ abstract class TypedClient {
      *
      * @param int|string $chatId
      *        Unique identifier for the target group or username of the target supergroup or channel (in the format 
-     * @|username) 
+     * @|channelusername) 
      *
      * @param int $userId
      *        Unique identifier of the target user 
@@ -1992,40 +2000,40 @@ abstract class TypedClient {
      *        Unique identifier of the target user 
      *
      * @param bool|null $isAnonymous
-     *        Pass True, if the administrator's presence in the chat is hidden 
+     *        Pass True if the administrator's presence in the chat is hidden 
      *
      * @param bool|null $canManageChat
-     *        Pass True, if the administrator can access the chat event log, chat statistics, message statistics in 
-     * channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
+     *        Pass True if the administrator can access the chat event log, chat statistics, message statistics in channels, 
+     * see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
      * administrator privilege 
      *
      * @param bool|null $canPostMessages
-     *        Pass True, if the administrator can create channel posts, channels only 
+     *        Pass True if the administrator can create channel posts, channels only 
      *
      * @param bool|null $canEditMessages
-     *        Pass True, if the administrator can edit messages of other users and can pin messages, channels only 
+     *        Pass True if the administrator can edit messages of other users and can pin messages, channels only 
      *
      * @param bool|null $canDeleteMessages
-     *        Pass True, if the administrator can delete messages of other users 
+     *        Pass True if the administrator can delete messages of other users 
      *
-     * @param bool|null $canManageVoiceChats
-     *        Pass True, if the administrator can manage voice chats 
+     * @param bool|null $canManageVideoChats
+     *        Pass True if the administrator can manage video chats 
      *
      * @param bool|null $canRestrictMembers
-     *        Pass True, if the administrator can restrict, ban or unban chat members 
+     *        Pass True if the administrator can restrict, ban or unban chat members 
      *
      * @param bool|null $canPromoteMembers
-     *        Pass True, if the administrator can add new administrators with a subset of their own privileges or demote 
+     *        Pass True if the administrator can add new administrators with a subset of their own privileges or demote 
      * administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) 
      *
      * @param bool|null $canChangeInfo
-     *        Pass True, if the administrator can change chat title, photo and other settings 
+     *        Pass True if the administrator can change chat title, photo and other settings 
      *
      * @param bool|null $canInviteUsers
-     *        Pass True, if the administrator can invite new users to the chat 
+     *        Pass True if the administrator can invite new users to the chat 
      *
      * @param bool|null $canPinMessages
-     *        Pass True, if the administrator can pin messages, supergroups only 
+     *        Pass True if the administrator can pin messages, supergroups only 
      *
      * @return bool
      * @throws TelegramException
@@ -2038,7 +2046,7 @@ abstract class TypedClient {
         bool $canPostMessages = null,
         bool $canEditMessages = null,
         bool $canDeleteMessages = null,
-        bool $canManageVoiceChats = null,
+        bool $canManageVideoChats = null,
         bool $canRestrictMembers = null,
         bool $canPromoteMembers = null,
         bool $canChangeInfo = null,
@@ -2054,7 +2062,7 @@ abstract class TypedClient {
             'can_post_messages' => $canPostMessages,
             'can_edit_messages' => $canEditMessages,
             'can_delete_messages' => $canDeleteMessages,
-            'can_manage_voice_chats' => $canManageVoiceChats,
+            'can_manage_video_chats' => $canManageVideoChats,
             'can_restrict_members' => $canRestrictMembers,
             'can_promote_members' => $canPromoteMembers,
             'can_change_info' => $canChangeInfo,
@@ -2250,7 +2258,7 @@ abstract class TypedClient {
      *        Point in time (Unix timestamp) when the link will expire 
      *
      * @param int|null $memberLimit
-     *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
+     *        The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
      * link; 1-99999 
      *
      * @param bool|null $createsJoinRequest
@@ -2302,7 +2310,7 @@ abstract class TypedClient {
      *        Point in time (Unix timestamp) when the link will expire 
      *
      * @param int|null $memberLimit
-     *        Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
+     *        The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite 
      * link; 1-99999 
      *
      * @param bool|null $createsJoinRequest
@@ -2571,7 +2579,7 @@ abstract class TypedClient {
      *        Identifier of a message to pin 
      *
      * @param bool|null $disableNotification
-     *        Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. 
+     *        Pass True if it is not necessary to send a notification to all chat members about the new pinned message. 
      * Notifications are always disabled in channels and private chats. 
      *
      * @return bool
@@ -2716,8 +2724,7 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#getchatadministrators
      *
-     * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a 
-     * supergroup and no administrators were appointed, only the creator will be returned. 
+     * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
@@ -2884,7 +2891,7 @@ abstract class TypedClient {
      *
      * @param string|null $url
      *        URL that will be opened by the user's client. If you have created a Game and accepted the conditions via 
-     * @|Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game 
+     * @|BotFather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game 
      * button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. 
      *
      * @param int|null $cacheTime
@@ -2993,7 +3000,8 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#getmycommands
      *
-     * Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned. 
+     * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of 
+     * BotCommand objects. If commands aren't set, an empty list is returned. 
      *
      * @param Type\BotCommandScope|null $scope
      *        A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault. 
@@ -3019,6 +3027,127 @@ abstract class TypedClient {
         ];
 
         return $this->_requestWithMap('getMyCommands', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setchatmenubutton
+     *
+     * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True 
+     * on success. 
+     *
+     * @param int|null $chatId
+     *        Unique identifier for the target private chat. If not specified, default bot's menu button will be changed 
+     *
+     * @param Type\MenuButton|null $menuButton
+     *        A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function setChatMenuButton(
+        int $chatId = null,
+        Type\MenuButton $menuButton = null
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'menu_button' => $menuButton,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('setChatMenuButton', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getchatmenubutton
+     *
+     * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns 
+     * MenuButton on success. 
+     *
+     * @param int|null $chatId
+     *        Unique identifier for the target private chat. If not specified, default bot's menu button will be returned 
+     *
+     * @return Type\MenuButton
+     * @throws TelegramException
+     */
+    public function getChatMenuButton(
+        int $chatId = null
+    ): Type\MenuButton
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+        ];
+
+        $returnType = [
+            Type\MenuButton::class,
+        ];
+
+        return $this->_requestWithMap('getChatMenuButton', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setmydefaultadministratorrights
+     *
+     * Use this method to change the default administrator rights requested by the bot when it's added as an administrator 
+     * to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the 
+     * bot. Returns True on success. 
+     *
+     * @param Type\ChatAdministratorRights|null $rights
+     *        A JSON-serialized object describing new default administrator rights. If not specified, the default 
+     * administrator rights will be cleared. 
+     *
+     * @param bool|null $forChannels
+     *        Pass True to change the default administrator rights of the bot in channels. Otherwise, the default 
+     * administrator rights of the bot for groups and supergroups will be changed. 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function setMyDefaultAdministratorRights(
+        Type\ChatAdministratorRights $rights = null,
+        bool $forChannels = null
+    ): bool
+    {
+        $requestParameters = [
+            'rights' => $rights,
+            'for_channels' => $forChannels,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('setMyDefaultAdministratorRights', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getmydefaultadministratorrights
+     *
+     * Use this method to get the current default administrator rights of the bot. Returns ChatAdministratorRights on success. 
+     *
+     * @param bool|null $forChannels
+     *        Pass True to get default administrator rights of the bot in channels. Otherwise, default administrator rights 
+     * of the bot for groups and supergroups will be returned. 
+     *
+     * @return Type\ChatAdministratorRights
+     * @throws TelegramException
+     */
+    public function getMyDefaultAdministratorRights(
+        bool $forChannels = null
+    ): Type\ChatAdministratorRights
+    {
+        $requestParameters = [
+            'for_channels' => $forChannels,
+        ];
+
+        $returnType = [
+            Type\ChatAdministratorRights::class,
+        ];
+
+        return $this->_requestWithMap('getMyDefaultAdministratorRights', $requestParameters, $returnType);
     }
 
     /**
@@ -3318,8 +3447,9 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#sendsticker
      *
-     * Use this method to send static .WEBP or animated 
-     * .TGS stickers. On success, the sent Message is returned. 
+     * Use this method to send static .WEBP, animated 
+     * .TGS, or video .WEBM stickers. On 
+     * success, the sent Message is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -3327,7 +3457,7 @@ abstract class TypedClient {
      * @param Type\InputFile|string $sticker
      *        Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass 
      * an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using 
-     * multipart/form-data. More info on Sending Files » 
+     * multipart/form-data. More information on Sending Files » 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -3339,7 +3469,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -3402,6 +3532,32 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#getcustomemojistickers
+     *
+     * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects. 
+     *
+     * @param string[] $customEmojiIds
+     *        List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified. 
+     *
+     * @return Type\Sticker[]
+     * @throws TelegramException
+     */
+    public function getCustomEmojiStickers(
+        array $customEmojiIds
+    ): array
+    {
+        $requestParameters = [
+            'custom_emoji_ids' => $customEmojiIds,
+        ];
+
+        $returnType = [
+            'array<' . Type\Sticker::class . '>',
+        ];
+
+        return $this->_requestWithMap('getCustomEmojiStickers', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#uploadstickerfile
      *
      * Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and 
@@ -3412,7 +3568,7 @@ abstract class TypedClient {
      *
      * @param Type\InputFile $pngSticker
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
-     * width or height must be exactly 512px. More info on Sending Files » 
+     * width or height must be exactly 512px. More information on Sending Files » 
      *
      * @return Type\File
      * @throws TelegramException
@@ -3438,15 +3594,16 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#createnewstickerset
      *
      * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You 
-     * must use exactly one of the fields png_sticker or tgs_sticker. Returns True on success. 
+     * must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Returns 
+     * True on success. 
      *
      * @param int $userId
      *        User identifier of created sticker set owner 
      *
      * @param string $name
-     *        Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only english 
+     *        Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English 
      * letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in 
-     * “_by_<bot username>”. <bot_username> is case insensitive. 1-64 characters. 
+     * "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters. 
      *
      * @param string $title
      *        Sticker set title, 1-64 characters 
@@ -3458,14 +3615,19 @@ abstract class TypedClient {
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More info on Sending Files » 
+     * multipart/form-data. More information on Sending Files » 
      *
      * @param Type\InputFile|null $tgsSticker
      *        TGS animation with the sticker, uploaded using multipart/form-data. See 
-     * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
+     * https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements 
      *
-     * @param bool|null $containsMasks
-     *        Pass True, if a set of mask stickers should be created 
+     * @param Type\InputFile|null $webmSticker
+     *        WEBM video with the sticker, uploaded using multipart/form-data. See 
+     * https://core.telegram.org/stickers#video-sticker-requirements for technical requirements 
+     *
+     * @param string|null $stickerType
+     *        Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via 
+     * the Bot API at the moment. By default, a regular sticker set is created. 
      *
      * @param Type\MaskPosition|null $maskPosition
      *        A JSON-serialized object for position where the mask should be placed on faces 
@@ -3480,7 +3642,8 @@ abstract class TypedClient {
         string $emojis,
         $pngSticker = null,
         Type\InputFile $tgsSticker = null,
-        bool $containsMasks = null,
+        Type\InputFile $webmSticker = null,
+        string $stickerType = null,
         Type\MaskPosition $maskPosition = null
     ): bool
     {
@@ -3490,8 +3653,9 @@ abstract class TypedClient {
             'title' => $title,
             'png_sticker' => $pngSticker,
             'tgs_sticker' => $tgsSticker,
+            'webm_sticker' => $webmSticker,
+            'sticker_type' => $stickerType,
             'emojis' => $emojis,
-            'contains_masks' => $containsMasks,
             'mask_position' => $maskPosition,
         ];
 
@@ -3506,9 +3670,9 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#addstickertoset
      *
      * Use this method to add a new sticker to a set created by the bot. You must use exactly one of the 
-     * fields png_sticker or tgs_sticker. Animated stickers can be added to animated sticker sets and only 
-     * to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns 
-     * True on success. 
+     * fields png_sticker, tgs_sticker, or webm_sticker. Animated stickers can be added to 
+     * animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 
+     * stickers. Returns True on success. 
      *
      * @param int $userId
      *        User identifier of sticker set owner 
@@ -3523,11 +3687,15 @@ abstract class TypedClient {
      *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
      * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
      * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More info on Sending Files » 
+     * multipart/form-data. More information on Sending Files » 
      *
      * @param Type\InputFile|null $tgsSticker
      *        TGS animation with the sticker, uploaded using multipart/form-data. See 
-     * https://core.telegram.org/animated_stickers#technical-requirements for technical requirements 
+     * https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements 
+     *
+     * @param Type\InputFile|null $webmSticker
+     *        WEBM video with the sticker, uploaded using multipart/form-data. See 
+     * https://core.telegram.org/stickers#video-sticker-requirements for technical requirements 
      *
      * @param Type\MaskPosition|null $maskPosition
      *        A JSON-serialized object for position where the mask should be placed on faces 
@@ -3541,6 +3709,7 @@ abstract class TypedClient {
         string $emojis,
         $pngSticker = null,
         Type\InputFile $tgsSticker = null,
+        Type\InputFile $webmSticker = null,
         Type\MaskPosition $maskPosition = null
     ): bool
     {
@@ -3549,6 +3718,7 @@ abstract class TypedClient {
             'name' => $name,
             'png_sticker' => $pngSticker,
             'tgs_sticker' => $tgsSticker,
+            'webm_sticker' => $webmSticker,
             'emojis' => $emojis,
             'mask_position' => $maskPosition,
         ];
@@ -3621,7 +3791,9 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#setstickersetthumb
      *
      * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. 
-     * Returns True on success. To enable this option, send the /setinline command to @|BotFather and provide the placeholder text that the user will see in the input field after typing your bot's name. 
+     * Video thumbnails can be set only for video sticker sets only. Returns True on success. To enable this option, 
+     * send the /setinline command to @|BotFather and provide the 
+     * placeholder text that the user will see in the input field after typing your bot's name. 
      *
      * @param string $name
      *        Sticker set name 
@@ -3632,9 +3804,10 @@ abstract class TypedClient {
      * @param Type\InputFile|string|null $thumb
      *        A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS 
      * animation with the thumbnail up to 32 kilobytes in size; see 
-     * https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
+     * https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see 
+     * https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
      * Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More info on Sending Files ». Animated sticker set thumbnail can't be uploaded via HTTP URL. 
+     * multipart/form-data. More information on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL. 
      *
      * @return bool
      * @throws TelegramException
@@ -3675,8 +3848,8 @@ abstract class TypedClient {
      * 300. 
      *
      * @param bool|null $isPersonal
-     *        Pass True, if results may be cached on the server side only for the user that sent the query. By default, results 
-     * may be returned to any user who sends the same query 
+     *        Pass True if results may be cached on the server side only for the user that sent the query. By default, results may 
+     * be returned to any user who sends the same query 
      *
      * @param string|null $nextOffset
      *        Pass the offset that a client should send in the next query with the same text to receive more results. Pass an 
@@ -3726,6 +3899,38 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#answerwebappquery
+     *
+     * Use this method to set the result of an interaction with a Web App and send a 
+     * corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned. 
+     *
+     * @param string $webAppQueryId
+     *        Unique identifier for the query to be answered 
+     *
+     * @param Type\AbstractInlineQueryResult $result
+     *        A JSON-serialized object describing the message to be sent 
+     *
+     * @return Type\SentWebAppMessage
+     * @throws TelegramException
+     */
+    public function answerWebAppQuery(
+        string $webAppQueryId,
+        Type\AbstractInlineQueryResult $result
+    ): Type\SentWebAppMessage
+    {
+        $requestParameters = [
+            'web_app_query_id' => $webAppQueryId,
+            'result' => $result,
+        ];
+
+        $returnType = [
+            Type\SentWebAppMessage::class,
+        ];
+
+        return $this->_requestWithMap('answerWebAppQuery', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#sendinvoice
      *
      * Use this method to send invoices. On success, the sent Message is returned. 
@@ -3741,7 +3946,7 @@ abstract class TypedClient {
      * processes. 
      *
      * @param string $providerToken
-     *        Payments provider token, obtained via Botfather 
+     *        Payment provider token, obtained via @|BotFather 
      *
      * @param string $currency
      *        Three-letter ISO 4217 currency code, see more on currencies 
@@ -3754,10 +3959,10 @@ abstract class TypedClient {
      *        Product name, 1-32 characters 
      *
      * @param bool|null $needEmail
-     *        Pass True, if you require the user's email address to complete the order 
+     *        Pass True if you require the user's email address to complete the order 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param int|null $replyToMessageId
      *        If the message is a reply, ID of the original message 
@@ -3769,38 +3974,38 @@ abstract class TypedClient {
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param bool|null $isFlexible
-     *        Pass True, if the final price depends on the shipping method 
+     *        Pass True if the final price depends on the shipping method 
      *
      * @param bool|null $sendEmailToProvider
-     *        Pass True, if user's email address should be sent to provider 
+     *        Pass True if the user's email address should be sent to provider 
      *
      * @param bool|null $sendPhoneNumberToProvider
-     *        Pass True, if user's phone number should be sent to provider 
+     *        Pass True if the user's phone number should be sent to provider 
      *
      * @param bool|null $needShippingAddress
-     *        Pass True, if you require the user's shipping address to complete the order 
+     *        Pass True if you require the user's shipping address to complete the order 
      *
      * @param int|null $photoWidth
      *        Photo width 
      *
      * @param bool|null $needPhoneNumber
-     *        Pass True, if you require the user's phone number to complete the order 
+     *        Pass True if you require the user's phone number to complete the order 
      *
      * @param bool|null $needName
-     *        Pass True, if you require the user's full name to complete the order 
+     *        Pass True if you require the user's full name to complete the order 
      *
      * @param int|null $photoHeight
      *        Photo height 
      *
      * @param int|null $photoSize
-     *        Photo size 
+     *        Photo size in bytes 
      *
      * @param string|null $photoUrl
      *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like 
      * it better when they see what they are paying for. 
      *
      * @param string|null $providerData
-     *        A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
+     *        JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
      * description of required fields should be provided by the payment provider. 
      *
      * @param string|null $startParameter
@@ -3894,6 +4099,134 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#createinvoicelink
+     *
+     * Use this method to create a link for an invoice. Returns the created invoice link as String on success. 
+     *
+     * @param string $title
+     *        Product name, 1-32 characters 
+     *
+     * @param string $payload
+     *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal 
+     * processes. 
+     *
+     * @param string $providerToken
+     *        Payment provider token, obtained via BotFather 
+     *
+     * @param string $currency
+     *        Three-letter ISO 4217 currency code, see more on currencies 
+     *
+     * @param Type\LabeledPrice[] $prices
+     *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
+     * delivery tax, bonus, etc.) 
+     *
+     * @param string $description
+     *        Product description, 1-255 characters 
+     *
+     * @param bool|null $needName
+     *        Pass True if you require the user's full name to complete the order 
+     *
+     * @param bool|null $sendEmailToProvider
+     *        Pass True if the user's email address should be sent to the provider 
+     *
+     * @param bool|null $sendPhoneNumberToProvider
+     *        Pass True if the user's phone number should be sent to the provider 
+     *
+     * @param bool|null $needShippingAddress
+     *        Pass True if you require the user's shipping address to complete the order 
+     *
+     * @param bool|null $needEmail
+     *        Pass True if you require the user's email address to complete the order 
+     *
+     * @param bool|null $needPhoneNumber
+     *        Pass True if you require the user's phone number to complete the order 
+     *
+     * @param int|null $photoSize
+     *        Photo size in bytes 
+     *
+     * @param int|null $photoHeight
+     *        Photo height 
+     *
+     * @param int|null $photoWidth
+     *        Photo width 
+     *
+     * @param string|null $photoUrl
+     *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. 
+     *
+     * @param string|null $providerData
+     *        JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
+     * description of required fields should be provided by the payment provider. 
+     *
+     * @param int[]|null $suggestedTipAmounts
+     *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
+     * float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a 
+     * strictly increased order and must not exceed max_tip_amount. 
+     *
+     * @param int|null $maxTipAmount
+     *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
+     * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
+     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
+     *
+     * @param bool|null $isFlexible
+     *        Pass True if the final price depends on the shipping method 
+     *
+     * @return string
+     * @throws TelegramException
+     */
+    public function createInvoiceLink(
+        string $title,
+        string $payload,
+        string $providerToken,
+        string $currency,
+        array $prices,
+        string $description,
+        bool $needName = null,
+        bool $sendEmailToProvider = null,
+        bool $sendPhoneNumberToProvider = null,
+        bool $needShippingAddress = null,
+        bool $needEmail = null,
+        bool $needPhoneNumber = null,
+        int $photoSize = null,
+        int $photoHeight = null,
+        int $photoWidth = null,
+        string $photoUrl = null,
+        string $providerData = null,
+        array $suggestedTipAmounts = null,
+        int $maxTipAmount = null,
+        bool $isFlexible = null
+    ): string
+    {
+        $requestParameters = [
+            'title' => $title,
+            'description' => $description,
+            'payload' => $payload,
+            'provider_token' => $providerToken,
+            'currency' => $currency,
+            'prices' => $prices,
+            'max_tip_amount' => $maxTipAmount,
+            'suggested_tip_amounts' => $suggestedTipAmounts,
+            'provider_data' => $providerData,
+            'photo_url' => $photoUrl,
+            'photo_size' => $photoSize,
+            'photo_width' => $photoWidth,
+            'photo_height' => $photoHeight,
+            'need_name' => $needName,
+            'need_phone_number' => $needPhoneNumber,
+            'need_email' => $needEmail,
+            'need_shipping_address' => $needShippingAddress,
+            'send_phone_number_to_provider' => $sendPhoneNumberToProvider,
+            'send_email_to_provider' => $sendEmailToProvider,
+            'is_flexible' => $isFlexible,
+        ];
+
+        $returnType = [
+            'string',
+        ];
+
+        return $this->_requestWithMap('createInvoiceLink', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#answershippingquery
      *
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot 
@@ -3904,8 +4237,8 @@ abstract class TypedClient {
      *        Unique identifier for the query to be answered 
      *
      * @param bool $ok
-     *        Specify True if delivery to the specified address is possible and False if there are any problems (for example, 
-     * if delivery to the specified address is not possible) 
+     *        Pass True if delivery to the specified address is possible and False if there are any problems (for example, if 
+     * delivery to the specified address is not possible) 
      *
      * @param Type\ShippingOption[]|null $shippingOptions
      *        Required if ok is True. A JSON-serialized array of available shipping options. 
@@ -4026,7 +4359,7 @@ abstract class TypedClient {
      *        Unique identifier for the target chat 
      *
      * @param string $gameShortName
-     *        Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather. 
+     *        Short name of the game, serves as the unique identifier for the game. Set up your games via @|BotFather. 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -4038,7 +4371,7 @@ abstract class TypedClient {
      *        If the message is a reply, ID of the original message 
      *
      * @param bool|null $allowSendingWithoutReply
-     *        Pass True, if the message should be sent even if the specified replied-to message is not found 
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not 
@@ -4088,10 +4421,10 @@ abstract class TypedClient {
      *        New score, must be non-negative 
      *
      * @param bool|null $force
-     *        Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters 
+     *        Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters 
      *
      * @param bool|null $disableEditMessage
-     *        Pass True, if the game message should not be automatically edited to include the current scoreboard 
+     *        Pass True if the game message should not be automatically edited to include the current scoreboard 
      *
      * @param int|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat 
@@ -4137,7 +4470,7 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#getgamehighscores
      *
      * Use this method to get data for high score tables. Will return the score of the specified user and several of their 
-     * neighbors in a game. On success, returns an Array of GameHighScore objects. 
+     * neighbors in a game. Returns an Array of GameHighScore objects. 
      *
      * @param int $userId
      *        Target user id 

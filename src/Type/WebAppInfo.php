@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#voicechatscheduled
+ * https://core.telegram.org/bots/api#webappinfo
  *
- * This object represents a service message about a voice chat scheduled in the chat. 
+ * Describes a Web App. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class VoiceChatScheduled extends AbstractType
+class WebAppInfo extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class VoiceChatScheduled extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'start_date',
+            'url',
         ];
     }
 
@@ -40,40 +40,40 @@ class VoiceChatScheduled extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'start_date' => $this->getStartDate(),
+            'url' => $this->getUrl(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Point in time (Unix timestamp) when the voice chat is supposed to be started by a chat administrator 
+     * An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps 
      *
-     * @var int
-     * @SerializedName("start_date")
-     * @Accessor(getter="getStartDate",setter="setStartDate")
-     * @Type("int")
+     * @var string
+     * @SerializedName("url")
+     * @Accessor(getter="getUrl",setter="setUrl")
+     * @Type("string")
      */
-    protected $startDate;
+    protected $url;
 
 
     /**
-     * @param int $startDate
+     * @param string $url
      * @return static
      */
-    public function setStartDate(int $startDate): self
+    public function setUrl(string $url): self
     {
-        $this->startDate = $startDate;
+        $this->url = $url;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStartDate(): int
+    public function getUrl(): string
     {
-        return $this->startDate;
+        return $this->url;
     }
 
 }
