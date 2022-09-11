@@ -51,7 +51,7 @@ class VideoChatParticipantsInvited extends AbstractType
      *
      * @var User[]
      * @SerializedName("users")
-     * @Accessor(getter="getUsers",setter="setUsers")
+     * @Accessor(getter="getUsers", setter="setUsers")
      * @Type("array<MadmagesTelegram\Types\Type\User>")
      */
     protected $users;

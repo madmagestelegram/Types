@@ -51,7 +51,7 @@ class VideoChatScheduled extends AbstractType
      *
      * @var int
      * @SerializedName("start_date")
-     * @Accessor(getter="getStartDate",setter="setStartDate")
+     * @Accessor(getter="getStartDate", setter="setStartDate")
      * @Type("int")
      */
     protected $startDate;

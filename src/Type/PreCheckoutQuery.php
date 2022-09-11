@@ -63,7 +63,7 @@ class PreCheckoutQuery extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -73,7 +73,7 @@ class PreCheckoutQuery extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setFrom")
+     * @Accessor(getter="getFrom", setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -83,7 +83,7 @@ class PreCheckoutQuery extends AbstractType
      *
      * @var string
      * @SerializedName("currency")
-     * @Accessor(getter="getCurrency",setter="setCurrency")
+     * @Accessor(getter="getCurrency", setter="setCurrency")
      * @Type("string")
      */
     protected $currency;
@@ -95,7 +95,7 @@ class PreCheckoutQuery extends AbstractType
      *
      * @var int
      * @SerializedName("total_amount")
-     * @Accessor(getter="getTotalAmount",setter="setTotalAmount")
+     * @Accessor(getter="getTotalAmount", setter="setTotalAmount")
      * @Type("int")
      */
     protected $totalAmount;
@@ -105,7 +105,7 @@ class PreCheckoutQuery extends AbstractType
      *
      * @var string
      * @SerializedName("invoice_payload")
-     * @Accessor(getter="getInvoicePayload",setter="setInvoicePayload")
+     * @Accessor(getter="getInvoicePayload", setter="setInvoicePayload")
      * @Type("string")
      */
     protected $invoicePayload;
@@ -116,7 +116,7 @@ class PreCheckoutQuery extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("shipping_option_id")
-     * @Accessor(getter="getShippingOptionId",setter="setShippingOptionId")
+     * @Accessor(getter="getShippingOptionId", setter="setShippingOptionId")
      * @Type("string")
      */
     protected $shippingOptionId;
@@ -127,7 +127,7 @@ class PreCheckoutQuery extends AbstractType
      * @var OrderInfo|null
      * @SkipWhenEmpty
      * @SerializedName("order_info")
-     * @Accessor(getter="getOrderInfo",setter="setOrderInfo")
+     * @Accessor(getter="getOrderInfo", setter="setOrderInfo")
      * @Type("MadmagesTelegram\Types\Type\OrderInfo")
      */
     protected $orderInfo;

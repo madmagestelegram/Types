@@ -61,7 +61,7 @@ class ChatMemberUpdated extends AbstractType
      *
      * @var Chat
      * @SerializedName("chat")
-     * @Accessor(getter="getChat",setter="setChat")
+     * @Accessor(getter="getChat", setter="setChat")
      * @Type("MadmagesTelegram\Types\Type\Chat")
      */
     protected $chat;
@@ -71,7 +71,7 @@ class ChatMemberUpdated extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setFrom")
+     * @Accessor(getter="getFrom", setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -81,7 +81,7 @@ class ChatMemberUpdated extends AbstractType
      *
      * @var int
      * @SerializedName("date")
-     * @Accessor(getter="getDate",setter="setDate")
+     * @Accessor(getter="getDate", setter="setDate")
      * @Type("int")
      */
     protected $date;
@@ -91,7 +91,7 @@ class ChatMemberUpdated extends AbstractType
      *
      * @var AbstractChatMember
      * @SerializedName("old_chat_member")
-     * @Accessor(getter="getOldChatMember",setter="setOldChatMember")
+     * @Accessor(getter="getOldChatMember", setter="setOldChatMember")
      * @Type("MadmagesTelegram\Types\Type\AbstractChatMember")
      */
     protected $oldChatMember;
@@ -101,7 +101,7 @@ class ChatMemberUpdated extends AbstractType
      *
      * @var AbstractChatMember
      * @SerializedName("new_chat_member")
-     * @Accessor(getter="getNewChatMember",setter="setNewChatMember")
+     * @Accessor(getter="getNewChatMember", setter="setNewChatMember")
      * @Type("MadmagesTelegram\Types\Type\AbstractChatMember")
      */
     protected $newChatMember;
@@ -112,7 +112,7 @@ class ChatMemberUpdated extends AbstractType
      * @var ChatInviteLink|null
      * @SkipWhenEmpty
      * @SerializedName("invite_link")
-     * @Accessor(getter="getInviteLink",setter="setInviteLink")
+     * @Accessor(getter="getInviteLink", setter="setInviteLink")
      * @Type("MadmagesTelegram\Types\Type\ChatInviteLink")
      */
     protected $inviteLink;

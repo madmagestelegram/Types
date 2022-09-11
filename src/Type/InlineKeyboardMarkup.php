@@ -51,7 +51,7 @@ class InlineKeyboardMarkup extends AbstractType
      *
      * @var array[]
      * @SerializedName("inline_keyboard")
-     * @Accessor(getter="getInlineKeyboard",setter="setInlineKeyboard")
+     * @Accessor(getter="getInlineKeyboard", setter="setInlineKeyboard")
      * @Type("array<array>")
      */
     protected $inlineKeyboard;

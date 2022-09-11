@@ -53,7 +53,7 @@ class Dice extends AbstractType
      *
      * @var string
      * @SerializedName("emoji")
-     * @Accessor(getter="getEmoji",setter="setEmoji")
+     * @Accessor(getter="getEmoji", setter="setEmoji")
      * @Type("string")
      */
     protected $emoji;
@@ -64,7 +64,7 @@ class Dice extends AbstractType
      *
      * @var int
      * @SerializedName("value")
-     * @Accessor(getter="getValue",setter="setValue")
+     * @Accessor(getter="getValue", setter="setValue")
      * @Type("int")
      */
     protected $value;

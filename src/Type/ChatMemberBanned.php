@@ -56,7 +56,7 @@ class ChatMemberBanned extends AbstractChatMember
      *
      * @var string
      * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setStatus")
+     * @Accessor(getter="getStatus", setter="setStatus")
      * @Type("string")
      */
     protected $status;
@@ -66,7 +66,7 @@ class ChatMemberBanned extends AbstractChatMember
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -76,7 +76,7 @@ class ChatMemberBanned extends AbstractChatMember
      *
      * @var int
      * @SerializedName("until_date")
-     * @Accessor(getter="getUntilDate",setter="setUntilDate")
+     * @Accessor(getter="getUntilDate", setter="setUntilDate")
      * @Type("int")
      */
     protected $untilDate;

@@ -73,7 +73,7 @@ class User extends AbstractType
      *
      * @var int
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("int")
      */
     protected $id;
@@ -83,7 +83,7 @@ class User extends AbstractType
      *
      * @var bool
      * @SerializedName("is_bot")
-     * @Accessor(getter="getIsBot",setter="setIsBot")
+     * @Accessor(getter="getIsBot", setter="setIsBot")
      * @Type("bool")
      */
     protected $isBot;
@@ -93,7 +93,7 @@ class User extends AbstractType
      *
      * @var string
      * @SerializedName("first_name")
-     * @Accessor(getter="getFirstName",setter="setFirstName")
+     * @Accessor(getter="getFirstName", setter="setFirstName")
      * @Type("string")
      */
     protected $firstName;
@@ -104,7 +104,7 @@ class User extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("last_name")
-     * @Accessor(getter="getLastName",setter="setLastName")
+     * @Accessor(getter="getLastName", setter="setLastName")
      * @Type("string")
      */
     protected $lastName;
@@ -115,7 +115,7 @@ class User extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("username")
-     * @Accessor(getter="getUsername",setter="setUsername")
+     * @Accessor(getter="getUsername", setter="setUsername")
      * @Type("string")
      */
     protected $username;
@@ -126,7 +126,7 @@ class User extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("language_code")
-     * @Accessor(getter="getLanguageCode",setter="setLanguageCode")
+     * @Accessor(getter="getLanguageCode", setter="setLanguageCode")
      * @Type("string")
      */
     protected $languageCode;
@@ -137,7 +137,7 @@ class User extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("is_premium")
-     * @Accessor(getter="getIsPremium",setter="setIsPremium")
+     * @Accessor(getter="getIsPremium", setter="setIsPremium")
      * @Type("bool")
      */
     protected $isPremium;
@@ -148,7 +148,7 @@ class User extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("added_to_attachment_menu")
-     * @Accessor(getter="getAddedToAttachmentMenu",setter="setAddedToAttachmentMenu")
+     * @Accessor(getter="getAddedToAttachmentMenu", setter="setAddedToAttachmentMenu")
      * @Type("bool")
      */
     protected $addedToAttachmentMenu;
@@ -159,7 +159,7 @@ class User extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_join_groups")
-     * @Accessor(getter="getCanJoinGroups",setter="setCanJoinGroups")
+     * @Accessor(getter="getCanJoinGroups", setter="setCanJoinGroups")
      * @Type("bool")
      */
     protected $canJoinGroups;
@@ -170,7 +170,7 @@ class User extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_read_all_group_messages")
-     * @Accessor(getter="getCanReadAllGroupMessages",setter="setCanReadAllGroupMessages")
+     * @Accessor(getter="getCanReadAllGroupMessages", setter="setCanReadAllGroupMessages")
      * @Type("bool")
      */
     protected $canReadAllGroupMessages;
@@ -181,7 +181,7 @@ class User extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("supports_inline_queries")
-     * @Accessor(getter="getSupportsInlineQueries",setter="setSupportsInlineQueries")
+     * @Accessor(getter="getSupportsInlineQueries", setter="setSupportsInlineQueries")
      * @Type("bool")
      */
     protected $supportsInlineQueries;

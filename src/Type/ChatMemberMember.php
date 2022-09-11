@@ -53,7 +53,7 @@ class ChatMemberMember extends AbstractChatMember
      *
      * @var string
      * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setStatus")
+     * @Accessor(getter="getStatus", setter="setStatus")
      * @Type("string")
      */
     protected $status;
@@ -63,7 +63,7 @@ class ChatMemberMember extends AbstractChatMember
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;

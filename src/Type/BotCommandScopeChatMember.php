@@ -56,7 +56,7 @@ class BotCommandScopeChatMember extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -66,7 +66,7 @@ class BotCommandScopeChatMember extends AbstractType
      *
      * @var int|string
      * @SerializedName("chat_id")
-     * @Accessor(getter="getChatId",setter="setChatId")
+     * @Accessor(getter="getChatId", setter="setChatId")
      * @Type("string")
      */
     protected $chatId;
@@ -76,7 +76,7 @@ class BotCommandScopeChatMember extends AbstractType
      *
      * @var int
      * @SerializedName("user_id")
-     * @Accessor(getter="getUserId",setter="setUserId")
+     * @Accessor(getter="getUserId", setter="setUserId")
      * @Type("int")
      */
     protected $userId;

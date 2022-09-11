@@ -62,7 +62,7 @@ class InlineQuery extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -72,7 +72,7 @@ class InlineQuery extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setFrom")
+     * @Accessor(getter="getFrom", setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -82,7 +82,7 @@ class InlineQuery extends AbstractType
      *
      * @var string
      * @SerializedName("query")
-     * @Accessor(getter="getQuery",setter="setQuery")
+     * @Accessor(getter="getQuery", setter="setQuery")
      * @Type("string")
      */
     protected $query;
@@ -92,7 +92,7 @@ class InlineQuery extends AbstractType
      *
      * @var string
      * @SerializedName("offset")
-     * @Accessor(getter="getOffset",setter="setOffset")
+     * @Accessor(getter="getOffset", setter="setOffset")
      * @Type("string")
      */
     protected $offset;
@@ -105,7 +105,7 @@ class InlineQuery extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("chat_type")
-     * @Accessor(getter="getChatType",setter="setChatType")
+     * @Accessor(getter="getChatType", setter="setChatType")
      * @Type("string")
      */
     protected $chatType;
@@ -116,7 +116,7 @@ class InlineQuery extends AbstractType
      * @var Location|null
      * @SkipWhenEmpty
      * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Accessor(getter="getLocation", setter="setLocation")
      * @Type("MadmagesTelegram\Types\Type\Location")
      */
     protected $location;

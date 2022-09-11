@@ -77,7 +77,7 @@ class Sticker extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setFileId")
+     * @Accessor(getter="getFileId", setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -88,7 +88,7 @@ class Sticker extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
+     * @Accessor(getter="getFileUniqueId", setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -99,7 +99,7 @@ class Sticker extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -109,7 +109,7 @@ class Sticker extends AbstractType
      *
      * @var int
      * @SerializedName("width")
-     * @Accessor(getter="getWidth",setter="setWidth")
+     * @Accessor(getter="getWidth", setter="setWidth")
      * @Type("int")
      */
     protected $width;
@@ -119,7 +119,7 @@ class Sticker extends AbstractType
      *
      * @var int
      * @SerializedName("height")
-     * @Accessor(getter="getHeight",setter="setHeight")
+     * @Accessor(getter="getHeight", setter="setHeight")
      * @Type("int")
      */
     protected $height;
@@ -129,7 +129,7 @@ class Sticker extends AbstractType
      *
      * @var bool
      * @SerializedName("is_animated")
-     * @Accessor(getter="getIsAnimated",setter="setIsAnimated")
+     * @Accessor(getter="getIsAnimated", setter="setIsAnimated")
      * @Type("bool")
      */
     protected $isAnimated;
@@ -139,7 +139,7 @@ class Sticker extends AbstractType
      *
      * @var bool
      * @SerializedName("is_video")
-     * @Accessor(getter="getIsVideo",setter="setIsVideo")
+     * @Accessor(getter="getIsVideo", setter="setIsVideo")
      * @Type("bool")
      */
     protected $isVideo;
@@ -150,7 +150,7 @@ class Sticker extends AbstractType
      * @var PhotoSize|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setThumb")
+     * @Accessor(getter="getThumb", setter="setThumb")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;
@@ -161,7 +161,7 @@ class Sticker extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("emoji")
-     * @Accessor(getter="getEmoji",setter="setEmoji")
+     * @Accessor(getter="getEmoji", setter="setEmoji")
      * @Type("string")
      */
     protected $emoji;
@@ -172,7 +172,7 @@ class Sticker extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("set_name")
-     * @Accessor(getter="getSetName",setter="setSetName")
+     * @Accessor(getter="getSetName", setter="setSetName")
      * @Type("string")
      */
     protected $setName;
@@ -183,7 +183,7 @@ class Sticker extends AbstractType
      * @var File|null
      * @SkipWhenEmpty
      * @SerializedName("premium_animation")
-     * @Accessor(getter="getPremiumAnimation",setter="setPremiumAnimation")
+     * @Accessor(getter="getPremiumAnimation", setter="setPremiumAnimation")
      * @Type("MadmagesTelegram\Types\Type\File")
      */
     protected $premiumAnimation;
@@ -194,7 +194,7 @@ class Sticker extends AbstractType
      * @var MaskPosition|null
      * @SkipWhenEmpty
      * @SerializedName("mask_position")
-     * @Accessor(getter="getMaskPosition",setter="setMaskPosition")
+     * @Accessor(getter="getMaskPosition", setter="setMaskPosition")
      * @Type("MadmagesTelegram\Types\Type\MaskPosition")
      */
     protected $maskPosition;
@@ -205,7 +205,7 @@ class Sticker extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("custom_emoji_id")
-     * @Accessor(getter="getCustomEmojiId",setter="setCustomEmojiId")
+     * @Accessor(getter="getCustomEmojiId", setter="setCustomEmojiId")
      * @Type("string")
      */
     protected $customEmojiId;
@@ -216,7 +216,7 @@ class Sticker extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setFileSize")
+     * @Accessor(getter="getFileSize", setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;

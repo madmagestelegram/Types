@@ -59,7 +59,7 @@ class ChatJoinRequest extends AbstractType
      *
      * @var Chat
      * @SerializedName("chat")
-     * @Accessor(getter="getChat",setter="setChat")
+     * @Accessor(getter="getChat", setter="setChat")
      * @Type("MadmagesTelegram\Types\Type\Chat")
      */
     protected $chat;
@@ -69,7 +69,7 @@ class ChatJoinRequest extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setFrom")
+     * @Accessor(getter="getFrom", setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -79,7 +79,7 @@ class ChatJoinRequest extends AbstractType
      *
      * @var int
      * @SerializedName("date")
-     * @Accessor(getter="getDate",setter="setDate")
+     * @Accessor(getter="getDate", setter="setDate")
      * @Type("int")
      */
     protected $date;
@@ -90,7 +90,7 @@ class ChatJoinRequest extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("bio")
-     * @Accessor(getter="getBio",setter="setBio")
+     * @Accessor(getter="getBio", setter="setBio")
      * @Type("string")
      */
     protected $bio;
@@ -101,7 +101,7 @@ class ChatJoinRequest extends AbstractType
      * @var ChatInviteLink|null
      * @SkipWhenEmpty
      * @SerializedName("invite_link")
-     * @Accessor(getter="getInviteLink",setter="setInviteLink")
+     * @Accessor(getter="getInviteLink", setter="setInviteLink")
      * @Type("MadmagesTelegram\Types\Type\ChatInviteLink")
      */
     protected $inviteLink;

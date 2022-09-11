@@ -67,7 +67,7 @@ class Audio extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setFileId")
+     * @Accessor(getter="getFileId", setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -78,7 +78,7 @@ class Audio extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
+     * @Accessor(getter="getFileUniqueId", setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -88,7 +88,7 @@ class Audio extends AbstractType
      *
      * @var int
      * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setDuration")
+     * @Accessor(getter="getDuration", setter="setDuration")
      * @Type("int")
      */
     protected $duration;
@@ -99,7 +99,7 @@ class Audio extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("performer")
-     * @Accessor(getter="getPerformer",setter="setPerformer")
+     * @Accessor(getter="getPerformer", setter="setPerformer")
      * @Type("string")
      */
     protected $performer;
@@ -110,7 +110,7 @@ class Audio extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -121,7 +121,7 @@ class Audio extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("file_name")
-     * @Accessor(getter="getFileName",setter="setFileName")
+     * @Accessor(getter="getFileName", setter="setFileName")
      * @Type("string")
      */
     protected $fileName;
@@ -132,7 +132,7 @@ class Audio extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("mime_type")
-     * @Accessor(getter="getMimeType",setter="setMimeType")
+     * @Accessor(getter="getMimeType", setter="setMimeType")
      * @Type("string")
      */
     protected $mimeType;
@@ -145,7 +145,7 @@ class Audio extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setFileSize")
+     * @Accessor(getter="getFileSize", setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;
@@ -156,7 +156,7 @@ class Audio extends AbstractType
      * @var PhotoSize|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setThumb")
+     * @Accessor(getter="getThumb", setter="setThumb")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;

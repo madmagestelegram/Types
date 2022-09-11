@@ -74,7 +74,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var string
      * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setStatus")
+     * @Accessor(getter="getStatus", setter="setStatus")
      * @Type("string")
      */
     protected $status;
@@ -84,7 +84,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -94,7 +94,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("is_member")
-     * @Accessor(getter="getIsMember",setter="setIsMember")
+     * @Accessor(getter="getIsMember", setter="setIsMember")
      * @Type("bool")
      */
     protected $isMember;
@@ -104,7 +104,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_change_info")
-     * @Accessor(getter="getCanChangeInfo",setter="setCanChangeInfo")
+     * @Accessor(getter="getCanChangeInfo", setter="setCanChangeInfo")
      * @Type("bool")
      */
     protected $canChangeInfo;
@@ -114,7 +114,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_invite_users")
-     * @Accessor(getter="getCanInviteUsers",setter="setCanInviteUsers")
+     * @Accessor(getter="getCanInviteUsers", setter="setCanInviteUsers")
      * @Type("bool")
      */
     protected $canInviteUsers;
@@ -124,7 +124,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_pin_messages")
-     * @Accessor(getter="getCanPinMessages",setter="setCanPinMessages")
+     * @Accessor(getter="getCanPinMessages", setter="setCanPinMessages")
      * @Type("bool")
      */
     protected $canPinMessages;
@@ -134,7 +134,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_send_messages")
-     * @Accessor(getter="getCanSendMessages",setter="setCanSendMessages")
+     * @Accessor(getter="getCanSendMessages", setter="setCanSendMessages")
      * @Type("bool")
      */
     protected $canSendMessages;
@@ -144,7 +144,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_send_media_messages")
-     * @Accessor(getter="getCanSendMediaMessages",setter="setCanSendMediaMessages")
+     * @Accessor(getter="getCanSendMediaMessages", setter="setCanSendMediaMessages")
      * @Type("bool")
      */
     protected $canSendMediaMessages;
@@ -154,7 +154,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_send_polls")
-     * @Accessor(getter="getCanSendPolls",setter="setCanSendPolls")
+     * @Accessor(getter="getCanSendPolls", setter="setCanSendPolls")
      * @Type("bool")
      */
     protected $canSendPolls;
@@ -164,7 +164,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_send_other_messages")
-     * @Accessor(getter="getCanSendOtherMessages",setter="setCanSendOtherMessages")
+     * @Accessor(getter="getCanSendOtherMessages", setter="setCanSendOtherMessages")
      * @Type("bool")
      */
     protected $canSendOtherMessages;
@@ -174,7 +174,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_add_web_page_previews")
-     * @Accessor(getter="getCanAddWebPagePreviews",setter="setCanAddWebPagePreviews")
+     * @Accessor(getter="getCanAddWebPagePreviews", setter="setCanAddWebPagePreviews")
      * @Type("bool")
      */
     protected $canAddWebPagePreviews;
@@ -184,7 +184,7 @@ class ChatMemberRestricted extends AbstractChatMember
      *
      * @var int
      * @SerializedName("until_date")
-     * @Accessor(getter="getUntilDate",setter="setUntilDate")
+     * @Accessor(getter="getUntilDate", setter="setUntilDate")
      * @Type("int")
      */
     protected $untilDate;

@@ -76,7 +76,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -86,7 +86,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -96,7 +96,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("photo_url")
-     * @Accessor(getter="getPhotoUrl",setter="setPhotoUrl")
+     * @Accessor(getter="getPhotoUrl", setter="setPhotoUrl")
      * @Type("string")
      */
     protected $photoUrl;
@@ -106,7 +106,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl",setter="setThumbUrl")
+     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
      * @Type("string")
      */
     protected $thumbUrl;
@@ -117,7 +117,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("photo_width")
-     * @Accessor(getter="getPhotoWidth",setter="setPhotoWidth")
+     * @Accessor(getter="getPhotoWidth", setter="setPhotoWidth")
      * @Type("int")
      */
     protected $photoWidth;
@@ -128,7 +128,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("photo_height")
-     * @Accessor(getter="getPhotoHeight",setter="setPhotoHeight")
+     * @Accessor(getter="getPhotoHeight", setter="setPhotoHeight")
      * @Type("int")
      */
     protected $photoHeight;
@@ -139,7 +139,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -150,7 +150,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setDescription")
+     * @Accessor(getter="getDescription", setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -161,7 +161,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setCaption")
+     * @Accessor(getter="getCaption", setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -172,7 +172,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setParseMode")
+     * @Accessor(getter="getParseMode", setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -183,7 +183,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("caption_entities")
-     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Accessor(getter="getCaptionEntities", setter="setCaptionEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
@@ -194,7 +194,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
+     * @Accessor(getter="getReplyMarkup", setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -205,7 +205,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
+     * @Accessor(getter="getInputMessageContent", setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;

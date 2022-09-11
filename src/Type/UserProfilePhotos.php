@@ -53,7 +53,7 @@ class UserProfilePhotos extends AbstractType
      *
      * @var int
      * @SerializedName("total_count")
-     * @Accessor(getter="getTotalCount",setter="setTotalCount")
+     * @Accessor(getter="getTotalCount", setter="setTotalCount")
      * @Type("int")
      */
     protected $totalCount;
@@ -63,7 +63,7 @@ class UserProfilePhotos extends AbstractType
      *
      * @var array[]
      * @SerializedName("photos")
-     * @Accessor(getter="getPhotos",setter="setPhotos")
+     * @Accessor(getter="getPhotos", setter="setPhotos")
      * @Type("array<array>")
      */
     protected $photos;

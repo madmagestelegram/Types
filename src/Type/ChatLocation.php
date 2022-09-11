@@ -53,7 +53,7 @@ class ChatLocation extends AbstractType
      *
      * @var Location
      * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Accessor(getter="getLocation", setter="setLocation")
      * @Type("MadmagesTelegram\Types\Type\Location")
      */
     protected $location;
@@ -63,7 +63,7 @@ class ChatLocation extends AbstractType
      *
      * @var string
      * @SerializedName("address")
-     * @Accessor(getter="getAddress",setter="setAddress")
+     * @Accessor(getter="getAddress", setter="setAddress")
      * @Type("string")
      */
     protected $address;

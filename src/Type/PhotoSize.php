@@ -60,7 +60,7 @@ class PhotoSize extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setFileId")
+     * @Accessor(getter="getFileId", setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -71,7 +71,7 @@ class PhotoSize extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
+     * @Accessor(getter="getFileUniqueId", setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -81,7 +81,7 @@ class PhotoSize extends AbstractType
      *
      * @var int
      * @SerializedName("width")
-     * @Accessor(getter="getWidth",setter="setWidth")
+     * @Accessor(getter="getWidth", setter="setWidth")
      * @Type("int")
      */
     protected $width;
@@ -91,7 +91,7 @@ class PhotoSize extends AbstractType
      *
      * @var int
      * @SerializedName("height")
-     * @Accessor(getter="getHeight",setter="setHeight")
+     * @Accessor(getter="getHeight", setter="setHeight")
      * @Type("int")
      */
     protected $height;
@@ -102,7 +102,7 @@ class PhotoSize extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setFileSize")
+     * @Accessor(getter="getFileSize", setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;

@@ -79,7 +79,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -89,7 +89,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -99,7 +99,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("mpeg4_url")
-     * @Accessor(getter="getMpeg4Url",setter="setMpeg4Url")
+     * @Accessor(getter="getMpeg4Url", setter="setMpeg4Url")
      * @Type("string")
      */
     protected $mpeg4Url;
@@ -110,7 +110,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("mpeg4_width")
-     * @Accessor(getter="getMpeg4Width",setter="setMpeg4Width")
+     * @Accessor(getter="getMpeg4Width", setter="setMpeg4Width")
      * @Type("int")
      */
     protected $mpeg4Width;
@@ -121,7 +121,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("mpeg4_height")
-     * @Accessor(getter="getMpeg4Height",setter="setMpeg4Height")
+     * @Accessor(getter="getMpeg4Height", setter="setMpeg4Height")
      * @Type("int")
      */
     protected $mpeg4Height;
@@ -132,7 +132,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("mpeg4_duration")
-     * @Accessor(getter="getMpeg4Duration",setter="setMpeg4Duration")
+     * @Accessor(getter="getMpeg4Duration", setter="setMpeg4Duration")
      * @Type("int")
      */
     protected $mpeg4Duration;
@@ -142,7 +142,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl",setter="setThumbUrl")
+     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
      * @Type("string")
      */
     protected $thumbUrl;
@@ -154,7 +154,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_mime_type")
-     * @Accessor(getter="getThumbMimeType",setter="setThumbMimeType")
+     * @Accessor(getter="getThumbMimeType", setter="setThumbMimeType")
      * @Type("string")
      */
     protected $thumbMimeType;
@@ -165,7 +165,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -176,7 +176,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setCaption")
+     * @Accessor(getter="getCaption", setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -187,7 +187,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setParseMode")
+     * @Accessor(getter="getParseMode", setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -198,7 +198,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("caption_entities")
-     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Accessor(getter="getCaptionEntities", setter="setCaptionEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
@@ -209,7 +209,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
+     * @Accessor(getter="getReplyMarkup", setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -220,7 +220,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
+     * @Accessor(getter="getInputMessageContent", setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;

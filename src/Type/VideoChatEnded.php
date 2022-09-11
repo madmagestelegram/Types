@@ -51,7 +51,7 @@ class VideoChatEnded extends AbstractType
      *
      * @var int
      * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setDuration")
+     * @Accessor(getter="getDuration", setter="setDuration")
      * @Type("int")
      */
     protected $duration;

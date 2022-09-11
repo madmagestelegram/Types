@@ -52,7 +52,7 @@ class BotCommandScopeAllChatAdministrators extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;

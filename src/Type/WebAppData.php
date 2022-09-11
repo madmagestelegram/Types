@@ -53,7 +53,7 @@ class WebAppData extends AbstractType
      *
      * @var string
      * @SerializedName("data")
-     * @Accessor(getter="getData",setter="setData")
+     * @Accessor(getter="getData", setter="setData")
      * @Type("string")
      */
     protected $data;
@@ -64,7 +64,7 @@ class WebAppData extends AbstractType
      *
      * @var string
      * @SerializedName("button_text")
-     * @Accessor(getter="getButtonText",setter="setButtonText")
+     * @Accessor(getter="getButtonText", setter="setButtonText")
      * @Type("string")
      */
     protected $buttonText;

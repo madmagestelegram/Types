@@ -57,7 +57,7 @@ class ChatMemberOwner extends AbstractChatMember
      *
      * @var string
      * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setStatus")
+     * @Accessor(getter="getStatus", setter="setStatus")
      * @Type("string")
      */
     protected $status;
@@ -67,7 +67,7 @@ class ChatMemberOwner extends AbstractChatMember
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -77,7 +77,7 @@ class ChatMemberOwner extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("is_anonymous")
-     * @Accessor(getter="getIsAnonymous",setter="setIsAnonymous")
+     * @Accessor(getter="getIsAnonymous", setter="setIsAnonymous")
      * @Type("bool")
      */
     protected $isAnonymous;
@@ -88,7 +88,7 @@ class ChatMemberOwner extends AbstractChatMember
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("custom_title")
-     * @Accessor(getter="getCustomTitle",setter="setCustomTitle")
+     * @Accessor(getter="getCustomTitle", setter="setCustomTitle")
      * @Type("string")
      */
     protected $customTitle;

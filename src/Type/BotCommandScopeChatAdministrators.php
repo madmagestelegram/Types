@@ -54,7 +54,7 @@ class BotCommandScopeChatAdministrators extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -64,7 +64,7 @@ class BotCommandScopeChatAdministrators extends AbstractType
      *
      * @var int|string
      * @SerializedName("chat_id")
-     * @Accessor(getter="getChatId",setter="setChatId")
+     * @Accessor(getter="getChatId", setter="setChatId")
      * @Type("string")
      */
     protected $chatId;

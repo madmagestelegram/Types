@@ -60,7 +60,7 @@ class ChosenInlineResult extends AbstractType
      *
      * @var string
      * @SerializedName("result_id")
-     * @Accessor(getter="getResultId",setter="setResultId")
+     * @Accessor(getter="getResultId", setter="setResultId")
      * @Type("string")
      */
     protected $resultId;
@@ -70,7 +70,7 @@ class ChosenInlineResult extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setFrom")
+     * @Accessor(getter="getFrom", setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -81,7 +81,7 @@ class ChosenInlineResult extends AbstractType
      * @var Location|null
      * @SkipWhenEmpty
      * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Accessor(getter="getLocation", setter="setLocation")
      * @Type("MadmagesTelegram\Types\Type\Location")
      */
     protected $location;
@@ -93,7 +93,7 @@ class ChosenInlineResult extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("inline_message_id")
-     * @Accessor(getter="getInlineMessageId",setter="setInlineMessageId")
+     * @Accessor(getter="getInlineMessageId", setter="setInlineMessageId")
      * @Type("string")
      */
     protected $inlineMessageId;
@@ -103,7 +103,7 @@ class ChosenInlineResult extends AbstractType
      *
      * @var string
      * @SerializedName("query")
-     * @Accessor(getter="getQuery",setter="setQuery")
+     * @Accessor(getter="getQuery", setter="setQuery")
      * @Type("string")
      */
     protected $query;

@@ -68,7 +68,7 @@ class InlineKeyboardButton extends AbstractType
      *
      * @var string
      * @SerializedName("text")
-     * @Accessor(getter="getText",setter="setText")
+     * @Accessor(getter="getText", setter="setText")
      * @Type("string")
      */
     protected $text;
@@ -80,7 +80,7 @@ class InlineKeyboardButton extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("url")
-     * @Accessor(getter="getUrl",setter="setUrl")
+     * @Accessor(getter="getUrl", setter="setUrl")
      * @Type("string")
      */
     protected $url;
@@ -91,7 +91,7 @@ class InlineKeyboardButton extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("callback_data")
-     * @Accessor(getter="getCallbackData",setter="setCallbackData")
+     * @Accessor(getter="getCallbackData", setter="setCallbackData")
      * @Type("string")
      */
     protected $callbackData;
@@ -104,7 +104,7 @@ class InlineKeyboardButton extends AbstractType
      * @var WebAppInfo|null
      * @SkipWhenEmpty
      * @SerializedName("web_app")
-     * @Accessor(getter="getWebApp",setter="setWebApp")
+     * @Accessor(getter="getWebApp", setter="setWebApp")
      * @Type("MadmagesTelegram\Types\Type\WebAppInfo")
      */
     protected $webApp;
@@ -116,7 +116,7 @@ class InlineKeyboardButton extends AbstractType
      * @var LoginUrl|null
      * @SkipWhenEmpty
      * @SerializedName("login_url")
-     * @Accessor(getter="getLoginUrl",setter="setLoginUrl")
+     * @Accessor(getter="getLoginUrl", setter="setLoginUrl")
      * @Type("MadmagesTelegram\Types\Type\LoginUrl")
      */
     protected $loginUrl;
@@ -131,7 +131,7 @@ class InlineKeyboardButton extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("switch_inline_query")
-     * @Accessor(getter="getSwitchInlineQuery",setter="setSwitchInlineQuery")
+     * @Accessor(getter="getSwitchInlineQuery", setter="setSwitchInlineQuery")
      * @Type("string")
      */
     protected $switchInlineQuery;
@@ -144,7 +144,7 @@ class InlineKeyboardButton extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("switch_inline_query_current_chat")
-     * @Accessor(getter="getSwitchInlineQueryCurrentChat",setter="setSwitchInlineQueryCurrentChat")
+     * @Accessor(getter="getSwitchInlineQueryCurrentChat", setter="setSwitchInlineQueryCurrentChat")
      * @Type("string")
      */
     protected $switchInlineQueryCurrentChat;
@@ -156,7 +156,7 @@ class InlineKeyboardButton extends AbstractType
      * @var array|null
      * @SkipWhenEmpty
      * @SerializedName("callback_game")
-     * @Accessor(getter="getCallbackGame",setter="setCallbackGame")
+     * @Accessor(getter="getCallbackGame", setter="setCallbackGame")
      * @Type("array")
      */
     protected $callbackGame;
@@ -168,7 +168,7 @@ class InlineKeyboardButton extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("pay")
-     * @Accessor(getter="getPay",setter="setPay")
+     * @Accessor(getter="getPay", setter="setPay")
      * @Type("bool")
      */
     protected $pay;

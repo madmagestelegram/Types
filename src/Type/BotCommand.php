@@ -53,7 +53,7 @@ class BotCommand extends AbstractType
      *
      * @var string
      * @SerializedName("command")
-     * @Accessor(getter="getCommand",setter="setCommand")
+     * @Accessor(getter="getCommand", setter="setCommand")
      * @Type("string")
      */
     protected $command;
@@ -63,7 +63,7 @@ class BotCommand extends AbstractType
      *
      * @var string
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setDescription")
+     * @Accessor(getter="getDescription", setter="setDescription")
      * @Type("string")
      */
     protected $description;

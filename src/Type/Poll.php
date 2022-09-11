@@ -75,7 +75,7 @@ class Poll extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -85,7 +85,7 @@ class Poll extends AbstractType
      *
      * @var string
      * @SerializedName("question")
-     * @Accessor(getter="getQuestion",setter="setQuestion")
+     * @Accessor(getter="getQuestion", setter="setQuestion")
      * @Type("string")
      */
     protected $question;
@@ -95,7 +95,7 @@ class Poll extends AbstractType
      *
      * @var PollOption[]
      * @SerializedName("options")
-     * @Accessor(getter="getOptions",setter="setOptions")
+     * @Accessor(getter="getOptions", setter="setOptions")
      * @Type("array<MadmagesTelegram\Types\Type\PollOption>")
      */
     protected $options;
@@ -105,7 +105,7 @@ class Poll extends AbstractType
      *
      * @var int
      * @SerializedName("total_voter_count")
-     * @Accessor(getter="getTotalVoterCount",setter="setTotalVoterCount")
+     * @Accessor(getter="getTotalVoterCount", setter="setTotalVoterCount")
      * @Type("int")
      */
     protected $totalVoterCount;
@@ -115,7 +115,7 @@ class Poll extends AbstractType
      *
      * @var bool
      * @SerializedName("is_closed")
-     * @Accessor(getter="getIsClosed",setter="setIsClosed")
+     * @Accessor(getter="getIsClosed", setter="setIsClosed")
      * @Type("bool")
      */
     protected $isClosed;
@@ -125,7 +125,7 @@ class Poll extends AbstractType
      *
      * @var bool
      * @SerializedName("is_anonymous")
-     * @Accessor(getter="getIsAnonymous",setter="setIsAnonymous")
+     * @Accessor(getter="getIsAnonymous", setter="setIsAnonymous")
      * @Type("bool")
      */
     protected $isAnonymous;
@@ -135,7 +135,7 @@ class Poll extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -145,7 +145,7 @@ class Poll extends AbstractType
      *
      * @var bool
      * @SerializedName("allows_multiple_answers")
-     * @Accessor(getter="getAllowsMultipleAnswers",setter="setAllowsMultipleAnswers")
+     * @Accessor(getter="getAllowsMultipleAnswers", setter="setAllowsMultipleAnswers")
      * @Type("bool")
      */
     protected $allowsMultipleAnswers;
@@ -157,7 +157,7 @@ class Poll extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("correct_option_id")
-     * @Accessor(getter="getCorrectOptionId",setter="setCorrectOptionId")
+     * @Accessor(getter="getCorrectOptionId", setter="setCorrectOptionId")
      * @Type("int")
      */
     protected $correctOptionId;
@@ -169,7 +169,7 @@ class Poll extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("explanation")
-     * @Accessor(getter="getExplanation",setter="setExplanation")
+     * @Accessor(getter="getExplanation", setter="setExplanation")
      * @Type("string")
      */
     protected $explanation;
@@ -180,7 +180,7 @@ class Poll extends AbstractType
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("explanation_entities")
-     * @Accessor(getter="getExplanationEntities",setter="setExplanationEntities")
+     * @Accessor(getter="getExplanationEntities", setter="setExplanationEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $explanationEntities;
@@ -191,7 +191,7 @@ class Poll extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("open_period")
-     * @Accessor(getter="getOpenPeriod",setter="setOpenPeriod")
+     * @Accessor(getter="getOpenPeriod", setter="setOpenPeriod")
      * @Type("int")
      */
     protected $openPeriod;
@@ -202,7 +202,7 @@ class Poll extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("close_date")
-     * @Accessor(getter="getCloseDate",setter="setCloseDate")
+     * @Accessor(getter="getCloseDate", setter="setCloseDate")
      * @Type("int")
      */
     protected $closeDate;

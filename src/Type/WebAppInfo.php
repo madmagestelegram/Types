@@ -51,7 +51,7 @@ class WebAppInfo extends AbstractType
      *
      * @var string
      * @SerializedName("url")
-     * @Accessor(getter="getUrl",setter="setUrl")
+     * @Accessor(getter="getUrl", setter="setUrl")
      * @Type("string")
      */
     protected $url;

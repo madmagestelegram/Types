@@ -60,7 +60,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("source")
-     * @Accessor(getter="getSource",setter="setSource")
+     * @Accessor(getter="getSource", setter="setSource")
      * @Type("string")
      */
     protected $source;
@@ -71,7 +71,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -81,7 +81,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("field_name")
-     * @Accessor(getter="getFieldName",setter="setFieldName")
+     * @Accessor(getter="getFieldName", setter="setFieldName")
      * @Type("string")
      */
     protected $fieldName;
@@ -91,7 +91,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("data_hash")
-     * @Accessor(getter="getDataHash",setter="setDataHash")
+     * @Accessor(getter="getDataHash", setter="setDataHash")
      * @Type("string")
      */
     protected $dataHash;
@@ -101,7 +101,7 @@ class PassportElementErrorDataField extends AbstractPassportElementError
      *
      * @var string
      * @SerializedName("message")
-     * @Accessor(getter="getMessage",setter="setMessage")
+     * @Accessor(getter="getMessage", setter="setMessage")
      * @Type("string")
      */
     protected $message;

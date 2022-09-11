@@ -68,7 +68,7 @@ class ChatInviteLink extends AbstractType
      *
      * @var string
      * @SerializedName("invite_link")
-     * @Accessor(getter="getInviteLink",setter="setInviteLink")
+     * @Accessor(getter="getInviteLink", setter="setInviteLink")
      * @Type("string")
      */
     protected $inviteLink;
@@ -78,7 +78,7 @@ class ChatInviteLink extends AbstractType
      *
      * @var User
      * @SerializedName("creator")
-     * @Accessor(getter="getCreator",setter="setCreator")
+     * @Accessor(getter="getCreator", setter="setCreator")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $creator;
@@ -88,7 +88,7 @@ class ChatInviteLink extends AbstractType
      *
      * @var bool
      * @SerializedName("creates_join_request")
-     * @Accessor(getter="getCreatesJoinRequest",setter="setCreatesJoinRequest")
+     * @Accessor(getter="getCreatesJoinRequest", setter="setCreatesJoinRequest")
      * @Type("bool")
      */
     protected $createsJoinRequest;
@@ -98,7 +98,7 @@ class ChatInviteLink extends AbstractType
      *
      * @var bool
      * @SerializedName("is_primary")
-     * @Accessor(getter="getIsPrimary",setter="setIsPrimary")
+     * @Accessor(getter="getIsPrimary", setter="setIsPrimary")
      * @Type("bool")
      */
     protected $isPrimary;
@@ -108,7 +108,7 @@ class ChatInviteLink extends AbstractType
      *
      * @var bool
      * @SerializedName("is_revoked")
-     * @Accessor(getter="getIsRevoked",setter="setIsRevoked")
+     * @Accessor(getter="getIsRevoked", setter="setIsRevoked")
      * @Type("bool")
      */
     protected $isRevoked;
@@ -119,7 +119,7 @@ class ChatInviteLink extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("name")
-     * @Accessor(getter="getName",setter="setName")
+     * @Accessor(getter="getName", setter="setName")
      * @Type("string")
      */
     protected $name;
@@ -130,7 +130,7 @@ class ChatInviteLink extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("expire_date")
-     * @Accessor(getter="getExpireDate",setter="setExpireDate")
+     * @Accessor(getter="getExpireDate", setter="setExpireDate")
      * @Type("int")
      */
     protected $expireDate;
@@ -142,7 +142,7 @@ class ChatInviteLink extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("member_limit")
-     * @Accessor(getter="getMemberLimit",setter="setMemberLimit")
+     * @Accessor(getter="getMemberLimit", setter="setMemberLimit")
      * @Type("int")
      */
     protected $memberLimit;
@@ -153,7 +153,7 @@ class ChatInviteLink extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("pending_join_request_count")
-     * @Accessor(getter="getPendingJoinRequestCount",setter="setPendingJoinRequestCount")
+     * @Accessor(getter="getPendingJoinRequestCount", setter="setPendingJoinRequestCount")
      * @Type("int")
      */
     protected $pendingJoinRequestCount;

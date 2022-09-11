@@ -53,7 +53,7 @@ class PollOption extends AbstractType
      *
      * @var string
      * @SerializedName("text")
-     * @Accessor(getter="getText",setter="setText")
+     * @Accessor(getter="getText", setter="setText")
      * @Type("string")
      */
     protected $text;
@@ -63,7 +63,7 @@ class PollOption extends AbstractType
      *
      * @var int
      * @SerializedName("voter_count")
-     * @Accessor(getter="getVoterCount",setter="setVoterCount")
+     * @Accessor(getter="getVoterCount", setter="setVoterCount")
      * @Type("int")
      */
     protected $voterCount;

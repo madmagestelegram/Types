@@ -56,7 +56,7 @@ class ReplyKeyboardRemove extends AbstractType
      *
      * @var bool
      * @SerializedName("remove_keyboard")
-     * @Accessor(getter="getRemoveKeyboard",setter="setRemoveKeyboard")
+     * @Accessor(getter="getRemoveKeyboard", setter="setRemoveKeyboard")
      * @Type("bool")
      */
     protected $removeKeyboard;
@@ -70,7 +70,7 @@ class ReplyKeyboardRemove extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("selective")
-     * @Accessor(getter="getSelective",setter="setSelective")
+     * @Accessor(getter="getSelective", setter="setSelective")
      * @Type("bool")
      */
     protected $selective;

@@ -62,7 +62,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      *
      * @var float
      * @SerializedName("latitude")
-     * @Accessor(getter="getLatitude",setter="setLatitude")
+     * @Accessor(getter="getLatitude", setter="setLatitude")
      * @Type("float")
      */
     protected $latitude;
@@ -72,7 +72,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      *
      * @var float
      * @SerializedName("longitude")
-     * @Accessor(getter="getLongitude",setter="setLongitude")
+     * @Accessor(getter="getLongitude", setter="setLongitude")
      * @Type("float")
      */
     protected $longitude;
@@ -83,7 +83,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      * @var float|null
      * @SkipWhenEmpty
      * @SerializedName("horizontal_accuracy")
-     * @Accessor(getter="getHorizontalAccuracy",setter="setHorizontalAccuracy")
+     * @Accessor(getter="getHorizontalAccuracy", setter="setHorizontalAccuracy")
      * @Type("float")
      */
     protected $horizontalAccuracy;
@@ -94,7 +94,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("live_period")
-     * @Accessor(getter="getLivePeriod",setter="setLivePeriod")
+     * @Accessor(getter="getLivePeriod", setter="setLivePeriod")
      * @Type("int")
      */
     protected $livePeriod;
@@ -106,7 +106,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("heading")
-     * @Accessor(getter="getHeading",setter="setHeading")
+     * @Accessor(getter="getHeading", setter="setHeading")
      * @Type("int")
      */
     protected $heading;
@@ -118,7 +118,7 @@ class InputLocationMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("proximity_alert_radius")
-     * @Accessor(getter="getProximityAlertRadius",setter="setProximityAlertRadius")
+     * @Accessor(getter="getProximityAlertRadius", setter="setProximityAlertRadius")
      * @Type("int")
      */
     protected $proximityAlertRadius;

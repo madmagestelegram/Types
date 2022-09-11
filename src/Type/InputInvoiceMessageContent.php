@@ -90,7 +90,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -100,7 +100,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setDescription")
+     * @Accessor(getter="getDescription", setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -110,7 +110,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("payload")
-     * @Accessor(getter="getPayload",setter="setPayload")
+     * @Accessor(getter="getPayload", setter="setPayload")
      * @Type("string")
      */
     protected $payload;
@@ -120,7 +120,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("provider_token")
-     * @Accessor(getter="getProviderToken",setter="setProviderToken")
+     * @Accessor(getter="getProviderToken", setter="setProviderToken")
      * @Type("string")
      */
     protected $providerToken;
@@ -130,7 +130,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("currency")
-     * @Accessor(getter="getCurrency",setter="setCurrency")
+     * @Accessor(getter="getCurrency", setter="setCurrency")
      * @Type("string")
      */
     protected $currency;
@@ -141,7 +141,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      *
      * @var LabeledPrice[]
      * @SerializedName("prices")
-     * @Accessor(getter="getPrices",setter="setPrices")
+     * @Accessor(getter="getPrices", setter="setPrices")
      * @Type("array<MadmagesTelegram\Types\Type\LabeledPrice>")
      */
     protected $prices;
@@ -154,7 +154,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("max_tip_amount")
-     * @Accessor(getter="getMaxTipAmount",setter="setMaxTipAmount")
+     * @Accessor(getter="getMaxTipAmount", setter="setMaxTipAmount")
      * @Type("int")
      */
     protected $maxTipAmount;
@@ -167,7 +167,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var int[]|null
      * @SkipWhenEmpty
      * @SerializedName("suggested_tip_amounts")
-     * @Accessor(getter="getSuggestedTipAmounts",setter="setSuggestedTipAmounts")
+     * @Accessor(getter="getSuggestedTipAmounts", setter="setSuggestedTipAmounts")
      * @Type("array<int>")
      */
     protected $suggestedTipAmounts;
@@ -179,7 +179,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("provider_data")
-     * @Accessor(getter="getProviderData",setter="setProviderData")
+     * @Accessor(getter="getProviderData", setter="setProviderData")
      * @Type("string")
      */
     protected $providerData;
@@ -190,7 +190,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("photo_url")
-     * @Accessor(getter="getPhotoUrl",setter="setPhotoUrl")
+     * @Accessor(getter="getPhotoUrl", setter="setPhotoUrl")
      * @Type("string")
      */
     protected $photoUrl;
@@ -201,7 +201,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("photo_size")
-     * @Accessor(getter="getPhotoSize",setter="setPhotoSize")
+     * @Accessor(getter="getPhotoSize", setter="setPhotoSize")
      * @Type("int")
      */
     protected $photoSize;
@@ -212,7 +212,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("photo_width")
-     * @Accessor(getter="getPhotoWidth",setter="setPhotoWidth")
+     * @Accessor(getter="getPhotoWidth", setter="setPhotoWidth")
      * @Type("int")
      */
     protected $photoWidth;
@@ -223,7 +223,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("photo_height")
-     * @Accessor(getter="getPhotoHeight",setter="setPhotoHeight")
+     * @Accessor(getter="getPhotoHeight", setter="setPhotoHeight")
      * @Type("int")
      */
     protected $photoHeight;
@@ -234,7 +234,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("need_name")
-     * @Accessor(getter="getNeedName",setter="setNeedName")
+     * @Accessor(getter="getNeedName", setter="setNeedName")
      * @Type("bool")
      */
     protected $needName;
@@ -245,7 +245,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("need_phone_number")
-     * @Accessor(getter="getNeedPhoneNumber",setter="setNeedPhoneNumber")
+     * @Accessor(getter="getNeedPhoneNumber", setter="setNeedPhoneNumber")
      * @Type("bool")
      */
     protected $needPhoneNumber;
@@ -256,7 +256,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("need_email")
-     * @Accessor(getter="getNeedEmail",setter="setNeedEmail")
+     * @Accessor(getter="getNeedEmail", setter="setNeedEmail")
      * @Type("bool")
      */
     protected $needEmail;
@@ -267,7 +267,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("need_shipping_address")
-     * @Accessor(getter="getNeedShippingAddress",setter="setNeedShippingAddress")
+     * @Accessor(getter="getNeedShippingAddress", setter="setNeedShippingAddress")
      * @Type("bool")
      */
     protected $needShippingAddress;
@@ -278,7 +278,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("send_phone_number_to_provider")
-     * @Accessor(getter="getSendPhoneNumberToProvider",setter="setSendPhoneNumberToProvider")
+     * @Accessor(getter="getSendPhoneNumberToProvider", setter="setSendPhoneNumberToProvider")
      * @Type("bool")
      */
     protected $sendPhoneNumberToProvider;
@@ -289,7 +289,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("send_email_to_provider")
-     * @Accessor(getter="getSendEmailToProvider",setter="setSendEmailToProvider")
+     * @Accessor(getter="getSendEmailToProvider", setter="setSendEmailToProvider")
      * @Type("bool")
      */
     protected $sendEmailToProvider;
@@ -300,7 +300,7 @@ class InputInvoiceMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("is_flexible")
-     * @Accessor(getter="getIsFlexible",setter="setIsFlexible")
+     * @Accessor(getter="getIsFlexible", setter="setIsFlexible")
      * @Type("bool")
      */
     protected $isFlexible;

@@ -51,7 +51,7 @@ class MessageId extends AbstractType
      *
      * @var int
      * @SerializedName("message_id")
-     * @Accessor(getter="getMessageId",setter="setMessageId")
+     * @Accessor(getter="getMessageId", setter="setMessageId")
      * @Type("int")
      */
     protected $messageId;

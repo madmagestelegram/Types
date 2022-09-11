@@ -62,7 +62,7 @@ class KeyboardButton extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("text")
-     * @Accessor(getter="getText",setter="setText")
+     * @Accessor(getter="getText", setter="setText")
      * @Type("string")
      */
     protected $text;
@@ -74,7 +74,7 @@ class KeyboardButton extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("request_contact")
-     * @Accessor(getter="getRequestContact",setter="setRequestContact")
+     * @Accessor(getter="getRequestContact", setter="setRequestContact")
      * @Type("bool")
      */
     protected $requestContact;
@@ -86,7 +86,7 @@ class KeyboardButton extends AbstractType
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("request_location")
-     * @Accessor(getter="getRequestLocation",setter="setRequestLocation")
+     * @Accessor(getter="getRequestLocation", setter="setRequestLocation")
      * @Type("bool")
      */
     protected $requestLocation;
@@ -98,7 +98,7 @@ class KeyboardButton extends AbstractType
      * @var KeyboardButtonPollType|null
      * @SkipWhenEmpty
      * @SerializedName("request_poll")
-     * @Accessor(getter="getRequestPoll",setter="setRequestPoll")
+     * @Accessor(getter="getRequestPoll", setter="setRequestPoll")
      * @Type("MadmagesTelegram\Types\Type\KeyboardButtonPollType")
      */
     protected $requestPoll;
@@ -110,7 +110,7 @@ class KeyboardButton extends AbstractType
      * @var WebAppInfo|null
      * @SkipWhenEmpty
      * @SerializedName("web_app")
-     * @Accessor(getter="getWebApp",setter="setWebApp")
+     * @Accessor(getter="getWebApp", setter="setWebApp")
      * @Type("MadmagesTelegram\Types\Type\WebAppInfo")
      */
     protected $webApp;

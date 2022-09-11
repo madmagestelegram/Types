@@ -79,7 +79,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var string
      * @SerializedName("status")
-     * @Accessor(getter="getStatus",setter="setStatus")
+     * @Accessor(getter="getStatus", setter="setStatus")
      * @Type("string")
      */
     protected $status;
@@ -89,7 +89,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -99,7 +99,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_be_edited")
-     * @Accessor(getter="getCanBeEdited",setter="setCanBeEdited")
+     * @Accessor(getter="getCanBeEdited", setter="setCanBeEdited")
      * @Type("bool")
      */
     protected $canBeEdited;
@@ -109,7 +109,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("is_anonymous")
-     * @Accessor(getter="getIsAnonymous",setter="setIsAnonymous")
+     * @Accessor(getter="getIsAnonymous", setter="setIsAnonymous")
      * @Type("bool")
      */
     protected $isAnonymous;
@@ -121,7 +121,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_manage_chat")
-     * @Accessor(getter="getCanManageChat",setter="setCanManageChat")
+     * @Accessor(getter="getCanManageChat", setter="setCanManageChat")
      * @Type("bool")
      */
     protected $canManageChat;
@@ -131,7 +131,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_delete_messages")
-     * @Accessor(getter="getCanDeleteMessages",setter="setCanDeleteMessages")
+     * @Accessor(getter="getCanDeleteMessages", setter="setCanDeleteMessages")
      * @Type("bool")
      */
     protected $canDeleteMessages;
@@ -141,7 +141,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_manage_video_chats")
-     * @Accessor(getter="getCanManageVideoChats",setter="setCanManageVideoChats")
+     * @Accessor(getter="getCanManageVideoChats", setter="setCanManageVideoChats")
      * @Type("bool")
      */
     protected $canManageVideoChats;
@@ -151,7 +151,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_restrict_members")
-     * @Accessor(getter="getCanRestrictMembers",setter="setCanRestrictMembers")
+     * @Accessor(getter="getCanRestrictMembers", setter="setCanRestrictMembers")
      * @Type("bool")
      */
     protected $canRestrictMembers;
@@ -162,7 +162,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_promote_members")
-     * @Accessor(getter="getCanPromoteMembers",setter="setCanPromoteMembers")
+     * @Accessor(getter="getCanPromoteMembers", setter="setCanPromoteMembers")
      * @Type("bool")
      */
     protected $canPromoteMembers;
@@ -172,7 +172,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_change_info")
-     * @Accessor(getter="getCanChangeInfo",setter="setCanChangeInfo")
+     * @Accessor(getter="getCanChangeInfo", setter="setCanChangeInfo")
      * @Type("bool")
      */
     protected $canChangeInfo;
@@ -182,7 +182,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      *
      * @var bool
      * @SerializedName("can_invite_users")
-     * @Accessor(getter="getCanInviteUsers",setter="setCanInviteUsers")
+     * @Accessor(getter="getCanInviteUsers", setter="setCanInviteUsers")
      * @Type("bool")
      */
     protected $canInviteUsers;
@@ -193,7 +193,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_post_messages")
-     * @Accessor(getter="getCanPostMessages",setter="setCanPostMessages")
+     * @Accessor(getter="getCanPostMessages", setter="setCanPostMessages")
      * @Type("bool")
      */
     protected $canPostMessages;
@@ -204,7 +204,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_edit_messages")
-     * @Accessor(getter="getCanEditMessages",setter="setCanEditMessages")
+     * @Accessor(getter="getCanEditMessages", setter="setCanEditMessages")
      * @Type("bool")
      */
     protected $canEditMessages;
@@ -215,7 +215,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("can_pin_messages")
-     * @Accessor(getter="getCanPinMessages",setter="setCanPinMessages")
+     * @Accessor(getter="getCanPinMessages", setter="setCanPinMessages")
      * @Type("bool")
      */
     protected $canPinMessages;
@@ -226,7 +226,7 @@ class ChatMemberAdministrator extends AbstractChatMember
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("custom_title")
-     * @Accessor(getter="getCustomTitle",setter="setCustomTitle")
+     * @Accessor(getter="getCustomTitle", setter="setCustomTitle")
      * @Type("string")
      */
     protected $customTitle;

@@ -55,7 +55,7 @@ class PollAnswer extends AbstractType
      *
      * @var string
      * @SerializedName("poll_id")
-     * @Accessor(getter="getPollId",setter="setPollId")
+     * @Accessor(getter="getPollId", setter="setPollId")
      * @Type("string")
      */
     protected $pollId;
@@ -65,7 +65,7 @@ class PollAnswer extends AbstractType
      *
      * @var User
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -75,7 +75,7 @@ class PollAnswer extends AbstractType
      *
      * @var int[]
      * @SerializedName("option_ids")
-     * @Accessor(getter="getOptionIds",setter="setOptionIds")
+     * @Accessor(getter="getOptionIds", setter="setOptionIds")
      * @Type("array<int>")
      */
     protected $optionIds;

@@ -51,7 +51,7 @@ class MessageAutoDeleteTimerChanged extends AbstractType
      *
      * @var int
      * @SerializedName("message_auto_delete_time")
-     * @Accessor(getter="getMessageAutoDeleteTime",setter="setMessageAutoDeleteTime")
+     * @Accessor(getter="getMessageAutoDeleteTime", setter="setMessageAutoDeleteTime")
      * @Type("int")
      */
     protected $messageAutoDeleteTime;

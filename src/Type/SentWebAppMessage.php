@@ -53,7 +53,7 @@ class SentWebAppMessage extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("inline_message_id")
-     * @Accessor(getter="getInlineMessageId",setter="setInlineMessageId")
+     * @Accessor(getter="getInlineMessageId", setter="setInlineMessageId")
      * @Type("string")
      */
     protected $inlineMessageId;

@@ -57,7 +57,7 @@ class ShippingQuery extends AbstractType
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -67,7 +67,7 @@ class ShippingQuery extends AbstractType
      *
      * @var User
      * @SerializedName("from")
-     * @Accessor(getter="getFrom",setter="setFrom")
+     * @Accessor(getter="getFrom", setter="setFrom")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
@@ -77,7 +77,7 @@ class ShippingQuery extends AbstractType
      *
      * @var string
      * @SerializedName("invoice_payload")
-     * @Accessor(getter="getInvoicePayload",setter="setInvoicePayload")
+     * @Accessor(getter="getInvoicePayload", setter="setInvoicePayload")
      * @Type("string")
      */
     protected $invoicePayload;
@@ -87,7 +87,7 @@ class ShippingQuery extends AbstractType
      *
      * @var ShippingAddress
      * @SerializedName("shipping_address")
-     * @Accessor(getter="getShippingAddress",setter="setShippingAddress")
+     * @Accessor(getter="getShippingAddress", setter="setShippingAddress")
      * @Type("MadmagesTelegram\Types\Type\ShippingAddress")
      */
     protected $shippingAddress;

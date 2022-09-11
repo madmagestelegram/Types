@@ -62,7 +62,7 @@ class VideoNote extends AbstractType
      *
      * @var string
      * @SerializedName("file_id")
-     * @Accessor(getter="getFileId",setter="setFileId")
+     * @Accessor(getter="getFileId", setter="setFileId")
      * @Type("string")
      */
     protected $fileId;
@@ -73,7 +73,7 @@ class VideoNote extends AbstractType
      *
      * @var string
      * @SerializedName("file_unique_id")
-     * @Accessor(getter="getFileUniqueId",setter="setFileUniqueId")
+     * @Accessor(getter="getFileUniqueId", setter="setFileUniqueId")
      * @Type("string")
      */
     protected $fileUniqueId;
@@ -83,7 +83,7 @@ class VideoNote extends AbstractType
      *
      * @var int
      * @SerializedName("length")
-     * @Accessor(getter="getLength",setter="setLength")
+     * @Accessor(getter="getLength", setter="setLength")
      * @Type("int")
      */
     protected $length;
@@ -93,7 +93,7 @@ class VideoNote extends AbstractType
      *
      * @var int
      * @SerializedName("duration")
-     * @Accessor(getter="getDuration",setter="setDuration")
+     * @Accessor(getter="getDuration", setter="setDuration")
      * @Type("int")
      */
     protected $duration;
@@ -104,7 +104,7 @@ class VideoNote extends AbstractType
      * @var PhotoSize|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setThumb")
+     * @Accessor(getter="getThumb", setter="setThumb")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;
@@ -115,7 +115,7 @@ class VideoNote extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("file_size")
-     * @Accessor(getter="getFileSize",setter="setFileSize")
+     * @Accessor(getter="getFileSize", setter="setFileSize")
      * @Type("int")
      */
     protected $fileSize;

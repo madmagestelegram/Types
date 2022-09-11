@@ -79,7 +79,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -89,7 +89,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -99,7 +99,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -110,7 +110,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setCaption")
+     * @Accessor(getter="getCaption", setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -121,7 +121,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setParseMode")
+     * @Accessor(getter="getParseMode", setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -132,7 +132,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("caption_entities")
-     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Accessor(getter="getCaptionEntities", setter="setCaptionEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
@@ -142,7 +142,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("document_url")
-     * @Accessor(getter="getDocumentUrl",setter="setDocumentUrl")
+     * @Accessor(getter="getDocumentUrl", setter="setDocumentUrl")
      * @Type("string")
      */
     protected $documentUrl;
@@ -152,7 +152,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("mime_type")
-     * @Accessor(getter="getMimeType",setter="setMimeType")
+     * @Accessor(getter="getMimeType", setter="setMimeType")
      * @Type("string")
      */
     protected $mimeType;
@@ -163,7 +163,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setDescription")
+     * @Accessor(getter="getDescription", setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -174,7 +174,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
+     * @Accessor(getter="getReplyMarkup", setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -185,7 +185,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
+     * @Accessor(getter="getInputMessageContent", setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;
@@ -196,7 +196,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl",setter="setThumbUrl")
+     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
      * @Type("string")
      */
     protected $thumbUrl;
@@ -207,7 +207,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_width")
-     * @Accessor(getter="getThumbWidth",setter="setThumbWidth")
+     * @Accessor(getter="getThumbWidth", setter="setThumbWidth")
      * @Type("int")
      */
     protected $thumbWidth;
@@ -218,7 +218,7 @@ class InlineQueryResultDocument extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_height")
-     * @Accessor(getter="getThumbHeight",setter="setThumbHeight")
+     * @Accessor(getter="getThumbHeight", setter="setThumbHeight")
      * @Type("int")
      */
     protected $thumbHeight;

@@ -62,7 +62,7 @@ class Game extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -72,7 +72,7 @@ class Game extends AbstractType
      *
      * @var string
      * @SerializedName("description")
-     * @Accessor(getter="getDescription",setter="setDescription")
+     * @Accessor(getter="getDescription", setter="setDescription")
      * @Type("string")
      */
     protected $description;
@@ -82,7 +82,7 @@ class Game extends AbstractType
      *
      * @var PhotoSize[]
      * @SerializedName("photo")
-     * @Accessor(getter="getPhoto",setter="setPhoto")
+     * @Accessor(getter="getPhoto", setter="setPhoto")
      * @Type("array<MadmagesTelegram\Types\Type\PhotoSize>")
      */
     protected $photo;
@@ -95,7 +95,7 @@ class Game extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("text")
-     * @Accessor(getter="getText",setter="setText")
+     * @Accessor(getter="getText", setter="setText")
      * @Type("string")
      */
     protected $text;
@@ -106,7 +106,7 @@ class Game extends AbstractType
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("text_entities")
-     * @Accessor(getter="getTextEntities",setter="setTextEntities")
+     * @Accessor(getter="getTextEntities", setter="setTextEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $textEntities;
@@ -117,7 +117,7 @@ class Game extends AbstractType
      * @var Animation|null
      * @SkipWhenEmpty
      * @SerializedName("animation")
-     * @Accessor(getter="getAnimation",setter="setAnimation")
+     * @Accessor(getter="getAnimation", setter="setAnimation")
      * @Type("MadmagesTelegram\Types\Type\Animation")
      */
     protected $animation;

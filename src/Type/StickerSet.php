@@ -63,7 +63,7 @@ class StickerSet extends AbstractType
      *
      * @var string
      * @SerializedName("name")
-     * @Accessor(getter="getName",setter="setName")
+     * @Accessor(getter="getName", setter="setName")
      * @Type("string")
      */
     protected $name;
@@ -73,7 +73,7 @@ class StickerSet extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -83,7 +83,7 @@ class StickerSet extends AbstractType
      *
      * @var string
      * @SerializedName("sticker_type")
-     * @Accessor(getter="getStickerType",setter="setStickerType")
+     * @Accessor(getter="getStickerType", setter="setStickerType")
      * @Type("string")
      */
     protected $stickerType;
@@ -93,7 +93,7 @@ class StickerSet extends AbstractType
      *
      * @var bool
      * @SerializedName("is_animated")
-     * @Accessor(getter="getIsAnimated",setter="setIsAnimated")
+     * @Accessor(getter="getIsAnimated", setter="setIsAnimated")
      * @Type("bool")
      */
     protected $isAnimated;
@@ -103,7 +103,7 @@ class StickerSet extends AbstractType
      *
      * @var bool
      * @SerializedName("is_video")
-     * @Accessor(getter="getIsVideo",setter="setIsVideo")
+     * @Accessor(getter="getIsVideo", setter="setIsVideo")
      * @Type("bool")
      */
     protected $isVideo;
@@ -113,7 +113,7 @@ class StickerSet extends AbstractType
      *
      * @var Sticker[]
      * @SerializedName("stickers")
-     * @Accessor(getter="getStickers",setter="setStickers")
+     * @Accessor(getter="getStickers", setter="setStickers")
      * @Type("array<MadmagesTelegram\Types\Type\Sticker>")
      */
     protected $stickers;
@@ -124,7 +124,7 @@ class StickerSet extends AbstractType
      * @var PhotoSize|null
      * @SkipWhenEmpty
      * @SerializedName("thumb")
-     * @Accessor(getter="getThumb",setter="setThumb")
+     * @Accessor(getter="getThumb", setter="setThumb")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumb;

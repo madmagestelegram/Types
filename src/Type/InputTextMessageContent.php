@@ -58,7 +58,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      *
      * @var string
      * @SerializedName("message_text")
-     * @Accessor(getter="getMessageText",setter="setMessageText")
+     * @Accessor(getter="getMessageText", setter="setMessageText")
      * @Type("string")
      */
     protected $messageText;
@@ -69,7 +69,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setParseMode")
+     * @Accessor(getter="getParseMode", setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -80,7 +80,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("entities")
-     * @Accessor(getter="getEntities",setter="setEntities")
+     * @Accessor(getter="getEntities", setter="setEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $entities;
@@ -91,7 +91,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
      * @var bool|null
      * @SkipWhenEmpty
      * @SerializedName("disable_web_page_preview")
-     * @Accessor(getter="getDisableWebPagePreview",setter="setDisableWebPagePreview")
+     * @Accessor(getter="getDisableWebPagePreview", setter="setDisableWebPagePreview")
      * @Type("bool")
      */
     protected $disableWebPagePreview;

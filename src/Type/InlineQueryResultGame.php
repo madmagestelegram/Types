@@ -57,7 +57,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -67,7 +67,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -77,7 +77,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("game_short_name")
-     * @Accessor(getter="getGameShortName",setter="setGameShortName")
+     * @Accessor(getter="getGameShortName", setter="setGameShortName")
      * @Type("string")
      */
     protected $gameShortName;
@@ -88,7 +88,7 @@ class InlineQueryResultGame extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
+     * @Accessor(getter="getReplyMarkup", setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;

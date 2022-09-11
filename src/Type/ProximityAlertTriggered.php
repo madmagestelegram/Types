@@ -56,7 +56,7 @@ class ProximityAlertTriggered extends AbstractType
      *
      * @var User
      * @SerializedName("traveler")
-     * @Accessor(getter="getTraveler",setter="setTraveler")
+     * @Accessor(getter="getTraveler", setter="setTraveler")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $traveler;
@@ -66,7 +66,7 @@ class ProximityAlertTriggered extends AbstractType
      *
      * @var User
      * @SerializedName("watcher")
-     * @Accessor(getter="getWatcher",setter="setWatcher")
+     * @Accessor(getter="getWatcher", setter="setWatcher")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $watcher;
@@ -76,7 +76,7 @@ class ProximityAlertTriggered extends AbstractType
      *
      * @var int
      * @SerializedName("distance")
-     * @Accessor(getter="getDistance",setter="setDistance")
+     * @Accessor(getter="getDistance", setter="setDistance")
      * @Type("int")
      */
     protected $distance;

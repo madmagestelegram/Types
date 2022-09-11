@@ -59,7 +59,7 @@ class InputMediaPhoto extends AbstractInputMedia
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -71,7 +71,7 @@ class InputMediaPhoto extends AbstractInputMedia
      *
      * @var string
      * @SerializedName("media")
-     * @Accessor(getter="getMedia",setter="setMedia")
+     * @Accessor(getter="getMedia", setter="setMedia")
      * @Type("string")
      */
     protected $media;
@@ -82,7 +82,7 @@ class InputMediaPhoto extends AbstractInputMedia
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("caption")
-     * @Accessor(getter="getCaption",setter="setCaption")
+     * @Accessor(getter="getCaption", setter="setCaption")
      * @Type("string")
      */
     protected $caption;
@@ -93,7 +93,7 @@ class InputMediaPhoto extends AbstractInputMedia
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("parse_mode")
-     * @Accessor(getter="getParseMode",setter="setParseMode")
+     * @Accessor(getter="getParseMode", setter="setParseMode")
      * @Type("string")
      */
     protected $parseMode;
@@ -104,7 +104,7 @@ class InputMediaPhoto extends AbstractInputMedia
      * @var MessageEntity[]|null
      * @SkipWhenEmpty
      * @SerializedName("caption_entities")
-     * @Accessor(getter="getCaptionEntities",setter="setCaptionEntities")
+     * @Accessor(getter="getCaptionEntities", setter="setCaptionEntities")
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;

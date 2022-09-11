@@ -63,7 +63,7 @@ class Venue extends AbstractType
      *
      * @var Location
      * @SerializedName("location")
-     * @Accessor(getter="getLocation",setter="setLocation")
+     * @Accessor(getter="getLocation", setter="setLocation")
      * @Type("MadmagesTelegram\Types\Type\Location")
      */
     protected $location;
@@ -73,7 +73,7 @@ class Venue extends AbstractType
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -83,7 +83,7 @@ class Venue extends AbstractType
      *
      * @var string
      * @SerializedName("address")
-     * @Accessor(getter="getAddress",setter="setAddress")
+     * @Accessor(getter="getAddress", setter="setAddress")
      * @Type("string")
      */
     protected $address;
@@ -94,7 +94,7 @@ class Venue extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("foursquare_id")
-     * @Accessor(getter="getFoursquareId",setter="setFoursquareId")
+     * @Accessor(getter="getFoursquareId", setter="setFoursquareId")
      * @Type("string")
      */
     protected $foursquareId;
@@ -106,7 +106,7 @@ class Venue extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("foursquare_type")
-     * @Accessor(getter="getFoursquareType",setter="setFoursquareType")
+     * @Accessor(getter="getFoursquareType", setter="setFoursquareType")
      * @Type("string")
      */
     protected $foursquareType;
@@ -117,7 +117,7 @@ class Venue extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("google_place_id")
-     * @Accessor(getter="getGooglePlaceId",setter="setGooglePlaceId")
+     * @Accessor(getter="getGooglePlaceId", setter="setGooglePlaceId")
      * @Type("string")
      */
     protected $googlePlaceId;
@@ -128,7 +128,7 @@ class Venue extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("google_place_type")
-     * @Accessor(getter="getGooglePlaceType",setter="setGooglePlaceType")
+     * @Accessor(getter="getGooglePlaceType", setter="setGooglePlaceType")
      * @Type("string")
      */
     protected $googlePlaceType;

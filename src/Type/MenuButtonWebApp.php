@@ -55,7 +55,7 @@ class MenuButtonWebApp extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -65,7 +65,7 @@ class MenuButtonWebApp extends AbstractType
      *
      * @var string
      * @SerializedName("text")
-     * @Accessor(getter="getText",setter="setText")
+     * @Accessor(getter="getText", setter="setText")
      * @Type("string")
      */
     protected $text;
@@ -76,7 +76,7 @@ class MenuButtonWebApp extends AbstractType
      *
      * @var WebAppInfo
      * @SerializedName("web_app")
-     * @Accessor(getter="getWebApp",setter="setWebApp")
+     * @Accessor(getter="getWebApp", setter="setWebApp")
      * @Type("MadmagesTelegram\Types\Type\WebAppInfo")
      */
     protected $webApp;

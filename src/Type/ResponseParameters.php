@@ -57,7 +57,7 @@ class ResponseParameters extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("migrate_to_chat_id")
-     * @Accessor(getter="getMigrateToChatId",setter="setMigrateToChatId")
+     * @Accessor(getter="getMigrateToChatId", setter="setMigrateToChatId")
      * @Type("int")
      */
     protected $migrateToChatId;
@@ -68,7 +68,7 @@ class ResponseParameters extends AbstractType
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("retry_after")
-     * @Accessor(getter="getRetryAfter",setter="setRetryAfter")
+     * @Accessor(getter="getRetryAfter", setter="setRetryAfter")
      * @Type("int")
      */
     protected $retryAfter;

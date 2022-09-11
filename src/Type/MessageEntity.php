@@ -68,7 +68,7 @@ class MessageEntity extends AbstractType
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -78,7 +78,7 @@ class MessageEntity extends AbstractType
      *
      * @var int
      * @SerializedName("offset")
-     * @Accessor(getter="getOffset",setter="setOffset")
+     * @Accessor(getter="getOffset", setter="setOffset")
      * @Type("int")
      */
     protected $offset;
@@ -88,7 +88,7 @@ class MessageEntity extends AbstractType
      *
      * @var int
      * @SerializedName("length")
-     * @Accessor(getter="getLength",setter="setLength")
+     * @Accessor(getter="getLength", setter="setLength")
      * @Type("int")
      */
     protected $length;
@@ -99,7 +99,7 @@ class MessageEntity extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("url")
-     * @Accessor(getter="getUrl",setter="setUrl")
+     * @Accessor(getter="getUrl", setter="setUrl")
      * @Type("string")
      */
     protected $url;
@@ -110,7 +110,7 @@ class MessageEntity extends AbstractType
      * @var User|null
      * @SkipWhenEmpty
      * @SerializedName("user")
-     * @Accessor(getter="getUser",setter="setUser")
+     * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
@@ -121,7 +121,7 @@ class MessageEntity extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("language")
-     * @Accessor(getter="getLanguage",setter="setLanguage")
+     * @Accessor(getter="getLanguage", setter="setLanguage")
      * @Type("string")
      */
     protected $language;
@@ -133,7 +133,7 @@ class MessageEntity extends AbstractType
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("custom_emoji_id")
-     * @Accessor(getter="getCustomEmojiId",setter="setCustomEmojiId")
+     * @Accessor(getter="getCustomEmojiId", setter="setCustomEmojiId")
      * @Type("string")
      */
     protected $customEmojiId;

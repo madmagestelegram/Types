@@ -78,7 +78,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("type")
-     * @Accessor(getter="getType",setter="setType")
+     * @Accessor(getter="getType", setter="setType")
      * @Type("string")
      */
     protected $type;
@@ -88,7 +88,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("id")
-     * @Accessor(getter="getId",setter="setId")
+     * @Accessor(getter="getId", setter="setId")
      * @Type("string")
      */
     protected $id;
@@ -98,7 +98,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      *
      * @var float
      * @SerializedName("latitude")
-     * @Accessor(getter="getLatitude",setter="setLatitude")
+     * @Accessor(getter="getLatitude", setter="setLatitude")
      * @Type("float")
      */
     protected $latitude;
@@ -108,7 +108,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      *
      * @var float
      * @SerializedName("longitude")
-     * @Accessor(getter="getLongitude",setter="setLongitude")
+     * @Accessor(getter="getLongitude", setter="setLongitude")
      * @Type("float")
      */
     protected $longitude;
@@ -118,7 +118,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      *
      * @var string
      * @SerializedName("title")
-     * @Accessor(getter="getTitle",setter="setTitle")
+     * @Accessor(getter="getTitle", setter="setTitle")
      * @Type("string")
      */
     protected $title;
@@ -129,7 +129,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var float|null
      * @SkipWhenEmpty
      * @SerializedName("horizontal_accuracy")
-     * @Accessor(getter="getHorizontalAccuracy",setter="setHorizontalAccuracy")
+     * @Accessor(getter="getHorizontalAccuracy", setter="setHorizontalAccuracy")
      * @Type("float")
      */
     protected $horizontalAccuracy;
@@ -140,7 +140,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("live_period")
-     * @Accessor(getter="getLivePeriod",setter="setLivePeriod")
+     * @Accessor(getter="getLivePeriod", setter="setLivePeriod")
      * @Type("int")
      */
     protected $livePeriod;
@@ -152,7 +152,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("heading")
-     * @Accessor(getter="getHeading",setter="setHeading")
+     * @Accessor(getter="getHeading", setter="setHeading")
      * @Type("int")
      */
     protected $heading;
@@ -164,7 +164,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("proximity_alert_radius")
-     * @Accessor(getter="getProximityAlertRadius",setter="setProximityAlertRadius")
+     * @Accessor(getter="getProximityAlertRadius", setter="setProximityAlertRadius")
      * @Type("int")
      */
     protected $proximityAlertRadius;
@@ -175,7 +175,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var InlineKeyboardMarkup|null
      * @SkipWhenEmpty
      * @SerializedName("reply_markup")
-     * @Accessor(getter="getReplyMarkup",setter="setReplyMarkup")
+     * @Accessor(getter="getReplyMarkup", setter="setReplyMarkup")
      * @Type("MadmagesTelegram\Types\Type\InlineKeyboardMarkup")
      */
     protected $replyMarkup;
@@ -186,7 +186,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var AbstractInputMessageContent|null
      * @SkipWhenEmpty
      * @SerializedName("input_message_content")
-     * @Accessor(getter="getInputMessageContent",setter="setInputMessageContent")
+     * @Accessor(getter="getInputMessageContent", setter="setInputMessageContent")
      * @Type("MadmagesTelegram\Types\Type\AbstractInputMessageContent")
      */
     protected $inputMessageContent;
@@ -197,7 +197,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl",setter="setThumbUrl")
+     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
      * @Type("string")
      */
     protected $thumbUrl;
@@ -208,7 +208,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_width")
-     * @Accessor(getter="getThumbWidth",setter="setThumbWidth")
+     * @Accessor(getter="getThumbWidth", setter="setThumbWidth")
      * @Type("int")
      */
     protected $thumbWidth;
@@ -219,7 +219,7 @@ class InlineQueryResultLocation extends AbstractInlineQueryResult
      * @var int|null
      * @SkipWhenEmpty
      * @SerializedName("thumb_height")
-     * @Accessor(getter="getThumbHeight",setter="setThumbHeight")
+     * @Accessor(getter="getThumbHeight", setter="setThumbHeight")
      * @Type("int")
      */
     protected $thumbHeight;
