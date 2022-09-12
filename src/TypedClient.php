@@ -26,10 +26,6 @@ abstract class TypedClient {
      */
     private function _requestWithMap(string $method, array $requestParams, array $returnType)
     {
-        if (count($returnType) > 1) {
-            throw new TelegramException('More than one return type is not implemented');
-        }
-
         $responseJson = $this->_apiCall($method, $this->_prepareRequest($requestParams));
         if (empty($returnType)) {
             try {
@@ -39,7 +35,7 @@ abstract class TypedClient {
             }
         }
 
-        return Serializer::deserialize($responseJson, $returnType[0]);
+        return Serializer::deserialize($responseJson, implode('|', $returnType));
     }
 
     /**
