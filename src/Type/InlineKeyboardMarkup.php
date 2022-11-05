@@ -12,7 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#inlinekeyboardmarkup
  *
- * This object represents an inline keyboard that appears right next to the message it belongs to. 
+ * This object represents an inline keyboard that appears right 
+ * next to the message it belongs to. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")

@@ -328,6 +328,9 @@ abstract class TypedClient {
      * @param string $text
      *        Text of the message to be sent, 1-4096 characters after entities parsing 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param string|null $parseMode
      *        Mode for parsing entities in the message text. See formatting options for more details. 
      *
@@ -360,6 +363,7 @@ abstract class TypedClient {
     public function sendMessage(
         $chatId,
         string $text,
+        int $messageThreadId = null,
         string $parseMode = null,
         array $entities = null,
         bool $disableWebPagePreview = null,
@@ -372,6 +376,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'text' => $text,
             'parse_mode' => $parseMode,
             'entities' => $entities,
@@ -405,6 +410,9 @@ abstract class TypedClient {
      * @param int $messageId
      *        Message identifier in the chat specified in from_chat_id 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
@@ -418,12 +426,14 @@ abstract class TypedClient {
         $chatId,
         $fromChatId,
         int $messageId,
+        int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null
     ): Type\Message
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'from_chat_id' => $fromChatId,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
@@ -453,6 +463,9 @@ abstract class TypedClient {
      *
      * @param int $messageId
      *        Message identifier in the chat specified in from_chat_id 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param string|null $caption
      *        New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is 
@@ -488,6 +501,7 @@ abstract class TypedClient {
         $chatId,
         $fromChatId,
         int $messageId,
+        int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
@@ -500,6 +514,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'from_chat_id' => $fromChatId,
             'message_id' => $messageId,
             'caption' => $caption,
@@ -533,6 +548,9 @@ abstract class TypedClient {
      * The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height 
      * ratio must be at most 20. More information on Sending Files » 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param string|null $caption
      *        Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing 
      *
@@ -565,6 +583,7 @@ abstract class TypedClient {
     public function sendPhoto(
         $chatId,
         $photo,
+        int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
@@ -577,6 +596,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'photo' => $photo,
             'caption' => $caption,
             'parse_mode' => $parseMode,
@@ -609,6 +629,9 @@ abstract class TypedClient {
      *        Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using 
      * multipart/form-data. More information on Sending Files » 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param string|null $caption
      *        Audio caption, 0-1024 characters after entities parsing 
@@ -658,6 +681,7 @@ abstract class TypedClient {
     public function sendAudio(
         $chatId,
         $audio,
+        int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
@@ -674,6 +698,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'audio' => $audio,
             'caption' => $caption,
             'parse_mode' => $parseMode,
@@ -709,6 +734,9 @@ abstract class TypedClient {
      *        File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More 
      * information on Sending Files » 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param Type\InputFile|string|null $thumb
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
@@ -753,6 +781,7 @@ abstract class TypedClient {
     public function sendDocument(
         $chatId,
         $document,
+        int $messageThreadId = null,
         $thumb = null,
         string $caption = null,
         string $parseMode = null,
@@ -767,6 +796,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'document' => $document,
             'thumb' => $thumb,
             'caption' => $caption,
@@ -800,6 +830,9 @@ abstract class TypedClient {
      *        Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. 
      * More information on Sending Files » 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param int|null $duration
      *        Duration of sent video in seconds 
@@ -852,6 +885,7 @@ abstract class TypedClient {
     public function sendVideo(
         $chatId,
         $video,
+        int $messageThreadId = null,
         int $duration = null,
         int $width = null,
         int $height = null,
@@ -869,6 +903,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'video' => $video,
             'duration' => $duration,
             'width' => $width,
@@ -904,6 +939,9 @@ abstract class TypedClient {
      *        Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using 
      * multipart/form-data. More information on Sending Files » 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param int|null $duration
      *        Duration of sent animation in seconds 
@@ -954,6 +992,7 @@ abstract class TypedClient {
     public function sendAnimation(
         $chatId,
         $animation,
+        int $messageThreadId = null,
         int $duration = null,
         int $width = null,
         int $height = null,
@@ -970,6 +1009,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'animation' => $animation,
             'duration' => $duration,
             'width' => $width,
@@ -1008,6 +1048,9 @@ abstract class TypedClient {
      * pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More information on Sending Files » 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param string|null $caption
      *        Voice message caption, 0-1024 characters after entities parsing 
      *
@@ -1043,6 +1086,7 @@ abstract class TypedClient {
     public function sendVoice(
         $chatId,
         $voice,
+        int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
@@ -1056,6 +1100,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'voice' => $voice,
             'caption' => $caption,
             'parse_mode' => $parseMode,
@@ -1088,6 +1133,9 @@ abstract class TypedClient {
      *        Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers 
      * (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a 
      * URL is currently unsupported 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param int|null $duration
      *        Duration of sent video in seconds 
@@ -1124,6 +1172,7 @@ abstract class TypedClient {
     public function sendVideoNote(
         $chatId,
         $videoNote,
+        int $messageThreadId = null,
         int $duration = null,
         int $length = null,
         $thumb = null,
@@ -1136,6 +1185,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'video_note' => $videoNote,
             'duration' => $duration,
             'length' => $length,
@@ -1167,6 +1217,9 @@ abstract class TypedClient {
      * @param Type\InputMediaAudio[]|Type\InputMediaDocument[]|Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
      *        A JSON-serialized array describing messages to be sent, must include 2-10 items 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param bool|null $disableNotification
      *        Sends messages silently. Users will receive a notification with no sound. 
      *
@@ -1185,6 +1238,7 @@ abstract class TypedClient {
     public function sendMediaGroup(
         $chatId,
         array $media,
+        int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -1193,6 +1247,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'media' => $media,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
@@ -1220,6 +1275,9 @@ abstract class TypedClient {
      *
      * @param float $longitude
      *        Longitude of the location 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param float|null $horizontalAccuracy
      *        The radius of uncertainty for the location, measured in meters; 0-1500 
@@ -1257,6 +1315,7 @@ abstract class TypedClient {
         $chatId,
         float $latitude,
         float $longitude,
+        int $messageThreadId = null,
         float $horizontalAccuracy = null,
         int $livePeriod = null,
         int $heading = null,
@@ -1270,6 +1329,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'horizontal_accuracy' => $horizontalAccuracy,
@@ -1428,6 +1488,9 @@ abstract class TypedClient {
      * @param string $address
      *        Address of the venue 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param string|null $foursquareId
      *        Foursquare identifier of the venue 
      *
@@ -1466,6 +1529,7 @@ abstract class TypedClient {
         float $longitude,
         string $title,
         string $address,
+        int $messageThreadId = null,
         string $foursquareId = null,
         string $foursquareType = null,
         string $googlePlaceId = null,
@@ -1479,6 +1543,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'title' => $title,
@@ -1515,6 +1580,9 @@ abstract class TypedClient {
      * @param string $firstName
      *        Contact's first name 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param string|null $lastName
      *        Contact's last name 
      *
@@ -1535,7 +1603,7 @@ abstract class TypedClient {
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove keyboard or to force a reply from the user. 
+     * instructions to remove reply keyboard or to force a reply from the user. 
      *
      * @return Type\Message
      * @throws TelegramException
@@ -1544,6 +1612,7 @@ abstract class TypedClient {
         $chatId,
         string $phoneNumber,
         string $firstName,
+        int $messageThreadId = null,
         string $lastName = null,
         string $vcard = null,
         bool $disableNotification = null,
@@ -1555,6 +1624,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'phone_number' => $phoneNumber,
             'first_name' => $firstName,
             'last_name' => $lastName,
@@ -1587,6 +1657,9 @@ abstract class TypedClient {
      * @param string[] $options
      *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
      *
+     * @param int|null $openPeriod
+     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
+     *
      * @param bool|null $allowSendingWithoutReply
      *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
@@ -1606,15 +1679,15 @@ abstract class TypedClient {
      *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
      * seconds in the future. Can't be used together with open_period. 
      *
+     * @param string|null $explanationParseMode
+     *        Mode for parsing entities in the explanation. See formatting options for more details. 
+     *
      * @param Type\MessageEntity[]|null $explanationEntities
      *        A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead 
      * of parse_mode 
      *
-     * @param int|null $openPeriod
-     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
-     *
-     * @param string|null $explanationParseMode
-     *        Mode for parsing entities in the explanation. See formatting options for more details. 
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
      * @param string|null $explanation
      *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
@@ -1643,15 +1716,16 @@ abstract class TypedClient {
         $chatId,
         string $question,
         array $options,
+        int $openPeriod = null,
         bool $allowSendingWithoutReply = null,
         int $replyToMessageId = null,
         bool $protectContent = null,
         bool $disableNotification = null,
         bool $isClosed = null,
         int $closeDate = null,
-        array $explanationEntities = null,
-        int $openPeriod = null,
         string $explanationParseMode = null,
+        array $explanationEntities = null,
+        int $messageThreadId = null,
         string $explanation = null,
         int $correctOptionId = null,
         bool $allowsMultipleAnswers = null,
@@ -1662,6 +1736,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'question' => $question,
             'options' => $options,
             'is_anonymous' => $isAnonymous,
@@ -1696,6 +1771,9 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param string|null $emoji
      *        Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, 
      * “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 
@@ -1722,6 +1800,7 @@ abstract class TypedClient {
      */
     public function sendDice(
         $chatId,
+        int $messageThreadId = null,
         string $emoji = null,
         bool $disableNotification = null,
         bool $protectContent = null,
@@ -1732,6 +1811,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
@@ -2031,6 +2111,9 @@ abstract class TypedClient {
      * @param bool|null $canPinMessages
      *        Pass True if the administrator can pin messages, supergroups only 
      *
+     * @param bool|null $canManageTopics
+     *        Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only 
+     *
      * @return bool
      * @throws TelegramException
      */
@@ -2047,7 +2130,8 @@ abstract class TypedClient {
         bool $canPromoteMembers = null,
         bool $canChangeInfo = null,
         bool $canInviteUsers = null,
-        bool $canPinMessages = null
+        bool $canPinMessages = null,
+        bool $canManageTopics = null
     ): bool
     {
         $requestParameters = [
@@ -2064,6 +2148,7 @@ abstract class TypedClient {
             'can_change_info' => $canChangeInfo,
             'can_invite_users' => $canInviteUsers,
             'can_pin_messages' => $canPinMessages,
+            'can_manage_topics' => $canManageTopics,
         ];
 
         $returnType = [
@@ -2507,7 +2592,7 @@ abstract class TypedClient {
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
      * @param string $title
-     *        New chat title, 1-255 characters 
+     *        New chat title, 1-128 characters 
      *
      * @return bool
      * @throws TelegramException
@@ -2870,10 +2955,260 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#getforumtopiciconstickers
+     *
+     * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no 
+     * parameters. Returns an Array of Sticker objects. 
+     *
+     * @return Type\Sticker[]
+     * @throws TelegramException
+     */
+    public function getForumTopicIconStickers(
+    ): array
+    {
+        $requestParameters = [
+        ];
+
+        $returnType = [
+            'array<' . Type\Sticker::class . '>',
+        ];
+
+        return $this->_requestWithMap('getForumTopicIconStickers', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#createforumtopic
+     *
+     * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to 
+     * work and must have the can_manage_topics administrator rights. Returns information about the created topic 
+     * as a ForumTopic object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param string $name
+     *        Topic name, 1-128 characters 
+     *
+     * @param int|null $iconColor
+     *        Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 
+     * 0xFF93B2, or 0xFB6F5F 
+     *
+     * @param string|null $iconCustomEmojiId
+     *        Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all 
+     * allowed custom emoji identifiers. 
+     *
+     * @return Type\ForumTopic
+     * @throws TelegramException
+     */
+    public function createForumTopic(
+        $chatId,
+        string $name,
+        int $iconColor = null,
+        string $iconCustomEmojiId = null
+    ): Type\ForumTopic
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'name' => $name,
+            'icon_color' => $iconColor,
+            'icon_custom_emoji_id' => $iconCustomEmojiId,
+        ];
+
+        $returnType = [
+            Type\ForumTopic::class,
+        ];
+
+        return $this->_requestWithMap('createForumTopic', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#editforumtopic
+     *
+     * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat 
+     * for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. 
+     * Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param int $messageThreadId
+     *        Unique identifier for the target message thread of the forum topic 
+     *
+     * @param string $name
+     *        New topic name, 1-128 characters 
+     *
+     * @param string $iconCustomEmojiId
+     *        New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all 
+     * allowed custom emoji identifiers 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function editForumTopic(
+        $chatId,
+        int $messageThreadId,
+        string $name,
+        string $iconCustomEmojiId
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+            'name' => $name,
+            'icon_custom_emoji_id' => $iconCustomEmojiId,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('editForumTopic', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#closeforumtopic
+     *
+     * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this 
+     * to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. 
+     * Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param int $messageThreadId
+     *        Unique identifier for the target message thread of the forum topic 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function closeForumTopic(
+        $chatId,
+        int $messageThreadId
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('closeForumTopic', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#reopenforumtopic
+     *
+     * Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for 
+     * this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. 
+     * Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param int $messageThreadId
+     *        Unique identifier for the target message thread of the forum topic 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function reopenForumTopic(
+        $chatId,
+        int $messageThreadId
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('reopenForumTopic', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#deleteforumtopic
+     *
+     * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an 
+     * administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns 
+     * True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param int $messageThreadId
+     *        Unique identifier for the target message thread of the forum topic 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function deleteForumTopic(
+        $chatId,
+        int $messageThreadId
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('deleteForumTopic', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#unpinallforumtopicmessages
+     *
+     * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for 
+     * this to work and must have the can_pin_messages administrator right in the supergroup. Returns 
+     * True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param int $messageThreadId
+     *        Unique identifier for the target message thread of the forum topic 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function unpinAllForumTopicMessages(
+        $chatId,
+        int $messageThreadId
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('unpinAllForumTopicMessages', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#answercallbackquery
      *
-     * Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. 
-     * On success, True is returned. 
+     * Use this method to send answers to callback queries sent from inline 
+     * keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, 
+     * True is returned. 
      *
      * @param string $callbackQueryId
      *        Unique identifier for the query to be answered 
@@ -2923,8 +3258,8 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#setmycommands
      *
-     * Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more 
-     * details about bot commands. Returns True on success. 
+     * Use this method to change the list of the bot's commands. See this manual 
+     * for more details about bot commands. Returns True on success. 
      *
      * @param Type\BotCommand[] $commands
      *        A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be 
@@ -3407,12 +3742,12 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#deletemessage
      *
      * Use this method to delete a message, including service messages, with the following limitations:- A message 
-     * can only be deleted if it was sent less than 48 hours ago.- A dice message in a private chat can only be deleted if it was 
-     * sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- 
-     * Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can 
-     * delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- 
-     * If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message 
-     * there.Returns True on success. 
+     * can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum 
+     * topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours 
+     * ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming 
+     * messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in 
+     * channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has 
+     * can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -3455,6 +3790,9 @@ abstract class TypedClient {
      * an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using 
      * multipart/form-data. More information on Sending Files » 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
@@ -3477,6 +3815,7 @@ abstract class TypedClient {
     public function sendSticker(
         $chatId,
         $sticker,
+        int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -3486,6 +3825,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'sticker' => $sticker,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
@@ -3934,6 +4274,9 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
+     * @param string $title
+     *        Product name, 1-32 characters 
+     *
      * @param string $description
      *        Product description, 1-255 characters 
      *
@@ -3950,9 +4293,6 @@ abstract class TypedClient {
      * @param Type\LabeledPrice[] $prices
      *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
      * delivery tax, bonus, etc.) 
-     *
-     * @param string $title
-     *        Product name, 1-32 characters 
      *
      * @param bool|null $needEmail
      *        Pass True if you require the user's email address to complete the order 
@@ -3993,6 +4333,9 @@ abstract class TypedClient {
      * @param int|null $photoHeight
      *        Photo height 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param int|null $photoSize
      *        Photo size in bytes 
      *
@@ -4029,12 +4372,12 @@ abstract class TypedClient {
      */
     public function sendInvoice(
         $chatId,
+        string $title,
         string $description,
         string $payload,
         string $providerToken,
         string $currency,
         array $prices,
-        string $title,
         bool $needEmail = null,
         bool $allowSendingWithoutReply = null,
         int $replyToMessageId = null,
@@ -4048,6 +4391,7 @@ abstract class TypedClient {
         bool $needPhoneNumber = null,
         bool $needName = null,
         int $photoHeight = null,
+        int $messageThreadId = null,
         int $photoSize = null,
         string $photoUrl = null,
         string $providerData = null,
@@ -4059,6 +4403,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'title' => $title,
             'description' => $description,
             'payload' => $payload,
@@ -4357,6 +4702,9 @@ abstract class TypedClient {
      * @param string $gameShortName
      *        Short name of the game, serves as the unique identifier for the game. Set up your games via @|BotFather. 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
@@ -4379,6 +4727,7 @@ abstract class TypedClient {
     public function sendGame(
         int $chatId,
         string $gameShortName,
+        int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -4388,6 +4737,7 @@ abstract class TypedClient {
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'game_short_name' => $gameShortName,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,

@@ -36,6 +36,7 @@ class ChatPermissions extends AbstractType
             'can_change_info',
             'can_invite_users',
             'can_pin_messages',
+            'can_manage_topics',
         ];
     }
 
@@ -55,6 +56,7 @@ class ChatPermissions extends AbstractType
             'can_change_info' => $this->getCanChangeInfo(),
             'can_invite_users' => $this->getCanInviteUsers(),
             'can_pin_messages' => $this->getCanPinMessages(),
+            'can_manage_topics' => $this->getCanManageTopics(),
         ];
 
         return parent::normalizeData($result);
@@ -150,6 +152,17 @@ class ChatPermissions extends AbstractType
      * @Type("bool")
      */
     protected $canPinMessages;
+
+    /**
+     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_manage_topics")
+     * @Accessor(getter="getCanManageTopics", setter="setCanManageTopics")
+     * @Type("bool")
+     */
+    protected $canManageTopics;
 
 
     /**
@@ -302,6 +315,25 @@ class ChatPermissions extends AbstractType
     public function getCanPinMessages(): ?bool
     {
         return $this->canPinMessages;
+    }
+
+    /**
+     * @param bool $canManageTopics
+     * @return static
+     */
+    public function setCanManageTopics(bool $canManageTopics): self
+    {
+        $this->canManageTopics = $canManageTopics;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanManageTopics(): ?bool
+    {
+        return $this->canManageTopics;
     }
 
 }

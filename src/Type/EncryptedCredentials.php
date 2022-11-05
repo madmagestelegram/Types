@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#encryptedcredentials
  *
- * Describes data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport 
- * Documentation for a complete description of the data decryption and authentication processes. 
+ * Describes data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete 
+ * description of the data decryption and authentication processes. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")

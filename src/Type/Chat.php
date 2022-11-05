@@ -34,7 +34,10 @@ class Chat extends AbstractType
             'username',
             'first_name',
             'last_name',
+            'is_forum',
             'photo',
+            'active_usernames',
+            'emoji_status_custom_emoji_id',
             'bio',
             'has_private_forwards',
             'has_restricted_voice_and_video_messages',
@@ -68,7 +71,10 @@ class Chat extends AbstractType
             'username' => $this->getUsername(),
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
+            'is_forum' => $this->getIsForum(),
             'photo' => $this->getPhoto(),
+            'active_usernames' => $this->getActiveUsernames(),
+            'emoji_status_custom_emoji_id' => $this->getEmojiStatusCustomEmojiId(),
             'bio' => $this->getBio(),
             'has_private_forwards' => $this->getHasPrivateForwards(),
             'has_restricted_voice_and_video_messages' => $this->getHasRestrictedVoiceAndVideoMessages(),
@@ -157,6 +163,17 @@ class Chat extends AbstractType
     protected $lastName;
 
     /**
+     * Optional. True, if the supergroup chat is a forum (has topics enabled) 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_forum")
+     * @Accessor(getter="getIsForum", setter="setIsForum")
+     * @Type("bool")
+     */
+    protected $isForum;
+
+    /**
      * Optional. Chat photo. Returned only in getChat. 
      *
      * @var ChatPhoto|null
@@ -166,6 +183,29 @@ class Chat extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatPhoto")
      */
     protected $photo;
+
+    /**
+     * Optional. If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. 
+     * Returned only in getChat. 
+     *
+     * @var string[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("active_usernames")
+     * @Accessor(getter="getActiveUsernames", setter="setActiveUsernames")
+     * @Type("array<string>")
+     */
+    protected $activeUsernames;
+
+    /**
+     * Optional. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat. 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("emoji_status_custom_emoji_id")
+     * @Accessor(getter="getEmojiStatusCustomEmojiId", setter="setEmojiStatusCustomEmojiId")
+     * @Type("string")
+     */
+    protected $emojiStatusCustomEmojiId;
 
     /**
      * Optional. Bio of the other party in a private chat. Returned only in getChat. 
@@ -467,6 +507,25 @@ class Chat extends AbstractType
     }
 
     /**
+     * @param bool $isForum
+     * @return static
+     */
+    public function setIsForum(bool $isForum): self
+    {
+        $this->isForum = $isForum;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsForum(): ?bool
+    {
+        return $this->isForum;
+    }
+
+    /**
      * @param ChatPhoto $photo
      * @return static
      */
@@ -483,6 +542,44 @@ class Chat extends AbstractType
     public function getPhoto(): ?ChatPhoto
     {
         return $this->photo;
+    }
+
+    /**
+     * @param string[] $activeUsernames
+     * @return static
+     */
+    public function setActiveUsernames(array $activeUsernames): self
+    {
+        $this->activeUsernames = $activeUsernames;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]|null
+     */
+    public function getActiveUsernames(): ?array
+    {
+        return $this->activeUsernames;
+    }
+
+    /**
+     * @param string $emojiStatusCustomEmojiId
+     * @return static
+     */
+    public function setEmojiStatusCustomEmojiId(string $emojiStatusCustomEmojiId): self
+    {
+        $this->emojiStatusCustomEmojiId = $emojiStatusCustomEmojiId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEmojiStatusCustomEmojiId(): ?string
+    {
+        return $this->emojiStatusCustomEmojiId;
     }
 
     /**

@@ -35,6 +35,7 @@ class ChatMemberRestricted extends AbstractChatMember
             'can_change_info',
             'can_invite_users',
             'can_pin_messages',
+            'can_manage_topics',
             'can_send_messages',
             'can_send_media_messages',
             'can_send_polls',
@@ -58,6 +59,7 @@ class ChatMemberRestricted extends AbstractChatMember
             'can_change_info' => $this->getCanChangeInfo(),
             'can_invite_users' => $this->getCanInviteUsers(),
             'can_pin_messages' => $this->getCanPinMessages(),
+            'can_manage_topics' => $this->getCanManageTopics(),
             'can_send_messages' => $this->getCanSendMessages(),
             'can_send_media_messages' => $this->getCanSendMediaMessages(),
             'can_send_polls' => $this->getCanSendPolls(),
@@ -128,6 +130,16 @@ class ChatMemberRestricted extends AbstractChatMember
      * @Type("bool")
      */
     protected $canPinMessages;
+
+    /**
+     * True, if the user is allowed to create forum topics 
+     *
+     * @var bool
+     * @SerializedName("can_manage_topics")
+     * @Accessor(getter="getCanManageTopics", setter="setCanManageTopics")
+     * @Type("bool")
+     */
+    protected $canManageTopics;
 
     /**
      * True, if the user is allowed to send text messages, contacts, locations and venues 
@@ -302,6 +314,25 @@ class ChatMemberRestricted extends AbstractChatMember
     public function getCanPinMessages(): bool
     {
         return $this->canPinMessages;
+    }
+
+    /**
+     * @param bool $canManageTopics
+     * @return static
+     */
+    public function setCanManageTopics(bool $canManageTopics): self
+    {
+        $this->canManageTopics = $canManageTopics;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCanManageTopics(): bool
+    {
+        return $this->canManageTopics;
     }
 
     /**

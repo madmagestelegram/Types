@@ -29,6 +29,7 @@ class Message extends AbstractType
     {
         return [
             'message_id',
+            'message_thread_id',
             'from',
             'sender_chat',
             'date',
@@ -39,6 +40,7 @@ class Message extends AbstractType
             'forward_signature',
             'forward_sender_name',
             'forward_date',
+            'is_topic_message',
             'is_automatic_forward',
             'reply_to_message',
             'via_bot',
@@ -81,6 +83,9 @@ class Message extends AbstractType
             'connected_website',
             'passport_data',
             'proximity_alert_triggered',
+            'forum_topic_created',
+            'forum_topic_closed',
+            'forum_topic_reopened',
             'video_chat_scheduled',
             'video_chat_started',
             'video_chat_ended',
@@ -99,6 +104,7 @@ class Message extends AbstractType
     {
         $result = [
             'message_id' => $this->getMessageId(),
+            'message_thread_id' => $this->getMessageThreadId(),
             'from' => $this->getFrom(),
             'sender_chat' => $this->getSenderChat(),
             'date' => $this->getDate(),
@@ -109,6 +115,7 @@ class Message extends AbstractType
             'forward_signature' => $this->getForwardSignature(),
             'forward_sender_name' => $this->getForwardSenderName(),
             'forward_date' => $this->getForwardDate(),
+            'is_topic_message' => $this->getIsTopicMessage(),
             'is_automatic_forward' => $this->getIsAutomaticForward(),
             'reply_to_message' => $this->getReplyToMessage(),
             'via_bot' => $this->getViaBot(),
@@ -151,6 +158,9 @@ class Message extends AbstractType
             'connected_website' => $this->getConnectedWebsite(),
             'passport_data' => $this->getPassportData(),
             'proximity_alert_triggered' => $this->getProximityAlertTriggered(),
+            'forum_topic_created' => $this->getForumTopicCreated(),
+            'forum_topic_closed' => $this->getForumTopicClosed(),
+            'forum_topic_reopened' => $this->getForumTopicReopened(),
             'video_chat_scheduled' => $this->getVideoChatScheduled(),
             'video_chat_started' => $this->getVideoChatStarted(),
             'video_chat_ended' => $this->getVideoChatEnded(),
@@ -171,6 +181,17 @@ class Message extends AbstractType
      * @Type("int")
      */
     protected $messageId;
+
+    /**
+     * Optional. Unique identifier of a message thread to which the message belongs; for supergroups only 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("message_thread_id")
+     * @Accessor(getter="getMessageThreadId", setter="setMessageThreadId")
+     * @Type("int")
+     */
+    protected $messageThreadId;
 
     /**
      * Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field 
@@ -286,6 +307,17 @@ class Message extends AbstractType
      * @Type("int")
      */
     protected $forwardDate;
+
+    /**
+     * Optional. True, if the message is sent to a forum topic 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_topic_message")
+     * @Accessor(getter="getIsTopicMessage", setter="setIsTopicMessage")
+     * @Type("bool")
+     */
+    protected $isTopicMessage;
 
     /**
      * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group 
@@ -769,6 +801,39 @@ class Message extends AbstractType
     protected $proximityAlertTriggered;
 
     /**
+     * Optional. Service message: forum topic created 
+     *
+     * @var ForumTopicCreated|null
+     * @SkipWhenEmpty
+     * @SerializedName("forum_topic_created")
+     * @Accessor(getter="getForumTopicCreated", setter="setForumTopicCreated")
+     * @Type("MadmagesTelegram\Types\Type\ForumTopicCreated")
+     */
+    protected $forumTopicCreated;
+
+    /**
+     * Optional. Service message: forum topic closed 
+     *
+     * @var ForumTopicClosed|null
+     * @SkipWhenEmpty
+     * @SerializedName("forum_topic_closed")
+     * @Accessor(getter="getForumTopicClosed", setter="setForumTopicClosed")
+     * @Type("MadmagesTelegram\Types\Type\ForumTopicClosed")
+     */
+    protected $forumTopicClosed;
+
+    /**
+     * Optional. Service message: forum topic reopened 
+     *
+     * @var ForumTopicReopened|null
+     * @SkipWhenEmpty
+     * @SerializedName("forum_topic_reopened")
+     * @Accessor(getter="getForumTopicReopened", setter="setForumTopicReopened")
+     * @Type("MadmagesTelegram\Types\Type\ForumTopicReopened")
+     */
+    protected $forumTopicReopened;
+
+    /**
      * Optional. Service message: video chat scheduled 
      *
      * @var VideoChatScheduled|null
@@ -852,6 +917,25 @@ class Message extends AbstractType
     public function getMessageId(): int
     {
         return $this->messageId;
+    }
+
+    /**
+     * @param int $messageThreadId
+     * @return static
+     */
+    public function setMessageThreadId(int $messageThreadId): self
+    {
+        $this->messageThreadId = $messageThreadId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMessageThreadId(): ?int
+    {
+        return $this->messageThreadId;
     }
 
     /**
@@ -1042,6 +1126,25 @@ class Message extends AbstractType
     public function getForwardDate(): ?int
     {
         return $this->forwardDate;
+    }
+
+    /**
+     * @param bool $isTopicMessage
+     * @return static
+     */
+    public function setIsTopicMessage(bool $isTopicMessage): self
+    {
+        $this->isTopicMessage = $isTopicMessage;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsTopicMessage(): ?bool
+    {
+        return $this->isTopicMessage;
     }
 
     /**
@@ -1840,6 +1943,63 @@ class Message extends AbstractType
     public function getProximityAlertTriggered(): ?ProximityAlertTriggered
     {
         return $this->proximityAlertTriggered;
+    }
+
+    /**
+     * @param ForumTopicCreated $forumTopicCreated
+     * @return static
+     */
+    public function setForumTopicCreated(ForumTopicCreated $forumTopicCreated): self
+    {
+        $this->forumTopicCreated = $forumTopicCreated;
+
+        return $this;
+    }
+
+    /**
+     * @return ForumTopicCreated|null
+     */
+    public function getForumTopicCreated(): ?ForumTopicCreated
+    {
+        return $this->forumTopicCreated;
+    }
+
+    /**
+     * @param ForumTopicClosed $forumTopicClosed
+     * @return static
+     */
+    public function setForumTopicClosed(ForumTopicClosed $forumTopicClosed): self
+    {
+        $this->forumTopicClosed = $forumTopicClosed;
+
+        return $this;
+    }
+
+    /**
+     * @return ForumTopicClosed|null
+     */
+    public function getForumTopicClosed(): ?ForumTopicClosed
+    {
+        return $this->forumTopicClosed;
+    }
+
+    /**
+     * @param ForumTopicReopened $forumTopicReopened
+     * @return static
+     */
+    public function setForumTopicReopened(ForumTopicReopened $forumTopicReopened): self
+    {
+        $this->forumTopicReopened = $forumTopicReopened;
+
+        return $this;
+    }
+
+    /**
+     * @return ForumTopicReopened|null
+     */
+    public function getForumTopicReopened(): ?ForumTopicReopened
+    {
+        return $this->forumTopicReopened;
     }
 
     /**

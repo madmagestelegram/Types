@@ -39,6 +39,7 @@ class ChatAdministratorRights extends AbstractType
             'can_post_messages',
             'can_edit_messages',
             'can_pin_messages',
+            'can_manage_topics',
         ];
     }
 
@@ -61,6 +62,7 @@ class ChatAdministratorRights extends AbstractType
             'can_post_messages' => $this->getCanPostMessages(),
             'can_edit_messages' => $this->getCanEditMessages(),
             'can_pin_messages' => $this->getCanPinMessages(),
+            'can_manage_topics' => $this->getCanManageTopics(),
         ];
 
         return parent::normalizeData($result);
@@ -181,6 +183,17 @@ class ChatAdministratorRights extends AbstractType
      * @Type("bool")
      */
     protected $canPinMessages;
+
+    /**
+     * Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_manage_topics")
+     * @Accessor(getter="getCanManageTopics", setter="setCanManageTopics")
+     * @Type("bool")
+     */
+    protected $canManageTopics;
 
 
     /**
@@ -390,6 +403,25 @@ class ChatAdministratorRights extends AbstractType
     public function getCanPinMessages(): ?bool
     {
         return $this->canPinMessages;
+    }
+
+    /**
+     * @param bool $canManageTopics
+     * @return static
+     */
+    public function setCanManageTopics(bool $canManageTopics): self
+    {
+        $this->canManageTopics = $canManageTopics;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanManageTopics(): ?bool
+    {
+        return $this->canManageTopics;
     }
 
 }

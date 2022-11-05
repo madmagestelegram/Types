@@ -12,8 +12,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#replykeyboardmarkup
  *
- * This object represents a custom keyboard with reply 
- * options (see Introduction to bots for details and examples). 
+ * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples). 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
