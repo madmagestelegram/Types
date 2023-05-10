@@ -31,7 +31,7 @@ class Document extends AbstractType
         return [
             'file_id',
             'file_unique_id',
-            'thumb',
+            'thumbnail',
             'file_name',
             'mime_type',
             'file_size',
@@ -48,7 +48,7 @@ class Document extends AbstractType
         $result = [
             'file_id' => $this->getFileId(),
             'file_unique_id' => $this->getFileUniqueId(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
             'file_name' => $this->getFileName(),
             'mime_type' => $this->getMimeType(),
             'file_size' => $this->getFileSize(),
@@ -83,11 +83,11 @@ class Document extends AbstractType
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
-    protected $thumb;
+    protected $thumbnail;
 
     /**
      * Optional. Original filename as defined by sender 
@@ -164,12 +164,12 @@ class Document extends AbstractType
     }
 
     /**
-     * @param PhotoSize $thumb
+     * @param PhotoSize $thumbnail
      * @return static
      */
-    public function setThumb(PhotoSize $thumb): self
+    public function setThumbnail(PhotoSize $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -177,9 +177,9 @@ class Document extends AbstractType
     /**
      * @return PhotoSize|null
      */
-    public function getThumb(): ?PhotoSize
+    public function getThumbnail(): ?PhotoSize
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
     /**

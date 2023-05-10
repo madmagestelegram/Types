@@ -32,7 +32,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
             'type',
             'id',
             'photo_url',
-            'thumb_url',
+            'thumbnail_url',
             'photo_width',
             'photo_height',
             'title',
@@ -56,7 +56,7 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
             'type' => $this->getType(),
             'id' => $this->getId(),
             'photo_url' => $this->getPhotoUrl(),
-            'thumb_url' => $this->getThumbUrl(),
+            'thumbnail_url' => $this->getThumbnailUrl(),
             'photo_width' => $this->getPhotoWidth(),
             'photo_height' => $this->getPhotoHeight(),
             'title' => $this->getTitle(),
@@ -105,11 +105,11 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
      * URL of the thumbnail for the photo 
      *
      * @var string
-     * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
+     * @SerializedName("thumbnail_url")
+     * @Accessor(getter="getThumbnailUrl", setter="setThumbnailUrl")
      * @Type("string")
      */
-    protected $thumbUrl;
+    protected $thumbnailUrl;
 
     /**
      * Optional. Width of the photo 
@@ -269,12 +269,12 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     }
 
     /**
-     * @param string $thumbUrl
+     * @param string $thumbnailUrl
      * @return static
      */
-    public function setThumbUrl(string $thumbUrl): self
+    public function setThumbnailUrl(string $thumbnailUrl): self
     {
-        $this->thumbUrl = $thumbUrl;
+        $this->thumbnailUrl = $thumbnailUrl;
 
         return $this;
     }
@@ -282,9 +282,9 @@ class InlineQueryResultPhoto extends AbstractInlineQueryResult
     /**
      * @return string
      */
-    public function getThumbUrl(): string
+    public function getThumbnailUrl(): string
     {
-        return $this->thumbUrl;
+        return $this->thumbnailUrl;
     }
 
     /**

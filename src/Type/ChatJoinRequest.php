@@ -30,6 +30,7 @@ class ChatJoinRequest extends AbstractType
         return [
             'chat',
             'from',
+            'user_chat_id',
             'date',
             'bio',
             'invite_link',
@@ -46,6 +47,7 @@ class ChatJoinRequest extends AbstractType
         $result = [
             'chat' => $this->getChat(),
             'from' => $this->getFrom(),
+            'user_chat_id' => $this->getUserChatId(),
             'date' => $this->getDate(),
             'bio' => $this->getBio(),
             'invite_link' => $this->getInviteLink(),
@@ -73,6 +75,20 @@ class ChatJoinRequest extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $from;
+
+    /**
+     * Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant 
+     * bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 
+     * significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this 
+     * identifier for 24 hours to send messages until the join request is processed, assuming no other administrator contacted the 
+     * user. 
+     *
+     * @var int
+     * @SerializedName("user_chat_id")
+     * @Accessor(getter="getUserChatId", setter="setUserChatId")
+     * @Type("int")
+     */
+    protected $userChatId;
 
     /**
      * Date the request was sent in Unix time 
@@ -143,6 +159,25 @@ class ChatJoinRequest extends AbstractType
     public function getFrom(): User
     {
         return $this->from;
+    }
+
+    /**
+     * @param int $userChatId
+     * @return static
+     */
+    public function setUserChatId(int $userChatId): self
+    {
+        $this->userChatId = $userChatId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserChatId(): int
+    {
+        return $this->userChatId;
     }
 
     /**

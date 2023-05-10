@@ -30,7 +30,7 @@ class InputMediaAudio extends AbstractInputMedia
         return [
             'type',
             'media',
-            'thumb',
+            'thumbnail',
             'caption',
             'parse_mode',
             'caption_entities',
@@ -50,7 +50,7 @@ class InputMediaAudio extends AbstractInputMedia
         $result = [
             'type' => $this->getType(),
             'media' => $this->getMedia(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
             'caption_entities' => $this->getCaptionEntities(),
@@ -93,11 +93,11 @@ class InputMediaAudio extends AbstractInputMedia
      *
      * @var InputFile|string|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("string")
      */
-    protected $thumb;
+    protected $thumbnail;
 
     /**
      * Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing 
@@ -205,12 +205,12 @@ class InputMediaAudio extends AbstractInputMedia
     }
 
     /**
-     * @param InputFile|string $thumb
+     * @param InputFile|string $thumbnail
      * @return static
      */
-    public function setThumb( $thumb): self
+    public function setThumbnail( $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -218,9 +218,9 @@ class InputMediaAudio extends AbstractInputMedia
     /**
      * @return InputFile|string|null
      */
-    public function getThumb()
+    public function getThumbnail()
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
     /**

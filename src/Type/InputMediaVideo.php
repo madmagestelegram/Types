@@ -30,7 +30,7 @@ class InputMediaVideo extends AbstractInputMedia
         return [
             'type',
             'media',
-            'thumb',
+            'thumbnail',
             'caption',
             'parse_mode',
             'caption_entities',
@@ -38,6 +38,7 @@ class InputMediaVideo extends AbstractInputMedia
             'height',
             'duration',
             'supports_streaming',
+            'has_spoiler',
         ];
     }
 
@@ -51,7 +52,7 @@ class InputMediaVideo extends AbstractInputMedia
         $result = [
             'type' => $this->getType(),
             'media' => $this->getMedia(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
             'caption_entities' => $this->getCaptionEntities(),
@@ -59,6 +60,7 @@ class InputMediaVideo extends AbstractInputMedia
             'height' => $this->getHeight(),
             'duration' => $this->getDuration(),
             'supports_streaming' => $this->getSupportsStreaming(),
+            'has_spoiler' => $this->getHasSpoiler(),
         ];
 
         return parent::normalizeData($result);
@@ -95,11 +97,11 @@ class InputMediaVideo extends AbstractInputMedia
      *
      * @var InputFile|string|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("string")
      */
-    protected $thumb;
+    protected $thumbnail;
 
     /**
      * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing 
@@ -178,6 +180,17 @@ class InputMediaVideo extends AbstractInputMedia
      */
     protected $supportsStreaming;
 
+    /**
+     * Optional. Pass True if the video needs to be covered with a spoiler animation 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_spoiler")
+     * @Accessor(getter="getHasSpoiler", setter="setHasSpoiler")
+     * @Type("bool")
+     */
+    protected $hasSpoiler;
+
 
     /**
      * @param string $type
@@ -218,12 +231,12 @@ class InputMediaVideo extends AbstractInputMedia
     }
 
     /**
-     * @param InputFile|string $thumb
+     * @param InputFile|string $thumbnail
      * @return static
      */
-    public function setThumb( $thumb): self
+    public function setThumbnail( $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -231,9 +244,9 @@ class InputMediaVideo extends AbstractInputMedia
     /**
      * @return InputFile|string|null
      */
-    public function getThumb()
+    public function getThumbnail()
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
     /**
@@ -367,6 +380,25 @@ class InputMediaVideo extends AbstractInputMedia
     public function getSupportsStreaming(): ?bool
     {
         return $this->supportsStreaming;
+    }
+
+    /**
+     * @param bool $hasSpoiler
+     * @return static
+     */
+    public function setHasSpoiler(bool $hasSpoiler): self
+    {
+        $this->hasSpoiler = $hasSpoiler;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasSpoiler(): ?bool
+    {
+        return $this->hasSpoiler;
     }
 
 }

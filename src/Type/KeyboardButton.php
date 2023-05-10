@@ -12,9 +12,9 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#keyboardbutton
  *
- * This object represents one button of the reply keyboard. For simple text buttons String can be used instead 
- * of this object to specify text of the button. Optional fields web_app, request_contact, 
- * request_location, and request_poll are mutually exclusive. 
+ * This object represents one button of the reply keyboard. For simple text buttons, String can be used 
+ * instead of this object to specify the button text. The optional fields web_app, request_user, 
+ * request_chat, request_contact, request_location, and request_poll are mutually exclusive. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -31,6 +31,8 @@ class KeyboardButton extends AbstractType
     {
         return [
             'text',
+            'request_user',
+            'request_chat',
             'request_contact',
             'request_location',
             'request_poll',
@@ -47,6 +49,8 @@ class KeyboardButton extends AbstractType
     {
         $result = [
             'text' => $this->getText(),
+            'request_user' => $this->getRequestUser(),
+            'request_chat' => $this->getRequestChat(),
             'request_contact' => $this->getRequestContact(),
             'request_location' => $this->getRequestLocation(),
             'request_poll' => $this->getRequestPoll(),
@@ -66,6 +70,30 @@ class KeyboardButton extends AbstractType
      * @Type("string")
      */
     protected $text;
+
+    /**
+     * Optional. If specified, pressing the button will open a list of suitable users. Tapping on any user will send their 
+     * identifier to the bot in a “user_shared” service message. Available in private chats only. 
+     *
+     * @var KeyboardButtonRequestUser|null
+     * @SkipWhenEmpty
+     * @SerializedName("request_user")
+     * @Accessor(getter="getRequestUser", setter="setRequestUser")
+     * @Type("MadmagesTelegram\Types\Type\KeyboardButtonRequestUser")
+     */
+    protected $requestUser;
+
+    /**
+     * Optional. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its 
+     * identifier to the bot in a “chat_shared” service message. Available in private chats only. 
+     *
+     * @var KeyboardButtonRequestChat|null
+     * @SkipWhenEmpty
+     * @SerializedName("request_chat")
+     * @Accessor(getter="getRequestChat", setter="setRequestChat")
+     * @Type("MadmagesTelegram\Types\Type\KeyboardButtonRequestChat")
+     */
+    protected $requestChat;
 
     /**
      * Optional. If True, the user's phone number will be sent as a contact when the button is pressed. Available in private 
@@ -133,6 +161,44 @@ class KeyboardButton extends AbstractType
     public function getText(): ?string
     {
         return $this->text;
+    }
+
+    /**
+     * @param KeyboardButtonRequestUser $requestUser
+     * @return static
+     */
+    public function setRequestUser(KeyboardButtonRequestUser $requestUser): self
+    {
+        $this->requestUser = $requestUser;
+
+        return $this;
+    }
+
+    /**
+     * @return KeyboardButtonRequestUser|null
+     */
+    public function getRequestUser(): ?KeyboardButtonRequestUser
+    {
+        return $this->requestUser;
+    }
+
+    /**
+     * @param KeyboardButtonRequestChat $requestChat
+     * @return static
+     */
+    public function setRequestChat(KeyboardButtonRequestChat $requestChat): self
+    {
+        $this->requestChat = $requestChat;
+
+        return $this;
+    }
+
+    /**
+     * @return KeyboardButtonRequestChat|null
+     */
+    public function getRequestChat(): ?KeyboardButtonRequestChat
+    {
+        return $this->requestChat;
     }
 
     /**

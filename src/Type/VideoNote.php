@@ -33,7 +33,7 @@ class VideoNote extends AbstractType
             'file_unique_id',
             'length',
             'duration',
-            'thumb',
+            'thumbnail',
             'file_size',
         ];
     }
@@ -50,7 +50,7 @@ class VideoNote extends AbstractType
             'file_unique_id' => $this->getFileUniqueId(),
             'length' => $this->getLength(),
             'duration' => $this->getDuration(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
             'file_size' => $this->getFileSize(),
         ];
 
@@ -103,11 +103,11 @@ class VideoNote extends AbstractType
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
-    protected $thumb;
+    protected $thumbnail;
 
     /**
      * Optional. File size in bytes 
@@ -198,12 +198,12 @@ class VideoNote extends AbstractType
     }
 
     /**
-     * @param PhotoSize $thumb
+     * @param PhotoSize $thumbnail
      * @return static
      */
-    public function setThumb(PhotoSize $thumb): self
+    public function setThumbnail(PhotoSize $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -211,9 +211,9 @@ class VideoNote extends AbstractType
     /**
      * @return PhotoSize|null
      */
-    public function getThumb(): ?PhotoSize
+    public function getThumbnail(): ?PhotoSize
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
     /**

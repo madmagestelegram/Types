@@ -34,7 +34,7 @@ class StickerSet extends AbstractType
             'is_animated',
             'is_video',
             'stickers',
-            'thumb',
+            'thumbnail',
         ];
     }
 
@@ -52,7 +52,7 @@ class StickerSet extends AbstractType
             'is_animated' => $this->getIsAnimated(),
             'is_video' => $this->getIsVideo(),
             'stickers' => $this->getStickers(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
         ];
 
         return parent::normalizeData($result);
@@ -123,11 +123,11 @@ class StickerSet extends AbstractType
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
-    protected $thumb;
+    protected $thumbnail;
 
 
     /**
@@ -245,12 +245,12 @@ class StickerSet extends AbstractType
     }
 
     /**
-     * @param PhotoSize $thumb
+     * @param PhotoSize $thumbnail
      * @return static
      */
-    public function setThumb(PhotoSize $thumb): self
+    public function setThumbnail(PhotoSize $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -258,9 +258,9 @@ class StickerSet extends AbstractType
     /**
      * @return PhotoSize|null
      */
-    public function getThumb(): ?PhotoSize
+    public function getThumbnail(): ?PhotoSize
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
 }

@@ -49,6 +49,8 @@ class Chat extends AbstractType
             'permissions',
             'slow_mode_delay',
             'message_auto_delete_time',
+            'has_aggressive_anti_spam_enabled',
+            'has_hidden_members',
             'has_protected_content',
             'sticker_set_name',
             'can_set_sticker_set',
@@ -86,6 +88,8 @@ class Chat extends AbstractType
             'permissions' => $this->getPermissions(),
             'slow_mode_delay' => $this->getSlowModeDelay(),
             'message_auto_delete_time' => $this->getMessageAutoDeleteTime(),
+            'has_aggressive_anti_spam_enabled' => $this->getHasAggressiveAntiSpamEnabled(),
+            'has_hidden_members' => $this->getHasHiddenMembers(),
             'has_protected_content' => $this->getHasProtectedContent(),
             'sticker_set_name' => $this->getStickerSetName(),
             'can_set_sticker_set' => $this->getCanSetStickerSet(),
@@ -332,6 +336,30 @@ class Chat extends AbstractType
      * @Type("int")
      */
     protected $messageAutoDeleteTime;
+
+    /**
+     * Optional. True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat 
+     * administrators. Returned only in getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_aggressive_anti_spam_enabled")
+     * @Accessor(getter="getHasAggressiveAntiSpamEnabled", setter="setHasAggressiveAntiSpamEnabled")
+     * @Type("bool")
+     */
+    protected $hasAggressiveAntiSpamEnabled;
+
+    /**
+     * Optional. True, if non-administrators can only get the list of bots and administrators in the chat. Returned only in 
+     * getChat. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_hidden_members")
+     * @Accessor(getter="getHasHiddenMembers", setter="setHasHiddenMembers")
+     * @Type("bool")
+     */
+    protected $hasHiddenMembers;
 
     /**
      * Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. 
@@ -789,6 +817,44 @@ class Chat extends AbstractType
     public function getMessageAutoDeleteTime(): ?int
     {
         return $this->messageAutoDeleteTime;
+    }
+
+    /**
+     * @param bool $hasAggressiveAntiSpamEnabled
+     * @return static
+     */
+    public function setHasAggressiveAntiSpamEnabled(bool $hasAggressiveAntiSpamEnabled): self
+    {
+        $this->hasAggressiveAntiSpamEnabled = $hasAggressiveAntiSpamEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasAggressiveAntiSpamEnabled(): ?bool
+    {
+        return $this->hasAggressiveAntiSpamEnabled;
+    }
+
+    /**
+     * @param bool $hasHiddenMembers
+     * @return static
+     */
+    public function setHasHiddenMembers(bool $hasHiddenMembers): self
+    {
+        $this->hasHiddenMembers = $hasHiddenMembers;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasHiddenMembers(): ?bool
+    {
+        return $this->hasHiddenMembers;
     }
 
     /**

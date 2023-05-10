@@ -60,6 +60,7 @@ class Message extends AbstractType
             'voice',
             'caption',
             'caption_entities',
+            'has_media_spoiler',
             'contact',
             'dice',
             'game',
@@ -80,12 +81,18 @@ class Message extends AbstractType
             'pinned_message',
             'invoice',
             'successful_payment',
+            'user_shared',
+            'chat_shared',
             'connected_website',
+            'write_access_allowed',
             'passport_data',
             'proximity_alert_triggered',
             'forum_topic_created',
+            'forum_topic_edited',
             'forum_topic_closed',
             'forum_topic_reopened',
+            'general_forum_topic_hidden',
+            'general_forum_topic_unhidden',
             'video_chat_scheduled',
             'video_chat_started',
             'video_chat_ended',
@@ -135,6 +142,7 @@ class Message extends AbstractType
             'voice' => $this->getVoice(),
             'caption' => $this->getCaption(),
             'caption_entities' => $this->getCaptionEntities(),
+            'has_media_spoiler' => $this->getHasMediaSpoiler(),
             'contact' => $this->getContact(),
             'dice' => $this->getDice(),
             'game' => $this->getGame(),
@@ -155,12 +163,18 @@ class Message extends AbstractType
             'pinned_message' => $this->getPinnedMessage(),
             'invoice' => $this->getInvoice(),
             'successful_payment' => $this->getSuccessfulPayment(),
+            'user_shared' => $this->getUserShared(),
+            'chat_shared' => $this->getChatShared(),
             'connected_website' => $this->getConnectedWebsite(),
+            'write_access_allowed' => $this->getWriteAccessAllowed(),
             'passport_data' => $this->getPassportData(),
             'proximity_alert_triggered' => $this->getProximityAlertTriggered(),
             'forum_topic_created' => $this->getForumTopicCreated(),
+            'forum_topic_edited' => $this->getForumTopicEdited(),
             'forum_topic_closed' => $this->getForumTopicClosed(),
             'forum_topic_reopened' => $this->getForumTopicReopened(),
+            'general_forum_topic_hidden' => $this->getGeneralForumTopicHidden(),
+            'general_forum_topic_unhidden' => $this->getGeneralForumTopicUnhidden(),
             'video_chat_scheduled' => $this->getVideoChatScheduled(),
             'video_chat_started' => $this->getVideoChatStarted(),
             'video_chat_ended' => $this->getVideoChatEnded(),
@@ -533,6 +547,17 @@ class Message extends AbstractType
     protected $captionEntities;
 
     /**
+     * Optional. True, if the message media is covered by a spoiler animation 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_media_spoiler")
+     * @Accessor(getter="getHasMediaSpoiler", setter="setHasMediaSpoiler")
+     * @Type("bool")
+     */
+    protected $hasMediaSpoiler;
+
+    /**
      * Optional. Message is a shared contact, information about the contact 
      *
      * @var Contact|null
@@ -767,6 +792,28 @@ class Message extends AbstractType
     protected $successfulPayment;
 
     /**
+     * Optional. Service message: a user was shared with the bot 
+     *
+     * @var UserShared|null
+     * @SkipWhenEmpty
+     * @SerializedName("user_shared")
+     * @Accessor(getter="getUserShared", setter="setUserShared")
+     * @Type("MadmagesTelegram\Types\Type\UserShared")
+     */
+    protected $userShared;
+
+    /**
+     * Optional. Service message: a chat was shared with the bot 
+     *
+     * @var ChatShared|null
+     * @SkipWhenEmpty
+     * @SerializedName("chat_shared")
+     * @Accessor(getter="getChatShared", setter="setChatShared")
+     * @Type("MadmagesTelegram\Types\Type\ChatShared")
+     */
+    protected $chatShared;
+
+    /**
      * Optional. The domain name of the website on which the user has logged in. More about Telegram Login » 
      *
      * @var string|null
@@ -776,6 +823,17 @@ class Message extends AbstractType
      * @Type("string")
      */
     protected $connectedWebsite;
+
+    /**
+     * Optional. Service message: the user allowed the bot added to the attachment menu to write messages 
+     *
+     * @var WriteAccessAllowed|null
+     * @SkipWhenEmpty
+     * @SerializedName("write_access_allowed")
+     * @Accessor(getter="getWriteAccessAllowed", setter="setWriteAccessAllowed")
+     * @Type("MadmagesTelegram\Types\Type\WriteAccessAllowed")
+     */
+    protected $writeAccessAllowed;
 
     /**
      * Optional. Telegram Passport data 
@@ -812,6 +870,17 @@ class Message extends AbstractType
     protected $forumTopicCreated;
 
     /**
+     * Optional. Service message: forum topic edited 
+     *
+     * @var ForumTopicEdited|null
+     * @SkipWhenEmpty
+     * @SerializedName("forum_topic_edited")
+     * @Accessor(getter="getForumTopicEdited", setter="setForumTopicEdited")
+     * @Type("MadmagesTelegram\Types\Type\ForumTopicEdited")
+     */
+    protected $forumTopicEdited;
+
+    /**
      * Optional. Service message: forum topic closed 
      *
      * @var ForumTopicClosed|null
@@ -832,6 +901,28 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ForumTopicReopened")
      */
     protected $forumTopicReopened;
+
+    /**
+     * Optional. Service message: the 'General' forum topic hidden 
+     *
+     * @var GeneralForumTopicHidden|null
+     * @SkipWhenEmpty
+     * @SerializedName("general_forum_topic_hidden")
+     * @Accessor(getter="getGeneralForumTopicHidden", setter="setGeneralForumTopicHidden")
+     * @Type("MadmagesTelegram\Types\Type\GeneralForumTopicHidden")
+     */
+    protected $generalForumTopicHidden;
+
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden 
+     *
+     * @var GeneralForumTopicUnhidden|null
+     * @SkipWhenEmpty
+     * @SerializedName("general_forum_topic_unhidden")
+     * @Accessor(getter="getGeneralForumTopicUnhidden", setter="setGeneralForumTopicUnhidden")
+     * @Type("MadmagesTelegram\Types\Type\GeneralForumTopicUnhidden")
+     */
+    protected $generalForumTopicUnhidden;
 
     /**
      * Optional. Service message: video chat scheduled 
@@ -1509,6 +1600,25 @@ class Message extends AbstractType
     }
 
     /**
+     * @param bool $hasMediaSpoiler
+     * @return static
+     */
+    public function setHasMediaSpoiler(bool $hasMediaSpoiler): self
+    {
+        $this->hasMediaSpoiler = $hasMediaSpoiler;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasMediaSpoiler(): ?bool
+    {
+        return $this->hasMediaSpoiler;
+    }
+
+    /**
      * @param Contact $contact
      * @return static
      */
@@ -1889,6 +1999,44 @@ class Message extends AbstractType
     }
 
     /**
+     * @param UserShared $userShared
+     * @return static
+     */
+    public function setUserShared(UserShared $userShared): self
+    {
+        $this->userShared = $userShared;
+
+        return $this;
+    }
+
+    /**
+     * @return UserShared|null
+     */
+    public function getUserShared(): ?UserShared
+    {
+        return $this->userShared;
+    }
+
+    /**
+     * @param ChatShared $chatShared
+     * @return static
+     */
+    public function setChatShared(ChatShared $chatShared): self
+    {
+        $this->chatShared = $chatShared;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatShared|null
+     */
+    public function getChatShared(): ?ChatShared
+    {
+        return $this->chatShared;
+    }
+
+    /**
      * @param string $connectedWebsite
      * @return static
      */
@@ -1905,6 +2053,25 @@ class Message extends AbstractType
     public function getConnectedWebsite(): ?string
     {
         return $this->connectedWebsite;
+    }
+
+    /**
+     * @param WriteAccessAllowed $writeAccessAllowed
+     * @return static
+     */
+    public function setWriteAccessAllowed(WriteAccessAllowed $writeAccessAllowed): self
+    {
+        $this->writeAccessAllowed = $writeAccessAllowed;
+
+        return $this;
+    }
+
+    /**
+     * @return WriteAccessAllowed|null
+     */
+    public function getWriteAccessAllowed(): ?WriteAccessAllowed
+    {
+        return $this->writeAccessAllowed;
     }
 
     /**
@@ -1965,6 +2132,25 @@ class Message extends AbstractType
     }
 
     /**
+     * @param ForumTopicEdited $forumTopicEdited
+     * @return static
+     */
+    public function setForumTopicEdited(ForumTopicEdited $forumTopicEdited): self
+    {
+        $this->forumTopicEdited = $forumTopicEdited;
+
+        return $this;
+    }
+
+    /**
+     * @return ForumTopicEdited|null
+     */
+    public function getForumTopicEdited(): ?ForumTopicEdited
+    {
+        return $this->forumTopicEdited;
+    }
+
+    /**
      * @param ForumTopicClosed $forumTopicClosed
      * @return static
      */
@@ -2000,6 +2186,44 @@ class Message extends AbstractType
     public function getForumTopicReopened(): ?ForumTopicReopened
     {
         return $this->forumTopicReopened;
+    }
+
+    /**
+     * @param GeneralForumTopicHidden $generalForumTopicHidden
+     * @return static
+     */
+    public function setGeneralForumTopicHidden(GeneralForumTopicHidden $generalForumTopicHidden): self
+    {
+        $this->generalForumTopicHidden = $generalForumTopicHidden;
+
+        return $this;
+    }
+
+    /**
+     * @return GeneralForumTopicHidden|null
+     */
+    public function getGeneralForumTopicHidden(): ?GeneralForumTopicHidden
+    {
+        return $this->generalForumTopicHidden;
+    }
+
+    /**
+     * @param GeneralForumTopicUnhidden $generalForumTopicUnhidden
+     * @return static
+     */
+    public function setGeneralForumTopicUnhidden(GeneralForumTopicUnhidden $generalForumTopicUnhidden): self
+    {
+        $this->generalForumTopicUnhidden = $generalForumTopicUnhidden;
+
+        return $this;
+    }
+
+    /**
+     * @return GeneralForumTopicUnhidden|null
+     */
+    public function getGeneralForumTopicUnhidden(): ?GeneralForumTopicUnhidden
+    {
+        return $this->generalForumTopicUnhidden;
     }
 
     /**

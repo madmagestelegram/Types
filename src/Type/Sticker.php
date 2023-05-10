@@ -35,12 +35,13 @@ class Sticker extends AbstractType
             'height',
             'is_animated',
             'is_video',
-            'thumb',
+            'thumbnail',
             'emoji',
             'set_name',
             'premium_animation',
             'mask_position',
             'custom_emoji_id',
+            'needs_repainting',
             'file_size',
         ];
     }
@@ -60,12 +61,13 @@ class Sticker extends AbstractType
             'height' => $this->getHeight(),
             'is_animated' => $this->getIsAnimated(),
             'is_video' => $this->getIsVideo(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
             'emoji' => $this->getEmoji(),
             'set_name' => $this->getSetName(),
             'premium_animation' => $this->getPremiumAnimation(),
             'mask_position' => $this->getMaskPosition(),
             'custom_emoji_id' => $this->getCustomEmojiId(),
+            'needs_repainting' => $this->getNeedsRepainting(),
             'file_size' => $this->getFileSize(),
         ];
 
@@ -149,11 +151,11 @@ class Sticker extends AbstractType
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
-    protected $thumb;
+    protected $thumbnail;
 
     /**
      * Optional. Emoji associated with the sticker 
@@ -209,6 +211,18 @@ class Sticker extends AbstractType
      * @Type("string")
      */
     protected $customEmojiId;
+
+    /**
+     * Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge 
+     * in emoji status, white color on chat photos, or another appropriate color in other places 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("needs_repainting")
+     * @Accessor(getter="getNeedsRepainting", setter="setNeedsRepainting")
+     * @Type("bool")
+     */
+    protected $needsRepainting;
 
     /**
      * Optional. File size in bytes 
@@ -356,12 +370,12 @@ class Sticker extends AbstractType
     }
 
     /**
-     * @param PhotoSize $thumb
+     * @param PhotoSize $thumbnail
      * @return static
      */
-    public function setThumb(PhotoSize $thumb): self
+    public function setThumbnail(PhotoSize $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -369,9 +383,9 @@ class Sticker extends AbstractType
     /**
      * @return PhotoSize|null
      */
-    public function getThumb(): ?PhotoSize
+    public function getThumbnail(): ?PhotoSize
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
     /**
@@ -467,6 +481,25 @@ class Sticker extends AbstractType
     public function getCustomEmojiId(): ?string
     {
         return $this->customEmojiId;
+    }
+
+    /**
+     * @param bool $needsRepainting
+     * @return static
+     */
+    public function setNeedsRepainting(bool $needsRepainting): self
+    {
+        $this->needsRepainting = $needsRepainting;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getNeedsRepainting(): ?bool
+    {
+        return $this->needsRepainting;
     }
 
     /**

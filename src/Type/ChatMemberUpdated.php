@@ -34,6 +34,7 @@ class ChatMemberUpdated extends AbstractType
             'old_chat_member',
             'new_chat_member',
             'invite_link',
+            'via_chat_folder_invite_link',
         ];
     }
 
@@ -51,6 +52,7 @@ class ChatMemberUpdated extends AbstractType
             'old_chat_member' => $this->getOldChatMember(),
             'new_chat_member' => $this->getNewChatMember(),
             'invite_link' => $this->getInviteLink(),
+            'via_chat_folder_invite_link' => $this->getViaChatFolderInviteLink(),
         ];
 
         return parent::normalizeData($result);
@@ -116,6 +118,17 @@ class ChatMemberUpdated extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatInviteLink")
      */
     protected $inviteLink;
+
+    /**
+     * Optional. True, if the user joined the chat via a chat folder invite link 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("via_chat_folder_invite_link")
+     * @Accessor(getter="getViaChatFolderInviteLink", setter="setViaChatFolderInviteLink")
+     * @Type("bool")
+     */
+    protected $viaChatFolderInviteLink;
 
 
     /**
@@ -230,6 +243,25 @@ class ChatMemberUpdated extends AbstractType
     public function getInviteLink(): ?ChatInviteLink
     {
         return $this->inviteLink;
+    }
+
+    /**
+     * @param bool $viaChatFolderInviteLink
+     * @return static
+     */
+    public function setViaChatFolderInviteLink(bool $viaChatFolderInviteLink): self
+    {
+        $this->viaChatFolderInviteLink = $viaChatFolderInviteLink;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getViaChatFolderInviteLink(): ?bool
+    {
+        return $this->viaChatFolderInviteLink;
     }
 
 }

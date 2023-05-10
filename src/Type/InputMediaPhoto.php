@@ -33,6 +33,7 @@ class InputMediaPhoto extends AbstractInputMedia
             'caption',
             'parse_mode',
             'caption_entities',
+            'has_spoiler',
         ];
     }
 
@@ -49,6 +50,7 @@ class InputMediaPhoto extends AbstractInputMedia
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
             'caption_entities' => $this->getCaptionEntities(),
+            'has_spoiler' => $this->getHasSpoiler(),
         ];
 
         return parent::normalizeData($result);
@@ -108,6 +110,17 @@ class InputMediaPhoto extends AbstractInputMedia
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
+
+    /**
+     * Optional. Pass True if the photo needs to be covered with a spoiler animation 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_spoiler")
+     * @Accessor(getter="getHasSpoiler", setter="setHasSpoiler")
+     * @Type("bool")
+     */
+    protected $hasSpoiler;
 
 
     /**
@@ -203,6 +216,25 @@ class InputMediaPhoto extends AbstractInputMedia
     public function getCaptionEntities(): ?array
     {
         return $this->captionEntities;
+    }
+
+    /**
+     * @param bool $hasSpoiler
+     * @return static
+     */
+    public function setHasSpoiler(bool $hasSpoiler): self
+    {
+        $this->hasSpoiler = $hasSpoiler;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasSpoiler(): ?bool
+    {
+        return $this->hasSpoiler;
     }
 
 }

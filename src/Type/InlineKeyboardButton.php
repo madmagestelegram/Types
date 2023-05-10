@@ -36,6 +36,7 @@ class InlineKeyboardButton extends AbstractType
             'login_url',
             'switch_inline_query',
             'switch_inline_query_current_chat',
+            'switch_inline_query_chosen_chat',
             'callback_game',
             'pay',
         ];
@@ -56,6 +57,7 @@ class InlineKeyboardButton extends AbstractType
             'login_url' => $this->getLoginUrl(),
             'switch_inline_query' => $this->getSwitchInlineQuery(),
             'switch_inline_query_current_chat' => $this->getSwitchInlineQueryCurrentChat(),
+            'switch_inline_query_chosen_chat' => $this->getSwitchInlineQueryChosenChat(),
             'callback_game' => $this->getCallbackGame(),
             'pay' => $this->getPay(),
         ];
@@ -148,6 +150,18 @@ class InlineKeyboardButton extends AbstractType
      * @Type("string")
      */
     protected $switchInlineQueryCurrentChat;
+
+    /**
+     * Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open 
+     * that chat and insert the bot's username and the specified inline query in the input field 
+     *
+     * @var SwitchInlineQueryChosenChat|null
+     * @SkipWhenEmpty
+     * @SerializedName("switch_inline_query_chosen_chat")
+     * @Accessor(getter="getSwitchInlineQueryChosenChat", setter="setSwitchInlineQueryChosenChat")
+     * @Type("MadmagesTelegram\Types\Type\SwitchInlineQueryChosenChat")
+     */
+    protected $switchInlineQueryChosenChat;
 
     /**
      * Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button 
@@ -305,6 +319,25 @@ class InlineKeyboardButton extends AbstractType
     public function getSwitchInlineQueryCurrentChat(): ?string
     {
         return $this->switchInlineQueryCurrentChat;
+    }
+
+    /**
+     * @param SwitchInlineQueryChosenChat $switchInlineQueryChosenChat
+     * @return static
+     */
+    public function setSwitchInlineQueryChosenChat(SwitchInlineQueryChosenChat $switchInlineQueryChosenChat): self
+    {
+        $this->switchInlineQueryChosenChat = $switchInlineQueryChosenChat;
+
+        return $this;
+    }
+
+    /**
+     * @return SwitchInlineQueryChosenChat|null
+     */
+    public function getSwitchInlineQueryChosenChat(): ?SwitchInlineQueryChosenChat
+    {
+        return $this->switchInlineQueryChosenChat;
     }
 
     /**

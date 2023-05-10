@@ -29,6 +29,7 @@ class ReplyKeyboardMarkup extends AbstractType
     {
         return [
             'keyboard',
+            'is_persistent',
             'resize_keyboard',
             'one_time_keyboard',
             'input_field_placeholder',
@@ -45,6 +46,7 @@ class ReplyKeyboardMarkup extends AbstractType
     {
         $result = [
             'keyboard' => $this->getKeyboard(),
+            'is_persistent' => $this->getIsPersistent(),
             'resize_keyboard' => $this->getResizeKeyboard(),
             'one_time_keyboard' => $this->getOneTimeKeyboard(),
             'input_field_placeholder' => $this->getInputFieldPlaceholder(),
@@ -63,6 +65,18 @@ class ReplyKeyboardMarkup extends AbstractType
      * @Type("array<array>")
      */
     protected $keyboard;
+
+    /**
+     * Optional. Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to false, in 
+     * which case the custom keyboard can be hidden and opened with a keyboard icon. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_persistent")
+     * @Accessor(getter="getIsPersistent", setter="setIsPersistent")
+     * @Type("bool")
+     */
+    protected $isPersistent;
 
     /**
      * Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if 
@@ -133,6 +147,25 @@ class ReplyKeyboardMarkup extends AbstractType
     public function getKeyboard(): array
     {
         return $this->keyboard;
+    }
+
+    /**
+     * @param bool $isPersistent
+     * @return static
+     */
+    public function setIsPersistent(bool $isPersistent): self
+    {
+        $this->isPersistent = $isPersistent;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsPersistent(): ?bool
+    {
+        return $this->isPersistent;
     }
 
     /**

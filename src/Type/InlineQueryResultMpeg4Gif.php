@@ -36,8 +36,8 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
             'mpeg4_width',
             'mpeg4_height',
             'mpeg4_duration',
-            'thumb_url',
-            'thumb_mime_type',
+            'thumbnail_url',
+            'thumbnail_mime_type',
             'title',
             'caption',
             'parse_mode',
@@ -61,8 +61,8 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
             'mpeg4_width' => $this->getMpeg4Width(),
             'mpeg4_height' => $this->getMpeg4Height(),
             'mpeg4_duration' => $this->getMpeg4Duration(),
-            'thumb_url' => $this->getThumbUrl(),
-            'thumb_mime_type' => $this->getThumbMimeType(),
+            'thumbnail_url' => $this->getThumbnailUrl(),
+            'thumbnail_mime_type' => $this->getThumbnailMimeType(),
             'title' => $this->getTitle(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
@@ -141,11 +141,11 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result 
      *
      * @var string
-     * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
+     * @SerializedName("thumbnail_url")
+     * @Accessor(getter="getThumbnailUrl", setter="setThumbnailUrl")
      * @Type("string")
      */
-    protected $thumbUrl;
+    protected $thumbnailUrl;
 
     /**
      * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. 
@@ -153,11 +153,11 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      *
      * @var string|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb_mime_type")
-     * @Accessor(getter="getThumbMimeType", setter="setThumbMimeType")
+     * @SerializedName("thumbnail_mime_type")
+     * @Accessor(getter="getThumbnailMimeType", setter="setThumbnailMimeType")
      * @Type("string")
      */
-    protected $thumbMimeType;
+    protected $thumbnailMimeType;
 
     /**
      * Optional. Title for the result 
@@ -341,12 +341,12 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     }
 
     /**
-     * @param string $thumbUrl
+     * @param string $thumbnailUrl
      * @return static
      */
-    public function setThumbUrl(string $thumbUrl): self
+    public function setThumbnailUrl(string $thumbnailUrl): self
     {
-        $this->thumbUrl = $thumbUrl;
+        $this->thumbnailUrl = $thumbnailUrl;
 
         return $this;
     }
@@ -354,18 +354,18 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     /**
      * @return string
      */
-    public function getThumbUrl(): string
+    public function getThumbnailUrl(): string
     {
-        return $this->thumbUrl;
+        return $this->thumbnailUrl;
     }
 
     /**
-     * @param string $thumbMimeType
+     * @param string $thumbnailMimeType
      * @return static
      */
-    public function setThumbMimeType(string $thumbMimeType): self
+    public function setThumbnailMimeType(string $thumbnailMimeType): self
     {
-        $this->thumbMimeType = $thumbMimeType;
+        $this->thumbnailMimeType = $thumbnailMimeType;
 
         return $this;
     }
@@ -373,9 +373,9 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     /**
      * @return string|null
      */
-    public function getThumbMimeType(): ?string
+    public function getThumbnailMimeType(): ?string
     {
-        return $this->thumbMimeType;
+        return $this->thumbnailMimeType;
     }
 
     /**

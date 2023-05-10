@@ -30,13 +30,14 @@ class InputMediaAnimation extends AbstractInputMedia
         return [
             'type',
             'media',
-            'thumb',
+            'thumbnail',
             'caption',
             'parse_mode',
             'caption_entities',
             'width',
             'height',
             'duration',
+            'has_spoiler',
         ];
     }
 
@@ -50,13 +51,14 @@ class InputMediaAnimation extends AbstractInputMedia
         $result = [
             'type' => $this->getType(),
             'media' => $this->getMedia(),
-            'thumb' => $this->getThumb(),
+            'thumbnail' => $this->getThumbnail(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
             'caption_entities' => $this->getCaptionEntities(),
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'duration' => $this->getDuration(),
+            'has_spoiler' => $this->getHasSpoiler(),
         ];
 
         return parent::normalizeData($result);
@@ -93,11 +95,11 @@ class InputMediaAnimation extends AbstractInputMedia
      *
      * @var InputFile|string|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb")
-     * @Accessor(getter="getThumb", setter="setThumb")
+     * @SerializedName("thumbnail")
+     * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("string")
      */
-    protected $thumb;
+    protected $thumbnail;
 
     /**
      * Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing 
@@ -165,6 +167,17 @@ class InputMediaAnimation extends AbstractInputMedia
      */
     protected $duration;
 
+    /**
+     * Optional. Pass True if the animation needs to be covered with a spoiler animation 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_spoiler")
+     * @Accessor(getter="getHasSpoiler", setter="setHasSpoiler")
+     * @Type("bool")
+     */
+    protected $hasSpoiler;
+
 
     /**
      * @param string $type
@@ -205,12 +218,12 @@ class InputMediaAnimation extends AbstractInputMedia
     }
 
     /**
-     * @param InputFile|string $thumb
+     * @param InputFile|string $thumbnail
      * @return static
      */
-    public function setThumb( $thumb): self
+    public function setThumbnail( $thumbnail): self
     {
-        $this->thumb = $thumb;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
@@ -218,9 +231,9 @@ class InputMediaAnimation extends AbstractInputMedia
     /**
      * @return InputFile|string|null
      */
-    public function getThumb()
+    public function getThumbnail()
     {
-        return $this->thumb;
+        return $this->thumbnail;
     }
 
     /**
@@ -335,6 +348,25 @@ class InputMediaAnimation extends AbstractInputMedia
     public function getDuration(): ?int
     {
         return $this->duration;
+    }
+
+    /**
+     * @param bool $hasSpoiler
+     * @return static
+     */
+    public function setHasSpoiler(bool $hasSpoiler): self
+    {
+        $this->hasSpoiler = $hasSpoiler;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasSpoiler(): ?bool
+    {
+        return $this->hasSpoiler;
     }
 
 }

@@ -37,9 +37,9 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
             'vcard',
             'reply_markup',
             'input_message_content',
-            'thumb_url',
-            'thumb_width',
-            'thumb_height',
+            'thumbnail_url',
+            'thumbnail_width',
+            'thumbnail_height',
         ];
     }
 
@@ -59,9 +59,9 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
             'vcard' => $this->getVcard(),
             'reply_markup' => $this->getReplyMarkup(),
             'input_message_content' => $this->getInputMessageContent(),
-            'thumb_url' => $this->getThumbUrl(),
-            'thumb_width' => $this->getThumbWidth(),
-            'thumb_height' => $this->getThumbHeight(),
+            'thumbnail_url' => $this->getThumbnailUrl(),
+            'thumbnail_width' => $this->getThumbnailWidth(),
+            'thumbnail_height' => $this->getThumbnailHeight(),
         ];
 
         return parent::normalizeData($result);
@@ -156,33 +156,33 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
      *
      * @var string|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
+     * @SerializedName("thumbnail_url")
+     * @Accessor(getter="getThumbnailUrl", setter="setThumbnailUrl")
      * @Type("string")
      */
-    protected $thumbUrl;
+    protected $thumbnailUrl;
 
     /**
      * Optional. Thumbnail width 
      *
      * @var int|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb_width")
-     * @Accessor(getter="getThumbWidth", setter="setThumbWidth")
+     * @SerializedName("thumbnail_width")
+     * @Accessor(getter="getThumbnailWidth", setter="setThumbnailWidth")
      * @Type("int")
      */
-    protected $thumbWidth;
+    protected $thumbnailWidth;
 
     /**
      * Optional. Thumbnail height 
      *
      * @var int|null
      * @SkipWhenEmpty
-     * @SerializedName("thumb_height")
-     * @Accessor(getter="getThumbHeight", setter="setThumbHeight")
+     * @SerializedName("thumbnail_height")
+     * @Accessor(getter="getThumbnailHeight", setter="setThumbnailHeight")
      * @Type("int")
      */
-    protected $thumbHeight;
+    protected $thumbnailHeight;
 
 
     /**
@@ -338,12 +338,12 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     }
 
     /**
-     * @param string $thumbUrl
+     * @param string $thumbnailUrl
      * @return static
      */
-    public function setThumbUrl(string $thumbUrl): self
+    public function setThumbnailUrl(string $thumbnailUrl): self
     {
-        $this->thumbUrl = $thumbUrl;
+        $this->thumbnailUrl = $thumbnailUrl;
 
         return $this;
     }
@@ -351,18 +351,18 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     /**
      * @return string|null
      */
-    public function getThumbUrl(): ?string
+    public function getThumbnailUrl(): ?string
     {
-        return $this->thumbUrl;
+        return $this->thumbnailUrl;
     }
 
     /**
-     * @param int $thumbWidth
+     * @param int $thumbnailWidth
      * @return static
      */
-    public function setThumbWidth(int $thumbWidth): self
+    public function setThumbnailWidth(int $thumbnailWidth): self
     {
-        $this->thumbWidth = $thumbWidth;
+        $this->thumbnailWidth = $thumbnailWidth;
 
         return $this;
     }
@@ -370,18 +370,18 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     /**
      * @return int|null
      */
-    public function getThumbWidth(): ?int
+    public function getThumbnailWidth(): ?int
     {
-        return $this->thumbWidth;
+        return $this->thumbnailWidth;
     }
 
     /**
-     * @param int $thumbHeight
+     * @param int $thumbnailHeight
      * @return static
      */
-    public function setThumbHeight(int $thumbHeight): self
+    public function setThumbnailHeight(int $thumbnailHeight): self
     {
-        $this->thumbHeight = $thumbHeight;
+        $this->thumbnailHeight = $thumbnailHeight;
 
         return $this;
     }
@@ -389,9 +389,9 @@ class InlineQueryResultContact extends AbstractInlineQueryResult
     /**
      * @return int|null
      */
-    public function getThumbHeight(): ?int
+    public function getThumbnailHeight(): ?int
     {
-        return $this->thumbHeight;
+        return $this->thumbnailHeight;
     }
 
 }

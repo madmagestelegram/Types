@@ -24,7 +24,7 @@ abstract class Client {
      * previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update 
      * is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative 
      * offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All 
-     * previous updates will forgotten. 
+     * previous updates will be forgotten. 
      *
      * @param int|null $limit
      *        Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100. 
@@ -444,6 +444,9 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
      *
+     * @param bool|null $hasSpoiler
+     *        Pass True if the photo needs to be covered with a spoiler animation 
+     *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
@@ -469,6 +472,7 @@ abstract class Client {
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $hasSpoiler = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -483,6 +487,7 @@ abstract class Client {
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'has_spoiler' => $hasSpoiler,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
@@ -530,7 +535,7 @@ abstract class Client {
      * @param string|null $title
      *        Track name 
      *
-     * @param Type\InputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumbnail
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -565,7 +570,7 @@ abstract class Client {
         int $duration = null,
         string $performer = null,
         string $title = null,
-        $thumb = null,
+        $thumbnail = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -583,7 +588,7 @@ abstract class Client {
             'duration' => $duration,
             'performer' => $performer,
             'title' => $title,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
@@ -611,7 +616,7 @@ abstract class Client {
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
-     * @param Type\InputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumbnail
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -654,7 +659,7 @@ abstract class Client {
         $chatId,
         $document,
         int $messageThreadId = null,
-        $thumb = null,
+        $thumbnail = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
@@ -670,7 +675,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'document' => $document,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
@@ -711,7 +716,7 @@ abstract class Client {
      * @param int|null $height
      *        Video height 
      *
-     * @param Type\InputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumbnail
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -727,6 +732,9 @@ abstract class Client {
      * @param Type\MessageEntity[]|null $captionEntities
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
+     *
+     * @param bool|null $hasSpoiler
+     *        Pass True if the video needs to be covered with a spoiler animation 
      *
      * @param bool|null $supportsStreaming
      *        Pass True if the uploaded video is suitable for streaming 
@@ -756,10 +764,11 @@ abstract class Client {
         int $duration = null,
         int $width = null,
         int $height = null,
-        $thumb = null,
+        $thumbnail = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $hasSpoiler = null,
         bool $supportsStreaming = null,
         bool $disableNotification = null,
         bool $protectContent = null,
@@ -775,10 +784,11 @@ abstract class Client {
             'duration' => $duration,
             'width' => $width,
             'height' => $height,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'has_spoiler' => $hasSpoiler,
             'supports_streaming' => $supportsStreaming,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
@@ -815,7 +825,7 @@ abstract class Client {
      * @param int|null $height
      *        Animation height 
      *
-     * @param Type\InputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumbnail
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -832,6 +842,9 @@ abstract class Client {
      * @param Type\MessageEntity[]|null $captionEntities
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
+     *
+     * @param bool|null $hasSpoiler
+     *        Pass True if the animation needs to be covered with a spoiler animation 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -858,10 +871,11 @@ abstract class Client {
         int $duration = null,
         int $width = null,
         int $height = null,
-        $thumb = null,
+        $thumbnail = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $hasSpoiler = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -876,10 +890,11 @@ abstract class Client {
             'duration' => $duration,
             'width' => $width,
             'height' => $height,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'has_spoiler' => $hasSpoiler,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
@@ -996,7 +1011,7 @@ abstract class Client {
      * @param int|null $length
      *        Video width and height, i.e. diameter of the video message 
      *
-     * @param Type\InputFile|string|null $thumb
+     * @param Type\InputFile|string|null $thumbnail
      *        Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The 
      * thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. 
      * Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a 
@@ -1027,7 +1042,7 @@ abstract class Client {
         int $messageThreadId = null,
         int $duration = null,
         int $length = null,
-        $thumb = null,
+        $thumbnail = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -1041,7 +1056,7 @@ abstract class Client {
             'video_note' => $videoNote,
             'duration' => $duration,
             'length' => $length,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
@@ -1186,111 +1201,6 @@ abstract class Client {
         ];
 
         return $this->_apiCall('sendLocation', $requestParameters);
-    }
-
-    /**
-     * https://core.telegram.org/bots/api#editmessagelivelocation
-     *
-     * Use this method to edit live location messages. A location can be edited until its live_period expires or 
-     * editing is explicitly disabled by a call to stopMessageLiveLocation. On 
-     * success, if the edited message is not an inline message, the edited Message is returned, otherwise 
-     * True is returned. 
-     *
-     * @param float $latitude
-     *        Latitude of new location 
-     *
-     * @param float $longitude
-     *        Longitude of new location 
-     *
-     * @param int|string|null $chatId
-     *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @|channelusername) 
-     *
-     * @param int|null $messageId
-     *        Required if inline_message_id is not specified. Identifier of the message to edit 
-     *
-     * @param string|null $inlineMessageId
-     *        Required if chat_id and message_id are not specified. Identifier of the inline message 
-     *
-     * @param float|null $horizontalAccuracy
-     *        The radius of uncertainty for the location, measured in meters; 0-1500 
-     *
-     * @param int|null $heading
-     *        Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
-     *
-     * @param int|null $proximityAlertRadius
-     *        The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 
-     * and 100000 if specified. 
-     *
-     * @param Type\InlineKeyboardMarkup|null $replyMarkup
-     *        A JSON-serialized object for a new inline keyboard. 
-     *
-     * @return mixed
-     */
-    public function editMessageLiveLocation(
-        float $latitude,
-        float $longitude,
-        $chatId = null,
-        int $messageId = null,
-        string $inlineMessageId = null,
-        float $horizontalAccuracy = null,
-        int $heading = null,
-        int $proximityAlertRadius = null,
-        Type\InlineKeyboardMarkup $replyMarkup = null
-    )
-    {
-        $requestParameters = [
-            'chat_id' => $chatId,
-            'message_id' => $messageId,
-            'inline_message_id' => $inlineMessageId,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
-            'horizontal_accuracy' => $horizontalAccuracy,
-            'heading' => $heading,
-            'proximity_alert_radius' => $proximityAlertRadius,
-            'reply_markup' => $replyMarkup,
-        ];
-
-        return $this->_apiCall('editMessageLiveLocation', $requestParameters);
-    }
-
-    /**
-     * https://core.telegram.org/bots/api#stopmessagelivelocation
-     *
-     * Use this method to stop updating a live location message before live_period expires. On success, if the 
-     * message is not an inline message, the edited Message is returned, otherwise True is 
-     * returned. 
-     *
-     * @param int|string|null $chatId
-     *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
-     * target channel (in the format @|channelusername) 
-     *
-     * @param int|null $messageId
-     *        Required if inline_message_id is not specified. Identifier of the message with live location to stop 
-     *
-     * @param string|null $inlineMessageId
-     *        Required if chat_id and message_id are not specified. Identifier of the inline message 
-     *
-     * @param Type\InlineKeyboardMarkup|null $replyMarkup
-     *        A JSON-serialized object for a new inline keyboard. 
-     *
-     * @return mixed
-     */
-    public function stopMessageLiveLocation(
-        $chatId = null,
-        int $messageId = null,
-        string $inlineMessageId = null,
-        Type\InlineKeyboardMarkup $replyMarkup = null
-    )
-    {
-        $requestParameters = [
-            'chat_id' => $chatId,
-            'message_id' => $messageId,
-            'inline_message_id' => $inlineMessageId,
-            'reply_markup' => $replyMarkup,
-        ];
-
-        return $this->_apiCall('stopMessageLiveLocation', $requestParameters);
     }
 
     /**
@@ -1473,27 +1383,24 @@ abstract class Client {
      * @param string[] $options
      *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
      *
-     * @param int|null $openPeriod
-     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param bool|null $isAnonymous
+     *        True, if the poll needs to be anonymous, defaults to True 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $type
+     *        Poll type, “quiz” or “regular”, defaults to “regular” 
      *
-     * @param bool|null $protectContent
-     *        Protects the contents of the sent message from forwarding and saving 
+     * @param bool|null $allowsMultipleAnswers
+     *        True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False 
      *
-     * @param bool|null $disableNotification
-     *        Sends the message silently. Users will receive a notification with no sound. 
+     * @param int|null $correctOptionId
+     *        0-based identifier of the correct answer option, required for polls in quiz mode 
      *
-     * @param bool|null $isClosed
-     *        Pass True if the poll needs to be immediately closed. This can be useful for poll preview. 
-     *
-     * @param int|null $closeDate
-     *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
-     * seconds in the future. Can't be used together with open_period. 
+     * @param string|null $explanation
+     *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
+     * characters with at most 2 line feeds after entities parsing 
      *
      * @param string|null $explanationParseMode
      *        Mode for parsing entities in the explanation. See formatting options for more details. 
@@ -1502,24 +1409,27 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead 
      * of parse_mode 
      *
-     * @param int|null $messageThreadId
-     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     * @param int|null $openPeriod
+     *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
      *
-     * @param string|null $explanation
-     *        Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 
-     * characters with at most 2 line feeds after entities parsing 
+     * @param int|null $closeDate
+     *        Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 
+     * seconds in the future. Can't be used together with open_period. 
      *
-     * @param int|null $correctOptionId
-     *        0-based identifier of the correct answer option, required for polls in quiz mode 
+     * @param bool|null $isClosed
+     *        Pass True if the poll needs to be immediately closed. This can be useful for poll preview. 
      *
-     * @param bool|null $allowsMultipleAnswers
-     *        True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False 
+     * @param bool|null $disableNotification
+     *        Sends the message silently. Users will receive a notification with no sound. 
      *
-     * @param string|null $type
-     *        Poll type, “quiz” or “regular”, defaults to “regular” 
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param bool|null $isAnonymous
-     *        True, if the poll needs to be anonymous, defaults to True 
+     * @param int|null $replyToMessageId
+     *        If the message is a reply, ID of the original message 
+     *
+     * @param bool|null $allowSendingWithoutReply
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
@@ -1531,21 +1441,21 @@ abstract class Client {
         $chatId,
         string $question,
         array $options,
-        int $openPeriod = null,
-        bool $allowSendingWithoutReply = null,
-        int $replyToMessageId = null,
-        bool $protectContent = null,
-        bool $disableNotification = null,
-        bool $isClosed = null,
-        int $closeDate = null,
+        int $messageThreadId = null,
+        bool $isAnonymous = null,
+        string $type = null,
+        bool $allowsMultipleAnswers = null,
+        int $correctOptionId = null,
+        string $explanation = null,
         string $explanationParseMode = null,
         array $explanationEntities = null,
-        int $messageThreadId = null,
-        string $explanation = null,
-        int $correctOptionId = null,
-        bool $allowsMultipleAnswers = null,
-        string $type = null,
-        bool $isAnonymous = null,
+        int $openPeriod = null,
+        int $closeDate = null,
+        bool $isClosed = null,
+        bool $disableNotification = null,
+        bool $protectContent = null,
+        int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         $replyMarkup = null
     )
     {
@@ -1650,15 +1560,20 @@ abstract class Client {
      * notes, upload_document for general files, choose_sticker for stickers, find_location for location data, 
      * record_video_note or upload_video_note for video notes. 
      *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread; supergroups only 
+     *
      * @return mixed
      */
     public function sendChatAction(
         $chatId,
-        string $action
+        string $action,
+        int $messageThreadId = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
             'action' => $action,
         ];
 
@@ -1815,6 +1730,12 @@ abstract class Client {
      * @param Type\ChatPermissions $permissions
      *        A JSON-serialized object for new user permissions 
      *
+     * @param bool|null $useIndependentChatPermissions
+     *        Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and 
+     * can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, 
+     * can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply 
+     * the can_send_messages permission. 
+     *
      * @param int|null $untilDate
      *        Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less 
      * than 30 seconds from the current time, they are considered to be restricted forever 
@@ -1825,6 +1746,7 @@ abstract class Client {
         $chatId,
         int $userId,
         Type\ChatPermissions $permissions,
+        bool $useIndependentChatPermissions = null,
         int $untilDate = null
     )
     {
@@ -1832,6 +1754,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'user_id' => $userId,
             'permissions' => $permissions,
+            'use_independent_chat_permissions' => $useIndependentChatPermissions,
             'until_date' => $untilDate,
         ];
 
@@ -1876,7 +1799,7 @@ abstract class Client {
      *
      * @param bool|null $canPromoteMembers
      *        Pass True if the administrator can add new administrators with a subset of their own privileges or demote 
-     * administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) 
+     * administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him) 
      *
      * @param bool|null $canChangeInfo
      *        Pass True if the administrator can change chat title, photo and other settings 
@@ -2031,16 +1954,24 @@ abstract class Client {
      * @param Type\ChatPermissions $permissions
      *        A JSON-serialized object for new default chat permissions 
      *
+     * @param bool|null $useIndependentChatPermissions
+     *        Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and 
+     * can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, 
+     * can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply 
+     * the can_send_messages permission. 
+     *
      * @return mixed
      */
     public function setChatPermissions(
         $chatId,
-        Type\ChatPermissions $permissions
+        Type\ChatPermissions $permissions,
+        bool $useIndependentChatPermissions = null
     )
     {
         $requestParameters = [
             'chat_id' => $chatId,
             'permissions' => $permissions,
+            'use_independent_chat_permissions' => $useIndependentChatPermissions,
         ];
 
         return $this->_apiCall('setChatPermissions', $requestParameters);
@@ -2525,8 +2456,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#getchatmember
      *
-     * Use this method to get information about a member of a chat. Returns a ChatMember object 
-     * on success. 
+     * Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the 
+     * bot is an administrator in the chat. Returns a ChatMember object on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
@@ -2637,8 +2568,8 @@ abstract class Client {
      *        Topic name, 1-128 characters 
      *
      * @param int|null $iconColor
-     *        Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 
-     * 0xFF93B2, or 0xFB6F5F 
+     *        Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 
+     * 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F) 
      *
      * @param string|null $iconCustomEmojiId
      *        Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all 
@@ -2677,20 +2608,21 @@ abstract class Client {
      * @param int $messageThreadId
      *        Unique identifier for the target message thread of the forum topic 
      *
-     * @param string $name
-     *        New topic name, 1-128 characters 
+     * @param string|null $name
+     *        New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept 
      *
-     * @param string $iconCustomEmojiId
+     * @param string|null $iconCustomEmojiId
      *        New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all 
-     * allowed custom emoji identifiers 
+     * allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be 
+     * kept 
      *
      * @return mixed
      */
     public function editForumTopic(
         $chatId,
         int $messageThreadId,
-        string $name,
-        string $iconCustomEmojiId
+        string $name = null,
+        string $iconCustomEmojiId = null
     )
     {
         $requestParameters = [
@@ -2817,6 +2749,131 @@ abstract class Client {
         ];
 
         return $this->_apiCall('unpinAllForumTopicMessages', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#editgeneralforumtopic
+     *
+     * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in 
+     * the chat for this to work and must have can_manage_topics administrator rights. Returns True on 
+     * success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @param string $name
+     *        New topic name, 1-128 characters 
+     *
+     * @return mixed
+     */
+    public function editGeneralForumTopic(
+        $chatId,
+        string $name
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'name' => $name,
+        ];
+
+        return $this->_apiCall('editGeneralForumTopic', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#closegeneralforumtopic
+     *
+     * Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the 
+     * chat for this to work and must have the can_manage_topics administrator rights. Returns True on 
+     * success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @return mixed
+     */
+    public function closeGeneralForumTopic(
+        $chatId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+        ];
+
+        return $this->_apiCall('closeGeneralForumTopic', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#reopengeneralforumtopic
+     *
+     * Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the 
+     * chat for this to work and must have the can_manage_topics administrator rights. The topic will be 
+     * automatically unhidden if it was hidden. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @return mixed
+     */
+    public function reopenGeneralForumTopic(
+        $chatId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+        ];
+
+        return $this->_apiCall('reopenGeneralForumTopic', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#hidegeneralforumtopic
+     *
+     * Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for 
+     * this to work and must have the can_manage_topics administrator rights. The topic will be automatically 
+     * closed if it was open. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @return mixed
+     */
+    public function hideGeneralForumTopic(
+        $chatId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+        ];
+
+        return $this->_apiCall('hideGeneralForumTopic', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#unhidegeneralforumtopic
+     *
+     * Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat 
+     * for this to work and must have the can_manage_topics administrator rights. Returns True on 
+     * success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @return mixed
+     */
+    public function unhideGeneralForumTopic(
+        $chatId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+        ];
+
+        return $this->_apiCall('unhideGeneralForumTopic', $requestParameters);
     }
 
     /**
@@ -2957,6 +3014,155 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#setmyname
+     *
+     * Use this method to change the bot's name. Returns True on success. 
+     *
+     * @param string|null $name
+     *        New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no 
+     * dedicated name. 
+     *
+     * @return mixed
+     */
+    public function setMyName(
+        string $name = null,
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'name' => $name,
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('setMyName', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getmyname
+     *
+     * Use this method to get the current bot name for the given user language. Returns BotName on 
+     * success. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code or an empty string 
+     *
+     * @return mixed
+     */
+    public function getMyName(
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('getMyName', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setmydescription
+     *
+     * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns 
+     * True on success. 
+     *
+     * @param string|null $description
+     *        New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given 
+     * language. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language 
+     * there is no dedicated description. 
+     *
+     * @return mixed
+     */
+    public function setMyDescription(
+        string $description = null,
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'description' => $description,
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('setMyDescription', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getmydescription
+     *
+     * Use this method to get the current bot description for the given user language. Returns BotDescription on success. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code or an empty string 
+     *
+     * @return mixed
+     */
+    public function getMyDescription(
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('getMyDescription', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setmyshortdescription
+     *
+     * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together 
+     * with the link when users share the bot. Returns True on success. 
+     *
+     * @param string|null $shortDescription
+     *        New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short 
+     * description for the given language. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose 
+     * language there is no dedicated short description. 
+     *
+     * @return mixed
+     */
+    public function setMyShortDescription(
+        string $shortDescription = null,
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'short_description' => $shortDescription,
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('setMyShortDescription', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getmyshortdescription
+     *
+     * Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success. 
+     *
+     * @param string|null $languageCode
+     *        A two-letter ISO 639-1 language code or an empty string 
+     *
+     * @return mixed
+     */
+    public function getMyShortDescription(
+        string $languageCode = null
+    )
+    {
+        $requestParameters = [
+            'language_code' => $languageCode,
+        ];
+
+        return $this->_apiCall('getMyShortDescription', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#setchatmenubutton
      *
      * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True 
@@ -3009,7 +3215,7 @@ abstract class Client {
      * https://core.telegram.org/bots/api#setmydefaultadministratorrights
      *
      * Use this method to change the default administrator rights requested by the bot when it's added as an administrator 
-     * to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the 
+     * to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the 
      * bot. Returns True on success. 
      *
      * @param Type\ChatAdministratorRights|null $rights
@@ -3216,6 +3422,111 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#editmessagelivelocation
+     *
+     * Use this method to edit live location messages. A location can be edited until its live_period expires or 
+     * editing is explicitly disabled by a call to stopMessageLiveLocation. On 
+     * success, if the edited message is not an inline message, the edited Message is returned, otherwise 
+     * True is returned. 
+     *
+     * @param float $latitude
+     *        Latitude of new location 
+     *
+     * @param float $longitude
+     *        Longitude of new location 
+     *
+     * @param int|string|null $chatId
+     *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
+     * target channel (in the format @|channelusername) 
+     *
+     * @param int|null $messageId
+     *        Required if inline_message_id is not specified. Identifier of the message to edit 
+     *
+     * @param string|null $inlineMessageId
+     *        Required if chat_id and message_id are not specified. Identifier of the inline message 
+     *
+     * @param float|null $horizontalAccuracy
+     *        The radius of uncertainty for the location, measured in meters; 0-1500 
+     *
+     * @param int|null $heading
+     *        Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
+     *
+     * @param int|null $proximityAlertRadius
+     *        The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 
+     * and 100000 if specified. 
+     *
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
+     *        A JSON-serialized object for a new inline keyboard. 
+     *
+     * @return mixed
+     */
+    public function editMessageLiveLocation(
+        float $latitude,
+        float $longitude,
+        $chatId = null,
+        int $messageId = null,
+        string $inlineMessageId = null,
+        float $horizontalAccuracy = null,
+        int $heading = null,
+        int $proximityAlertRadius = null,
+        Type\InlineKeyboardMarkup $replyMarkup = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+            'inline_message_id' => $inlineMessageId,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'horizontal_accuracy' => $horizontalAccuracy,
+            'heading' => $heading,
+            'proximity_alert_radius' => $proximityAlertRadius,
+            'reply_markup' => $replyMarkup,
+        ];
+
+        return $this->_apiCall('editMessageLiveLocation', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#stopmessagelivelocation
+     *
+     * Use this method to stop updating a live location message before live_period expires. On success, if the 
+     * message is not an inline message, the edited Message is returned, otherwise True is 
+     * returned. 
+     *
+     * @param int|string|null $chatId
+     *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
+     * target channel (in the format @|channelusername) 
+     *
+     * @param int|null $messageId
+     *        Required if inline_message_id is not specified. Identifier of the message with live location to stop 
+     *
+     * @param string|null $inlineMessageId
+     *        Required if chat_id and message_id are not specified. Identifier of the inline message 
+     *
+     * @param Type\InlineKeyboardMarkup|null $replyMarkup
+     *        A JSON-serialized object for a new inline keyboard. 
+     *
+     * @return mixed
+     */
+    public function stopMessageLiveLocation(
+        $chatId = null,
+        int $messageId = null,
+        string $inlineMessageId = null,
+        Type\InlineKeyboardMarkup $replyMarkup = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+            'inline_message_id' => $inlineMessageId,
+            'reply_markup' => $replyMarkup,
+        ];
+
+        return $this->_apiCall('stopMessageLiveLocation', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#editmessagereplymarkup
      *
      * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, 
@@ -3329,11 +3640,15 @@ abstract class Client {
      *
      * @param Type\InputFile|string $sticker
      *        Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass 
-     * an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using 
-     * multipart/form-data. More information on Sending Files » 
+     * an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker 
+     * using multipart/form-data. More information on Sending Files ». Video stickers can only be sent by a file_id. 
+     * Animated stickers can't be sent via an HTTP URL. 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
+     * @param string|null $emoji
+     *        Emoji associated with the sticker; only for just uploaded stickers 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -3357,6 +3672,7 @@ abstract class Client {
         $chatId,
         $sticker,
         int $messageThreadId = null,
+        string $emoji = null,
         bool $disableNotification = null,
         bool $protectContent = null,
         int $replyToMessageId = null,
@@ -3368,6 +3684,7 @@ abstract class Client {
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'sticker' => $sticker,
+            'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
             'reply_to_message_id' => $replyToMessageId,
@@ -3423,26 +3740,31 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#uploadstickerfile
      *
-     * Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and 
-     * addStickerToSet methods (can be used multiple times). Returns the uploaded File on success. 
+     * Use this method to upload a file with a sticker for later use in the createNewStickerSet and addStickerToSet methods (the file can be used multiple times). Returns the 
+     * uploaded File on success. 
      *
      * @param int $userId
      *        User identifier of sticker file owner 
      *
-     * @param Type\InputFile $pngSticker
-     *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
-     * width or height must be exactly 512px. More information on Sending Files » 
+     * @param Type\InputFile $sticker
+     *        A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See https://core.telegram.org/stickers for 
+     * technical requirements. More information on Sending Files » 
+     *
+     * @param string $stickerFormat
+     *        Format of the sticker, must be one of “static”, “animated”, “video” 
      *
      * @return mixed
      */
     public function uploadStickerFile(
         int $userId,
-        Type\InputFile $pngSticker
+        Type\InputFile $sticker,
+        string $stickerFormat
     )
     {
         $requestParameters = [
             'user_id' => $userId,
-            'png_sticker' => $pngSticker,
+            'sticker' => $sticker,
+            'sticker_format' => $stickerFormat,
         ];
 
         return $this->_apiCall('uploadStickerFile', $requestParameters);
@@ -3451,9 +3773,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#createnewstickerset
      *
-     * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You 
-     * must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Returns 
-     * True on success. 
+     * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. 
+     * Returns True on success. 
      *
      * @param int $userId
      *        User identifier of created sticker set owner 
@@ -3466,29 +3787,20 @@ abstract class Client {
      * @param string $title
      *        Sticker set title, 1-64 characters 
      *
-     * @param string $emojis
-     *        One or more emoji corresponding to the sticker 
+     * @param Type\InputSticker[] $stickers
+     *        A JSON-serialized list of 1-50 initial stickers to be added to the sticker set 
      *
-     * @param Type\InputFile|string|null $pngSticker
-     *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
-     * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
-     * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More information on Sending Files » 
-     *
-     * @param Type\InputFile|null $tgsSticker
-     *        TGS animation with the sticker, uploaded using multipart/form-data. See 
-     * https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements 
-     *
-     * @param Type\InputFile|null $webmSticker
-     *        WEBM video with the sticker, uploaded using multipart/form-data. See 
-     * https://core.telegram.org/stickers#video-sticker-requirements for technical requirements 
+     * @param string $stickerFormat
+     *        Format of stickers in the set, must be one of “static”, “animated”, “video” 
      *
      * @param string|null $stickerType
-     *        Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via 
-     * the Bot API at the moment. By default, a regular sticker set is created. 
+     *        Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular 
+     * sticker set is created. 
      *
-     * @param Type\MaskPosition|null $maskPosition
-     *        A JSON-serialized object for position where the mask should be placed on faces 
+     * @param bool|null $needsRepainting
+     *        Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent 
+     * color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji 
+     * sticker sets only 
      *
      * @return mixed
      */
@@ -3496,24 +3808,20 @@ abstract class Client {
         int $userId,
         string $name,
         string $title,
-        string $emojis,
-        $pngSticker = null,
-        Type\InputFile $tgsSticker = null,
-        Type\InputFile $webmSticker = null,
+        array $stickers,
+        string $stickerFormat,
         string $stickerType = null,
-        Type\MaskPosition $maskPosition = null
+        bool $needsRepainting = null
     )
     {
         $requestParameters = [
             'user_id' => $userId,
             'name' => $name,
             'title' => $title,
-            'png_sticker' => $pngSticker,
-            'tgs_sticker' => $tgsSticker,
-            'webm_sticker' => $webmSticker,
+            'stickers' => $stickers,
+            'sticker_format' => $stickerFormat,
             'sticker_type' => $stickerType,
-            'emojis' => $emojis,
-            'mask_position' => $maskPosition,
+            'needs_repainting' => $needsRepainting,
         ];
 
         return $this->_apiCall('createNewStickerSet', $requestParameters);
@@ -3522,10 +3830,9 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#addstickertoset
      *
-     * Use this method to add a new sticker to a set created by the bot. You must use exactly one of the 
-     * fields png_sticker, tgs_sticker, or webm_sticker. Animated stickers can be added to 
-     * animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 
-     * stickers. Returns True on success. 
+     * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of 
+     * the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up 
+     * to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success. 
      *
      * @param int $userId
      *        User identifier of sticker set owner 
@@ -3533,46 +3840,22 @@ abstract class Client {
      * @param string $name
      *        Sticker set name 
      *
-     * @param string $emojis
-     *        One or more emoji corresponding to the sticker 
-     *
-     * @param Type\InputFile|string|null $pngSticker
-     *        PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either 
-     * width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram 
-     * servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More information on Sending Files » 
-     *
-     * @param Type\InputFile|null $tgsSticker
-     *        TGS animation with the sticker, uploaded using multipart/form-data. See 
-     * https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements 
-     *
-     * @param Type\InputFile|null $webmSticker
-     *        WEBM video with the sticker, uploaded using multipart/form-data. See 
-     * https://core.telegram.org/stickers#video-sticker-requirements for technical requirements 
-     *
-     * @param Type\MaskPosition|null $maskPosition
-     *        A JSON-serialized object for position where the mask should be placed on faces 
+     * @param Type\InputSticker $sticker
+     *        A JSON-serialized object with information about the added sticker. If exactly the same sticker had already 
+     * been added to the set, then the set isn't changed. 
      *
      * @return mixed
      */
     public function addStickerToSet(
         int $userId,
         string $name,
-        string $emojis,
-        $pngSticker = null,
-        Type\InputFile $tgsSticker = null,
-        Type\InputFile $webmSticker = null,
-        Type\MaskPosition $maskPosition = null
+        Type\InputSticker $sticker
     )
     {
         $requestParameters = [
             'user_id' => $userId,
             'name' => $name,
-            'png_sticker' => $pngSticker,
-            'tgs_sticker' => $tgsSticker,
-            'webm_sticker' => $webmSticker,
-            'emojis' => $emojis,
-            'mask_position' => $maskPosition,
+            'sticker' => $sticker,
         ];
 
         return $this->_apiCall('addStickerToSet', $requestParameters);
@@ -3626,12 +3909,118 @@ abstract class Client {
     }
 
     /**
-     * https://core.telegram.org/bots/api#setstickersetthumb
+     * https://core.telegram.org/bots/api#setstickeremojilist
      *
-     * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. 
-     * Video thumbnails can be set only for video sticker sets only. Returns True on success. To enable this option, 
-     * send the /setinline command to @|BotFather and provide the 
-     * placeholder text that the user will see in the input field after typing your bot's name. 
+     * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a 
+     * sticker set created by the bot. Returns True on success. 
+     *
+     * @param string $sticker
+     *        File identifier of the sticker 
+     *
+     * @param string[] $emojiList
+     *        A JSON-serialized list of 1-20 emoji associated with the sticker 
+     *
+     * @return mixed
+     */
+    public function setStickerEmojiList(
+        string $sticker,
+        array $emojiList
+    )
+    {
+        $requestParameters = [
+            'sticker' => $sticker,
+            'emoji_list' => $emojiList,
+        ];
+
+        return $this->_apiCall('setStickerEmojiList', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setstickerkeywords
+     *
+     * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a 
+     * sticker set created by the bot. Returns True on success. 
+     *
+     * @param string $sticker
+     *        File identifier of the sticker 
+     *
+     * @param string[]|null $keywords
+     *        A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters 
+     *
+     * @return mixed
+     */
+    public function setStickerKeywords(
+        string $sticker,
+        array $keywords = null
+    )
+    {
+        $requestParameters = [
+            'sticker' => $sticker,
+            'keywords' => $keywords,
+        ];
+
+        return $this->_apiCall('setStickerKeywords', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setstickermaskposition
+     *
+     * Use this method to change the mask position of a mask sticker. The sticker must belong 
+     * to a sticker set that was created by the bot. Returns True on success. 
+     *
+     * @param string $sticker
+     *        File identifier of the sticker 
+     *
+     * @param Type\MaskPosition|null $maskPosition
+     *        A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to 
+     * remove the mask position. 
+     *
+     * @return mixed
+     */
+    public function setStickerMaskPosition(
+        string $sticker,
+        Type\MaskPosition $maskPosition = null
+    )
+    {
+        $requestParameters = [
+            'sticker' => $sticker,
+            'mask_position' => $maskPosition,
+        ];
+
+        return $this->_apiCall('setStickerMaskPosition', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setstickersettitle
+     *
+     * Use this method to set the title of a created sticker set. Returns True on success. 
+     *
+     * @param string $name
+     *        Sticker set name 
+     *
+     * @param string $title
+     *        Sticker set title, 1-64 characters 
+     *
+     * @return mixed
+     */
+    public function setStickerSetTitle(
+        string $name,
+        string $title
+    )
+    {
+        $requestParameters = [
+            'name' => $name,
+            'title' => $title,
+        ];
+
+        return $this->_apiCall('setStickerSetTitle', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setstickersetthumbnail
+     *
+     * Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the 
+     * format of the stickers in the set. Returns True on success. 
      *
      * @param string $name
      *        Sticker set name 
@@ -3639,29 +4028,80 @@ abstract class Client {
      * @param int $userId
      *        User identifier of the sticker set owner 
      *
-     * @param Type\InputFile|string|null $thumb
-     *        A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS 
-     * animation with the thumbnail up to 32 kilobytes in size; see 
-     * https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see 
+     * @param Type\InputFile|string|null $thumbnail
+     *        A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 
+     * 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see 
+     * https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see 
      * https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
      * Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
-     * multipart/form-data. More information on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL. 
+     * multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. 
+     * If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail. 
      *
      * @return mixed
      */
-    public function setStickerSetThumb(
+    public function setStickerSetThumbnail(
         string $name,
         int $userId,
-        $thumb = null
+        $thumbnail = null
     )
     {
         $requestParameters = [
             'name' => $name,
             'user_id' => $userId,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
         ];
 
-        return $this->_apiCall('setStickerSetThumb', $requestParameters);
+        return $this->_apiCall('setStickerSetThumbnail', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setcustomemojistickersetthumbnail
+     *
+     * Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success. 
+     *
+     * @param string $name
+     *        Sticker set name 
+     *
+     * @param string|null $customEmojiId
+     *        Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the 
+     * first sticker as the thumbnail. 
+     *
+     * @return mixed
+     */
+    public function setCustomEmojiStickerSetThumbnail(
+        string $name,
+        string $customEmojiId = null
+    )
+    {
+        $requestParameters = [
+            'name' => $name,
+            'custom_emoji_id' => $customEmojiId,
+        ];
+
+        return $this->_apiCall('setCustomEmojiStickerSetThumbnail', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#deletestickerset
+     *
+     * Use this method to delete a sticker set that was created by the bot. Returns True on success. To enable this 
+     * option, send the /setinline command to @|BotFather and provide 
+     * the placeholder text that the user will see in the input field after typing your bot's name. 
+     *
+     * @param string $name
+     *        Sticker set name 
+     *
+     * @return mixed
+     */
+    public function deleteStickerSet(
+        string $name
+    )
+    {
+        $requestParameters = [
+            'name' => $name,
+        ];
+
+        return $this->_apiCall('deleteStickerSet', $requestParameters);
     }
 
     /**
@@ -3682,24 +4122,14 @@ abstract class Client {
      *
      * @param bool|null $isPersonal
      *        Pass True if results may be cached on the server side only for the user that sent the query. By default, results may 
-     * be returned to any user who sends the same query 
+     * be returned to any user who sends the same query. 
      *
      * @param string|null $nextOffset
      *        Pass the offset that a client should send in the next query with the same text to receive more results. Pass an 
      * empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes. 
      *
-     * @param string|null $switchPmText
-     *        If passed, clients will display a button with specified text that switches the user to a private chat with the bot 
-     * and sends the bot a start message with the parameter switch_pm_parameter 
-     *
-     * @param string|null $switchPmParameter
-     *        Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 
-     * characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to 
-     * connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your 
-     * YouTube account' button above the results, or even before showing any. The user presses the button, switches to a 
-     * private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once 
-     * done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the 
-     * bot's inline capabilities. 
+     * @param Type\InlineQueryResultsButton|null $button
+     *        A JSON-serialized object describing a button to be shown above inline query results 
      *
      * @return mixed
      */
@@ -3709,8 +4139,7 @@ abstract class Client {
         int $cacheTime = null,
         bool $isPersonal = null,
         string $nextOffset = null,
-        string $switchPmText = null,
-        string $switchPmParameter = null
+        Type\InlineQueryResultsButton $button = null
     )
     {
         $requestParameters = [
@@ -3719,8 +4148,7 @@ abstract class Client {
             'cache_time' => $cacheTime,
             'is_personal' => $isPersonal,
             'next_offset' => $nextOffset,
-            'switch_pm_text' => $switchPmText,
-            'switch_pm_parameter' => $switchPmParameter,
+            'button' => $button,
         ];
 
         return $this->_apiCall('answerInlineQuery', $requestParameters);
@@ -3781,58 +4209,18 @@ abstract class Client {
      *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
      * delivery tax, bonus, etc.) 
      *
-     * @param bool|null $needEmail
-     *        Pass True if you require the user's email address to complete the order 
-     *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
-     *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
-     *
-     * @param bool|null $protectContent
-     *        Protects the contents of the sent message from forwarding and saving 
-     *
-     * @param bool|null $disableNotification
-     *        Sends the message silently. Users will receive a notification with no sound. 
-     *
-     * @param bool|null $isFlexible
-     *        Pass True if the final price depends on the shipping method 
-     *
-     * @param bool|null $sendEmailToProvider
-     *        Pass True if the user's email address should be sent to provider 
-     *
-     * @param bool|null $sendPhoneNumberToProvider
-     *        Pass True if the user's phone number should be sent to provider 
-     *
-     * @param bool|null $needShippingAddress
-     *        Pass True if you require the user's shipping address to complete the order 
-     *
-     * @param int|null $photoWidth
-     *        Photo width 
-     *
-     * @param bool|null $needPhoneNumber
-     *        Pass True if you require the user's phone number to complete the order 
-     *
-     * @param bool|null $needName
-     *        Pass True if you require the user's full name to complete the order 
-     *
-     * @param int|null $photoHeight
-     *        Photo height 
-     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
-     * @param int|null $photoSize
-     *        Photo size in bytes 
+     * @param int|null $maxTipAmount
+     *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
+     * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
+     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
      *
-     * @param string|null $photoUrl
-     *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like 
-     * it better when they see what they are paying for. 
-     *
-     * @param string|null $providerData
-     *        JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
-     * description of required fields should be provided by the payment provider. 
+     * @param int[]|null $suggestedTipAmounts
+     *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
+     * float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a 
+     * strictly increased order and must not exceed max_tip_amount. 
      *
      * @param string|null $startParameter
      *        Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, 
@@ -3840,15 +4228,55 @@ abstract class Client {
      * copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used 
      * as the start parameter 
      *
-     * @param int[]|null $suggestedTipAmounts
-     *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
-     * float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a 
-     * strictly increased order and must not exceed max_tip_amount. 
+     * @param string|null $providerData
+     *        JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
+     * description of required fields should be provided by the payment provider. 
      *
-     * @param int|null $maxTipAmount
-     *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
-     * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
-     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
+     * @param string|null $photoUrl
+     *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like 
+     * it better when they see what they are paying for. 
+     *
+     * @param int|null $photoSize
+     *        Photo size in bytes 
+     *
+     * @param int|null $photoWidth
+     *        Photo width 
+     *
+     * @param int|null $photoHeight
+     *        Photo height 
+     *
+     * @param bool|null $needName
+     *        Pass True if you require the user's full name to complete the order 
+     *
+     * @param bool|null $needPhoneNumber
+     *        Pass True if you require the user's phone number to complete the order 
+     *
+     * @param bool|null $needEmail
+     *        Pass True if you require the user's email address to complete the order 
+     *
+     * @param bool|null $needShippingAddress
+     *        Pass True if you require the user's shipping address to complete the order 
+     *
+     * @param bool|null $sendPhoneNumberToProvider
+     *        Pass True if the user's phone number should be sent to provider 
+     *
+     * @param bool|null $sendEmailToProvider
+     *        Pass True if the user's email address should be sent to provider 
+     *
+     * @param bool|null $isFlexible
+     *        Pass True if the final price depends on the shipping method 
+     *
+     * @param bool|null $disableNotification
+     *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
+     * @param int|null $replyToMessageId
+     *        If the message is a reply, ID of the original message 
+     *
+     * @param bool|null $allowSendingWithoutReply
+     *        Pass True if the message should be sent even if the specified replied-to message is not found 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not 
@@ -3864,26 +4292,26 @@ abstract class Client {
         string $providerToken,
         string $currency,
         array $prices,
-        bool $needEmail = null,
-        bool $allowSendingWithoutReply = null,
-        int $replyToMessageId = null,
-        bool $protectContent = null,
-        bool $disableNotification = null,
-        bool $isFlexible = null,
-        bool $sendEmailToProvider = null,
-        bool $sendPhoneNumberToProvider = null,
-        bool $needShippingAddress = null,
-        int $photoWidth = null,
-        bool $needPhoneNumber = null,
-        bool $needName = null,
-        int $photoHeight = null,
         int $messageThreadId = null,
-        int $photoSize = null,
-        string $photoUrl = null,
-        string $providerData = null,
-        string $startParameter = null,
-        array $suggestedTipAmounts = null,
         int $maxTipAmount = null,
+        array $suggestedTipAmounts = null,
+        string $startParameter = null,
+        string $providerData = null,
+        string $photoUrl = null,
+        int $photoSize = null,
+        int $photoWidth = null,
+        int $photoHeight = null,
+        bool $needName = null,
+        bool $needPhoneNumber = null,
+        bool $needEmail = null,
+        bool $needShippingAddress = null,
+        bool $sendPhoneNumberToProvider = null,
+        bool $sendEmailToProvider = null,
+        bool $isFlexible = null,
+        bool $disableNotification = null,
+        bool $protectContent = null,
+        int $replyToMessageId = null,
+        bool $allowSendingWithoutReply = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
@@ -3929,6 +4357,9 @@ abstract class Client {
      * @param string $title
      *        Product name, 1-32 characters 
      *
+     * @param string $description
+     *        Product description, 1-255 characters 
+     *
      * @param string $payload
      *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal 
      * processes. 
@@ -3943,52 +4374,49 @@ abstract class Client {
      *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
      * delivery tax, bonus, etc.) 
      *
-     * @param string $description
-     *        Product description, 1-255 characters 
-     *
-     * @param bool|null $needName
-     *        Pass True if you require the user's full name to complete the order 
-     *
-     * @param bool|null $sendEmailToProvider
-     *        Pass True if the user's email address should be sent to the provider 
-     *
-     * @param bool|null $sendPhoneNumberToProvider
-     *        Pass True if the user's phone number should be sent to the provider 
-     *
-     * @param bool|null $needShippingAddress
-     *        Pass True if you require the user's shipping address to complete the order 
-     *
-     * @param bool|null $needEmail
-     *        Pass True if you require the user's email address to complete the order 
-     *
-     * @param bool|null $needPhoneNumber
-     *        Pass True if you require the user's phone number to complete the order 
-     *
-     * @param int|null $photoSize
-     *        Photo size in bytes 
-     *
-     * @param int|null $photoHeight
-     *        Photo height 
-     *
-     * @param int|null $photoWidth
-     *        Photo width 
-     *
-     * @param string|null $photoUrl
-     *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. 
-     *
-     * @param string|null $providerData
-     *        JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
-     * description of required fields should be provided by the payment provider. 
+     * @param int|null $maxTipAmount
+     *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
+     * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
+     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
      *
      * @param int[]|null $suggestedTipAmounts
      *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
      * float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a 
      * strictly increased order and must not exceed max_tip_amount. 
      *
-     * @param int|null $maxTipAmount
-     *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
-     * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
-     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
+     * @param string|null $providerData
+     *        JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed 
+     * description of required fields should be provided by the payment provider. 
+     *
+     * @param string|null $photoUrl
+     *        URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. 
+     *
+     * @param int|null $photoSize
+     *        Photo size in bytes 
+     *
+     * @param int|null $photoWidth
+     *        Photo width 
+     *
+     * @param int|null $photoHeight
+     *        Photo height 
+     *
+     * @param bool|null $needName
+     *        Pass True if you require the user's full name to complete the order 
+     *
+     * @param bool|null $needPhoneNumber
+     *        Pass True if you require the user's phone number to complete the order 
+     *
+     * @param bool|null $needEmail
+     *        Pass True if you require the user's email address to complete the order 
+     *
+     * @param bool|null $needShippingAddress
+     *        Pass True if you require the user's shipping address to complete the order 
+     *
+     * @param bool|null $sendPhoneNumberToProvider
+     *        Pass True if the user's phone number should be sent to the provider 
+     *
+     * @param bool|null $sendEmailToProvider
+     *        Pass True if the user's email address should be sent to the provider 
      *
      * @param bool|null $isFlexible
      *        Pass True if the final price depends on the shipping method 
@@ -3997,24 +4425,24 @@ abstract class Client {
      */
     public function createInvoiceLink(
         string $title,
+        string $description,
         string $payload,
         string $providerToken,
         string $currency,
         array $prices,
-        string $description,
-        bool $needName = null,
-        bool $sendEmailToProvider = null,
-        bool $sendPhoneNumberToProvider = null,
-        bool $needShippingAddress = null,
-        bool $needEmail = null,
-        bool $needPhoneNumber = null,
-        int $photoSize = null,
-        int $photoHeight = null,
-        int $photoWidth = null,
-        string $photoUrl = null,
-        string $providerData = null,
-        array $suggestedTipAmounts = null,
         int $maxTipAmount = null,
+        array $suggestedTipAmounts = null,
+        string $providerData = null,
+        string $photoUrl = null,
+        int $photoSize = null,
+        int $photoWidth = null,
+        int $photoHeight = null,
+        bool $needName = null,
+        bool $needPhoneNumber = null,
+        bool $needEmail = null,
+        bool $needShippingAddress = null,
+        bool $sendPhoneNumberToProvider = null,
+        bool $sendEmailToProvider = null,
         bool $isFlexible = null
     )
     {

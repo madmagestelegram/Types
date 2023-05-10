@@ -29,7 +29,12 @@ class ChatPermissions extends AbstractType
     {
         return [
             'can_send_messages',
-            'can_send_media_messages',
+            'can_send_audios',
+            'can_send_documents',
+            'can_send_photos',
+            'can_send_videos',
+            'can_send_video_notes',
+            'can_send_voice_notes',
             'can_send_polls',
             'can_send_other_messages',
             'can_add_web_page_previews',
@@ -49,7 +54,12 @@ class ChatPermissions extends AbstractType
     {
         $result = [
             'can_send_messages' => $this->getCanSendMessages(),
-            'can_send_media_messages' => $this->getCanSendMediaMessages(),
+            'can_send_audios' => $this->getCanSendAudios(),
+            'can_send_documents' => $this->getCanSendDocuments(),
+            'can_send_photos' => $this->getCanSendPhotos(),
+            'can_send_videos' => $this->getCanSendVideos(),
+            'can_send_video_notes' => $this->getCanSendVideoNotes(),
+            'can_send_voice_notes' => $this->getCanSendVoiceNotes(),
             'can_send_polls' => $this->getCanSendPolls(),
             'can_send_other_messages' => $this->getCanSendOtherMessages(),
             'can_add_web_page_previews' => $this->getCanAddWebPagePreviews(),
@@ -63,7 +73,7 @@ class ChatPermissions extends AbstractType
     }
 
     /**
-     * Optional. True, if the user is allowed to send text messages, contacts, locations and venues 
+     * Optional. True, if the user is allowed to send text messages, contacts, invoices, locations and venues 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -74,19 +84,73 @@ class ChatPermissions extends AbstractType
     protected $canSendMessages;
 
     /**
-     * Optional. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, 
-     * implies can_send_messages 
+     * Optional. True, if the user is allowed to send audios 
      *
      * @var bool|null
      * @SkipWhenEmpty
-     * @SerializedName("can_send_media_messages")
-     * @Accessor(getter="getCanSendMediaMessages", setter="setCanSendMediaMessages")
+     * @SerializedName("can_send_audios")
+     * @Accessor(getter="getCanSendAudios", setter="setCanSendAudios")
      * @Type("bool")
      */
-    protected $canSendMediaMessages;
+    protected $canSendAudios;
 
     /**
-     * Optional. True, if the user is allowed to send polls, implies can_send_messages 
+     * Optional. True, if the user is allowed to send documents 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_documents")
+     * @Accessor(getter="getCanSendDocuments", setter="setCanSendDocuments")
+     * @Type("bool")
+     */
+    protected $canSendDocuments;
+
+    /**
+     * Optional. True, if the user is allowed to send photos 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_photos")
+     * @Accessor(getter="getCanSendPhotos", setter="setCanSendPhotos")
+     * @Type("bool")
+     */
+    protected $canSendPhotos;
+
+    /**
+     * Optional. True, if the user is allowed to send videos 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_videos")
+     * @Accessor(getter="getCanSendVideos", setter="setCanSendVideos")
+     * @Type("bool")
+     */
+    protected $canSendVideos;
+
+    /**
+     * Optional. True, if the user is allowed to send video notes 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_video_notes")
+     * @Accessor(getter="getCanSendVideoNotes", setter="setCanSendVideoNotes")
+     * @Type("bool")
+     */
+    protected $canSendVideoNotes;
+
+    /**
+     * Optional. True, if the user is allowed to send voice notes 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_voice_notes")
+     * @Accessor(getter="getCanSendVoiceNotes", setter="setCanSendVoiceNotes")
+     * @Type("bool")
+     */
+    protected $canSendVoiceNotes;
+
+    /**
+     * Optional. True, if the user is allowed to send polls 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -97,8 +161,7 @@ class ChatPermissions extends AbstractType
     protected $canSendPolls;
 
     /**
-     * Optional. True, if the user is allowed to send animations, games, stickers and use inline bots, implies 
-     * can_send_media_messages 
+     * Optional. True, if the user is allowed to send animations, games, stickers and use inline bots 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -109,7 +172,7 @@ class ChatPermissions extends AbstractType
     protected $canSendOtherMessages;
 
     /**
-     * Optional. True, if the user is allowed to add web page previews to their messages, implies can_send_media_messages 
+     * Optional. True, if the user is allowed to add web page previews to their messages 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -185,12 +248,12 @@ class ChatPermissions extends AbstractType
     }
 
     /**
-     * @param bool $canSendMediaMessages
+     * @param bool $canSendAudios
      * @return static
      */
-    public function setCanSendMediaMessages(bool $canSendMediaMessages): self
+    public function setCanSendAudios(bool $canSendAudios): self
     {
-        $this->canSendMediaMessages = $canSendMediaMessages;
+        $this->canSendAudios = $canSendAudios;
 
         return $this;
     }
@@ -198,9 +261,104 @@ class ChatPermissions extends AbstractType
     /**
      * @return bool|null
      */
-    public function getCanSendMediaMessages(): ?bool
+    public function getCanSendAudios(): ?bool
     {
-        return $this->canSendMediaMessages;
+        return $this->canSendAudios;
+    }
+
+    /**
+     * @param bool $canSendDocuments
+     * @return static
+     */
+    public function setCanSendDocuments(bool $canSendDocuments): self
+    {
+        $this->canSendDocuments = $canSendDocuments;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendDocuments(): ?bool
+    {
+        return $this->canSendDocuments;
+    }
+
+    /**
+     * @param bool $canSendPhotos
+     * @return static
+     */
+    public function setCanSendPhotos(bool $canSendPhotos): self
+    {
+        $this->canSendPhotos = $canSendPhotos;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendPhotos(): ?bool
+    {
+        return $this->canSendPhotos;
+    }
+
+    /**
+     * @param bool $canSendVideos
+     * @return static
+     */
+    public function setCanSendVideos(bool $canSendVideos): self
+    {
+        $this->canSendVideos = $canSendVideos;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendVideos(): ?bool
+    {
+        return $this->canSendVideos;
+    }
+
+    /**
+     * @param bool $canSendVideoNotes
+     * @return static
+     */
+    public function setCanSendVideoNotes(bool $canSendVideoNotes): self
+    {
+        $this->canSendVideoNotes = $canSendVideoNotes;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendVideoNotes(): ?bool
+    {
+        return $this->canSendVideoNotes;
+    }
+
+    /**
+     * @param bool $canSendVoiceNotes
+     * @return static
+     */
+    public function setCanSendVoiceNotes(bool $canSendVoiceNotes): self
+    {
+        $this->canSendVoiceNotes = $canSendVoiceNotes;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendVoiceNotes(): ?bool
+    {
+        return $this->canSendVoiceNotes;
     }
 
     /**

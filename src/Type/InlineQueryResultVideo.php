@@ -34,7 +34,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
             'id',
             'video_url',
             'mime_type',
-            'thumb_url',
+            'thumbnail_url',
             'title',
             'caption',
             'parse_mode',
@@ -60,7 +60,7 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
             'id' => $this->getId(),
             'video_url' => $this->getVideoUrl(),
             'mime_type' => $this->getMimeType(),
-            'thumb_url' => $this->getThumbUrl(),
+            'thumbnail_url' => $this->getThumbnailUrl(),
             'title' => $this->getTitle(),
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
@@ -120,11 +120,11 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
      * URL of the thumbnail (JPEG only) for the video 
      *
      * @var string
-     * @SerializedName("thumb_url")
-     * @Accessor(getter="getThumbUrl", setter="setThumbUrl")
+     * @SerializedName("thumbnail_url")
+     * @Accessor(getter="getThumbnailUrl", setter="setThumbnailUrl")
      * @Type("string")
      */
-    protected $thumbUrl;
+    protected $thumbnailUrl;
 
     /**
      * Title for the result 
@@ -314,12 +314,12 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     }
 
     /**
-     * @param string $thumbUrl
+     * @param string $thumbnailUrl
      * @return static
      */
-    public function setThumbUrl(string $thumbUrl): self
+    public function setThumbnailUrl(string $thumbnailUrl): self
     {
-        $this->thumbUrl = $thumbUrl;
+        $this->thumbnailUrl = $thumbnailUrl;
 
         return $this;
     }
@@ -327,9 +327,9 @@ class InlineQueryResultVideo extends AbstractInlineQueryResult
     /**
      * @return string
      */
-    public function getThumbUrl(): string
+    public function getThumbnailUrl(): string
     {
-        return $this->thumbUrl;
+        return $this->thumbnailUrl;
     }
 
     /**
