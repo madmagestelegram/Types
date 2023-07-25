@@ -42,7 +42,7 @@ class Serializer
                                 'member' => ChatMemberMember::class,
                                 'restricted' => ChatMemberRestricted::class,
                                 'left' => ChatMemberLeft::class,
-                                'banned' => ChatMemberBanned::class,
+                                'kicked' => ChatMemberBanned::class,
                                 default=>throw new \RuntimeException('Unexpected ChatMember status: '.$status)
                             };
                             $event->setType($type);
