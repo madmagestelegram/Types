@@ -26,10 +26,6 @@ class Serializer
     public static function getSerializer(): SerializerInterface
     {
         if (self::$serializer === null) {
-            if (!class_exists(AnnotationRegistry::class, false)) {
-                AnnotationRegistry::registerLoader('class_exists');
-            }
-
             $serializerBuilder = SerializerBuilder::create();
             $serializerBuilder->configureListeners(function (\JMS\Serializer\EventDispatcher\EventDispatcher $dispatcher
             ) {
