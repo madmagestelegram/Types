@@ -29,6 +29,7 @@ class PollAnswer extends AbstractType
     {
         return [
             'poll_id',
+            'voter_chat',
             'user',
             'option_ids',
         ];
@@ -43,6 +44,7 @@ class PollAnswer extends AbstractType
     {
         $result = [
             'poll_id' => $this->getPollId(),
+            'voter_chat' => $this->getVoterChat(),
             'user' => $this->getUser(),
             'option_ids' => $this->getOptionIds(),
         ];
@@ -61,9 +63,21 @@ class PollAnswer extends AbstractType
     protected $pollId;
 
     /**
-     * The user, who changed the answer to the poll 
+     * Optional. The chat that changed the answer to the poll, if the voter is anonymous 
      *
-     * @var User
+     * @var Chat|null
+     * @SkipWhenEmpty
+     * @SerializedName("voter_chat")
+     * @Accessor(getter="getVoterChat", setter="setVoterChat")
+     * @Type("MadmagesTelegram\Types\Type\Chat")
+     */
+    protected $voterChat;
+
+    /**
+     * Optional. The user that changed the answer to the poll, if the voter isn't anonymous 
+     *
+     * @var User|null
+     * @SkipWhenEmpty
      * @SerializedName("user")
      * @Accessor(getter="getUser", setter="setUser")
      * @Type("MadmagesTelegram\Types\Type\User")
@@ -71,7 +85,7 @@ class PollAnswer extends AbstractType
     protected $user;
 
     /**
-     * 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote. 
+     * 0-based identifiers of chosen answer options. May be empty if the vote was retracted. 
      *
      * @var int[]
      * @SerializedName("option_ids")
@@ -101,6 +115,25 @@ class PollAnswer extends AbstractType
     }
 
     /**
+     * @param Chat $voterChat
+     * @return static
+     */
+    public function setVoterChat(Chat $voterChat): self
+    {
+        $this->voterChat = $voterChat;
+
+        return $this;
+    }
+
+    /**
+     * @return Chat|null
+     */
+    public function getVoterChat(): ?Chat
+    {
+        return $this->voterChat;
+    }
+
+    /**
      * @param User $user
      * @return static
      */
@@ -112,9 +145,9 @@ class PollAnswer extends AbstractType
     }
 
     /**
-     * @return User
+     * @return User|null
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }

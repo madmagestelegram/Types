@@ -72,7 +72,7 @@ class ChatMemberBanned extends AbstractChatMember
     protected $user;
 
     /**
-     * Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever 
+     * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever 
      *
      * @var int
      * @SerializedName("until_date")

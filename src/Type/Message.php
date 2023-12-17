@@ -55,6 +55,7 @@ class Message extends AbstractType
             'document',
             'photo',
             'sticker',
+            'story',
             'video',
             'video_note',
             'voice',
@@ -137,6 +138,7 @@ class Message extends AbstractType
             'document' => $this->getDocument(),
             'photo' => $this->getPhoto(),
             'sticker' => $this->getSticker(),
+            'story' => $this->getStory(),
             'video' => $this->getVideo(),
             'video_note' => $this->getVideoNote(),
             'voice' => $this->getVoice(),
@@ -491,6 +493,17 @@ class Message extends AbstractType
     protected $sticker;
 
     /**
+     * Optional. Message is a forwarded story 
+     *
+     * @var Story|null
+     * @SkipWhenEmpty
+     * @SerializedName("story")
+     * @Accessor(getter="getStory", setter="setStory")
+     * @Type("MadmagesTelegram\Types\Type\Story")
+     */
+    protected $story;
+
+    /**
      * Optional. Message is a video, information about the video 
      *
      * @var Video|null
@@ -825,7 +838,8 @@ class Message extends AbstractType
     protected $connectedWebsite;
 
     /**
-     * Optional. Service message: the user allowed the bot added to the attachment menu to write messages 
+     * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, 
+     * launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess 
      *
      * @var WriteAccessAllowed|null
      * @SkipWhenEmpty
@@ -1502,6 +1516,25 @@ class Message extends AbstractType
     public function getSticker(): ?Sticker
     {
         return $this->sticker;
+    }
+
+    /**
+     * @param Story $story
+     * @return static
+     */
+    public function setStory(Story $story): self
+    {
+        $this->story = $story;
+
+        return $this;
+    }
+
+    /**
+     * @return Story|null
+     */
+    public function getStory(): ?Story
+    {
+        return $this->story;
     }
 
     /**

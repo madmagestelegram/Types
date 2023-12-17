@@ -225,7 +225,7 @@ class Update extends AbstractType
 
     /**
      * Optional. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must 
-     * explicitly specify “chat_member” in the list of allowed_updates to receive these updates. 
+     * explicitly specify "chat_member" in the list of allowed_updates to receive these updates. 
      *
      * @var ChatMemberUpdated|null
      * @SkipWhenEmpty

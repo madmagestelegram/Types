@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation\Type;
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class MenuButtonCommands extends AbstractType
+class MenuButtonCommands extends AbstractMenuButton
 {
 
     /**

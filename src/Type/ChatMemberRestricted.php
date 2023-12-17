@@ -252,7 +252,7 @@ class ChatMemberRestricted extends AbstractChatMember
     protected $canManageTopics;
 
     /**
-     * Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever 
+     * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever 
      *
      * @var int
      * @SerializedName("until_date")

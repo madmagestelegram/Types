@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#menubutton
+ * https://core.telegram.org/bots/api#story
  *
- * This object describes the bot's menu button in a private chat. It should be one of 
+ * This object represents a message about a forwarded story in the chat. Currently holds no information. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class MenuButton extends AbstractType
+class Story extends AbstractType
 {
 
     /**

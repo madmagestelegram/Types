@@ -38,6 +38,7 @@ class Chat extends AbstractType
             'photo',
             'active_usernames',
             'emoji_status_custom_emoji_id',
+            'emoji_status_expiration_date',
             'bio',
             'has_private_forwards',
             'has_restricted_voice_and_video_messages',
@@ -77,6 +78,7 @@ class Chat extends AbstractType
             'photo' => $this->getPhoto(),
             'active_usernames' => $this->getActiveUsernames(),
             'emoji_status_custom_emoji_id' => $this->getEmojiStatusCustomEmojiId(),
+            'emoji_status_expiration_date' => $this->getEmojiStatusExpirationDate(),
             'bio' => $this->getBio(),
             'has_private_forwards' => $this->getHasPrivateForwards(),
             'has_restricted_voice_and_video_messages' => $this->getHasRestrictedVoiceAndVideoMessages(),
@@ -210,6 +212,18 @@ class Chat extends AbstractType
      * @Type("string")
      */
     protected $emojiStatusCustomEmojiId;
+
+    /**
+     * Optional. Expiration date of the emoji status of the other party in a private chat in Unix time, if any. Returned only 
+     * in getChat. 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("emoji_status_expiration_date")
+     * @Accessor(getter="getEmojiStatusExpirationDate", setter="setEmojiStatusExpirationDate")
+     * @Type("int")
+     */
+    protected $emojiStatusExpirationDate;
 
     /**
      * Optional. Bio of the other party in a private chat. Returned only in getChat. 
@@ -608,6 +622,25 @@ class Chat extends AbstractType
     public function getEmojiStatusCustomEmojiId(): ?string
     {
         return $this->emojiStatusCustomEmojiId;
+    }
+
+    /**
+     * @param int $emojiStatusExpirationDate
+     * @return static
+     */
+    public function setEmojiStatusExpirationDate(int $emojiStatusExpirationDate): self
+    {
+        $this->emojiStatusExpirationDate = $emojiStatusExpirationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEmojiStatusExpirationDate(): ?int
+    {
+        return $this->emojiStatusExpirationDate;
     }
 
     /**

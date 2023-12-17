@@ -101,11 +101,11 @@ abstract class TypedClient {
      * should be used for testing purposes only. 
      *
      * @param string[]|null $allowedUpdates
-     *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
-     * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
-     * update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the 
-     * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
-     * getUpdates, so unwanted updates may be received for a short period of time. 
+     *        A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", 
+     * "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update 
+     * types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous 
+     * setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, 
+     * so unwanted updates may be received for a short period of time. 
      *
      * @return Type\Update[]
      * @throws TelegramException
@@ -156,11 +156,11 @@ abstract class TypedClient {
      * throughput. 
      *
      * @param string[]|null $allowedUpdates
-     *        A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, 
-     * “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available 
-     * update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the 
-     * previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the 
-     * setWebhook, so unwanted updates may be received for a short period of time. 
+     *        A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", 
+     * "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update 
+     * types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous 
+     * setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, 
+     * so unwanted updates may be received for a short period of time. 
      *
      * @param bool|null $dropPendingUpdates
      *        Pass True to drop all pending updates 
@@ -1848,7 +1848,7 @@ abstract class TypedClient {
      *        Unique identifier of the target user 
      *
      * @param int|null $untilDate
-     *        Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from 
+     *        Date when the user will be unbanned; Unix time. If user is banned for more than 366 days or less than 30 seconds from 
      * the current time they are considered to be banned forever. Applied for supergroups and channels only. 
      *
      * @param bool|null $revokeMessages
@@ -1944,7 +1944,7 @@ abstract class TypedClient {
      * the can_send_messages permission. 
      *
      * @param int|null $untilDate
-     *        Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less 
+     *        Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less 
      * than 30 seconds from the current time, they are considered to be restricted forever 
      *
      * @return bool
@@ -1990,15 +1990,9 @@ abstract class TypedClient {
      *        Pass True if the administrator's presence in the chat is hidden 
      *
      * @param bool|null $canManageChat
-     *        Pass True if the administrator can access the chat event log, chat statistics, message statistics in channels, 
-     * see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
+     *        Pass True if the administrator can access the chat event log, boost list in channels, see channel members, 
+     * report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
      * administrator privilege 
-     *
-     * @param bool|null $canPostMessages
-     *        Pass True if the administrator can create channel posts, channels only 
-     *
-     * @param bool|null $canEditMessages
-     *        Pass True if the administrator can edit messages of other users and can pin messages, channels only 
      *
      * @param bool|null $canDeleteMessages
      *        Pass True if the administrator can delete messages of other users 
@@ -2007,7 +2001,7 @@ abstract class TypedClient {
      *        Pass True if the administrator can manage video chats 
      *
      * @param bool|null $canRestrictMembers
-     *        Pass True if the administrator can restrict, ban or unban chat members 
+     *        Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics 
      *
      * @param bool|null $canPromoteMembers
      *        Pass True if the administrator can add new administrators with a subset of their own privileges or demote 
@@ -2019,8 +2013,23 @@ abstract class TypedClient {
      * @param bool|null $canInviteUsers
      *        Pass True if the administrator can invite new users to the chat 
      *
+     * @param bool|null $canPostMessages
+     *        Pass True if the administrator can post messages in the channel, or access channel statistics; channels only 
+     *
+     * @param bool|null $canEditMessages
+     *        Pass True if the administrator can edit messages of other users and can pin messages; channels only 
+     *
      * @param bool|null $canPinMessages
      *        Pass True if the administrator can pin messages, supergroups only 
+     *
+     * @param bool|null $canPostStories
+     *        Pass True if the administrator can post stories in the channel; channels only 
+     *
+     * @param bool|null $canEditStories
+     *        Pass True if the administrator can edit stories posted by other users; channels only 
+     *
+     * @param bool|null $canDeleteStories
+     *        Pass True if the administrator can delete stories posted by other users; channels only 
      *
      * @param bool|null $canManageTopics
      *        Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only 
@@ -2033,15 +2042,18 @@ abstract class TypedClient {
         int $userId,
         bool $isAnonymous = null,
         bool $canManageChat = null,
-        bool $canPostMessages = null,
-        bool $canEditMessages = null,
         bool $canDeleteMessages = null,
         bool $canManageVideoChats = null,
         bool $canRestrictMembers = null,
         bool $canPromoteMembers = null,
         bool $canChangeInfo = null,
         bool $canInviteUsers = null,
+        bool $canPostMessages = null,
+        bool $canEditMessages = null,
         bool $canPinMessages = null,
+        bool $canPostStories = null,
+        bool $canEditStories = null,
+        bool $canDeleteStories = null,
         bool $canManageTopics = null
     ): bool
     {
@@ -2050,15 +2062,18 @@ abstract class TypedClient {
             'user_id' => $userId,
             'is_anonymous' => $isAnonymous,
             'can_manage_chat' => $canManageChat,
-            'can_post_messages' => $canPostMessages,
-            'can_edit_messages' => $canEditMessages,
             'can_delete_messages' => $canDeleteMessages,
             'can_manage_video_chats' => $canManageVideoChats,
             'can_restrict_members' => $canRestrictMembers,
             'can_promote_members' => $canPromoteMembers,
             'can_change_info' => $canChangeInfo,
             'can_invite_users' => $canInviteUsers,
+            'can_post_messages' => $canPostMessages,
+            'can_edit_messages' => $canEditMessages,
             'can_pin_messages' => $canPinMessages,
+            'can_post_stories' => $canPostStories,
+            'can_edit_stories' => $canEditStories,
+            'can_delete_stories' => $canDeleteStories,
             'can_manage_topics' => $canManageTopics,
         ];
 
@@ -3274,6 +3289,35 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages
+     *
+     * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the 
+     * chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns 
+     * True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target supergroup (in the format 
+     * @|supergroupusername) 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function unpinAllGeneralForumTopicMessages(
+        $chatId
+    ): bool
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('unpinAllGeneralForumTopicMessages', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#answercallbackquery
      *
      * Use this method to send answers to callback queries sent from inline 
@@ -3618,7 +3662,7 @@ abstract class TypedClient {
      * @param int|null $chatId
      *        Unique identifier for the target private chat. If not specified, default bot's menu button will be changed 
      *
-     * @param Type\MenuButton|null $menuButton
+     * @param Type\AbstractMenuButton|null $menuButton
      *        A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault 
      *
      * @return bool
@@ -3626,7 +3670,7 @@ abstract class TypedClient {
      */
     public function setChatMenuButton(
         int $chatId = null,
-        Type\MenuButton $menuButton = null
+        Type\AbstractMenuButton $menuButton = null
     ): bool
     {
         $requestParameters = [
@@ -3650,19 +3694,19 @@ abstract class TypedClient {
      * @param int|null $chatId
      *        Unique identifier for the target private chat. If not specified, default bot's menu button will be returned 
      *
-     * @return Type\MenuButton
+     * @return Type\AbstractMenuButton
      * @throws TelegramException
      */
     public function getChatMenuButton(
         int $chatId = null
-    ): Type\MenuButton
+    ): Type\AbstractMenuButton
     {
         $requestParameters = [
             'chat_id' => $chatId,
         ];
 
         $returnType = [
-            Type\MenuButton::class,
+            Type\AbstractMenuButton::class,
         ];
 
         return $this->_requestWithMap('getChatMenuButton', $requestParameters, $returnType);
