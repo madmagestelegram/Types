@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation\Type;
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class Message extends AbstractType
+class Message extends AbstractMaybeInaccessibleMessage
 {
 
     /**
@@ -32,27 +32,32 @@ class Message extends AbstractType
             'message_thread_id',
             'from',
             'sender_chat',
+            'sender_boost_count',
+            'sender_business_bot',
             'date',
+            'business_connection_id',
             'chat',
-            'forward_from',
-            'forward_from_chat',
-            'forward_from_message_id',
-            'forward_signature',
-            'forward_sender_name',
-            'forward_date',
+            'forward_origin',
             'is_topic_message',
             'is_automatic_forward',
             'reply_to_message',
+            'external_reply',
+            'quote',
+            'reply_to_story',
             'via_bot',
             'edit_date',
             'has_protected_content',
+            'is_from_offline',
             'media_group_id',
             'author_signature',
             'text',
             'entities',
+            'link_preview_options',
+            'effect_id',
             'animation',
             'audio',
             'document',
+            'paid_media',
             'photo',
             'sticker',
             'story',
@@ -61,6 +66,7 @@ class Message extends AbstractType
             'voice',
             'caption',
             'caption_entities',
+            'show_caption_above_media',
             'has_media_spoiler',
             'contact',
             'dice',
@@ -82,18 +88,25 @@ class Message extends AbstractType
             'pinned_message',
             'invoice',
             'successful_payment',
-            'user_shared',
+            'refunded_payment',
+            'users_shared',
             'chat_shared',
             'connected_website',
             'write_access_allowed',
             'passport_data',
             'proximity_alert_triggered',
+            'boost_added',
+            'chat_background_set',
             'forum_topic_created',
             'forum_topic_edited',
             'forum_topic_closed',
             'forum_topic_reopened',
             'general_forum_topic_hidden',
             'general_forum_topic_unhidden',
+            'giveaway_created',
+            'giveaway',
+            'giveaway_winners',
+            'giveaway_completed',
             'video_chat_scheduled',
             'video_chat_started',
             'video_chat_ended',
@@ -115,27 +128,32 @@ class Message extends AbstractType
             'message_thread_id' => $this->getMessageThreadId(),
             'from' => $this->getFrom(),
             'sender_chat' => $this->getSenderChat(),
+            'sender_boost_count' => $this->getSenderBoostCount(),
+            'sender_business_bot' => $this->getSenderBusinessBot(),
             'date' => $this->getDate(),
+            'business_connection_id' => $this->getBusinessConnectionId(),
             'chat' => $this->getChat(),
-            'forward_from' => $this->getForwardFrom(),
-            'forward_from_chat' => $this->getForwardFromChat(),
-            'forward_from_message_id' => $this->getForwardFromMessageId(),
-            'forward_signature' => $this->getForwardSignature(),
-            'forward_sender_name' => $this->getForwardSenderName(),
-            'forward_date' => $this->getForwardDate(),
+            'forward_origin' => $this->getForwardOrigin(),
             'is_topic_message' => $this->getIsTopicMessage(),
             'is_automatic_forward' => $this->getIsAutomaticForward(),
             'reply_to_message' => $this->getReplyToMessage(),
+            'external_reply' => $this->getExternalReply(),
+            'quote' => $this->getQuote(),
+            'reply_to_story' => $this->getReplyToStory(),
             'via_bot' => $this->getViaBot(),
             'edit_date' => $this->getEditDate(),
             'has_protected_content' => $this->getHasProtectedContent(),
+            'is_from_offline' => $this->getIsFromOffline(),
             'media_group_id' => $this->getMediaGroupId(),
             'author_signature' => $this->getAuthorSignature(),
             'text' => $this->getText(),
             'entities' => $this->getEntities(),
+            'link_preview_options' => $this->getLinkPreviewOptions(),
+            'effect_id' => $this->getEffectId(),
             'animation' => $this->getAnimation(),
             'audio' => $this->getAudio(),
             'document' => $this->getDocument(),
+            'paid_media' => $this->getPaidMedia(),
             'photo' => $this->getPhoto(),
             'sticker' => $this->getSticker(),
             'story' => $this->getStory(),
@@ -144,6 +162,7 @@ class Message extends AbstractType
             'voice' => $this->getVoice(),
             'caption' => $this->getCaption(),
             'caption_entities' => $this->getCaptionEntities(),
+            'show_caption_above_media' => $this->getShowCaptionAboveMedia(),
             'has_media_spoiler' => $this->getHasMediaSpoiler(),
             'contact' => $this->getContact(),
             'dice' => $this->getDice(),
@@ -165,18 +184,25 @@ class Message extends AbstractType
             'pinned_message' => $this->getPinnedMessage(),
             'invoice' => $this->getInvoice(),
             'successful_payment' => $this->getSuccessfulPayment(),
-            'user_shared' => $this->getUserShared(),
+            'refunded_payment' => $this->getRefundedPayment(),
+            'users_shared' => $this->getUsersShared(),
             'chat_shared' => $this->getChatShared(),
             'connected_website' => $this->getConnectedWebsite(),
             'write_access_allowed' => $this->getWriteAccessAllowed(),
             'passport_data' => $this->getPassportData(),
             'proximity_alert_triggered' => $this->getProximityAlertTriggered(),
+            'boost_added' => $this->getBoostAdded(),
+            'chat_background_set' => $this->getChatBackgroundSet(),
             'forum_topic_created' => $this->getForumTopicCreated(),
             'forum_topic_edited' => $this->getForumTopicEdited(),
             'forum_topic_closed' => $this->getForumTopicClosed(),
             'forum_topic_reopened' => $this->getForumTopicReopened(),
             'general_forum_topic_hidden' => $this->getGeneralForumTopicHidden(),
             'general_forum_topic_unhidden' => $this->getGeneralForumTopicUnhidden(),
+            'giveaway_created' => $this->getGiveawayCreated(),
+            'giveaway' => $this->getGiveaway(),
+            'giveaway_winners' => $this->getGiveawayWinners(),
+            'giveaway_completed' => $this->getGiveawayCompleted(),
             'video_chat_scheduled' => $this->getVideoChatScheduled(),
             'video_chat_started' => $this->getVideoChatStarted(),
             'video_chat_ended' => $this->getVideoChatEnded(),
@@ -236,7 +262,30 @@ class Message extends AbstractType
     protected $senderChat;
 
     /**
-     * Date the message was sent in Unix time 
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("sender_boost_count")
+     * @Accessor(getter="getSenderBoostCount", setter="setSenderBoostCount")
+     * @Type("int")
+     */
+    protected $senderBoostCount;
+
+    /**
+     * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing 
+     * messages sent on behalf of the connected business account. 
+     *
+     * @var User|null
+     * @SkipWhenEmpty
+     * @SerializedName("sender_business_bot")
+     * @Accessor(getter="getSenderBusinessBot", setter="setSenderBusinessBot")
+     * @Type("MadmagesTelegram\Types\Type\User")
+     */
+    protected $senderBusinessBot;
+
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date. 
      *
      * @var int
      * @SerializedName("date")
@@ -246,7 +295,20 @@ class Message extends AbstractType
     protected $date;
 
     /**
-     * Conversation the message belongs to 
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the 
+     * message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might 
+     * share the same identifier. 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("business_connection_id")
+     * @Accessor(getter="getBusinessConnectionId", setter="setBusinessConnectionId")
+     * @Type("string")
+     */
+    protected $businessConnectionId;
+
+    /**
+     * Chat the message belongs to 
      *
      * @var Chat
      * @SerializedName("chat")
@@ -256,73 +318,15 @@ class Message extends AbstractType
     protected $chat;
 
     /**
-     * Optional. For forwarded messages, sender of the original message 
+     * Optional. Information about the original message for forwarded messages 
      *
-     * @var User|null
+     * @var AbstractMessageOrigin|null
      * @SkipWhenEmpty
-     * @SerializedName("forward_from")
-     * @Accessor(getter="getForwardFrom", setter="setForwardFrom")
-     * @Type("MadmagesTelegram\Types\Type\User")
+     * @SerializedName("forward_origin")
+     * @Accessor(getter="getForwardOrigin", setter="setForwardOrigin")
+     * @Type("MadmagesTelegram\Types\Type\AbstractMessageOrigin")
      */
-    protected $forwardFrom;
-
-    /**
-     * Optional. For messages forwarded from channels or from anonymous administrators, information about the original 
-     * sender chat 
-     *
-     * @var Chat|null
-     * @SkipWhenEmpty
-     * @SerializedName("forward_from_chat")
-     * @Accessor(getter="getForwardFromChat", setter="setForwardFromChat")
-     * @Type("MadmagesTelegram\Types\Type\Chat")
-     */
-    protected $forwardFromChat;
-
-    /**
-     * Optional. For messages forwarded from channels, identifier of the original message in the channel 
-     *
-     * @var int|null
-     * @SkipWhenEmpty
-     * @SerializedName("forward_from_message_id")
-     * @Accessor(getter="getForwardFromMessageId", setter="setForwardFromMessageId")
-     * @Type("int")
-     */
-    protected $forwardFromMessageId;
-
-    /**
-     * Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, 
-     * signature of the message sender if present 
-     *
-     * @var string|null
-     * @SkipWhenEmpty
-     * @SerializedName("forward_signature")
-     * @Accessor(getter="getForwardSignature", setter="setForwardSignature")
-     * @Type("string")
-     */
-    protected $forwardSignature;
-
-    /**
-     * Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded 
-     * messages 
-     *
-     * @var string|null
-     * @SkipWhenEmpty
-     * @SerializedName("forward_sender_name")
-     * @Accessor(getter="getForwardSenderName", setter="setForwardSenderName")
-     * @Type("string")
-     */
-    protected $forwardSenderName;
-
-    /**
-     * Optional. For forwarded messages, date the original message was sent in Unix time 
-     *
-     * @var int|null
-     * @SkipWhenEmpty
-     * @SerializedName("forward_date")
-     * @Accessor(getter="getForwardDate", setter="setForwardDate")
-     * @Type("int")
-     */
-    protected $forwardDate;
+    protected $forwardOrigin;
 
     /**
      * Optional. True, if the message is sent to a forum topic 
@@ -347,8 +351,8 @@ class Message extends AbstractType
     protected $isAutomaticForward;
 
     /**
-     * Optional. For replies, the original message. Note that the Message object in this field will not contain further 
-     * reply_to_message fields even if it itself is a reply. 
+     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this 
+     * field will not contain further reply_to_message fields even if it itself is a reply. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -357,6 +361,39 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $replyToMessage;
+
+    /**
+     * Optional. Information about the message that is being replied to, which may come from another chat or forum topic 
+     *
+     * @var ExternalReplyInfo|null
+     * @SkipWhenEmpty
+     * @SerializedName("external_reply")
+     * @Accessor(getter="getExternalReply", setter="setExternalReply")
+     * @Type("MadmagesTelegram\Types\Type\ExternalReplyInfo")
+     */
+    protected $externalReply;
+
+    /**
+     * Optional. For replies that quote part of the original message, the quoted part of the message 
+     *
+     * @var TextQuote|null
+     * @SkipWhenEmpty
+     * @SerializedName("quote")
+     * @Accessor(getter="getQuote", setter="setQuote")
+     * @Type("MadmagesTelegram\Types\Type\TextQuote")
+     */
+    protected $quote;
+
+    /**
+     * Optional. For replies to a story, the original story 
+     *
+     * @var Story|null
+     * @SkipWhenEmpty
+     * @SerializedName("reply_to_story")
+     * @Accessor(getter="getReplyToStory", setter="setReplyToStory")
+     * @Type("MadmagesTelegram\Types\Type\Story")
+     */
+    protected $replyToStory;
 
     /**
      * Optional. Bot through which the message was sent 
@@ -390,6 +427,18 @@ class Message extends AbstractType
      * @Type("bool")
      */
     protected $hasProtectedContent;
+
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, 
+     * or as a scheduled message 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_from_offline")
+     * @Accessor(getter="getIsFromOffline", setter="setIsFromOffline")
+     * @Type("bool")
+     */
+    protected $isFromOffline;
 
     /**
      * Optional. The unique identifier of a media message group this message belongs to 
@@ -437,6 +486,29 @@ class Message extends AbstractType
     protected $entities;
 
     /**
+     * Optional. Options used for link preview generation for the message, if it is a text message and link preview options 
+     * were changed 
+     *
+     * @var LinkPreviewOptions|null
+     * @SkipWhenEmpty
+     * @SerializedName("link_preview_options")
+     * @Accessor(getter="getLinkPreviewOptions", setter="setLinkPreviewOptions")
+     * @Type("MadmagesTelegram\Types\Type\LinkPreviewOptions")
+     */
+    protected $linkPreviewOptions;
+
+    /**
+     * Optional. Unique identifier of the message effect added to the message 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("effect_id")
+     * @Accessor(getter="getEffectId", setter="setEffectId")
+     * @Type("string")
+     */
+    protected $effectId;
+
+    /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field 
      * is set, the document field will also be set 
      *
@@ -469,6 +541,17 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Document")
      */
     protected $document;
+
+    /**
+     * Optional. Message contains paid media; information about the paid media 
+     *
+     * @var PaidMediaInfo|null
+     * @SkipWhenEmpty
+     * @SerializedName("paid_media")
+     * @Accessor(getter="getPaidMedia", setter="setPaidMedia")
+     * @Type("MadmagesTelegram\Types\Type\PaidMediaInfo")
+     */
+    protected $paidMedia;
 
     /**
      * Optional. Message is a photo, available sizes of the photo 
@@ -537,7 +620,7 @@ class Message extends AbstractType
     protected $voice;
 
     /**
-     * Optional. Caption for the animation, audio, document, photo, video or voice 
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -558,6 +641,17 @@ class Message extends AbstractType
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
+
+    /**
+     * Optional. True, if the caption must be shown above the message media 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("show_caption_above_media")
+     * @Accessor(getter="getShowCaptionAboveMedia", setter="setShowCaptionAboveMedia")
+     * @Type("bool")
+     */
+    protected $showCaptionAboveMedia;
 
     /**
      * Optional. True, if the message media is covered by a spoiler animation 
@@ -771,13 +865,13 @@ class Message extends AbstractType
 
     /**
      * Optional. Specified message was pinned. Note that the Message object in this field will not contain further 
-     * reply_to_message fields even if it is itself a reply. 
+     * reply_to_message fields even if it itself is a reply. 
      *
-     * @var Message|null
+     * @var AbstractMaybeInaccessibleMessage|null
      * @SkipWhenEmpty
      * @SerializedName("pinned_message")
      * @Accessor(getter="getPinnedMessage", setter="setPinnedMessage")
-     * @Type("MadmagesTelegram\Types\Type\Message")
+     * @Type("MadmagesTelegram\Types\Type\AbstractMaybeInaccessibleMessage")
      */
     protected $pinnedMessage;
 
@@ -805,15 +899,27 @@ class Message extends AbstractType
     protected $successfulPayment;
 
     /**
-     * Optional. Service message: a user was shared with the bot 
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about 
+     * payments » 
      *
-     * @var UserShared|null
+     * @var RefundedPayment|null
      * @SkipWhenEmpty
-     * @SerializedName("user_shared")
-     * @Accessor(getter="getUserShared", setter="setUserShared")
-     * @Type("MadmagesTelegram\Types\Type\UserShared")
+     * @SerializedName("refunded_payment")
+     * @Accessor(getter="getRefundedPayment", setter="setRefundedPayment")
+     * @Type("MadmagesTelegram\Types\Type\RefundedPayment")
      */
-    protected $userShared;
+    protected $refundedPayment;
+
+    /**
+     * Optional. Service message: users were shared with the bot 
+     *
+     * @var UsersShared|null
+     * @SkipWhenEmpty
+     * @SerializedName("users_shared")
+     * @Accessor(getter="getUsersShared", setter="setUsersShared")
+     * @Type("MadmagesTelegram\Types\Type\UsersShared")
+     */
+    protected $usersShared;
 
     /**
      * Optional. Service message: a chat was shared with the bot 
@@ -871,6 +977,28 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ProximityAlertTriggered")
      */
     protected $proximityAlertTriggered;
+
+    /**
+     * Optional. Service message: user boosted the chat 
+     *
+     * @var ChatBoostAdded|null
+     * @SkipWhenEmpty
+     * @SerializedName("boost_added")
+     * @Accessor(getter="getBoostAdded", setter="setBoostAdded")
+     * @Type("MadmagesTelegram\Types\Type\ChatBoostAdded")
+     */
+    protected $boostAdded;
+
+    /**
+     * Optional. Service message: chat background set 
+     *
+     * @var ChatBackground|null
+     * @SkipWhenEmpty
+     * @SerializedName("chat_background_set")
+     * @Accessor(getter="getChatBackgroundSet", setter="setChatBackgroundSet")
+     * @Type("MadmagesTelegram\Types\Type\ChatBackground")
+     */
+    protected $chatBackgroundSet;
 
     /**
      * Optional. Service message: forum topic created 
@@ -937,6 +1065,50 @@ class Message extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\GeneralForumTopicUnhidden")
      */
     protected $generalForumTopicUnhidden;
+
+    /**
+     * Optional. Service message: a scheduled giveaway was created 
+     *
+     * @var GiveawayCreated|null
+     * @SkipWhenEmpty
+     * @SerializedName("giveaway_created")
+     * @Accessor(getter="getGiveawayCreated", setter="setGiveawayCreated")
+     * @Type("MadmagesTelegram\Types\Type\GiveawayCreated")
+     */
+    protected $giveawayCreated;
+
+    /**
+     * Optional. The message is a scheduled giveaway message 
+     *
+     * @var Giveaway|null
+     * @SkipWhenEmpty
+     * @SerializedName("giveaway")
+     * @Accessor(getter="getGiveaway", setter="setGiveaway")
+     * @Type("MadmagesTelegram\Types\Type\Giveaway")
+     */
+    protected $giveaway;
+
+    /**
+     * Optional. A giveaway with public winners was completed 
+     *
+     * @var GiveawayWinners|null
+     * @SkipWhenEmpty
+     * @SerializedName("giveaway_winners")
+     * @Accessor(getter="getGiveawayWinners", setter="setGiveawayWinners")
+     * @Type("MadmagesTelegram\Types\Type\GiveawayWinners")
+     */
+    protected $giveawayWinners;
+
+    /**
+     * Optional. Service message: a giveaway without public winners was completed 
+     *
+     * @var GiveawayCompleted|null
+     * @SkipWhenEmpty
+     * @SerializedName("giveaway_completed")
+     * @Accessor(getter="getGiveawayCompleted", setter="setGiveawayCompleted")
+     * @Type("MadmagesTelegram\Types\Type\GiveawayCompleted")
+     */
+    protected $giveawayCompleted;
 
     /**
      * Optional. Service message: video chat scheduled 
@@ -1082,6 +1254,44 @@ class Message extends AbstractType
     }
 
     /**
+     * @param int $senderBoostCount
+     * @return static
+     */
+    public function setSenderBoostCount(int $senderBoostCount): self
+    {
+        $this->senderBoostCount = $senderBoostCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSenderBoostCount(): ?int
+    {
+        return $this->senderBoostCount;
+    }
+
+    /**
+     * @param User $senderBusinessBot
+     * @return static
+     */
+    public function setSenderBusinessBot(User $senderBusinessBot): self
+    {
+        $this->senderBusinessBot = $senderBusinessBot;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getSenderBusinessBot(): ?User
+    {
+        return $this->senderBusinessBot;
+    }
+
+    /**
      * @param int $date
      * @return static
      */
@@ -1098,6 +1308,25 @@ class Message extends AbstractType
     public function getDate(): int
     {
         return $this->date;
+    }
+
+    /**
+     * @param string $businessConnectionId
+     * @return static
+     */
+    public function setBusinessConnectionId(string $businessConnectionId): self
+    {
+        $this->businessConnectionId = $businessConnectionId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBusinessConnectionId(): ?string
+    {
+        return $this->businessConnectionId;
     }
 
     /**
@@ -1120,117 +1349,22 @@ class Message extends AbstractType
     }
 
     /**
-     * @param User $forwardFrom
+     * @param AbstractMessageOrigin $forwardOrigin
      * @return static
      */
-    public function setForwardFrom(User $forwardFrom): self
+    public function setForwardOrigin(AbstractMessageOrigin $forwardOrigin): self
     {
-        $this->forwardFrom = $forwardFrom;
+        $this->forwardOrigin = $forwardOrigin;
 
         return $this;
     }
 
     /**
-     * @return User|null
+     * @return AbstractMessageOrigin|null
      */
-    public function getForwardFrom(): ?User
+    public function getForwardOrigin(): ?AbstractMessageOrigin
     {
-        return $this->forwardFrom;
-    }
-
-    /**
-     * @param Chat $forwardFromChat
-     * @return static
-     */
-    public function setForwardFromChat(Chat $forwardFromChat): self
-    {
-        $this->forwardFromChat = $forwardFromChat;
-
-        return $this;
-    }
-
-    /**
-     * @return Chat|null
-     */
-    public function getForwardFromChat(): ?Chat
-    {
-        return $this->forwardFromChat;
-    }
-
-    /**
-     * @param int $forwardFromMessageId
-     * @return static
-     */
-    public function setForwardFromMessageId(int $forwardFromMessageId): self
-    {
-        $this->forwardFromMessageId = $forwardFromMessageId;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getForwardFromMessageId(): ?int
-    {
-        return $this->forwardFromMessageId;
-    }
-
-    /**
-     * @param string $forwardSignature
-     * @return static
-     */
-    public function setForwardSignature(string $forwardSignature): self
-    {
-        $this->forwardSignature = $forwardSignature;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getForwardSignature(): ?string
-    {
-        return $this->forwardSignature;
-    }
-
-    /**
-     * @param string $forwardSenderName
-     * @return static
-     */
-    public function setForwardSenderName(string $forwardSenderName): self
-    {
-        $this->forwardSenderName = $forwardSenderName;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getForwardSenderName(): ?string
-    {
-        return $this->forwardSenderName;
-    }
-
-    /**
-     * @param int $forwardDate
-     * @return static
-     */
-    public function setForwardDate(int $forwardDate): self
-    {
-        $this->forwardDate = $forwardDate;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getForwardDate(): ?int
-    {
-        return $this->forwardDate;
+        return $this->forwardOrigin;
     }
 
     /**
@@ -1291,6 +1425,63 @@ class Message extends AbstractType
     }
 
     /**
+     * @param ExternalReplyInfo $externalReply
+     * @return static
+     */
+    public function setExternalReply(ExternalReplyInfo $externalReply): self
+    {
+        $this->externalReply = $externalReply;
+
+        return $this;
+    }
+
+    /**
+     * @return ExternalReplyInfo|null
+     */
+    public function getExternalReply(): ?ExternalReplyInfo
+    {
+        return $this->externalReply;
+    }
+
+    /**
+     * @param TextQuote $quote
+     * @return static
+     */
+    public function setQuote(TextQuote $quote): self
+    {
+        $this->quote = $quote;
+
+        return $this;
+    }
+
+    /**
+     * @return TextQuote|null
+     */
+    public function getQuote(): ?TextQuote
+    {
+        return $this->quote;
+    }
+
+    /**
+     * @param Story $replyToStory
+     * @return static
+     */
+    public function setReplyToStory(Story $replyToStory): self
+    {
+        $this->replyToStory = $replyToStory;
+
+        return $this;
+    }
+
+    /**
+     * @return Story|null
+     */
+    public function getReplyToStory(): ?Story
+    {
+        return $this->replyToStory;
+    }
+
+    /**
      * @param User $viaBot
      * @return static
      */
@@ -1345,6 +1536,25 @@ class Message extends AbstractType
     public function getHasProtectedContent(): ?bool
     {
         return $this->hasProtectedContent;
+    }
+
+    /**
+     * @param bool $isFromOffline
+     * @return static
+     */
+    public function setIsFromOffline(bool $isFromOffline): self
+    {
+        $this->isFromOffline = $isFromOffline;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsFromOffline(): ?bool
+    {
+        return $this->isFromOffline;
     }
 
     /**
@@ -1424,6 +1634,44 @@ class Message extends AbstractType
     }
 
     /**
+     * @param LinkPreviewOptions $linkPreviewOptions
+     * @return static
+     */
+    public function setLinkPreviewOptions(LinkPreviewOptions $linkPreviewOptions): self
+    {
+        $this->linkPreviewOptions = $linkPreviewOptions;
+
+        return $this;
+    }
+
+    /**
+     * @return LinkPreviewOptions|null
+     */
+    public function getLinkPreviewOptions(): ?LinkPreviewOptions
+    {
+        return $this->linkPreviewOptions;
+    }
+
+    /**
+     * @param string $effectId
+     * @return static
+     */
+    public function setEffectId(string $effectId): self
+    {
+        $this->effectId = $effectId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEffectId(): ?string
+    {
+        return $this->effectId;
+    }
+
+    /**
      * @param Animation $animation
      * @return static
      */
@@ -1478,6 +1726,25 @@ class Message extends AbstractType
     public function getDocument(): ?Document
     {
         return $this->document;
+    }
+
+    /**
+     * @param PaidMediaInfo $paidMedia
+     * @return static
+     */
+    public function setPaidMedia(PaidMediaInfo $paidMedia): self
+    {
+        $this->paidMedia = $paidMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return PaidMediaInfo|null
+     */
+    public function getPaidMedia(): ?PaidMediaInfo
+    {
+        return $this->paidMedia;
     }
 
     /**
@@ -1630,6 +1897,25 @@ class Message extends AbstractType
     public function getCaptionEntities(): ?array
     {
         return $this->captionEntities;
+    }
+
+    /**
+     * @param bool $showCaptionAboveMedia
+     * @return static
+     */
+    public function setShowCaptionAboveMedia(bool $showCaptionAboveMedia): self
+    {
+        $this->showCaptionAboveMedia = $showCaptionAboveMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShowCaptionAboveMedia(): ?bool
+    {
+        return $this->showCaptionAboveMedia;
     }
 
     /**
@@ -1975,10 +2261,10 @@ class Message extends AbstractType
     }
 
     /**
-     * @param Message $pinnedMessage
+     * @param AbstractMaybeInaccessibleMessage $pinnedMessage
      * @return static
      */
-    public function setPinnedMessage(Message $pinnedMessage): self
+    public function setPinnedMessage(AbstractMaybeInaccessibleMessage $pinnedMessage): self
     {
         $this->pinnedMessage = $pinnedMessage;
 
@@ -1986,9 +2272,9 @@ class Message extends AbstractType
     }
 
     /**
-     * @return Message|null
+     * @return AbstractMaybeInaccessibleMessage|null
      */
-    public function getPinnedMessage(): ?Message
+    public function getPinnedMessage(): ?AbstractMaybeInaccessibleMessage
     {
         return $this->pinnedMessage;
     }
@@ -2032,22 +2318,41 @@ class Message extends AbstractType
     }
 
     /**
-     * @param UserShared $userShared
+     * @param RefundedPayment $refundedPayment
      * @return static
      */
-    public function setUserShared(UserShared $userShared): self
+    public function setRefundedPayment(RefundedPayment $refundedPayment): self
     {
-        $this->userShared = $userShared;
+        $this->refundedPayment = $refundedPayment;
 
         return $this;
     }
 
     /**
-     * @return UserShared|null
+     * @return RefundedPayment|null
      */
-    public function getUserShared(): ?UserShared
+    public function getRefundedPayment(): ?RefundedPayment
     {
-        return $this->userShared;
+        return $this->refundedPayment;
+    }
+
+    /**
+     * @param UsersShared $usersShared
+     * @return static
+     */
+    public function setUsersShared(UsersShared $usersShared): self
+    {
+        $this->usersShared = $usersShared;
+
+        return $this;
+    }
+
+    /**
+     * @return UsersShared|null
+     */
+    public function getUsersShared(): ?UsersShared
+    {
+        return $this->usersShared;
     }
 
     /**
@@ -2143,6 +2448,44 @@ class Message extends AbstractType
     public function getProximityAlertTriggered(): ?ProximityAlertTriggered
     {
         return $this->proximityAlertTriggered;
+    }
+
+    /**
+     * @param ChatBoostAdded $boostAdded
+     * @return static
+     */
+    public function setBoostAdded(ChatBoostAdded $boostAdded): self
+    {
+        $this->boostAdded = $boostAdded;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatBoostAdded|null
+     */
+    public function getBoostAdded(): ?ChatBoostAdded
+    {
+        return $this->boostAdded;
+    }
+
+    /**
+     * @param ChatBackground $chatBackgroundSet
+     * @return static
+     */
+    public function setChatBackgroundSet(ChatBackground $chatBackgroundSet): self
+    {
+        $this->chatBackgroundSet = $chatBackgroundSet;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatBackground|null
+     */
+    public function getChatBackgroundSet(): ?ChatBackground
+    {
+        return $this->chatBackgroundSet;
     }
 
     /**
@@ -2257,6 +2600,82 @@ class Message extends AbstractType
     public function getGeneralForumTopicUnhidden(): ?GeneralForumTopicUnhidden
     {
         return $this->generalForumTopicUnhidden;
+    }
+
+    /**
+     * @param GiveawayCreated $giveawayCreated
+     * @return static
+     */
+    public function setGiveawayCreated(GiveawayCreated $giveawayCreated): self
+    {
+        $this->giveawayCreated = $giveawayCreated;
+
+        return $this;
+    }
+
+    /**
+     * @return GiveawayCreated|null
+     */
+    public function getGiveawayCreated(): ?GiveawayCreated
+    {
+        return $this->giveawayCreated;
+    }
+
+    /**
+     * @param Giveaway $giveaway
+     * @return static
+     */
+    public function setGiveaway(Giveaway $giveaway): self
+    {
+        $this->giveaway = $giveaway;
+
+        return $this;
+    }
+
+    /**
+     * @return Giveaway|null
+     */
+    public function getGiveaway(): ?Giveaway
+    {
+        return $this->giveaway;
+    }
+
+    /**
+     * @param GiveawayWinners $giveawayWinners
+     * @return static
+     */
+    public function setGiveawayWinners(GiveawayWinners $giveawayWinners): self
+    {
+        $this->giveawayWinners = $giveawayWinners;
+
+        return $this;
+    }
+
+    /**
+     * @return GiveawayWinners|null
+     */
+    public function getGiveawayWinners(): ?GiveawayWinners
+    {
+        return $this->giveawayWinners;
+    }
+
+    /**
+     * @param GiveawayCompleted $giveawayCompleted
+     * @return static
+     */
+    public function setGiveawayCompleted(GiveawayCompleted $giveawayCompleted): self
+    {
+        $this->giveawayCompleted = $giveawayCompleted;
+
+        return $this;
+    }
+
+    /**
+     * @return GiveawayCompleted|null
+     */
+    public function getGiveawayCompleted(): ?GiveawayCompleted
+    {
+        return $this->giveawayCompleted;
     }
 
     /**

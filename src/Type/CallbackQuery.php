@@ -82,14 +82,13 @@ class CallbackQuery extends AbstractType
     protected $from;
 
     /**
-     * Optional. Message with the callback button that originated the query. Note that message content and message date 
-     * will not be available if the message is too old 
+     * Optional. Message sent by the bot with the callback button that originated the query 
      *
-     * @var Message|null
+     * @var AbstractMaybeInaccessibleMessage|null
      * @SkipWhenEmpty
      * @SerializedName("message")
      * @Accessor(getter="getMessage", setter="setMessage")
-     * @Type("MadmagesTelegram\Types\Type\Message")
+     * @Type("MadmagesTelegram\Types\Type\AbstractMaybeInaccessibleMessage")
      */
     protected $message;
 
@@ -178,10 +177,10 @@ class CallbackQuery extends AbstractType
     }
 
     /**
-     * @param Message $message
+     * @param AbstractMaybeInaccessibleMessage $message
      * @return static
      */
-    public function setMessage(Message $message): self
+    public function setMessage(AbstractMaybeInaccessibleMessage $message): self
     {
         $this->message = $message;
 
@@ -189,9 +188,9 @@ class CallbackQuery extends AbstractType
     }
 
     /**
-     * @return Message|null
+     * @return AbstractMaybeInaccessibleMessage|null
      */
-    public function getMessage(): ?Message
+    public function getMessage(): ?AbstractMaybeInaccessibleMessage
     {
         return $this->message;
     }

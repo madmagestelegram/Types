@@ -10,14 +10,15 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#botcommandscope
+ * https://core.telegram.org/bots/api#giveawaycreated
  *
- * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported: 
+ * This object represents a service message about the creation of a scheduled giveaway. Currently holds no 
+ * information. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class BotCommandScope extends AbstractType
+class GiveawayCreated extends AbstractType
 {
 
     /**

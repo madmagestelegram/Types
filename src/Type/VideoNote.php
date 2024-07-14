@@ -79,7 +79,7 @@ class VideoNote extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Video width and height (diameter of the video message) as defined by sender 
+     * Video width and height (diameter of the video message) as defined by the sender 
      *
      * @var int
      * @SerializedName("length")
@@ -89,7 +89,7 @@ class VideoNote extends AbstractType
     protected $length;
 
     /**
-     * Duration of the video in seconds as defined by sender 
+     * Duration of the video in seconds as defined by the sender 
      *
      * @var int
      * @SerializedName("duration")

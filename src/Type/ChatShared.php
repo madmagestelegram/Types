@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#chatshared
  *
- * This object contains information about the chat whose identifier was shared with the bot using a KeyboardButtonRequestChat button. 
+ * This object contains information about a chat that was shared with the bot using a KeyboardButtonRequestChat button. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -30,6 +30,9 @@ class ChatShared extends AbstractType
         return [
             'request_id',
             'chat_id',
+            'title',
+            'username',
+            'photo',
         ];
     }
 
@@ -43,6 +46,9 @@ class ChatShared extends AbstractType
         $result = [
             'request_id' => $this->getRequestId(),
             'chat_id' => $this->getChatId(),
+            'title' => $this->getTitle(),
+            'username' => $this->getUsername(),
+            'photo' => $this->getPhoto(),
         ];
 
         return parent::normalizeData($result);
@@ -70,6 +76,39 @@ class ChatShared extends AbstractType
      * @Type("int")
      */
     protected $chatId;
+
+    /**
+     * Optional. Title of the chat, if the title was requested by the bot. 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("title")
+     * @Accessor(getter="getTitle", setter="setTitle")
+     * @Type("string")
+     */
+    protected $title;
+
+    /**
+     * Optional. Username of the chat, if the username was requested by the bot and available. 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("username")
+     * @Accessor(getter="getUsername", setter="setUsername")
+     * @Type("string")
+     */
+    protected $username;
+
+    /**
+     * Optional. Available sizes of the chat photo, if the photo was requested by the bot 
+     *
+     * @var PhotoSize[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("photo")
+     * @Accessor(getter="getPhoto", setter="setPhoto")
+     * @Type("array<MadmagesTelegram\Types\Type\PhotoSize>")
+     */
+    protected $photo;
 
 
     /**
@@ -108,6 +147,63 @@ class ChatShared extends AbstractType
     public function getChatId(): int
     {
         return $this->chatId;
+    }
+
+    /**
+     * @param string $title
+     * @return static
+     */
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $username
+     * @return static
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param PhotoSize[] $photo
+     * @return static
+     */
+    public function setPhoto(array $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return PhotoSize[]|null
+     */
+    public function getPhoto(): ?array
+    {
+        return $this->photo;
     }
 
 }

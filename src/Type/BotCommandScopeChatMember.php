@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation\Type;
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class BotCommandScopeChatMember extends AbstractType
+class BotCommandScopeChatMember extends AbstractBotCommandScope
 {
 
     /**

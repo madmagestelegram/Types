@@ -42,6 +42,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
             'caption',
             'parse_mode',
             'caption_entities',
+            'show_caption_above_media',
             'reply_markup',
             'input_message_content',
         ];
@@ -67,6 +68,7 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
             'caption_entities' => $this->getCaptionEntities(),
+            'show_caption_above_media' => $this->getShowCaptionAboveMedia(),
             'reply_markup' => $this->getReplyMarkup(),
             'input_message_content' => $this->getInputMessageContent(),
         ];
@@ -202,6 +204,17 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
+
+    /**
+     * Optional. Pass True, if the caption must be shown above the message media 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("show_caption_above_media")
+     * @Accessor(getter="getShowCaptionAboveMedia", setter="setShowCaptionAboveMedia")
+     * @Type("bool")
+     */
+    protected $showCaptionAboveMedia;
 
     /**
      * Optional. Inline keyboard attached to the message 
@@ -452,6 +465,25 @@ class InlineQueryResultMpeg4Gif extends AbstractInlineQueryResult
     public function getCaptionEntities(): ?array
     {
         return $this->captionEntities;
+    }
+
+    /**
+     * @param bool $showCaptionAboveMedia
+     * @return static
+     */
+    public function setShowCaptionAboveMedia(bool $showCaptionAboveMedia): self
+    {
+        $this->showCaptionAboveMedia = $showCaptionAboveMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShowCaptionAboveMedia(): ?bool
+    {
+        return $this->showCaptionAboveMedia;
     }
 
     /**

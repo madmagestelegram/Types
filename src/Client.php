@@ -36,9 +36,9 @@ abstract class Client {
      * @param string[]|null $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", 
      * "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update 
-     * types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous 
-     * setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, 
-     * so unwanted updates may be received for a short period of time. 
+     * types. Specify an empty list to receive all update types except chat_member, message_reaction, and 
+     * message_reaction_count (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect 
+     * updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. 
      *
      * @return mixed
      */
@@ -86,9 +86,9 @@ abstract class Client {
      * @param string[]|null $allowedUpdates
      *        A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", 
      * "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update 
-     * types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous 
-     * setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, 
-     * so unwanted updates may be received for a short period of time. 
+     * types. Specify an empty list to receive all update types except chat_member, message_reaction, and 
+     * message_reaction_count (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect 
+     * updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. 
      *
      * @param bool|null $dropPendingUpdates
      *        Pass True to drop all pending updates 
@@ -226,6 +226,9 @@ abstract class Client {
      * @param string $text
      *        Text of the message to be sent, 1-4096 characters after entities parsing 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -236,8 +239,8 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in message text, which can be specified instead of 
      * parse_mode 
      *
-     * @param bool|null $disableWebPagePreview
-     *        Disables link previews for links in this message 
+     * @param Type\LinkPreviewOptions|null $linkPreviewOptions
+     *        Link preview generation options for the message 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -245,43 +248,45 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendMessage(
         $chatId,
         string $text,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $parseMode = null,
         array $entities = null,
-        bool $disableWebPagePreview = null,
+        Type\LinkPreviewOptions $linkPreviewOptions = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'text' => $text,
             'parse_mode' => $parseMode,
             'entities' => $entities,
-            'disable_web_page_preview' => $disableWebPagePreview,
+            'link_preview_options' => $linkPreviewOptions,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -291,7 +296,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#forwardmessage
      *
-     * Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent Message is returned. 
+     * Use this method to forward messages of any kind. Service messages and messages with protected content can't be 
+     * forwarded. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -336,11 +342,61 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#forwardmessages
+     *
+     * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or 
+     * forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept 
+     * for forwarded messages. On success, an array of MessageId of the sent messages is returned. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int|string $fromChatId
+     *        Unique identifier for the chat where the original messages were sent (or channel username in the format 
+     * @|channelusername) 
+     *
+     * @param int[] $messageIds
+     *        A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to forward. The identifiers 
+     * must be specified in a strictly increasing order. 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
+     * @param bool|null $disableNotification
+     *        Sends the messages silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the forwarded messages from forwarding and saving 
+     *
+     * @return mixed
+     */
+    public function forwardMessages(
+        $chatId,
+        $fromChatId,
+        array $messageIds,
+        int $messageThreadId = null,
+        bool $disableNotification = null,
+        bool $protectContent = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+            'from_chat_id' => $fromChatId,
+            'message_ids' => $messageIds,
+            'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
+        ];
+
+        return $this->_apiCall('forwardMessages', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#copymessage
      *
-     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous 
-     * to the method forwardMessage, but the copied message doesn't have a link to the 
-     * original message. Returns the MessageId of the sent message on success. 
+     * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway 
+     * winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of 
+     * the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -366,21 +422,21 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of 
      * parse_mode 
      *
+     * @param bool|null $showCaptionAboveMedia
+     *        Pass True, if the caption must be shown above the message media. Ignored if a new caption isn't specified. 
+     *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
      *
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
-     *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
@@ -392,10 +448,10 @@ abstract class Client {
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $showCaptionAboveMedia = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
@@ -407,14 +463,71 @@ abstract class Client {
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'show_caption_above_media' => $showCaptionAboveMedia,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
         return $this->_apiCall('copyMessage', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#copymessages
+     *
+     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are 
+     * skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't 
+     * be copied. A quiz poll can be copied only if the value of the field correct_option_id is 
+     * known to the bot. The method is analogous to the method forwardMessages, but the copied 
+     * messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int|string $fromChatId
+     *        Unique identifier for the chat where the original messages were sent (or channel username in the format 
+     * @|channelusername) 
+     *
+     * @param int[] $messageIds
+     *        A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to copy. The identifiers must 
+     * be specified in a strictly increasing order. 
+     *
+     * @param int|null $messageThreadId
+     *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
+     * @param bool|null $disableNotification
+     *        Sends the messages silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent messages from forwarding and saving 
+     *
+     * @param bool|null $removeCaption
+     *        Pass True to copy the messages without their captions 
+     *
+     * @return mixed
+     */
+    public function copyMessages(
+        $chatId,
+        $fromChatId,
+        array $messageIds,
+        int $messageThreadId = null,
+        bool $disableNotification = null,
+        bool $protectContent = null,
+        bool $removeCaption = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_thread_id' => $messageThreadId,
+            'from_chat_id' => $fromChatId,
+            'message_ids' => $messageIds,
+            'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
+            'remove_caption' => $removeCaption,
+        ];
+
+        return $this->_apiCall('copyMessages', $requestParameters);
     }
 
     /**
@@ -431,6 +544,9 @@ abstract class Client {
      * The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height 
      * ratio must be at most 20. More information on Sending Files » 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -444,6 +560,9 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
      *
+     * @param bool|null $showCaptionAboveMedia
+     *        Pass True, if the caption must be shown above the message media 
+     *
      * @param bool|null $hasSpoiler
      *        Pass True if the photo needs to be covered with a spoiler animation 
      *
@@ -453,45 +572,49 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendPhoto(
         $chatId,
         $photo,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $showCaptionAboveMedia = null,
         bool $hasSpoiler = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'photo' => $photo,
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'show_caption_above_media' => $showCaptionAboveMedia,
             'has_spoiler' => $hasSpoiler,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -512,6 +635,9 @@ abstract class Client {
      *        Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using 
      * multipart/form-data. More information on Sending Files » 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -548,21 +674,22 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendAudio(
         $chatId,
         $audio,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
@@ -573,12 +700,13 @@ abstract class Client {
         $thumbnail = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'audio' => $audio,
@@ -591,8 +719,8 @@ abstract class Client {
             'thumbnail' => $thumbnail,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -612,6 +740,9 @@ abstract class Client {
      *        File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More 
      * information on Sending Files » 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -643,21 +774,22 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendDocument(
         $chatId,
         $document,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         $thumbnail = null,
         string $caption = null,
@@ -666,12 +798,13 @@ abstract class Client {
         bool $disableContentTypeDetection = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'document' => $document,
@@ -682,8 +815,8 @@ abstract class Client {
             'disable_content_type_detection' => $disableContentTypeDetection,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -703,6 +836,9 @@ abstract class Client {
      *        Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an 
      * HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. 
      * More information on Sending Files » 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -733,6 +869,9 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
      *
+     * @param bool|null $showCaptionAboveMedia
+     *        Pass True, if the caption must be shown above the message media 
+     *
      * @param bool|null $hasSpoiler
      *        Pass True if the video needs to be covered with a spoiler animation 
      *
@@ -745,21 +884,22 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendVideo(
         $chatId,
         $video,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         int $duration = null,
         int $width = null,
@@ -768,16 +908,18 @@ abstract class Client {
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $showCaptionAboveMedia = null,
         bool $hasSpoiler = null,
         bool $supportsStreaming = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'video' => $video,
@@ -788,12 +930,13 @@ abstract class Client {
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'show_caption_above_media' => $showCaptionAboveMedia,
             'has_spoiler' => $hasSpoiler,
             'supports_streaming' => $supportsStreaming,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -812,6 +955,9 @@ abstract class Client {
      *        Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers 
      * (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using 
      * multipart/form-data. More information on Sending Files » 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -843,6 +989,9 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
      *
+     * @param bool|null $showCaptionAboveMedia
+     *        Pass True, if the caption must be shown above the message media 
+     *
      * @param bool|null $hasSpoiler
      *        Pass True if the animation needs to be covered with a spoiler animation 
      *
@@ -852,21 +1001,22 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendAnimation(
         $chatId,
         $animation,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         int $duration = null,
         int $width = null,
@@ -875,15 +1025,17 @@ abstract class Client {
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $showCaptionAboveMedia = null,
         bool $hasSpoiler = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'animation' => $animation,
@@ -894,11 +1046,12 @@ abstract class Client {
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'show_caption_above_media' => $showCaptionAboveMedia,
             'has_spoiler' => $hasSpoiler,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -909,9 +1062,8 @@ abstract class Client {
      * https://core.telegram.org/bots/api#sendvoice
      *
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For 
-     * this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio 
-     * or Document). On success, the sent Message is returned. Bots can 
-     * currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
+     * this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be 
+     * sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -920,6 +1072,9 @@ abstract class Client {
      *        Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), 
      * pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More information on Sending Files » 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -943,21 +1098,22 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendVoice(
         $chatId,
         $voice,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $caption = null,
         string $parseMode = null,
@@ -965,12 +1121,13 @@ abstract class Client {
         int $duration = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'voice' => $voice,
@@ -980,8 +1137,8 @@ abstract class Client {
             'duration' => $duration,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -1001,6 +1158,9 @@ abstract class Client {
      *        Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers 
      * (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a 
      * URL is currently unsupported 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -1024,33 +1184,35 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendVideoNote(
         $chatId,
         $videoNote,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         int $duration = null,
         int $length = null,
         $thumbnail = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'video_note' => $videoNote,
@@ -1059,12 +1221,86 @@ abstract class Client {
             'thumbnail' => $thumbnail,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
         return $this->_apiCall('sendVideoNote', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#sendpaidmedia
+     *
+     * Use this method to send paid media to channel chats. On success, the sent Message is 
+     * returned. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $starCount
+     *        The number of Telegram Stars that must be paid to buy access to the media 
+     *
+     * @param Type\AbstractInputPaidMedia[] $media
+     *        A JSON-serialized array describing the media to be sent; up to 10 items 
+     *
+     * @param string|null $caption
+     *        Media caption, 0-1024 characters after entities parsing 
+     *
+     * @param string|null $parseMode
+     *        Mode for parsing entities in the media caption. See formatting options for more details. 
+     *
+     * @param Type\MessageEntity[]|null $captionEntities
+     *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
+     * parse_mode 
+     *
+     * @param bool|null $showCaptionAboveMedia
+     *        Pass True, if the caption must be shown above the message media 
+     *
+     * @param bool|null $disableNotification
+     *        Sends the message silently. Users will receive a notification with no sound. 
+     *
+     * @param bool|null $protectContent
+     *        Protects the contents of the sent message from forwarding and saving 
+     *
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
+     *
+     * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
+     *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
+     * instructions to remove a reply keyboard or to force a reply from the user 
+     *
+     * @return mixed
+     */
+    public function sendPaidMedia(
+        $chatId,
+        int $starCount,
+        array $media,
+        string $caption = null,
+        string $parseMode = null,
+        array $captionEntities = null,
+        bool $showCaptionAboveMedia = null,
+        bool $disableNotification = null,
+        bool $protectContent = null,
+        Type\ReplyParameters $replyParameters = null,
+        $replyMarkup = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'star_count' => $starCount,
+            'media' => $media,
+            'caption' => $caption,
+            'parse_mode' => $parseMode,
+            'caption_entities' => $captionEntities,
+            'show_caption_above_media' => $showCaptionAboveMedia,
+            'disable_notification' => $disableNotification,
+            'protect_content' => $protectContent,
+            'reply_parameters' => $replyParameters,
+            'reply_markup' => $replyMarkup,
+        ];
+
+        return $this->_apiCall('sendPaidMedia', $requestParameters);
     }
 
     /**
@@ -1080,6 +1316,9 @@ abstract class Client {
      * @param Type\InputMediaAudio[]|Type\InputMediaDocument[]|Type\InputMediaPhoto[]|Type\InputMediaVideo[] $media
      *        A JSON-serialized array describing messages to be sent, must include 2-10 items 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -1089,32 +1328,34 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent messages from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the messages are a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @return mixed
      */
     public function sendMediaGroup(
         $chatId,
         array $media,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'media' => $media,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
         ];
 
         return $this->_apiCall('sendMediaGroup', $requestParameters);
@@ -1134,6 +1375,9 @@ abstract class Client {
      * @param float $longitude
      *        Longitude of the location 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -1141,7 +1385,8 @@ abstract class Client {
      *        The radius of uncertainty for the location, measured in meters; 0-1500 
      *
      * @param int|null $livePeriod
-     *        Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400. 
+     *        Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, 
+     * or 0x7FFFFFFF for live locations that can be edited indefinitely. 
      *
      * @param int|null $heading
      *        For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. 
@@ -1156,15 +1401,15 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
@@ -1172,6 +1417,7 @@ abstract class Client {
         $chatId,
         float $latitude,
         float $longitude,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         float $horizontalAccuracy = null,
         int $livePeriod = null,
@@ -1179,12 +1425,13 @@ abstract class Client {
         int $proximityAlertRadius = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'latitude' => $latitude,
@@ -1195,8 +1442,8 @@ abstract class Client {
             'proximity_alert_radius' => $proximityAlertRadius,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -1224,6 +1471,9 @@ abstract class Client {
      * @param string $address
      *        Address of the venue 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -1246,15 +1496,15 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
@@ -1264,6 +1514,7 @@ abstract class Client {
         float $longitude,
         string $title,
         string $address,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $foursquareId = null,
         string $foursquareType = null,
@@ -1271,12 +1522,13 @@ abstract class Client {
         string $googlePlaceType = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'latitude' => $latitude,
@@ -1289,8 +1541,8 @@ abstract class Client {
             'google_place_type' => $googlePlaceType,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -1311,6 +1563,9 @@ abstract class Client {
      * @param string $firstName
      *        Contact's first name 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -1326,15 +1581,15 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
@@ -1342,17 +1597,19 @@ abstract class Client {
         $chatId,
         string $phoneNumber,
         string $firstName,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $lastName = null,
         string $vcard = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'phone_number' => $phoneNumber,
@@ -1361,8 +1618,8 @@ abstract class Client {
             'vcard' => $vcard,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -1380,11 +1637,22 @@ abstract class Client {
      * @param string $question
      *        Poll question, 1-300 characters 
      *
-     * @param string[] $options
-     *        A JSON-serialized list of answer options, 2-10 strings 1-100 characters each 
+     * @param Type\InputPollOption[] $options
+     *        A JSON-serialized list of 2-10 answer options 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
+     *
+     * @param string|null $questionParseMode
+     *        Mode for parsing entities in the question. See formatting options for more details. Currently, only custom 
+     * emoji entities are allowed 
+     *
+     * @param Type\MessageEntity[]|null $questionEntities
+     *        A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of 
+     * question_parse_mode 
      *
      * @param bool|null $isAnonymous
      *        True, if the poll needs to be anonymous, defaults to True 
@@ -1406,8 +1674,8 @@ abstract class Client {
      *        Mode for parsing entities in the explanation. See formatting options for more details. 
      *
      * @param Type\MessageEntity[]|null $explanationEntities
-     *        A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead 
-     * of parse_mode 
+     *        A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of 
+     * explanation_parse_mode 
      *
      * @param int|null $openPeriod
      *        Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. 
@@ -1425,15 +1693,15 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
@@ -1441,7 +1709,10 @@ abstract class Client {
         $chatId,
         string $question,
         array $options,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
+        string $questionParseMode = null,
+        array $questionEntities = null,
         bool $isAnonymous = null,
         string $type = null,
         bool $allowsMultipleAnswers = null,
@@ -1454,15 +1725,18 @@ abstract class Client {
         bool $isClosed = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'question' => $question,
+            'question_parse_mode' => $questionParseMode,
+            'question_entities' => $questionEntities,
             'options' => $options,
             'is_anonymous' => $isAnonymous,
             'type' => $type,
@@ -1476,8 +1750,8 @@ abstract class Client {
             'is_closed' => $isClosed,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -1491,6 +1765,9 @@ abstract class Client {
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -1506,37 +1783,39 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendDice(
         $chatId,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $emoji = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -1560,24 +1839,70 @@ abstract class Client {
      * notes, upload_document for general files, choose_sticker for stickers, find_location for location data, 
      * record_video_note or upload_video_note for video notes. 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the action will be sent 
+     *
      * @param int|null $messageThreadId
-     *        Unique identifier for the target message thread; supergroups only 
+     *        Unique identifier for the target message thread; for supergroups only 
      *
      * @return mixed
      */
     public function sendChatAction(
         $chatId,
         string $action,
+        string $businessConnectionId = null,
         int $messageThreadId = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'action' => $action,
         ];
 
         return $this->_apiCall('sendChatAction', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setmessagereaction
+     *
+     * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically 
+     * forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. 
+     * Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int $messageId
+     *        Identifier of the target message. If the message belongs to a media group, the reaction is set to the first 
+     * non-deleted message in the group instead. 
+     *
+     * @param Type\AbstractReactionType[]|null $reaction
+     *        A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up 
+     * to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or 
+     * explicitly allowed by chat administrators. 
+     *
+     * @param bool|null $isBig
+     *        Pass True to set the reaction with a big animation 
+     *
+     * @return mixed
+     */
+    public function setMessageReaction(
+        $chatId,
+        int $messageId,
+        array $reaction = null,
+        bool $isBig = null
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+            'reaction' => $reaction,
+            'is_big' => $isBig,
+        ];
+
+        return $this->_apiCall('setMessageReaction', $requestParameters);
     }
 
     /**
@@ -1778,9 +2103,8 @@ abstract class Client {
      *        Pass True if the administrator's presence in the chat is hidden 
      *
      * @param bool|null $canManageChat
-     *        Pass True if the administrator can access the chat event log, boost list in channels, see channel members, 
-     * report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other 
-     * administrator privilege 
+     *        Pass True if the administrator can access the chat event log, get boost list, see hidden supergroup and channel 
+     * members, report spam messages and ignore slow mode. Implied by any other administrator privilege. 
      *
      * @param bool|null $canDeleteMessages
      *        Pass True if the administrator can delete messages of other users 
@@ -1801,26 +2125,28 @@ abstract class Client {
      * @param bool|null $canInviteUsers
      *        Pass True if the administrator can invite new users to the chat 
      *
-     * @param bool|null $canPostMessages
-     *        Pass True if the administrator can post messages in the channel, or access channel statistics; channels only 
-     *
-     * @param bool|null $canEditMessages
-     *        Pass True if the administrator can edit messages of other users and can pin messages; channels only 
-     *
-     * @param bool|null $canPinMessages
-     *        Pass True if the administrator can pin messages, supergroups only 
-     *
      * @param bool|null $canPostStories
-     *        Pass True if the administrator can post stories in the channel; channels only 
+     *        Pass True if the administrator can post stories to the chat 
      *
      * @param bool|null $canEditStories
-     *        Pass True if the administrator can edit stories posted by other users; channels only 
+     *        Pass True if the administrator can edit stories posted by other users, post stories to the chat page, pin chat 
+     * stories, and access the chat's story archive 
      *
      * @param bool|null $canDeleteStories
-     *        Pass True if the administrator can delete stories posted by other users; channels only 
+     *        Pass True if the administrator can delete stories posted by other users 
+     *
+     * @param bool|null $canPostMessages
+     *        Pass True if the administrator can post messages in the channel, or access channel statistics; for channels 
+     * only 
+     *
+     * @param bool|null $canEditMessages
+     *        Pass True if the administrator can edit messages of other users and can pin messages; for channels only 
+     *
+     * @param bool|null $canPinMessages
+     *        Pass True if the administrator can pin messages; for supergroups only 
      *
      * @param bool|null $canManageTopics
-     *        Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only 
+     *        Pass True if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only 
      *
      * @return mixed
      */
@@ -1835,12 +2161,12 @@ abstract class Client {
         bool $canPromoteMembers = null,
         bool $canChangeInfo = null,
         bool $canInviteUsers = null,
-        bool $canPostMessages = null,
-        bool $canEditMessages = null,
-        bool $canPinMessages = null,
         bool $canPostStories = null,
         bool $canEditStories = null,
         bool $canDeleteStories = null,
+        bool $canPostMessages = null,
+        bool $canEditMessages = null,
+        bool $canPinMessages = null,
         bool $canManageTopics = null
     )
     {
@@ -1855,12 +2181,12 @@ abstract class Client {
             'can_promote_members' => $canPromoteMembers,
             'can_change_info' => $canChangeInfo,
             'can_invite_users' => $canInviteUsers,
-            'can_post_messages' => $canPostMessages,
-            'can_edit_messages' => $canEditMessages,
-            'can_pin_messages' => $canPinMessages,
             'can_post_stories' => $canPostStories,
             'can_edit_stories' => $canEditStories,
             'can_delete_stories' => $canDeleteStories,
+            'can_post_messages' => $canPostMessages,
+            'can_edit_messages' => $canEditMessages,
+            'can_pin_messages' => $canPinMessages,
             'can_manage_topics' => $canManageTopics,
         ];
 
@@ -2404,8 +2730,7 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#getchat
      *
-     * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, 
-     * current username of a user, group or channel, etc.). Returns a Chat object on success. 
+     * Use this method to get up-to-date information about the chat. Returns a ChatFullInfo object on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup or channel (in the format 
@@ -2963,6 +3288,54 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#getuserchatboosts
+     *
+     * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a 
+     * UserChatBoosts object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the chat or username of the channel (in the format @|channelusername) 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user 
+     *
+     * @return mixed
+     */
+    public function getUserChatBoosts(
+        $chatId,
+        int $userId
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'user_id' => $userId,
+        ];
+
+        return $this->_apiCall('getUserChatBoosts', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getbusinessconnection
+     *
+     * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success. 
+     *
+     * @param string $businessConnectionId
+     *        Unique identifier of the business connection 
+     *
+     * @return mixed
+     */
+    public function getBusinessConnection(
+        string $businessConnectionId
+    )
+    {
+        $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
+        ];
+
+        return $this->_apiCall('getBusinessConnection', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#setmycommands
      *
      * Use this method to change the list of the bot's commands. See this manual 
@@ -2972,7 +3345,7 @@ abstract class Client {
      *        A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be 
      * specified. 
      *
-     * @param Type\BotCommandScope|null $scope
+     * @param Type\AbstractBotCommandScope|null $scope
      *        A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to 
      * BotCommandScopeDefault. 
      *
@@ -2984,7 +3357,7 @@ abstract class Client {
      */
     public function setMyCommands(
         array $commands,
-        Type\BotCommandScope $scope = null,
+        Type\AbstractBotCommandScope $scope = null,
         string $languageCode = null
     )
     {
@@ -3002,7 +3375,7 @@ abstract class Client {
      *
      * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success. 
      *
-     * @param Type\BotCommandScope|null $scope
+     * @param Type\AbstractBotCommandScope|null $scope
      *        A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to 
      * BotCommandScopeDefault. 
      *
@@ -3013,7 +3386,7 @@ abstract class Client {
      * @return mixed
      */
     public function deleteMyCommands(
-        Type\BotCommandScope $scope = null,
+        Type\AbstractBotCommandScope $scope = null,
         string $languageCode = null
     )
     {
@@ -3031,7 +3404,7 @@ abstract class Client {
      * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of 
      * BotCommand objects. If commands aren't set, an empty list is returned. 
      *
-     * @param Type\BotCommandScope|null $scope
+     * @param Type\AbstractBotCommandScope|null $scope
      *        A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault. 
      *
      * @param string|null $languageCode
@@ -3040,7 +3413,7 @@ abstract class Client {
      * @return mixed
      */
     public function getMyCommands(
-        Type\BotCommandScope $scope = null,
+        Type\AbstractBotCommandScope $scope = null,
         string $languageCode = null
     )
     {
@@ -3306,10 +3679,15 @@ abstract class Client {
      * https://core.telegram.org/bots/api#editmessagetext
      *
      * Use this method to edit text and game messages. On success, if the edited message is not an 
-     * inline message, the edited Message is returned, otherwise True is returned. 
+     * inline message, the edited Message is returned, otherwise True is returned. Note that 
+     * business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 
+     * hours from the time they were sent. 
      *
      * @param string $text
      *        New text of the message, 1-4096 characters after entities parsing 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
      *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -3328,8 +3706,8 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in message text, which can be specified instead of 
      * parse_mode 
      *
-     * @param bool|null $disableWebPagePreview
-     *        Disables link previews for links in this message 
+     * @param Type\LinkPreviewOptions|null $linkPreviewOptions
+     *        Link preview generation options for the message 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
@@ -3338,23 +3716,25 @@ abstract class Client {
      */
     public function editMessageText(
         string $text,
+        string $businessConnectionId = null,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
         string $parseMode = null,
         array $entities = null,
-        bool $disableWebPagePreview = null,
+        Type\LinkPreviewOptions $linkPreviewOptions = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'inline_message_id' => $inlineMessageId,
             'text' => $text,
             'parse_mode' => $parseMode,
             'entities' => $entities,
-            'disable_web_page_preview' => $disableWebPagePreview,
+            'link_preview_options' => $linkPreviewOptions,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -3364,7 +3744,11 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#editmessagecaption
      *
-     * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. 
+     * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do 
+     * not contain an inline keyboard can only be edited within 48 hours from the time they were sent. 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
      *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -3386,28 +3770,36 @@ abstract class Client {
      *        A JSON-serialized list of special entities that appear in the caption, which can be specified instead of 
      * parse_mode 
      *
+     * @param bool|null $showCaptionAboveMedia
+     *        Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video 
+     * messages. 
+     *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. 
      *
      * @return mixed
      */
     public function editMessageCaption(
+        string $businessConnectionId = null,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
+        bool $showCaptionAboveMedia = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'inline_message_id' => $inlineMessageId,
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
+            'show_caption_above_media' => $showCaptionAboveMedia,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -3421,10 +3813,14 @@ abstract class Client {
      * then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video 
      * otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or 
      * specify a URL. On success, if the edited message is not an inline message, the edited Message is 
-     * returned, otherwise True is returned. 
+     * returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an 
+     * inline keyboard can only be edited within 48 hours from the time they were sent. 
      *
      * @param Type\AbstractInputMedia $media
      *        A JSON-serialized object for a new media content of the message 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
      *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -3443,6 +3839,7 @@ abstract class Client {
      */
     public function editMessageMedia(
         Type\AbstractInputMedia $media,
+        string $businessConnectionId = null,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
@@ -3450,6 +3847,7 @@ abstract class Client {
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'inline_message_id' => $inlineMessageId,
@@ -3474,6 +3872,9 @@ abstract class Client {
      * @param float $longitude
      *        Longitude of new location 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
+     *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
      * target channel (in the format @|channelusername) 
@@ -3483,6 +3884,12 @@ abstract class Client {
      *
      * @param string|null $inlineMessageId
      *        Required if chat_id and message_id are not specified. Identifier of the inline message 
+     *
+     * @param int|null $livePeriod
+     *        New period in seconds during which the location can be updated, starting from the message send date. If 
+     * 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current 
+     * live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, 
+     * then live_period remains unchanged 
      *
      * @param float|null $horizontalAccuracy
      *        The radius of uncertainty for the location, measured in meters; 0-1500 
@@ -3502,9 +3909,11 @@ abstract class Client {
     public function editMessageLiveLocation(
         float $latitude,
         float $longitude,
+        string $businessConnectionId = null,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
+        int $livePeriod = null,
         float $horizontalAccuracy = null,
         int $heading = null,
         int $proximityAlertRadius = null,
@@ -3512,11 +3921,13 @@ abstract class Client {
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'inline_message_id' => $inlineMessageId,
             'latitude' => $latitude,
             'longitude' => $longitude,
+            'live_period' => $livePeriod,
             'horizontal_accuracy' => $horizontalAccuracy,
             'heading' => $heading,
             'proximity_alert_radius' => $proximityAlertRadius,
@@ -3532,6 +3943,9 @@ abstract class Client {
      * Use this method to stop updating a live location message before live_period expires. On success, if the 
      * message is not an inline message, the edited Message is returned, otherwise True is 
      * returned. 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
      *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -3549,6 +3963,7 @@ abstract class Client {
      * @return mixed
      */
     public function stopMessageLiveLocation(
+        string $businessConnectionId = null,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
@@ -3556,6 +3971,7 @@ abstract class Client {
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'inline_message_id' => $inlineMessageId,
@@ -3569,7 +3985,12 @@ abstract class Client {
      * https://core.telegram.org/bots/api#editmessagereplymarkup
      *
      * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, 
-     * the edited Message is returned, otherwise True is returned. 
+     * the edited Message is returned, otherwise True is returned. Note that business 
+     * messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 
+     * hours from the time they were sent. 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
      *
      * @param int|string|null $chatId
      *        Required if inline_message_id is not specified. Unique identifier for the target chat or username of the 
@@ -3587,6 +4008,7 @@ abstract class Client {
      * @return mixed
      */
     public function editMessageReplyMarkup(
+        string $businessConnectionId = null,
         $chatId = null,
         int $messageId = null,
         string $inlineMessageId = null,
@@ -3594,6 +4016,7 @@ abstract class Client {
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'inline_message_id' => $inlineMessageId,
@@ -3615,6 +4038,9 @@ abstract class Client {
      * @param int $messageId
      *        Identifier of the original message with the poll 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message to be edited was sent 
+     *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for a new message inline keyboard. 
      *
@@ -3623,10 +4049,12 @@ abstract class Client {
     public function stopPoll(
         $chatId,
         int $messageId,
+        string $businessConnectionId = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'reply_markup' => $replyMarkup,
@@ -3668,6 +4096,34 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#deletemessages
+     *
+     * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they 
+     * are skipped. Returns True on success. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param int[] $messageIds
+     *        A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which 
+     * messages can be deleted 
+     *
+     * @return mixed
+     */
+    public function deleteMessages(
+        $chatId,
+        array $messageIds
+    )
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'message_ids' => $messageIds,
+        ];
+
+        return $this->_apiCall('deleteMessages', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#sendsticker
      *
      * Use this method to send static .WEBP, animated 
@@ -3679,9 +4135,12 @@ abstract class Client {
      *
      * @param Type\InputFile|string $sticker
      *        Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass 
-     * an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker 
-     * using multipart/form-data. More information on Sending Files ». Video stickers can only be sent by a file_id. 
-     * Animated stickers can't be sent via an HTTP URL. 
+     * an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM 
+     * sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can't be sent 
+     * via an HTTP URL. 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
@@ -3695,39 +4154,41 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|Type\ReplyKeyboardMarkup|Type\ReplyKeyboardRemove|Type\ForceReply|null $replyMarkup
      *        Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, 
-     * instructions to remove reply keyboard or to force a reply from the user. 
+     * instructions to remove a reply keyboard or to force a reply from the user 
      *
      * @return mixed
      */
     public function sendSticker(
         $chatId,
         $sticker,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         string $emoji = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'sticker' => $sticker,
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -3761,7 +4222,7 @@ abstract class Client {
      * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects. 
      *
      * @param string[] $customEmojiIds
-     *        List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified. 
+     *        A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified. 
      *
      * @return mixed
      */
@@ -3779,8 +4240,7 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#uploadstickerfile
      *
-     * Use this method to upload a file with a sticker for later use in the createNewStickerSet and addStickerToSet methods (the file can be used multiple times). Returns the 
-     * uploaded File on success. 
+     * Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded File on success. 
      *
      * @param int $userId
      *        User identifier of sticker file owner 
@@ -3829,9 +4289,6 @@ abstract class Client {
      * @param Type\InputSticker[] $stickers
      *        A JSON-serialized list of 1-50 initial stickers to be added to the sticker set 
      *
-     * @param string $stickerFormat
-     *        Format of stickers in the set, must be one of “static”, “animated”, “video” 
-     *
      * @param string|null $stickerType
      *        Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular 
      * sticker set is created. 
@@ -3848,7 +4305,6 @@ abstract class Client {
         string $name,
         string $title,
         array $stickers,
-        string $stickerFormat,
         string $stickerType = null,
         bool $needsRepainting = null
     )
@@ -3858,7 +4314,6 @@ abstract class Client {
             'name' => $name,
             'title' => $title,
             'stickers' => $stickers,
-            'sticker_format' => $stickerFormat,
             'sticker_type' => $stickerType,
             'needs_repainting' => $needsRepainting,
         ];
@@ -3869,9 +4324,8 @@ abstract class Client {
     /**
      * https://core.telegram.org/bots/api#addstickertoset
      *
-     * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of 
-     * the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up 
-     * to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success. 
+     * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other 
+     * sticker sets can have up to 120 stickers. Returns True on success. 
      *
      * @param int $userId
      *        User identifier of sticker set owner 
@@ -3945,6 +4399,43 @@ abstract class Client {
         ];
 
         return $this->_apiCall('deleteStickerFromSet', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#replacestickerinset
+     *
+     * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet. Returns True on success. 
+     *
+     * @param int $userId
+     *        User identifier of the sticker set owner 
+     *
+     * @param string $name
+     *        Sticker set name 
+     *
+     * @param string $oldSticker
+     *        File identifier of the replaced sticker 
+     *
+     * @param Type\InputSticker $sticker
+     *        A JSON-serialized object with information about the added sticker. If exactly the same sticker had already 
+     * been added to the set, then the set remains unchanged. 
+     *
+     * @return mixed
+     */
+    public function replaceStickerInSet(
+        int $userId,
+        string $name,
+        string $oldSticker,
+        Type\InputSticker $sticker
+    )
+    {
+        $requestParameters = [
+            'user_id' => $userId,
+            'name' => $name,
+            'old_sticker' => $oldSticker,
+            'sticker' => $sticker,
+        ];
+
+        return $this->_apiCall('replaceStickerInSet', $requestParameters);
     }
 
     /**
@@ -4067,6 +4558,10 @@ abstract class Client {
      * @param int $userId
      *        User identifier of the sticker set owner 
      *
+     * @param string $format
+     *        Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS 
+     * animation, or “video” for a WEBM video 
+     *
      * @param Type\InputFile|string|null $thumbnail
      *        A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 
      * 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see 
@@ -4081,6 +4576,7 @@ abstract class Client {
     public function setStickerSetThumbnail(
         string $name,
         int $userId,
+        string $format,
         $thumbnail = null
     )
     {
@@ -4088,6 +4584,7 @@ abstract class Client {
             'name' => $name,
             'user_id' => $userId,
             'thumbnail' => $thumbnail,
+            'format' => $format,
         ];
 
         return $this->_apiCall('setStickerSetThumbnail', $requestParameters);
@@ -4238,23 +4735,24 @@ abstract class Client {
      *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal 
      * processes. 
      *
-     * @param string $providerToken
-     *        Payment provider token, obtained via @|BotFather 
-     *
      * @param string $currency
-     *        Three-letter ISO 4217 currency code, see more on currencies 
+     *        Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars. 
      *
      * @param Type\LabeledPrice[] $prices
      *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
-     * delivery tax, bonus, etc.) 
+     * delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars. 
      *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
+     * @param string|null $providerToken
+     *        Payment provider token, obtained via @|BotFather. Pass an empty string for payments in Telegram Stars. 
+     *
      * @param int|null $maxTipAmount
      *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
      * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
-     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
+     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not 
+     * supported for payments in Telegram Stars. 
      *
      * @param int[]|null $suggestedTipAmounts
      *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
@@ -4285,25 +4783,26 @@ abstract class Client {
      *        Photo height 
      *
      * @param bool|null $needName
-     *        Pass True if you require the user's full name to complete the order 
+     *        Pass True if you require the user's full name to complete the order. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $needPhoneNumber
-     *        Pass True if you require the user's phone number to complete the order 
+     *        Pass True if you require the user's phone number to complete the order. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $needEmail
-     *        Pass True if you require the user's email address to complete the order 
+     *        Pass True if you require the user's email address to complete the order. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $needShippingAddress
-     *        Pass True if you require the user's shipping address to complete the order 
+     *        Pass True if you require the user's shipping address to complete the order. Ignored for payments in Telegram 
+     * Stars. 
      *
      * @param bool|null $sendPhoneNumberToProvider
-     *        Pass True if the user's phone number should be sent to provider 
+     *        Pass True if the user's phone number should be sent to the provider. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $sendEmailToProvider
-     *        Pass True if the user's email address should be sent to provider 
+     *        Pass True if the user's email address should be sent to the provider. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $isFlexible
-     *        Pass True if the final price depends on the shipping method 
+     *        Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $disableNotification
      *        Sends the message silently. Users will receive a notification with no sound. 
@@ -4311,11 +4810,11 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not 
@@ -4328,10 +4827,10 @@ abstract class Client {
         string $title,
         string $description,
         string $payload,
-        string $providerToken,
         string $currency,
         array $prices,
         int $messageThreadId = null,
+        string $providerToken = null,
         int $maxTipAmount = null,
         array $suggestedTipAmounts = null,
         string $startParameter = null,
@@ -4349,8 +4848,8 @@ abstract class Client {
         bool $isFlexible = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
@@ -4380,8 +4879,8 @@ abstract class Client {
             'is_flexible' => $isFlexible,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -4403,20 +4902,21 @@ abstract class Client {
      *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal 
      * processes. 
      *
-     * @param string $providerToken
-     *        Payment provider token, obtained via BotFather 
-     *
      * @param string $currency
-     *        Three-letter ISO 4217 currency code, see more on currencies 
+     *        Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars. 
      *
      * @param Type\LabeledPrice[] $prices
      *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
-     * delivery tax, bonus, etc.) 
+     * delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars. 
+     *
+     * @param string|null $providerToken
+     *        Payment provider token, obtained via @|BotFather. Pass an empty string for payments in Telegram Stars. 
      *
      * @param int|null $maxTipAmount
      *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
      * example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the 
-     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 
+     * number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not 
+     * supported for payments in Telegram Stars. 
      *
      * @param int[]|null $suggestedTipAmounts
      *        A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not 
@@ -4440,25 +4940,26 @@ abstract class Client {
      *        Photo height 
      *
      * @param bool|null $needName
-     *        Pass True if you require the user's full name to complete the order 
+     *        Pass True if you require the user's full name to complete the order. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $needPhoneNumber
-     *        Pass True if you require the user's phone number to complete the order 
+     *        Pass True if you require the user's phone number to complete the order. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $needEmail
-     *        Pass True if you require the user's email address to complete the order 
+     *        Pass True if you require the user's email address to complete the order. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $needShippingAddress
-     *        Pass True if you require the user's shipping address to complete the order 
+     *        Pass True if you require the user's shipping address to complete the order. Ignored for payments in Telegram 
+     * Stars. 
      *
      * @param bool|null $sendPhoneNumberToProvider
-     *        Pass True if the user's phone number should be sent to the provider 
+     *        Pass True if the user's phone number should be sent to the provider. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $sendEmailToProvider
-     *        Pass True if the user's email address should be sent to the provider 
+     *        Pass True if the user's email address should be sent to the provider. Ignored for payments in Telegram Stars. 
      *
      * @param bool|null $isFlexible
-     *        Pass True if the final price depends on the shipping method 
+     *        Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars. 
      *
      * @return mixed
      */
@@ -4466,9 +4967,9 @@ abstract class Client {
         string $title,
         string $description,
         string $payload,
-        string $providerToken,
         string $currency,
         array $prices,
+        string $providerToken = null,
         int $maxTipAmount = null,
         array $suggestedTipAmounts = null,
         string $providerData = null,
@@ -4591,6 +5092,59 @@ abstract class Client {
     }
 
     /**
+     * https://core.telegram.org/bots/api#getstartransactions
+     *
+     * Returns the bot's Telegram Star transactions in chronological order. On success, returns a StarTransactions object. 
+     *
+     * @param int|null $offset
+     *        Number of transactions to skip in the response 
+     *
+     * @param int|null $limit
+     *        The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100. 
+     *
+     * @return mixed
+     */
+    public function getStarTransactions(
+        int $offset = null,
+        int $limit = null
+    )
+    {
+        $requestParameters = [
+            'offset' => $offset,
+            'limit' => $limit,
+        ];
+
+        return $this->_apiCall('getStarTransactions', $requestParameters);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#refundstarpayment
+     *
+     * Refunds a successful payment in Telegram Stars. Returns True 
+     * on success. 
+     *
+     * @param int $userId
+     *        Identifier of the user whose payment will be refunded 
+     *
+     * @param string $telegramPaymentChargeId
+     *        Telegram payment identifier 
+     *
+     * @return mixed
+     */
+    public function refundStarPayment(
+        int $userId,
+        string $telegramPaymentChargeId
+    )
+    {
+        $requestParameters = [
+            'user_id' => $userId,
+            'telegram_payment_charge_id' => $telegramPaymentChargeId,
+        ];
+
+        return $this->_apiCall('refundStarPayment', $requestParameters);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#setpassportdataerrors
      *
      * Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to 
@@ -4631,6 +5185,9 @@ abstract class Client {
      * @param string $gameShortName
      *        Short name of the game, serves as the unique identifier for the game. Set up your games via @|BotFather. 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
      * @param int|null $messageThreadId
      *        Unique identifier for the target message thread (topic) of the forum; for forum supergroups only 
      *
@@ -4640,11 +5197,11 @@ abstract class Client {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
-     * @param int|null $replyToMessageId
-     *        If the message is a reply, ID of the original message 
+     * @param string|null $messageEffectId
+     *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
-     * @param bool|null $allowSendingWithoutReply
-     *        Pass True if the message should be sent even if the specified replied-to message is not found 
+     * @param Type\ReplyParameters|null $replyParameters
+     *        Description of the message to reply to 
      *
      * @param Type\InlineKeyboardMarkup|null $replyMarkup
      *        A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not 
@@ -4655,22 +5212,24 @@ abstract class Client {
     public function sendGame(
         int $chatId,
         string $gameShortName,
+        string $businessConnectionId = null,
         int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
-        int $replyToMessageId = null,
-        bool $allowSendingWithoutReply = null,
+        string $messageEffectId = null,
+        Type\ReplyParameters $replyParameters = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
     )
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
             'game_short_name' => $gameShortName,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
-            'reply_to_message_id' => $replyToMessageId,
-            'allow_sending_without_reply' => $allowSendingWithoutReply,
+            'message_effect_id' => $messageEffectId,
+            'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
 

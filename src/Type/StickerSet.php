@@ -31,8 +31,6 @@ class StickerSet extends AbstractType
             'name',
             'title',
             'sticker_type',
-            'is_animated',
-            'is_video',
             'stickers',
             'thumbnail',
         ];
@@ -49,8 +47,6 @@ class StickerSet extends AbstractType
             'name' => $this->getName(),
             'title' => $this->getTitle(),
             'sticker_type' => $this->getStickerType(),
-            'is_animated' => $this->getIsAnimated(),
-            'is_video' => $this->getIsVideo(),
             'stickers' => $this->getStickers(),
             'thumbnail' => $this->getThumbnail(),
         ];
@@ -87,26 +83,6 @@ class StickerSet extends AbstractType
      * @Type("string")
      */
     protected $stickerType;
-
-    /**
-     * True, if the sticker set contains animated stickers 
-     *
-     * @var bool
-     * @SerializedName("is_animated")
-     * @Accessor(getter="getIsAnimated", setter="setIsAnimated")
-     * @Type("bool")
-     */
-    protected $isAnimated;
-
-    /**
-     * True, if the sticker set contains video stickers 
-     *
-     * @var bool
-     * @SerializedName("is_video")
-     * @Accessor(getter="getIsVideo", setter="setIsVideo")
-     * @Type("bool")
-     */
-    protected $isVideo;
 
     /**
      * List of all set stickers 
@@ -185,44 +161,6 @@ class StickerSet extends AbstractType
     public function getStickerType(): string
     {
         return $this->stickerType;
-    }
-
-    /**
-     * @param bool $isAnimated
-     * @return static
-     */
-    public function setIsAnimated(bool $isAnimated): self
-    {
-        $this->isAnimated = $isAnimated;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsAnimated(): bool
-    {
-        return $this->isAnimated;
-    }
-
-    /**
-     * @param bool $isVideo
-     * @return static
-     */
-    public function setIsVideo(bool $isVideo): self
-    {
-        $this->isVideo = $isVideo;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsVideo(): bool
-    {
-        return $this->isVideo;
     }
 
     /**

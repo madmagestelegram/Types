@@ -29,6 +29,7 @@ class InputSticker extends AbstractType
     {
         return [
             'sticker',
+            'format',
             'emoji_list',
             'mask_position',
             'keywords',
@@ -44,6 +45,7 @@ class InputSticker extends AbstractType
     {
         $result = [
             'sticker' => $this->getSticker(),
+            'format' => $this->getFormat(),
             'emoji_list' => $this->getEmojiList(),
             'mask_position' => $this->getMaskPosition(),
             'keywords' => $this->getKeywords(),
@@ -64,6 +66,17 @@ class InputSticker extends AbstractType
      * @Type("string")
      */
     protected $sticker;
+
+    /**
+     * Format of the added sticker, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS 
+     * animation, “video” for a WEBM video 
+     *
+     * @var string
+     * @SerializedName("format")
+     * @Accessor(getter="getFormat", setter="setFormat")
+     * @Type("string")
+     */
+    protected $format;
 
     /**
      * List of 1-20 emoji associated with the sticker 
@@ -116,6 +129,25 @@ class InputSticker extends AbstractType
     public function getSticker()
     {
         return $this->sticker;
+    }
+
+    /**
+     * @param string $format
+     * @return static
+     */
+    public function setFormat(string $format): self
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
     }
 
     /**

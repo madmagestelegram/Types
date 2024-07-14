@@ -84,7 +84,7 @@ class Audio extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Duration of the audio in seconds as defined by sender 
+     * Duration of the audio in seconds as defined by the sender 
      *
      * @var int
      * @SerializedName("duration")
@@ -94,7 +94,7 @@ class Audio extends AbstractType
     protected $duration;
 
     /**
-     * Optional. Performer of the audio as defined by sender or by audio tags 
+     * Optional. Performer of the audio as defined by the sender or by audio tags 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -105,7 +105,7 @@ class Audio extends AbstractType
     protected $performer;
 
     /**
-     * Optional. Title of the audio as defined by sender or by audio tags 
+     * Optional. Title of the audio as defined by the sender or by audio tags 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -116,7 +116,7 @@ class Audio extends AbstractType
     protected $title;
 
     /**
-     * Optional. Original filename as defined by sender 
+     * Optional. Original filename as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -127,7 +127,7 @@ class Audio extends AbstractType
     protected $fileName;
 
     /**
-     * Optional. MIME type of the file as defined by sender 
+     * Optional. MIME type of the file as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty

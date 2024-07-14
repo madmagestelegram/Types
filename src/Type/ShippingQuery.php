@@ -73,7 +73,7 @@ class ShippingQuery extends AbstractType
     protected $from;
 
     /**
-     * Bot specified invoice payload 
+     * Bot-specified invoice payload 
      *
      * @var string
      * @SerializedName("invoice_payload")

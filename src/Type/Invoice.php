@@ -85,7 +85,7 @@ class Invoice extends AbstractType
     protected $startParameter;
 
     /**
-     * Three-letter ISO 4217 currency code 
+     * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars 
      *
      * @var string
      * @SerializedName("currency")

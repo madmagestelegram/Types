@@ -73,7 +73,8 @@ class ChatPermissions extends AbstractType
     }
 
     /**
-     * Optional. True, if the user is allowed to send text messages, contacts, invoices, locations and venues 
+     * Optional. True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, 
+     * locations and venues 
      *
      * @var bool|null
      * @SkipWhenEmpty

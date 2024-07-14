@@ -39,12 +39,12 @@ class ChatMemberAdministrator extends AbstractChatMember
             'can_promote_members',
             'can_change_info',
             'can_invite_users',
-            'can_post_messages',
-            'can_edit_messages',
-            'can_pin_messages',
             'can_post_stories',
             'can_edit_stories',
             'can_delete_stories',
+            'can_post_messages',
+            'can_edit_messages',
+            'can_pin_messages',
             'can_manage_topics',
             'custom_title',
         ];
@@ -69,12 +69,12 @@ class ChatMemberAdministrator extends AbstractChatMember
             'can_promote_members' => $this->getCanPromoteMembers(),
             'can_change_info' => $this->getCanChangeInfo(),
             'can_invite_users' => $this->getCanInviteUsers(),
-            'can_post_messages' => $this->getCanPostMessages(),
-            'can_edit_messages' => $this->getCanEditMessages(),
-            'can_pin_messages' => $this->getCanPinMessages(),
             'can_post_stories' => $this->getCanPostStories(),
             'can_edit_stories' => $this->getCanEditStories(),
             'can_delete_stories' => $this->getCanDeleteStories(),
+            'can_post_messages' => $this->getCanPostMessages(),
+            'can_edit_messages' => $this->getCanEditMessages(),
+            'can_pin_messages' => $this->getCanPinMessages(),
             'can_manage_topics' => $this->getCanManageTopics(),
             'custom_title' => $this->getCustomTitle(),
         ];
@@ -123,8 +123,8 @@ class ChatMemberAdministrator extends AbstractChatMember
     protected $isAnonymous;
 
     /**
-     * True, if the administrator can access the chat event log, boost list in channels, see channel members, report spam 
-     * messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege 
+     * True, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, 
+     * report spam messages and ignore slow mode. Implied by any other administrator privilege. 
      *
      * @var bool
      * @SerializedName("can_manage_chat")
@@ -195,7 +195,39 @@ class ChatMemberAdministrator extends AbstractChatMember
     protected $canInviteUsers;
 
     /**
-     * Optional. True, if the administrator can post messages in the channel, or access channel statistics; channels only 
+     * True, if the administrator can post stories to the chat 
+     *
+     * @var bool
+     * @SerializedName("can_post_stories")
+     * @Accessor(getter="getCanPostStories", setter="setCanPostStories")
+     * @Type("bool")
+     */
+    protected $canPostStories;
+
+    /**
+     * True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, 
+     * and access the chat's story archive 
+     *
+     * @var bool
+     * @SerializedName("can_edit_stories")
+     * @Accessor(getter="getCanEditStories", setter="setCanEditStories")
+     * @Type("bool")
+     */
+    protected $canEditStories;
+
+    /**
+     * True, if the administrator can delete stories posted by other users 
+     *
+     * @var bool
+     * @SerializedName("can_delete_stories")
+     * @Accessor(getter="getCanDeleteStories", setter="setCanDeleteStories")
+     * @Type("bool")
+     */
+    protected $canDeleteStories;
+
+    /**
+     * Optional. True, if the administrator can post messages in the channel, or access channel statistics; for channels 
+     * only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -206,7 +238,7 @@ class ChatMemberAdministrator extends AbstractChatMember
     protected $canPostMessages;
 
     /**
-     * Optional. True, if the administrator can edit messages of other users and can pin messages; channels only 
+     * Optional. True, if the administrator can edit messages of other users and can pin messages; for channels only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -217,7 +249,7 @@ class ChatMemberAdministrator extends AbstractChatMember
     protected $canEditMessages;
 
     /**
-     * Optional. True, if the user is allowed to pin messages; groups and supergroups only 
+     * Optional. True, if the user is allowed to pin messages; for groups and supergroups only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -228,40 +260,7 @@ class ChatMemberAdministrator extends AbstractChatMember
     protected $canPinMessages;
 
     /**
-     * Optional. True, if the administrator can post stories in the channel; channels only 
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("can_post_stories")
-     * @Accessor(getter="getCanPostStories", setter="setCanPostStories")
-     * @Type("bool")
-     */
-    protected $canPostStories;
-
-    /**
-     * Optional. True, if the administrator can edit stories posted by other users; channels only 
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("can_edit_stories")
-     * @Accessor(getter="getCanEditStories", setter="setCanEditStories")
-     * @Type("bool")
-     */
-    protected $canEditStories;
-
-    /**
-     * Optional. True, if the administrator can delete stories posted by other users; channels only 
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("can_delete_stories")
-     * @Accessor(getter="getCanDeleteStories", setter="setCanDeleteStories")
-     * @Type("bool")
-     */
-    protected $canDeleteStories;
-
-    /**
-     * Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only 
+     * Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only 
      *
      * @var bool|null
      * @SkipWhenEmpty
@@ -493,6 +492,63 @@ class ChatMemberAdministrator extends AbstractChatMember
     }
 
     /**
+     * @param bool $canPostStories
+     * @return static
+     */
+    public function setCanPostStories(bool $canPostStories): self
+    {
+        $this->canPostStories = $canPostStories;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCanPostStories(): bool
+    {
+        return $this->canPostStories;
+    }
+
+    /**
+     * @param bool $canEditStories
+     * @return static
+     */
+    public function setCanEditStories(bool $canEditStories): self
+    {
+        $this->canEditStories = $canEditStories;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCanEditStories(): bool
+    {
+        return $this->canEditStories;
+    }
+
+    /**
+     * @param bool $canDeleteStories
+     * @return static
+     */
+    public function setCanDeleteStories(bool $canDeleteStories): self
+    {
+        $this->canDeleteStories = $canDeleteStories;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCanDeleteStories(): bool
+    {
+        return $this->canDeleteStories;
+    }
+
+    /**
      * @param bool $canPostMessages
      * @return static
      */
@@ -547,63 +603,6 @@ class ChatMemberAdministrator extends AbstractChatMember
     public function getCanPinMessages(): ?bool
     {
         return $this->canPinMessages;
-    }
-
-    /**
-     * @param bool $canPostStories
-     * @return static
-     */
-    public function setCanPostStories(bool $canPostStories): self
-    {
-        $this->canPostStories = $canPostStories;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getCanPostStories(): ?bool
-    {
-        return $this->canPostStories;
-    }
-
-    /**
-     * @param bool $canEditStories
-     * @return static
-     */
-    public function setCanEditStories(bool $canEditStories): self
-    {
-        $this->canEditStories = $canEditStories;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getCanEditStories(): ?bool
-    {
-        return $this->canEditStories;
-    }
-
-    /**
-     * @param bool $canDeleteStories
-     * @return static
-     */
-    public function setCanDeleteStories(bool $canDeleteStories): self
-    {
-        $this->canDeleteStories = $canDeleteStories;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getCanDeleteStories(): ?bool
-    {
-        return $this->canDeleteStories;
     }
 
     /**

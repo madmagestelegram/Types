@@ -84,7 +84,7 @@ class Video extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Video width as defined by sender 
+     * Video width as defined by the sender 
      *
      * @var int
      * @SerializedName("width")
@@ -94,7 +94,7 @@ class Video extends AbstractType
     protected $width;
 
     /**
-     * Video height as defined by sender 
+     * Video height as defined by the sender 
      *
      * @var int
      * @SerializedName("height")
@@ -104,7 +104,7 @@ class Video extends AbstractType
     protected $height;
 
     /**
-     * Duration of the video in seconds as defined by sender 
+     * Duration of the video in seconds as defined by the sender 
      *
      * @var int
      * @SerializedName("duration")
@@ -125,7 +125,7 @@ class Video extends AbstractType
     protected $thumbnail;
 
     /**
-     * Optional. Original filename as defined by sender 
+     * Optional. Original filename as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -136,7 +136,7 @@ class Video extends AbstractType
     protected $fileName;
 
     /**
-     * Optional. MIME type of the file as defined by sender 
+     * Optional. MIME type of the file as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty

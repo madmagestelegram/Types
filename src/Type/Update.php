@@ -34,6 +34,12 @@ class Update extends AbstractType
             'edited_message',
             'channel_post',
             'edited_channel_post',
+            'business_connection',
+            'business_message',
+            'edited_business_message',
+            'deleted_business_messages',
+            'message_reaction',
+            'message_reaction_count',
             'inline_query',
             'chosen_inline_result',
             'callback_query',
@@ -44,6 +50,8 @@ class Update extends AbstractType
             'my_chat_member',
             'chat_member',
             'chat_join_request',
+            'chat_boost',
+            'removed_chat_boost',
         ];
     }
 
@@ -60,6 +68,12 @@ class Update extends AbstractType
             'edited_message' => $this->getEditedMessage(),
             'channel_post' => $this->getChannelPost(),
             'edited_channel_post' => $this->getEditedChannelPost(),
+            'business_connection' => $this->getBusinessConnection(),
+            'business_message' => $this->getBusinessMessage(),
+            'edited_business_message' => $this->getEditedBusinessMessage(),
+            'deleted_business_messages' => $this->getDeletedBusinessMessages(),
+            'message_reaction' => $this->getMessageReaction(),
+            'message_reaction_count' => $this->getMessageReactionCount(),
             'inline_query' => $this->getInlineQuery(),
             'chosen_inline_result' => $this->getChosenInlineResult(),
             'callback_query' => $this->getCallbackQuery(),
@@ -70,6 +84,8 @@ class Update extends AbstractType
             'my_chat_member' => $this->getMyChatMember(),
             'chat_member' => $this->getChatMember(),
             'chat_join_request' => $this->getChatJoinRequest(),
+            'chat_boost' => $this->getChatBoost(),
+            'removed_chat_boost' => $this->getRemovedChatBoost(),
         ];
 
         return parent::normalizeData($result);
@@ -77,9 +93,9 @@ class Update extends AbstractType
 
     /**
      * The update's unique identifier. Update identifiers start from a certain positive number and increase 
-     * sequentially. This ID becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to 
-     * restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then 
-     * identifier of the next update will be chosen randomly instead of sequentially. 
+     * sequentially. This identifier becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates 
+     * or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, 
+     * then identifier of the next update will be chosen randomly instead of sequentially. 
      *
      * @var int
      * @SerializedName("update_id")
@@ -100,7 +116,8 @@ class Update extends AbstractType
     protected $message;
 
     /**
-     * Optional. New version of a message that is known to the bot and was edited 
+     * Optional. New version of a message that is known to the bot and was edited. This update may at times be triggered by 
+     * changes to message fields that are either unavailable or not actively used by your bot. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -122,7 +139,8 @@ class Update extends AbstractType
     protected $channelPost;
 
     /**
-     * Optional. New version of a channel post that is known to the bot and was edited 
+     * Optional. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by 
+     * changes to message fields that are either unavailable or not actively used by your bot. 
      *
      * @var Message|null
      * @SkipWhenEmpty
@@ -131,6 +149,77 @@ class Update extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $editedChannelPost;
+
+    /**
+     * Optional. The bot was connected to or disconnected from a business account, or a user edited an existing connection 
+     * with the bot 
+     *
+     * @var BusinessConnection|null
+     * @SkipWhenEmpty
+     * @SerializedName("business_connection")
+     * @Accessor(getter="getBusinessConnection", setter="setBusinessConnection")
+     * @Type("MadmagesTelegram\Types\Type\BusinessConnection")
+     */
+    protected $businessConnection;
+
+    /**
+     * Optional. New message from a connected business account 
+     *
+     * @var Message|null
+     * @SkipWhenEmpty
+     * @SerializedName("business_message")
+     * @Accessor(getter="getBusinessMessage", setter="setBusinessMessage")
+     * @Type("MadmagesTelegram\Types\Type\Message")
+     */
+    protected $businessMessage;
+
+    /**
+     * Optional. New version of a message from a connected business account 
+     *
+     * @var Message|null
+     * @SkipWhenEmpty
+     * @SerializedName("edited_business_message")
+     * @Accessor(getter="getEditedBusinessMessage", setter="setEditedBusinessMessage")
+     * @Type("MadmagesTelegram\Types\Type\Message")
+     */
+    protected $editedBusinessMessage;
+
+    /**
+     * Optional. Messages were deleted from a connected business account 
+     *
+     * @var BusinessMessagesDeleted|null
+     * @SkipWhenEmpty
+     * @SerializedName("deleted_business_messages")
+     * @Accessor(getter="getDeletedBusinessMessages", setter="setDeletedBusinessMessages")
+     * @Type("MadmagesTelegram\Types\Type\BusinessMessagesDeleted")
+     */
+    protected $deletedBusinessMessages;
+
+    /**
+     * Optional. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must 
+     * explicitly specify "message_reaction" in the list of allowed_updates to receive these updates. The update isn't received for 
+     * reactions set by bots. 
+     *
+     * @var MessageReactionUpdated|null
+     * @SkipWhenEmpty
+     * @SerializedName("message_reaction")
+     * @Accessor(getter="getMessageReaction", setter="setMessageReaction")
+     * @Type("MadmagesTelegram\Types\Type\MessageReactionUpdated")
+     */
+    protected $messageReaction;
+
+    /**
+     * Optional. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat 
+     * and must explicitly specify "message_reaction_count" in the list of allowed_updates to receive these updates. The 
+     * updates are grouped and can be sent with delay up to a few minutes. 
+     *
+     * @var MessageReactionCountUpdated|null
+     * @SkipWhenEmpty
+     * @SerializedName("message_reaction_count")
+     * @Accessor(getter="getMessageReactionCount", setter="setMessageReactionCount")
+     * @Type("MadmagesTelegram\Types\Type\MessageReactionCountUpdated")
+     */
+    protected $messageReactionCount;
 
     /**
      * Optional. New incoming inline query 
@@ -189,7 +278,7 @@ class Update extends AbstractType
     protected $preCheckoutQuery;
 
     /**
-     * Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot 
+     * Optional. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot 
      *
      * @var Poll|null
      * @SkipWhenEmpty
@@ -246,6 +335,28 @@ class Update extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatJoinRequest")
      */
     protected $chatJoinRequest;
+
+    /**
+     * Optional. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates. 
+     *
+     * @var ChatBoostUpdated|null
+     * @SkipWhenEmpty
+     * @SerializedName("chat_boost")
+     * @Accessor(getter="getChatBoost", setter="setChatBoost")
+     * @Type("MadmagesTelegram\Types\Type\ChatBoostUpdated")
+     */
+    protected $chatBoost;
+
+    /**
+     * Optional. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates. 
+     *
+     * @var ChatBoostRemoved|null
+     * @SkipWhenEmpty
+     * @SerializedName("removed_chat_boost")
+     * @Accessor(getter="getRemovedChatBoost", setter="setRemovedChatBoost")
+     * @Type("MadmagesTelegram\Types\Type\ChatBoostRemoved")
+     */
+    protected $removedChatBoost;
 
 
     /**
@@ -341,6 +452,120 @@ class Update extends AbstractType
     public function getEditedChannelPost(): ?Message
     {
         return $this->editedChannelPost;
+    }
+
+    /**
+     * @param BusinessConnection $businessConnection
+     * @return static
+     */
+    public function setBusinessConnection(BusinessConnection $businessConnection): self
+    {
+        $this->businessConnection = $businessConnection;
+
+        return $this;
+    }
+
+    /**
+     * @return BusinessConnection|null
+     */
+    public function getBusinessConnection(): ?BusinessConnection
+    {
+        return $this->businessConnection;
+    }
+
+    /**
+     * @param Message $businessMessage
+     * @return static
+     */
+    public function setBusinessMessage(Message $businessMessage): self
+    {
+        $this->businessMessage = $businessMessage;
+
+        return $this;
+    }
+
+    /**
+     * @return Message|null
+     */
+    public function getBusinessMessage(): ?Message
+    {
+        return $this->businessMessage;
+    }
+
+    /**
+     * @param Message $editedBusinessMessage
+     * @return static
+     */
+    public function setEditedBusinessMessage(Message $editedBusinessMessage): self
+    {
+        $this->editedBusinessMessage = $editedBusinessMessage;
+
+        return $this;
+    }
+
+    /**
+     * @return Message|null
+     */
+    public function getEditedBusinessMessage(): ?Message
+    {
+        return $this->editedBusinessMessage;
+    }
+
+    /**
+     * @param BusinessMessagesDeleted $deletedBusinessMessages
+     * @return static
+     */
+    public function setDeletedBusinessMessages(BusinessMessagesDeleted $deletedBusinessMessages): self
+    {
+        $this->deletedBusinessMessages = $deletedBusinessMessages;
+
+        return $this;
+    }
+
+    /**
+     * @return BusinessMessagesDeleted|null
+     */
+    public function getDeletedBusinessMessages(): ?BusinessMessagesDeleted
+    {
+        return $this->deletedBusinessMessages;
+    }
+
+    /**
+     * @param MessageReactionUpdated $messageReaction
+     * @return static
+     */
+    public function setMessageReaction(MessageReactionUpdated $messageReaction): self
+    {
+        $this->messageReaction = $messageReaction;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageReactionUpdated|null
+     */
+    public function getMessageReaction(): ?MessageReactionUpdated
+    {
+        return $this->messageReaction;
+    }
+
+    /**
+     * @param MessageReactionCountUpdated $messageReactionCount
+     * @return static
+     */
+    public function setMessageReactionCount(MessageReactionCountUpdated $messageReactionCount): self
+    {
+        $this->messageReactionCount = $messageReactionCount;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageReactionCountUpdated|null
+     */
+    public function getMessageReactionCount(): ?MessageReactionCountUpdated
+    {
+        return $this->messageReactionCount;
     }
 
     /**
@@ -531,6 +756,44 @@ class Update extends AbstractType
     public function getChatJoinRequest(): ?ChatJoinRequest
     {
         return $this->chatJoinRequest;
+    }
+
+    /**
+     * @param ChatBoostUpdated $chatBoost
+     * @return static
+     */
+    public function setChatBoost(ChatBoostUpdated $chatBoost): self
+    {
+        $this->chatBoost = $chatBoost;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatBoostUpdated|null
+     */
+    public function getChatBoost(): ?ChatBoostUpdated
+    {
+        return $this->chatBoost;
+    }
+
+    /**
+     * @param ChatBoostRemoved $removedChatBoost
+     * @return static
+     */
+    public function setRemovedChatBoost(ChatBoostRemoved $removedChatBoost): self
+    {
+        $this->removedChatBoost = $removedChatBoost;
+
+        return $this;
+    }
+
+    /**
+     * @return ChatBoostRemoved|null
+     */
+    public function getRemovedChatBoost(): ?ChatBoostRemoved
+    {
+        return $this->removedChatBoost;
     }
 
 }

@@ -39,6 +39,7 @@ class User extends AbstractType
             'can_join_groups',
             'can_read_all_group_messages',
             'supports_inline_queries',
+            'can_connect_to_business',
         ];
     }
 
@@ -61,6 +62,7 @@ class User extends AbstractType
             'can_join_groups' => $this->getCanJoinGroups(),
             'can_read_all_group_messages' => $this->getCanReadAllGroupMessages(),
             'supports_inline_queries' => $this->getSupportsInlineQueries(),
+            'can_connect_to_business' => $this->getCanConnectToBusiness(),
         ];
 
         return parent::normalizeData($result);
@@ -185,6 +187,18 @@ class User extends AbstractType
      * @Type("bool")
      */
     protected $supportsInlineQueries;
+
+    /**
+     * Optional. True, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in 
+     * getMe. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_connect_to_business")
+     * @Accessor(getter="getCanConnectToBusiness", setter="setCanConnectToBusiness")
+     * @Type("bool")
+     */
+    protected $canConnectToBusiness;
 
 
     /**
@@ -394,6 +408,25 @@ class User extends AbstractType
     public function getSupportsInlineQueries(): ?bool
     {
         return $this->supportsInlineQueries;
+    }
+
+    /**
+     * @param bool $canConnectToBusiness
+     * @return static
+     */
+    public function setCanConnectToBusiness(bool $canConnectToBusiness): self
+    {
+        $this->canConnectToBusiness = $canConnectToBusiness;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanConnectToBusiness(): ?bool
+    {
+        return $this->canConnectToBusiness;
     }
 
 }

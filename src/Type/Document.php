@@ -79,7 +79,7 @@ class Document extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Optional. Document thumbnail as defined by sender 
+     * Optional. Document thumbnail as defined by the sender 
      *
      * @var PhotoSize|null
      * @SkipWhenEmpty
@@ -90,7 +90,7 @@ class Document extends AbstractType
     protected $thumbnail;
 
     /**
-     * Optional. Original filename as defined by sender 
+     * Optional. Original filename as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty
@@ -101,7 +101,7 @@ class Document extends AbstractType
     protected $fileName;
 
     /**
-     * Optional. MIME type of the file as defined by sender 
+     * Optional. MIME type of the file as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty

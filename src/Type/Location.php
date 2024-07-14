@@ -28,8 +28,8 @@ class Location extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'longitude',
             'latitude',
+            'longitude',
             'horizontal_accuracy',
             'live_period',
             'heading',
@@ -45,8 +45,8 @@ class Location extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'longitude' => $this->getLongitude(),
             'latitude' => $this->getLatitude(),
+            'longitude' => $this->getLongitude(),
             'horizontal_accuracy' => $this->getHorizontalAccuracy(),
             'live_period' => $this->getLivePeriod(),
             'heading' => $this->getHeading(),
@@ -57,17 +57,7 @@ class Location extends AbstractType
     }
 
     /**
-     * Longitude as defined by sender 
-     *
-     * @var float
-     * @SerializedName("longitude")
-     * @Accessor(getter="getLongitude", setter="setLongitude")
-     * @Type("float")
-     */
-    protected $longitude;
-
-    /**
-     * Latitude as defined by sender 
+     * Latitude as defined by the sender 
      *
      * @var float
      * @SerializedName("latitude")
@@ -75,6 +65,16 @@ class Location extends AbstractType
      * @Type("float")
      */
     protected $latitude;
+
+    /**
+     * Longitude as defined by the sender 
+     *
+     * @var float
+     * @SerializedName("longitude")
+     * @Accessor(getter="getLongitude", setter="setLongitude")
+     * @Type("float")
+     */
+    protected $longitude;
 
     /**
      * Optional. The radius of uncertainty for the location, measured in meters; 0-1500 
@@ -124,25 +124,6 @@ class Location extends AbstractType
 
 
     /**
-     * @param float $longitude
-     * @return static
-     */
-    public function setLongitude(float $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getLongitude(): float
-    {
-        return $this->longitude;
-    }
-
-    /**
      * @param float $latitude
      * @return static
      */
@@ -159,6 +140,25 @@ class Location extends AbstractType
     public function getLatitude(): float
     {
         return $this->latitude;
+    }
+
+    /**
+     * @param float $longitude
+     * @return static
+     */
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude(): float
+    {
+        return $this->longitude;
     }
 
     /**

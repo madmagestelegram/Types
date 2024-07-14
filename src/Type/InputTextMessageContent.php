@@ -32,7 +32,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
             'message_text',
             'parse_mode',
             'entities',
-            'disable_web_page_preview',
+            'link_preview_options',
         ];
     }
 
@@ -47,7 +47,7 @@ class InputTextMessageContent extends AbstractInputMessageContent
             'message_text' => $this->getMessageText(),
             'parse_mode' => $this->getParseMode(),
             'entities' => $this->getEntities(),
-            'disable_web_page_preview' => $this->getDisableWebPagePreview(),
+            'link_preview_options' => $this->getLinkPreviewOptions(),
         ];
 
         return parent::normalizeData($result);
@@ -86,15 +86,15 @@ class InputTextMessageContent extends AbstractInputMessageContent
     protected $entities;
 
     /**
-     * Optional. Disables link previews for links in the sent message 
+     * Optional. Link preview generation options for the message 
      *
-     * @var bool|null
+     * @var LinkPreviewOptions|null
      * @SkipWhenEmpty
-     * @SerializedName("disable_web_page_preview")
-     * @Accessor(getter="getDisableWebPagePreview", setter="setDisableWebPagePreview")
-     * @Type("bool")
+     * @SerializedName("link_preview_options")
+     * @Accessor(getter="getLinkPreviewOptions", setter="setLinkPreviewOptions")
+     * @Type("MadmagesTelegram\Types\Type\LinkPreviewOptions")
      */
-    protected $disableWebPagePreview;
+    protected $linkPreviewOptions;
 
 
     /**
@@ -155,22 +155,22 @@ class InputTextMessageContent extends AbstractInputMessageContent
     }
 
     /**
-     * @param bool $disableWebPagePreview
+     * @param LinkPreviewOptions $linkPreviewOptions
      * @return static
      */
-    public function setDisableWebPagePreview(bool $disableWebPagePreview): self
+    public function setLinkPreviewOptions(LinkPreviewOptions $linkPreviewOptions): self
     {
-        $this->disableWebPagePreview = $disableWebPagePreview;
+        $this->linkPreviewOptions = $linkPreviewOptions;
 
         return $this;
     }
 
     /**
-     * @return bool|null
+     * @return LinkPreviewOptions|null
      */
-    public function getDisableWebPagePreview(): ?bool
+    public function getLinkPreviewOptions(): ?LinkPreviewOptions
     {
-        return $this->disableWebPagePreview;
+        return $this->linkPreviewOptions;
     }
 
 }

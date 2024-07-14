@@ -34,6 +34,7 @@ class ChatMemberUpdated extends AbstractType
             'old_chat_member',
             'new_chat_member',
             'invite_link',
+            'via_join_request',
             'via_chat_folder_invite_link',
         ];
     }
@@ -52,6 +53,7 @@ class ChatMemberUpdated extends AbstractType
             'old_chat_member' => $this->getOldChatMember(),
             'new_chat_member' => $this->getNewChatMember(),
             'invite_link' => $this->getInviteLink(),
+            'via_join_request' => $this->getViaJoinRequest(),
             'via_chat_folder_invite_link' => $this->getViaChatFolderInviteLink(),
         ];
 
@@ -118,6 +120,18 @@ class ChatMemberUpdated extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatInviteLink")
      */
     protected $inviteLink;
+
+    /**
+     * Optional. True, if the user joined the chat after sending a direct join request without using an invite link and being 
+     * approved by an administrator 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("via_join_request")
+     * @Accessor(getter="getViaJoinRequest", setter="setViaJoinRequest")
+     * @Type("bool")
+     */
+    protected $viaJoinRequest;
 
     /**
      * Optional. True, if the user joined the chat via a chat folder invite link 
@@ -243,6 +257,25 @@ class ChatMemberUpdated extends AbstractType
     public function getInviteLink(): ?ChatInviteLink
     {
         return $this->inviteLink;
+    }
+
+    /**
+     * @param bool $viaJoinRequest
+     * @return static
+     */
+    public function setViaJoinRequest(bool $viaJoinRequest): self
+    {
+        $this->viaJoinRequest = $viaJoinRequest;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getViaJoinRequest(): ?bool
+    {
+        return $this->viaJoinRequest;
     }
 
     /**

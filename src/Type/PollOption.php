@@ -29,6 +29,7 @@ class PollOption extends AbstractType
     {
         return [
             'text',
+            'text_entities',
             'voter_count',
         ];
     }
@@ -42,6 +43,7 @@ class PollOption extends AbstractType
     {
         $result = [
             'text' => $this->getText(),
+            'text_entities' => $this->getTextEntities(),
             'voter_count' => $this->getVoterCount(),
         ];
 
@@ -57,6 +59,18 @@ class PollOption extends AbstractType
      * @Type("string")
      */
     protected $text;
+
+    /**
+     * Optional. Special entities that appear in the option text. Currently, only custom emoji entities are allowed in 
+     * poll option texts 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("text_entities")
+     * @Accessor(getter="getTextEntities", setter="setTextEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $textEntities;
 
     /**
      * Number of users that voted for this option 
@@ -86,6 +100,25 @@ class PollOption extends AbstractType
     public function getText(): string
     {
         return $this->text;
+    }
+
+    /**
+     * @param MessageEntity[] $textEntities
+     * @return static
+     */
+    public function setTextEntities(array $textEntities): self
+    {
+        $this->textEntities = $textEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getTextEntities(): ?array
+    {
+        return $this->textEntities;
     }
 
     /**

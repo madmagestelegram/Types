@@ -30,6 +30,7 @@ class Poll extends AbstractType
         return [
             'id',
             'question',
+            'question_entities',
             'options',
             'total_voter_count',
             'is_closed',
@@ -54,6 +55,7 @@ class Poll extends AbstractType
         $result = [
             'id' => $this->getId(),
             'question' => $this->getQuestion(),
+            'question_entities' => $this->getQuestionEntities(),
             'options' => $this->getOptions(),
             'total_voter_count' => $this->getTotalVoterCount(),
             'is_closed' => $this->getIsClosed(),
@@ -89,6 +91,18 @@ class Poll extends AbstractType
      * @Type("string")
      */
     protected $question;
+
+    /**
+     * Optional. Special entities that appear in the question. Currently, only custom emoji entities are allowed in poll 
+     * questions 
+     *
+     * @var MessageEntity[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("question_entities")
+     * @Accessor(getter="getQuestionEntities", setter="setQuestionEntities")
+     * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
+     */
+    protected $questionEntities;
 
     /**
      * List of poll options 
@@ -244,6 +258,25 @@ class Poll extends AbstractType
     public function getQuestion(): string
     {
         return $this->question;
+    }
+
+    /**
+     * @param MessageEntity[] $questionEntities
+     * @return static
+     */
+    public function setQuestionEntities(array $questionEntities): self
+    {
+        $this->questionEntities = $questionEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return MessageEntity[]|null
+     */
+    public function getQuestionEntities(): ?array
+    {
+        return $this->questionEntities;
     }
 
     /**

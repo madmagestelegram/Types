@@ -76,7 +76,7 @@ class Voice extends AbstractType
     protected $fileUniqueId;
 
     /**
-     * Duration of the audio in seconds as defined by sender 
+     * Duration of the audio in seconds as defined by the sender 
      *
      * @var int
      * @SerializedName("duration")
@@ -86,7 +86,7 @@ class Voice extends AbstractType
     protected $duration;
 
     /**
-     * Optional. MIME type of the file as defined by sender 
+     * Optional. MIME type of the file as defined by the sender 
      *
      * @var string|null
      * @SkipWhenEmpty

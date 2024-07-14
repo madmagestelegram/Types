@@ -12,9 +12,9 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#keyboardbuttonrequestchat
  *
- * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared 
- * with the bot when the corresponding button is pressed. More about 
- * requesting chats » 
+ * This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared 
+ * with the bot when the corresponding button is pressed. The bot will be granted requested rights in the chat if appropriate. 
+ * More about requesting chats ». 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -38,6 +38,9 @@ class KeyboardButtonRequestChat extends AbstractType
             'user_administrator_rights',
             'bot_administrator_rights',
             'bot_is_member',
+            'request_title',
+            'request_username',
+            'request_photo',
         ];
     }
 
@@ -57,6 +60,9 @@ class KeyboardButtonRequestChat extends AbstractType
             'user_administrator_rights' => $this->getUserAdministratorRights(),
             'bot_administrator_rights' => $this->getBotAdministratorRights(),
             'bot_is_member' => $this->getBotIsMember(),
+            'request_title' => $this->getRequestTitle(),
+            'request_username' => $this->getRequestUsername(),
+            'request_photo' => $this->getRequestPhoto(),
         ];
 
         return parent::normalizeData($result);
@@ -152,6 +158,39 @@ class KeyboardButtonRequestChat extends AbstractType
      * @Type("bool")
      */
     protected $botIsMember;
+
+    /**
+     * Optional. Pass True to request the chat's title 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("request_title")
+     * @Accessor(getter="getRequestTitle", setter="setRequestTitle")
+     * @Type("bool")
+     */
+    protected $requestTitle;
+
+    /**
+     * Optional. Pass True to request the chat's username 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("request_username")
+     * @Accessor(getter="getRequestUsername", setter="setRequestUsername")
+     * @Type("bool")
+     */
+    protected $requestUsername;
+
+    /**
+     * Optional. Pass True to request the chat's photo 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("request_photo")
+     * @Accessor(getter="getRequestPhoto", setter="setRequestPhoto")
+     * @Type("bool")
+     */
+    protected $requestPhoto;
 
 
     /**
@@ -304,6 +343,63 @@ class KeyboardButtonRequestChat extends AbstractType
     public function getBotIsMember(): ?bool
     {
         return $this->botIsMember;
+    }
+
+    /**
+     * @param bool $requestTitle
+     * @return static
+     */
+    public function setRequestTitle(bool $requestTitle): self
+    {
+        $this->requestTitle = $requestTitle;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getRequestTitle(): ?bool
+    {
+        return $this->requestTitle;
+    }
+
+    /**
+     * @param bool $requestUsername
+     * @return static
+     */
+    public function setRequestUsername(bool $requestUsername): self
+    {
+        $this->requestUsername = $requestUsername;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getRequestUsername(): ?bool
+    {
+        return $this->requestUsername;
+    }
+
+    /**
+     * @param bool $requestPhoto
+     * @return static
+     */
+    public function setRequestPhoto(bool $requestPhoto): self
+    {
+        $this->requestPhoto = $requestPhoto;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getRequestPhoto(): ?bool
+    {
+        return $this->requestPhoto;
     }
 
 }

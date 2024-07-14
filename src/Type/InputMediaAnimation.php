@@ -34,6 +34,7 @@ class InputMediaAnimation extends AbstractInputMedia
             'caption',
             'parse_mode',
             'caption_entities',
+            'show_caption_above_media',
             'width',
             'height',
             'duration',
@@ -55,6 +56,7 @@ class InputMediaAnimation extends AbstractInputMedia
             'caption' => $this->getCaption(),
             'parse_mode' => $this->getParseMode(),
             'caption_entities' => $this->getCaptionEntities(),
+            'show_caption_above_media' => $this->getShowCaptionAboveMedia(),
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'duration' => $this->getDuration(),
@@ -133,6 +135,17 @@ class InputMediaAnimation extends AbstractInputMedia
      * @Type("array<MadmagesTelegram\Types\Type\MessageEntity>")
      */
     protected $captionEntities;
+
+    /**
+     * Optional. Pass True, if the caption must be shown above the message media 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("show_caption_above_media")
+     * @Accessor(getter="getShowCaptionAboveMedia", setter="setShowCaptionAboveMedia")
+     * @Type("bool")
+     */
+    protected $showCaptionAboveMedia;
 
     /**
      * Optional. Animation width 
@@ -291,6 +304,25 @@ class InputMediaAnimation extends AbstractInputMedia
     public function getCaptionEntities(): ?array
     {
         return $this->captionEntities;
+    }
+
+    /**
+     * @param bool $showCaptionAboveMedia
+     * @return static
+     */
+    public function setShowCaptionAboveMedia(bool $showCaptionAboveMedia): self
+    {
+        $this->showCaptionAboveMedia = $showCaptionAboveMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShowCaptionAboveMedia(): ?bool
+    {
+        return $this->showCaptionAboveMedia;
     }
 
     /**

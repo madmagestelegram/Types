@@ -59,7 +59,7 @@ class SuccessfulPayment extends AbstractType
     }
 
     /**
-     * Three-letter ISO 4217 currency code 
+     * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars 
      *
      * @var string
      * @SerializedName("currency")
@@ -81,7 +81,7 @@ class SuccessfulPayment extends AbstractType
     protected $totalAmount;
 
     /**
-     * Bot specified invoice payload 
+     * Bot-specified invoice payload 
      *
      * @var string
      * @SerializedName("invoice_payload")

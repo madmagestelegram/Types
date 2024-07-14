@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#usershared
+ * https://core.telegram.org/bots/api#usersshared
  *
- * This object contains information about the user whose identifier was shared with the bot using a KeyboardButtonRequestUser button. 
+ * This object contains information about the users whose identifiers were shared with the bot using a KeyboardButtonRequestUsers button. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class UserShared extends AbstractType
+class UsersShared extends AbstractType
 {
 
     /**
@@ -29,7 +29,7 @@ class UserShared extends AbstractType
     {
         return [
             'request_id',
-            'user_id',
+            'users',
         ];
     }
 
@@ -42,7 +42,7 @@ class UserShared extends AbstractType
     {
         $result = [
             'request_id' => $this->getRequestId(),
-            'user_id' => $this->getUserId(),
+            'users' => $this->getUsers(),
         ];
 
         return parent::normalizeData($result);
@@ -59,17 +59,14 @@ class UserShared extends AbstractType
     protected $requestId;
 
     /**
-     * Identifier of the shared user. This number may have more than 32 significant bits and some programming languages may 
-     * have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or 
-     * double-precision float type are safe for storing this identifier. The bot may not have access to the user and could be unable to use this 
-     * identifier, unless the user is already known to the bot by some other means. 
+     * Information about users shared with the bot. 
      *
-     * @var int
-     * @SerializedName("user_id")
-     * @Accessor(getter="getUserId", setter="setUserId")
-     * @Type("int")
+     * @var SharedUser[]
+     * @SerializedName("users")
+     * @Accessor(getter="getUsers", setter="setUsers")
+     * @Type("array<MadmagesTelegram\Types\Type\SharedUser>")
      */
-    protected $userId;
+    protected $users;
 
 
     /**
@@ -92,22 +89,22 @@ class UserShared extends AbstractType
     }
 
     /**
-     * @param int $userId
+     * @param SharedUser[] $users
      * @return static
      */
-    public function setUserId(int $userId): self
+    public function setUsers(array $users): self
     {
-        $this->userId = $userId;
+        $this->users = $users;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return SharedUser[]
      */
-    public function getUserId(): int
+    public function getUsers(): array
     {
-        return $this->userId;
+        return $this->users;
     }
 
 }
