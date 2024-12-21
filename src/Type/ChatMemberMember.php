@@ -30,6 +30,7 @@ class ChatMemberMember extends AbstractChatMember
         return [
             'status',
             'user',
+            'until_date',
         ];
     }
 
@@ -43,6 +44,7 @@ class ChatMemberMember extends AbstractChatMember
         $result = [
             'status' => $this->getStatus(),
             'user' => $this->getUser(),
+            'until_date' => $this->getUntilDate(),
         ];
 
         return parent::normalizeData($result);
@@ -67,6 +69,17 @@ class ChatMemberMember extends AbstractChatMember
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
+
+    /**
+     * Optional. Date when the user's subscription will expire; Unix time 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("until_date")
+     * @Accessor(getter="getUntilDate", setter="setUntilDate")
+     * @Type("int")
+     */
+    protected $untilDate;
 
 
     /**
@@ -105,6 +118,25 @@ class ChatMemberMember extends AbstractChatMember
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    /**
+     * @param int $untilDate
+     * @return static
+     */
+    public function setUntilDate(int $untilDate): self
+    {
+        $this->untilDate = $untilDate;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUntilDate(): ?int
+    {
+        return $this->untilDate;
     }
 
 }

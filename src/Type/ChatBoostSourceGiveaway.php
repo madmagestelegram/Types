@@ -12,8 +12,9 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#chatboostsourcegiveaway
  *
- * The boost was obtained by the creation of a Telegram Premium giveaway. This boosts the chat 4 times for the duration of 
- * the corresponding Telegram Premium subscription. 
+ * The boost was obtained by the creation of a Telegram Premium or a Telegram Star giveaway. This boosts the chat 4 times 
+ * for the duration of the corresponding Telegram Premium subscription for Telegram Premium giveaways and 
+ * prize_star_count / 500 times for one year for Telegram Star giveaways. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
@@ -32,6 +33,7 @@ class ChatBoostSourceGiveaway extends AbstractChatBoostSource
             'source',
             'giveaway_message_id',
             'user',
+            'prize_star_count',
             'is_unclaimed',
         ];
     }
@@ -47,6 +49,7 @@ class ChatBoostSourceGiveaway extends AbstractChatBoostSource
             'source' => $this->getSource(),
             'giveaway_message_id' => $this->getGiveawayMessageId(),
             'user' => $this->getUser(),
+            'prize_star_count' => $this->getPrizeStarCount(),
             'is_unclaimed' => $this->getIsUnclaimed(),
         ];
 
@@ -75,7 +78,7 @@ class ChatBoostSourceGiveaway extends AbstractChatBoostSource
     protected $giveawayMessageId;
 
     /**
-     * Optional. User that won the prize in the giveaway if any 
+     * Optional. User that won the prize in the giveaway if any; for Telegram Premium giveaways only 
      *
      * @var User|null
      * @SkipWhenEmpty
@@ -84,6 +87,17 @@ class ChatBoostSourceGiveaway extends AbstractChatBoostSource
      * @Type("MadmagesTelegram\Types\Type\User")
      */
     protected $user;
+
+    /**
+     * Optional. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("prize_star_count")
+     * @Accessor(getter="getPrizeStarCount", setter="setPrizeStarCount")
+     * @Type("int")
+     */
+    protected $prizeStarCount;
 
     /**
      * Optional. True, if the giveaway was completed, but there was no user to win the prize 
@@ -152,6 +166,25 @@ class ChatBoostSourceGiveaway extends AbstractChatBoostSource
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    /**
+     * @param int $prizeStarCount
+     * @return static
+     */
+    public function setPrizeStarCount(int $prizeStarCount): self
+    {
+        $this->prizeStarCount = $prizeStarCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPrizeStarCount(): ?int
+    {
+        return $this->prizeStarCount;
     }
 
     /**

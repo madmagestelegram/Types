@@ -31,6 +31,9 @@ class SuccessfulPayment extends AbstractType
             'currency',
             'total_amount',
             'invoice_payload',
+            'subscription_expiration_date',
+            'is_recurring',
+            'is_first_recurring',
             'shipping_option_id',
             'order_info',
             'telegram_payment_charge_id',
@@ -49,6 +52,9 @@ class SuccessfulPayment extends AbstractType
             'currency' => $this->getCurrency(),
             'total_amount' => $this->getTotalAmount(),
             'invoice_payload' => $this->getInvoicePayload(),
+            'subscription_expiration_date' => $this->getSubscriptionExpirationDate(),
+            'is_recurring' => $this->getIsRecurring(),
+            'is_first_recurring' => $this->getIsFirstRecurring(),
             'shipping_option_id' => $this->getShippingOptionId(),
             'order_info' => $this->getOrderInfo(),
             'telegram_payment_charge_id' => $this->getTelegramPaymentChargeId(),
@@ -89,6 +95,39 @@ class SuccessfulPayment extends AbstractType
      * @Type("string")
      */
     protected $invoicePayload;
+
+    /**
+     * Optional. Expiration date of the subscription, in Unix time; for recurring payments only 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("subscription_expiration_date")
+     * @Accessor(getter="getSubscriptionExpirationDate", setter="setSubscriptionExpirationDate")
+     * @Type("int")
+     */
+    protected $subscriptionExpirationDate;
+
+    /**
+     * Optional. True, if the payment is a recurring payment for a subscription 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_recurring")
+     * @Accessor(getter="getIsRecurring", setter="setIsRecurring")
+     * @Type("bool")
+     */
+    protected $isRecurring;
+
+    /**
+     * Optional. True, if the payment is the first payment for a subscription 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_first_recurring")
+     * @Accessor(getter="getIsFirstRecurring", setter="setIsFirstRecurring")
+     * @Type("bool")
+     */
+    protected $isFirstRecurring;
 
     /**
      * Optional. Identifier of the shipping option chosen by the user 
@@ -188,6 +227,63 @@ class SuccessfulPayment extends AbstractType
     public function getInvoicePayload(): string
     {
         return $this->invoicePayload;
+    }
+
+    /**
+     * @param int $subscriptionExpirationDate
+     * @return static
+     */
+    public function setSubscriptionExpirationDate(int $subscriptionExpirationDate): self
+    {
+        $this->subscriptionExpirationDate = $subscriptionExpirationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSubscriptionExpirationDate(): ?int
+    {
+        return $this->subscriptionExpirationDate;
+    }
+
+    /**
+     * @param bool $isRecurring
+     * @return static
+     */
+    public function setIsRecurring(bool $isRecurring): self
+    {
+        $this->isRecurring = $isRecurring;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsRecurring(): ?bool
+    {
+        return $this->isRecurring;
+    }
+
+    /**
+     * @param bool $isFirstRecurring
+     * @return static
+     */
+    public function setIsFirstRecurring(bool $isFirstRecurring): self
+    {
+        $this->isFirstRecurring = $isFirstRecurring;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsFirstRecurring(): ?bool
+    {
+        return $this->isFirstRecurring;
     }
 
     /**

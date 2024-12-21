@@ -30,6 +30,7 @@ class StarTransaction extends AbstractType
         return [
             'id',
             'amount',
+            'nanostar_amount',
             'date',
             'source',
             'receiver',
@@ -46,6 +47,7 @@ class StarTransaction extends AbstractType
         $result = [
             'id' => $this->getId(),
             'amount' => $this->getAmount(),
+            'nanostar_amount' => $this->getNanostarAmount(),
             'date' => $this->getDate(),
             'source' => $this->getSource(),
             'receiver' => $this->getReceiver(),
@@ -55,7 +57,7 @@ class StarTransaction extends AbstractType
     }
 
     /**
-     * Unique identifier of the transaction. Coincides with the identifer of the original transaction for refund 
+     * Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund 
      * transactions. Coincides with SuccessfulPayment.telegram_payment_charge_id for successful incoming payments from users. 
      *
      * @var string
@@ -66,7 +68,7 @@ class StarTransaction extends AbstractType
     protected $id;
 
     /**
-     * Number of Telegram Stars transferred by the transaction 
+     * Integer amount of Telegram Stars transferred by the transaction 
      *
      * @var int
      * @SerializedName("amount")
@@ -74,6 +76,17 @@ class StarTransaction extends AbstractType
      * @Type("int")
      */
     protected $amount;
+
+    /**
+     * Optional. The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("nanostar_amount")
+     * @Accessor(getter="getNanostarAmount", setter="setNanostarAmount")
+     * @Type("int")
+     */
+    protected $nanostarAmount;
 
     /**
      * Date the transaction was created in Unix time 
@@ -146,6 +159,25 @@ class StarTransaction extends AbstractType
     public function getAmount(): int
     {
         return $this->amount;
+    }
+
+    /**
+     * @param int $nanostarAmount
+     * @return static
+     */
+    public function setNanostarAmount(int $nanostarAmount): self
+    {
+        $this->nanostarAmount = $nanostarAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getNanostarAmount(): ?int
+    {
+        return $this->nanostarAmount;
     }
 
     /**

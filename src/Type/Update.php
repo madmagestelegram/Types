@@ -45,6 +45,7 @@ class Update extends AbstractType
             'callback_query',
             'shipping_query',
             'pre_checkout_query',
+            'purchased_paid_media',
             'poll',
             'poll_answer',
             'my_chat_member',
@@ -79,6 +80,7 @@ class Update extends AbstractType
             'callback_query' => $this->getCallbackQuery(),
             'shipping_query' => $this->getShippingQuery(),
             'pre_checkout_query' => $this->getPreCheckoutQuery(),
+            'purchased_paid_media' => $this->getPurchasedPaidMedia(),
             'poll' => $this->getPoll(),
             'poll_answer' => $this->getPollAnswer(),
             'my_chat_member' => $this->getMyChatMember(),
@@ -276,6 +278,17 @@ class Update extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\PreCheckoutQuery")
      */
     protected $preCheckoutQuery;
+
+    /**
+     * Optional. A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat 
+     *
+     * @var PaidMediaPurchased|null
+     * @SkipWhenEmpty
+     * @SerializedName("purchased_paid_media")
+     * @Accessor(getter="getPurchasedPaidMedia", setter="setPurchasedPaidMedia")
+     * @Type("MadmagesTelegram\Types\Type\PaidMediaPurchased")
+     */
+    protected $purchasedPaidMedia;
 
     /**
      * Optional. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot 
@@ -661,6 +674,25 @@ class Update extends AbstractType
     public function getPreCheckoutQuery(): ?PreCheckoutQuery
     {
         return $this->preCheckoutQuery;
+    }
+
+    /**
+     * @param PaidMediaPurchased $purchasedPaidMedia
+     * @return static
+     */
+    public function setPurchasedPaidMedia(PaidMediaPurchased $purchasedPaidMedia): self
+    {
+        $this->purchasedPaidMedia = $purchasedPaidMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return PaidMediaPurchased|null
+     */
+    public function getPurchasedPaidMedia(): ?PaidMediaPurchased
+    {
+        return $this->purchasedPaidMedia;
     }
 
     /**

@@ -35,6 +35,7 @@ class Giveaway extends AbstractType
             'has_public_winners',
             'prize_description',
             'country_codes',
+            'prize_star_count',
             'premium_subscription_month_count',
         ];
     }
@@ -54,6 +55,7 @@ class Giveaway extends AbstractType
             'has_public_winners' => $this->getHasPublicWinners(),
             'prize_description' => $this->getPrizeDescription(),
             'country_codes' => $this->getCountryCodes(),
+            'prize_star_count' => $this->getPrizeStarCount(),
             'premium_subscription_month_count' => $this->getPremiumSubscriptionMonthCount(),
         ];
 
@@ -137,7 +139,19 @@ class Giveaway extends AbstractType
     protected $countryCodes;
 
     /**
-     * Optional. The number of months the Telegram Premium subscription won from the giveaway will be active for 
+     * Optional. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("prize_star_count")
+     * @Accessor(getter="getPrizeStarCount", setter="setPrizeStarCount")
+     * @Type("int")
+     */
+    protected $prizeStarCount;
+
+    /**
+     * Optional. The number of months the Telegram Premium subscription won from the giveaway will be active for; for 
+     * Telegram Premium giveaways only 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -279,6 +293,25 @@ class Giveaway extends AbstractType
     public function getCountryCodes(): ?array
     {
         return $this->countryCodes;
+    }
+
+    /**
+     * @param int $prizeStarCount
+     * @return static
+     */
+    public function setPrizeStarCount(int $prizeStarCount): self
+    {
+        $this->prizeStarCount = $prizeStarCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPrizeStarCount(): ?int
+    {
+        return $this->prizeStarCount;
     }
 
     /**

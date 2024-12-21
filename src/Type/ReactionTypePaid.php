@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#giveawaycreated
+ * https://core.telegram.org/bots/api#reactiontypepaid
  *
- * This object represents a service message about the creation of a scheduled giveaway. 
+ * The reaction is paid. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class GiveawayCreated extends AbstractType
+class ReactionTypePaid extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class GiveawayCreated extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'prize_star_count',
+            'type',
         ];
     }
 
@@ -40,41 +40,40 @@ class GiveawayCreated extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'prize_star_count' => $this->getPrizeStarCount(),
+            'type' => $this->getType(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Optional. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only 
+     * Type of the reaction, always “paid” 
      *
-     * @var int|null
-     * @SkipWhenEmpty
-     * @SerializedName("prize_star_count")
-     * @Accessor(getter="getPrizeStarCount", setter="setPrizeStarCount")
-     * @Type("int")
+     * @var string
+     * @SerializedName("type")
+     * @Accessor(getter="getType", setter="setType")
+     * @Type("string")
      */
-    protected $prizeStarCount;
+    protected $type;
 
 
     /**
-     * @param int $prizeStarCount
+     * @param string $type
      * @return static
      */
-    public function setPrizeStarCount(int $prizeStarCount): self
+    public function setType(string $type): self
     {
-        $this->prizeStarCount = $prizeStarCount;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getPrizeStarCount(): ?int
+    public function getType(): string
     {
-        return $this->prizeStarCount;
+        return $this->type;
     }
 
 }

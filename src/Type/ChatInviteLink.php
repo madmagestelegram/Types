@@ -37,6 +37,8 @@ class ChatInviteLink extends AbstractType
             'expire_date',
             'member_limit',
             'pending_join_request_count',
+            'subscription_period',
+            'subscription_price',
         ];
     }
 
@@ -57,6 +59,8 @@ class ChatInviteLink extends AbstractType
             'expire_date' => $this->getExpireDate(),
             'member_limit' => $this->getMemberLimit(),
             'pending_join_request_count' => $this->getPendingJoinRequestCount(),
+            'subscription_period' => $this->getSubscriptionPeriod(),
+            'subscription_price' => $this->getSubscriptionPrice(),
         ];
 
         return parent::normalizeData($result);
@@ -157,6 +161,29 @@ class ChatInviteLink extends AbstractType
      * @Type("int")
      */
     protected $pendingJoinRequestCount;
+
+    /**
+     * Optional. The number of seconds the subscription will be active for before the next payment 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("subscription_period")
+     * @Accessor(getter="getSubscriptionPeriod", setter="setSubscriptionPeriod")
+     * @Type("int")
+     */
+    protected $subscriptionPeriod;
+
+    /**
+     * Optional. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be 
+     * a member of the chat using the link 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("subscription_price")
+     * @Accessor(getter="getSubscriptionPrice", setter="setSubscriptionPrice")
+     * @Type("int")
+     */
+    protected $subscriptionPrice;
 
 
     /**
@@ -328,6 +355,44 @@ class ChatInviteLink extends AbstractType
     public function getPendingJoinRequestCount(): ?int
     {
         return $this->pendingJoinRequestCount;
+    }
+
+    /**
+     * @param int $subscriptionPeriod
+     * @return static
+     */
+    public function setSubscriptionPeriod(int $subscriptionPeriod): self
+    {
+        $this->subscriptionPeriod = $subscriptionPeriod;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSubscriptionPeriod(): ?int
+    {
+        return $this->subscriptionPeriod;
+    }
+
+    /**
+     * @param int $subscriptionPrice
+     * @return static
+     */
+    public function setSubscriptionPrice(int $subscriptionPrice): self
+    {
+        $this->subscriptionPrice = $subscriptionPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSubscriptionPrice(): ?int
+    {
+        return $this->subscriptionPrice;
     }
 
 }

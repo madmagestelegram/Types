@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#giveawaycreated
+ * https://core.telegram.org/bots/api#copytextbutton
  *
- * This object represents a service message about the creation of a scheduled giveaway. 
+ * This object represents an inline keyboard button that copies specified text to the clipboard. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class GiveawayCreated extends AbstractType
+class CopyTextButton extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class GiveawayCreated extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'prize_star_count',
+            'text',
         ];
     }
 
@@ -40,41 +40,40 @@ class GiveawayCreated extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'prize_star_count' => $this->getPrizeStarCount(),
+            'text' => $this->getText(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Optional. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only 
+     * The text to be copied to the clipboard; 1-256 characters 
      *
-     * @var int|null
-     * @SkipWhenEmpty
-     * @SerializedName("prize_star_count")
-     * @Accessor(getter="getPrizeStarCount", setter="setPrizeStarCount")
-     * @Type("int")
+     * @var string
+     * @SerializedName("text")
+     * @Accessor(getter="getText", setter="setText")
+     * @Type("string")
      */
-    protected $prizeStarCount;
+    protected $text;
 
 
     /**
-     * @param int $prizeStarCount
+     * @param string $text
      * @return static
      */
-    public function setPrizeStarCount(int $prizeStarCount): self
+    public function setText(string $text): self
     {
-        $this->prizeStarCount = $prizeStarCount;
+        $this->text = $text;
 
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getPrizeStarCount(): ?int
+    public function getText(): string
     {
-        return $this->prizeStarCount;
+        return $this->text;
     }
 
 }

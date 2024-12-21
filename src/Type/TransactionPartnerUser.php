@@ -30,7 +30,12 @@ class TransactionPartnerUser extends AbstractTransactionPartner
         return [
             'type',
             'user',
+            'affiliate',
             'invoice_payload',
+            'subscription_period',
+            'paid_media',
+            'paid_media_payload',
+            'gift',
         ];
     }
 
@@ -44,7 +49,12 @@ class TransactionPartnerUser extends AbstractTransactionPartner
         $result = [
             'type' => $this->getType(),
             'user' => $this->getUser(),
+            'affiliate' => $this->getAffiliate(),
             'invoice_payload' => $this->getInvoicePayload(),
+            'subscription_period' => $this->getSubscriptionPeriod(),
+            'paid_media' => $this->getPaidMedia(),
+            'paid_media_payload' => $this->getPaidMediaPayload(),
+            'gift' => $this->getGift(),
         ];
 
         return parent::normalizeData($result);
@@ -71,6 +81,17 @@ class TransactionPartnerUser extends AbstractTransactionPartner
     protected $user;
 
     /**
+     * Optional. Information about the affiliate that received a commission via this transaction 
+     *
+     * @var AffiliateInfo|null
+     * @SkipWhenEmpty
+     * @SerializedName("affiliate")
+     * @Accessor(getter="getAffiliate", setter="setAffiliate")
+     * @Type("MadmagesTelegram\Types\Type\AffiliateInfo")
+     */
+    protected $affiliate;
+
+    /**
      * Optional. Bot-specified invoice payload 
      *
      * @var string|null
@@ -80,6 +101,50 @@ class TransactionPartnerUser extends AbstractTransactionPartner
      * @Type("string")
      */
     protected $invoicePayload;
+
+    /**
+     * Optional. The duration of the paid subscription 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("subscription_period")
+     * @Accessor(getter="getSubscriptionPeriod", setter="setSubscriptionPeriod")
+     * @Type("int")
+     */
+    protected $subscriptionPeriod;
+
+    /**
+     * Optional. Information about the paid media bought by the user 
+     *
+     * @var AbstractPaidMedia[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("paid_media")
+     * @Accessor(getter="getPaidMedia", setter="setPaidMedia")
+     * @Type("array<MadmagesTelegram\Types\Type\AbstractPaidMedia>")
+     */
+    protected $paidMedia;
+
+    /**
+     * Optional. Bot-specified paid media payload 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("paid_media_payload")
+     * @Accessor(getter="getPaidMediaPayload", setter="setPaidMediaPayload")
+     * @Type("string")
+     */
+    protected $paidMediaPayload;
+
+    /**
+     * Optional. The gift sent to the user by the bot 
+     *
+     * @var Gift|null
+     * @SkipWhenEmpty
+     * @SerializedName("gift")
+     * @Accessor(getter="getGift", setter="setGift")
+     * @Type("MadmagesTelegram\Types\Type\Gift")
+     */
+    protected $gift;
 
 
     /**
@@ -121,6 +186,25 @@ class TransactionPartnerUser extends AbstractTransactionPartner
     }
 
     /**
+     * @param AffiliateInfo $affiliate
+     * @return static
+     */
+    public function setAffiliate(AffiliateInfo $affiliate): self
+    {
+        $this->affiliate = $affiliate;
+
+        return $this;
+    }
+
+    /**
+     * @return AffiliateInfo|null
+     */
+    public function getAffiliate(): ?AffiliateInfo
+    {
+        return $this->affiliate;
+    }
+
+    /**
      * @param string $invoicePayload
      * @return static
      */
@@ -137,6 +221,82 @@ class TransactionPartnerUser extends AbstractTransactionPartner
     public function getInvoicePayload(): ?string
     {
         return $this->invoicePayload;
+    }
+
+    /**
+     * @param int $subscriptionPeriod
+     * @return static
+     */
+    public function setSubscriptionPeriod(int $subscriptionPeriod): self
+    {
+        $this->subscriptionPeriod = $subscriptionPeriod;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSubscriptionPeriod(): ?int
+    {
+        return $this->subscriptionPeriod;
+    }
+
+    /**
+     * @param AbstractPaidMedia[] $paidMedia
+     * @return static
+     */
+    public function setPaidMedia(array $paidMedia): self
+    {
+        $this->paidMedia = $paidMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return AbstractPaidMedia[]|null
+     */
+    public function getPaidMedia(): ?array
+    {
+        return $this->paidMedia;
+    }
+
+    /**
+     * @param string $paidMediaPayload
+     * @return static
+     */
+    public function setPaidMediaPayload(string $paidMediaPayload): self
+    {
+        $this->paidMediaPayload = $paidMediaPayload;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPaidMediaPayload(): ?string
+    {
+        return $this->paidMediaPayload;
+    }
+
+    /**
+     * @param Gift $gift
+     * @return static
+     */
+    public function setGift(Gift $gift): self
+    {
+        $this->gift = $gift;
+
+        return $this;
+    }
+
+    /**
+     * @return Gift|null
+     */
+    public function getGift(): ?Gift
+    {
+        return $this->gift;
     }
 
 }

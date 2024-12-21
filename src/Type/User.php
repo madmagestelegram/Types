@@ -40,6 +40,7 @@ class User extends AbstractType
             'can_read_all_group_messages',
             'supports_inline_queries',
             'can_connect_to_business',
+            'has_main_web_app',
         ];
     }
 
@@ -63,6 +64,7 @@ class User extends AbstractType
             'can_read_all_group_messages' => $this->getCanReadAllGroupMessages(),
             'supports_inline_queries' => $this->getSupportsInlineQueries(),
             'can_connect_to_business' => $this->getCanConnectToBusiness(),
+            'has_main_web_app' => $this->getHasMainWebApp(),
         ];
 
         return parent::normalizeData($result);
@@ -199,6 +201,17 @@ class User extends AbstractType
      * @Type("bool")
      */
     protected $canConnectToBusiness;
+
+    /**
+     * Optional. True, if the bot has a main Web App. Returned only in getMe. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("has_main_web_app")
+     * @Accessor(getter="getHasMainWebApp", setter="setHasMainWebApp")
+     * @Type("bool")
+     */
+    protected $hasMainWebApp;
 
 
     /**
@@ -427,6 +440,25 @@ class User extends AbstractType
     public function getCanConnectToBusiness(): ?bool
     {
         return $this->canConnectToBusiness;
+    }
+
+    /**
+     * @param bool $hasMainWebApp
+     * @return static
+     */
+    public function setHasMainWebApp(bool $hasMainWebApp): self
+    {
+        $this->hasMainWebApp = $hasMainWebApp;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHasMainWebApp(): ?bool
+    {
+        return $this->hasMainWebApp;
     }
 
 }

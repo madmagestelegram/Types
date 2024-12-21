@@ -31,6 +31,7 @@ class GiveawayCompleted extends AbstractType
             'winner_count',
             'unclaimed_prize_count',
             'giveaway_message',
+            'is_star_giveaway',
         ];
     }
 
@@ -45,6 +46,7 @@ class GiveawayCompleted extends AbstractType
             'winner_count' => $this->getWinnerCount(),
             'unclaimed_prize_count' => $this->getUnclaimedPrizeCount(),
             'giveaway_message' => $this->getGiveawayMessage(),
+            'is_star_giveaway' => $this->getIsStarGiveaway(),
         ];
 
         return parent::normalizeData($result);
@@ -81,6 +83,18 @@ class GiveawayCompleted extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\Message")
      */
     protected $giveawayMessage;
+
+    /**
+     * Optional. True, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram 
+     * Premium giveaway. 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("is_star_giveaway")
+     * @Accessor(getter="getIsStarGiveaway", setter="setIsStarGiveaway")
+     * @Type("bool")
+     */
+    protected $isStarGiveaway;
 
 
     /**
@@ -138,6 +152,25 @@ class GiveawayCompleted extends AbstractType
     public function getGiveawayMessage(): ?Message
     {
         return $this->giveawayMessage;
+    }
+
+    /**
+     * @param bool $isStarGiveaway
+     * @return static
+     */
+    public function setIsStarGiveaway(bool $isStarGiveaway): self
+    {
+        $this->isStarGiveaway = $isStarGiveaway;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsStarGiveaway(): ?bool
+    {
+        return $this->isStarGiveaway;
     }
 
 }

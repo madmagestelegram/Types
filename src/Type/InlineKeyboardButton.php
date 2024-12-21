@@ -37,6 +37,7 @@ class InlineKeyboardButton extends AbstractType
             'switch_inline_query',
             'switch_inline_query_current_chat',
             'switch_inline_query_chosen_chat',
+            'copy_text',
             'callback_game',
             'pay',
         ];
@@ -58,6 +59,7 @@ class InlineKeyboardButton extends AbstractType
             'switch_inline_query' => $this->getSwitchInlineQuery(),
             'switch_inline_query_current_chat' => $this->getSwitchInlineQueryCurrentChat(),
             'switch_inline_query_chosen_chat' => $this->getSwitchInlineQueryChosenChat(),
+            'copy_text' => $this->getCopyText(),
             'callback_game' => $this->getCallbackGame(),
             'pay' => $this->getPay(),
         ];
@@ -162,6 +164,17 @@ class InlineKeyboardButton extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\SwitchInlineQueryChosenChat")
      */
     protected $switchInlineQueryChosenChat;
+
+    /**
+     * Optional. Description of the button that copies the specified text to the clipboard. 
+     *
+     * @var CopyTextButton|null
+     * @SkipWhenEmpty
+     * @SerializedName("copy_text")
+     * @Accessor(getter="getCopyText", setter="setCopyText")
+     * @Type("MadmagesTelegram\Types\Type\CopyTextButton")
+     */
+    protected $copyText;
 
     /**
      * Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button 
@@ -339,6 +352,25 @@ class InlineKeyboardButton extends AbstractType
     public function getSwitchInlineQueryChosenChat(): ?SwitchInlineQueryChosenChat
     {
         return $this->switchInlineQueryChosenChat;
+    }
+
+    /**
+     * @param CopyTextButton $copyText
+     * @return static
+     */
+    public function setCopyText(CopyTextButton $copyText): self
+    {
+        $this->copyText = $copyText;
+
+        return $this;
+    }
+
+    /**
+     * @return CopyTextButton|null
+     */
+    public function getCopyText(): ?CopyTextButton
+    {
+        return $this->copyText;
     }
 
     /**

@@ -10,14 +10,14 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * https://core.telegram.org/bots/api#giveawaycreated
+ * https://core.telegram.org/bots/api#gifts
  *
- * This object represents a service message about the creation of a scheduled giveaway. 
+ * This object represent a list of gifts. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")
  */
-class GiveawayCreated extends AbstractType
+class Gifts extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class GiveawayCreated extends AbstractType
     public static function _getPropertyNames(): array
     {
         return [
-            'prize_star_count',
+            'gifts',
         ];
     }
 
@@ -40,41 +40,40 @@ class GiveawayCreated extends AbstractType
     public function _getData(): array
     {
         $result = [
-            'prize_star_count' => $this->getPrizeStarCount(),
+            'gifts' => $this->getGifts(),
         ];
 
         return parent::normalizeData($result);
     }
 
     /**
-     * Optional. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only 
+     * The list of gifts 
      *
-     * @var int|null
-     * @SkipWhenEmpty
-     * @SerializedName("prize_star_count")
-     * @Accessor(getter="getPrizeStarCount", setter="setPrizeStarCount")
-     * @Type("int")
+     * @var Gift[]
+     * @SerializedName("gifts")
+     * @Accessor(getter="getGifts", setter="setGifts")
+     * @Type("array<MadmagesTelegram\Types\Type\Gift>")
      */
-    protected $prizeStarCount;
+    protected $gifts;
 
 
     /**
-     * @param int $prizeStarCount
+     * @param Gift[] $gifts
      * @return static
      */
-    public function setPrizeStarCount(int $prizeStarCount): self
+    public function setGifts(array $gifts): self
     {
-        $this->prizeStarCount = $prizeStarCount;
+        $this->gifts = $gifts;
 
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return Gift[]
      */
-    public function getPrizeStarCount(): ?int
+    public function getGifts(): array
     {
-        return $this->prizeStarCount;
+        return $this->gifts;
     }
 
 }

@@ -350,6 +350,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -373,6 +377,7 @@ abstract class TypedClient {
         Type\LinkPreviewOptions $linkPreviewOptions = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -388,6 +393,7 @@ abstract class TypedClient {
             'link_preview_options' => $linkPreviewOptions,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -548,6 +554,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param Type\ReplyParameters|null $replyParameters
      *        Description of the message to reply to 
      *
@@ -569,6 +579,7 @@ abstract class TypedClient {
         bool $showCaptionAboveMedia = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     ): Type\MessageId
@@ -584,6 +595,7 @@ abstract class TypedClient {
             'show_caption_above_media' => $showCaptionAboveMedia,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
@@ -699,6 +711,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -724,6 +740,7 @@ abstract class TypedClient {
         bool $hasSpoiler = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -741,6 +758,7 @@ abstract class TypedClient {
             'has_spoiler' => $hasSpoiler,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -806,6 +824,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -833,6 +855,7 @@ abstract class TypedClient {
         $thumbnail = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -852,6 +875,7 @@ abstract class TypedClient {
             'thumbnail' => $thumbnail,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -911,6 +935,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -936,6 +964,7 @@ abstract class TypedClient {
         bool $disableContentTypeDetection = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -953,6 +982,7 @@ abstract class TypedClient {
             'disable_content_type_detection' => $disableContentTypeDetection,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1026,6 +1056,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1056,6 +1090,7 @@ abstract class TypedClient {
         bool $supportsStreaming = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1078,6 +1113,7 @@ abstract class TypedClient {
             'supports_streaming' => $supportsStreaming,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1148,6 +1184,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1177,6 +1217,7 @@ abstract class TypedClient {
         bool $hasSpoiler = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1198,6 +1239,7 @@ abstract class TypedClient {
             'has_spoiler' => $hasSpoiler,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1250,6 +1292,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1274,6 +1320,7 @@ abstract class TypedClient {
         int $duration = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1290,6 +1337,7 @@ abstract class TypedClient {
             'duration' => $duration,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1341,6 +1389,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1364,6 +1416,7 @@ abstract class TypedClient {
         $thumbnail = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1379,6 +1432,7 @@ abstract class TypedClient {
             'thumbnail' => $thumbnail,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1394,17 +1448,25 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#sendpaidmedia
      *
-     * Use this method to send paid media to channel chats. On success, the sent Message is 
-     * returned. 
+     * Use this method to send paid media. On success, the sent Message is returned. 
      *
      * @param int|string $chatId
-     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername). If 
+     * the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, 
+     * they will be credited to the bot's balance. 
      *
      * @param int $starCount
-     *        The number of Telegram Stars that must be paid to buy access to the media 
+     *        The number of Telegram Stars that must be paid to buy access to the media; 1-2500 
      *
      * @param Type\AbstractInputPaidMedia[] $media
      *        A JSON-serialized array describing the media to be sent; up to 10 items 
+     *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be sent 
+     *
+     * @param string|null $payload
+     *        Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal 
+     * processes. 
      *
      * @param string|null $caption
      *        Media caption, 0-1024 characters after entities parsing 
@@ -1425,6 +1487,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param Type\ReplyParameters|null $replyParameters
      *        Description of the message to reply to 
      *
@@ -1439,26 +1505,32 @@ abstract class TypedClient {
         $chatId,
         int $starCount,
         array $media,
+        string $businessConnectionId = null,
+        string $payload = null,
         string $caption = null,
         string $parseMode = null,
         array $captionEntities = null,
         bool $showCaptionAboveMedia = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
     ): Type\Message
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'star_count' => $starCount,
             'media' => $media,
+            'payload' => $payload,
             'caption' => $caption,
             'parse_mode' => $parseMode,
             'caption_entities' => $captionEntities,
             'show_caption_above_media' => $showCaptionAboveMedia,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
         ];
@@ -1495,6 +1567,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent messages from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1511,6 +1587,7 @@ abstract class TypedClient {
         int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null
     ): array
@@ -1522,6 +1599,7 @@ abstract class TypedClient {
             'media' => $media,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
         ];
@@ -1573,6 +1651,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1598,6 +1680,7 @@ abstract class TypedClient {
         int $proximityAlertRadius = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1615,6 +1698,7 @@ abstract class TypedClient {
             'proximity_alert_radius' => $proximityAlertRadius,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1673,6 +1757,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1700,6 +1788,7 @@ abstract class TypedClient {
         string $googlePlaceType = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1719,6 +1808,7 @@ abstract class TypedClient {
             'google_place_type' => $googlePlaceType,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1763,6 +1853,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1786,6 +1880,7 @@ abstract class TypedClient {
         string $vcard = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1801,6 +1896,7 @@ abstract class TypedClient {
             'vcard' => $vcard,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1880,6 +1976,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1913,6 +2013,7 @@ abstract class TypedClient {
         bool $isClosed = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -1938,6 +2039,7 @@ abstract class TypedClient {
             'is_closed' => $isClosed,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -1975,6 +2077,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -1995,6 +2101,7 @@ abstract class TypedClient {
         string $emoji = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -2007,6 +2114,7 @@ abstract class TypedClient {
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -2070,8 +2178,8 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#setmessagereaction
      *
      * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically 
-     * forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. 
-     * Returns True on success. 
+     * forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots 
+     * can't use paid reactions. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
@@ -2083,7 +2191,7 @@ abstract class TypedClient {
      * @param Type\AbstractReactionType[]|null $reaction
      *        A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up 
      * to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or 
-     * explicitly allowed by chat administrators. 
+     * explicitly allowed by chat administrators. Paid reactions can't be used by bots. 
      *
      * @param bool|null $isBig
      *        Pass True to set the reaction with a big animation 
@@ -2146,6 +2254,44 @@ abstract class TypedClient {
         ];
 
         return $this->_requestWithMap('getUserProfilePhotos', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#setuseremojistatus
+     *
+     * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App 
+     * method requestEmojiStatusAccess. Returns True on 
+     * success. 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user 
+     *
+     * @param string|null $emojiStatusCustomEmojiId
+     *        Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status. 
+     *
+     * @param int|null $emojiStatusExpirationDate
+     *        Expiration date of the emoji status, if any 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function setUserEmojiStatus(
+        int $userId,
+        string $emojiStatusCustomEmojiId = null,
+        int $emojiStatusExpirationDate = null
+    ): bool
+    {
+        $requestParameters = [
+            'user_id' => $userId,
+            'emoji_status_custom_emoji_id' => $emojiStatusCustomEmojiId,
+            'emoji_status_expiration_date' => $emojiStatusExpirationDate,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('setUserEmojiStatus', $requestParameters, $returnType);
     }
 
     /**
@@ -2707,6 +2853,90 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+     *
+     * Use this method to create a subscription invite link for a channel chat. The bot must have the can_invite_users administrator rights. The 
+     * link can be edited using the method editChatSubscriptionInviteLink or revoked using the method revokeChatInviteLink. Returns the new invite 
+     * link as a ChatInviteLink object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target channel chat or username of the target channel (in the format 
+     * @|channelusername) 
+     *
+     * @param int $subscriptionPeriod
+     *        The number of seconds the subscription will be active for before the next payment. Currently, it must always be 
+     * 2592000 (30 days). 
+     *
+     * @param int $subscriptionPrice
+     *        The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a 
+     * member of the chat; 1-2500 
+     *
+     * @param string|null $name
+     *        Invite link name; 0-32 characters 
+     *
+     * @return Type\ChatInviteLink
+     * @throws TelegramException
+     */
+    public function createChatSubscriptionInviteLink(
+        $chatId,
+        int $subscriptionPeriod,
+        int $subscriptionPrice,
+        string $name = null
+    ): Type\ChatInviteLink
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'name' => $name,
+            'subscription_period' => $subscriptionPeriod,
+            'subscription_price' => $subscriptionPrice,
+        ];
+
+        $returnType = [
+            Type\ChatInviteLink::class,
+        ];
+
+        return $this->_requestWithMap('createChatSubscriptionInviteLink', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
+     *
+     * Use this method to edit a subscription invite link created by the bot. The bot must have the 
+     * can_invite_users administrator rights. Returns the edited invite link as a ChatInviteLink 
+     * object. 
+     *
+     * @param int|string $chatId
+     *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
+     *
+     * @param string $inviteLink
+     *        The invite link to edit 
+     *
+     * @param string|null $name
+     *        Invite link name; 0-32 characters 
+     *
+     * @return Type\ChatInviteLink
+     * @throws TelegramException
+     */
+    public function editChatSubscriptionInviteLink(
+        $chatId,
+        string $inviteLink,
+        string $name = null
+    ): Type\ChatInviteLink
+    {
+        $requestParameters = [
+            'chat_id' => $chatId,
+            'invite_link' => $inviteLink,
+            'name' => $name,
+        ];
+
+        $returnType = [
+            Type\ChatInviteLink::class,
+        ];
+
+        return $this->_requestWithMap('editChatSubscriptionInviteLink', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#revokechatinvitelink
      *
      * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically 
@@ -2939,6 +3169,9 @@ abstract class TypedClient {
      * @param int $messageId
      *        Identifier of a message to pin 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be pinned 
+     *
      * @param bool|null $disableNotification
      *        Pass True if it is not necessary to send a notification to all chat members about the new pinned message. 
      * Notifications are always disabled in channels and private chats. 
@@ -2949,10 +3182,12 @@ abstract class TypedClient {
     public function pinChatMessage(
         $chatId,
         int $messageId,
+        string $businessConnectionId = null,
         bool $disableNotification = null
     ): bool
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'disable_notification' => $disableNotification,
@@ -2975,19 +3210,24 @@ abstract class TypedClient {
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target channel (in the format @|channelusername) 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the message will be unpinned 
+     *
      * @param int|null $messageId
-     *        Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be 
-     * unpinned. 
+     *        Identifier of the message to unpin. Required if business_connection_id is specified. If not specified, the 
+     * most recent pinned message (by sending date) will be unpinned. 
      *
      * @return bool
      * @throws TelegramException
      */
     public function unpinChatMessage(
         $chatId,
+        string $businessConnectionId = null,
         int $messageId = null
     ): bool
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'chat_id' => $chatId,
             'message_id' => $messageId,
         ];
@@ -3305,8 +3545,8 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#editforumtopic
      *
      * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat 
-     * for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. 
-     * Returns True on success. 
+     * for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the 
+     * topic. Returns True on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
@@ -3487,8 +3727,8 @@ abstract class TypedClient {
      * https://core.telegram.org/bots/api#editgeneralforumtopic
      *
      * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in 
-     * the chat for this to work and must have can_manage_topics administrator rights. Returns True on 
-     * success. 
+     * the chat for this to work and must have the can_manage_topics administrator rights. Returns True 
+     * on success. 
      *
      * @param int|string $chatId
      *        Unique identifier for the target chat or username of the target supergroup (in the format 
@@ -4323,12 +4563,11 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#editmessagemedia
      *
-     * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, 
-     * then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video 
-     * otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or 
-     * specify a URL. On success, if the edited message is not an inline message, the edited Message is 
-     * returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an 
-     * inline keyboard can only be edited within 48 hours from the time they were sent. 
+     * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a 
+     * message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document 
+     * albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously 
+     * uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do 
+     * not contain an inline keyboard can only be edited within 48 hours from the time they were sent. 
      *
      * @param Type\AbstractInputMedia $media
      *        A JSON-serialized object for a new media content of the message 
@@ -4707,6 +4946,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -4728,6 +4971,7 @@ abstract class TypedClient {
         string $emoji = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         $replyMarkup = null
@@ -4741,6 +4985,7 @@ abstract class TypedClient {
             'emoji' => $emoji,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -5183,8 +5428,8 @@ abstract class TypedClient {
      * @param Type\InputFile|string|null $thumbnail
      *        A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 
      * 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see 
-     * https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see 
-     * https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
+     * https://core.telegram.org/stickers#animation-requirements for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see 
+     * https://core.telegram.org/stickers#video-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the 
      * Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
      * multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. 
      * If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail. 
@@ -5248,9 +5493,7 @@ abstract class TypedClient {
     /**
      * https://core.telegram.org/bots/api#deletestickerset
      *
-     * Use this method to delete a sticker set that was created by the bot. Returns True on success. To enable this 
-     * option, send the /setinline command to @|BotFather and provide 
-     * the placeholder text that the user will see in the input field after typing your bot's name. 
+     * Use this method to delete a sticker set that was created by the bot. Returns True on success. 
      *
      * @param string $name
      *        Sticker set name 
@@ -5271,6 +5514,78 @@ abstract class TypedClient {
         ];
 
         return $this->_requestWithMap('deleteStickerSet', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#getavailablegifts
+     *
+     * Returns the list of gifts that can be sent by the bot to users. Requires no parameters. Returns a Gifts object. 
+     *
+     * @return Type\Gifts
+     * @throws TelegramException
+     */
+    public function getAvailableGifts(
+    ): Type\Gifts
+    {
+        $requestParameters = [
+        ];
+
+        $returnType = [
+            Type\Gifts::class,
+        ];
+
+        return $this->_requestWithMap('getAvailableGifts', $requestParameters, $returnType);
+    }
+
+    /**
+     * https://core.telegram.org/bots/api#sendgift
+     *
+     * Sends a gift to the given user. The gift can't be converted to Telegram Stars by the user. Returns True on 
+     * success. To enable this option, send the /setinline command to @|BotFather and provide the placeholder text that the user will see in the input field after typing your bot's name. 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user that will receive the gift 
+     *
+     * @param string $giftId
+     *        Identifier of the gift 
+     *
+     * @param string|null $text
+     *        Text that will be shown along with the gift; 0-255 characters 
+     *
+     * @param string|null $textParseMode
+     *        Mode for parsing entities in the text. See formatting options for more details. Entities other than 
+     * “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are 
+     * ignored. 
+     *
+     * @param Type\MessageEntity[]|null $textEntities
+     *        A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of 
+     * text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and 
+     * “custom_emoji” are ignored. 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function sendGift(
+        int $userId,
+        string $giftId,
+        string $text = null,
+        string $textParseMode = null,
+        array $textEntities = null
+    ): bool
+    {
+        $requestParameters = [
+            'user_id' => $userId,
+            'gift_id' => $giftId,
+            'text' => $text,
+            'text_parse_mode' => $textParseMode,
+            'text_entities' => $textEntities,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('sendGift', $requestParameters, $returnType);
     }
 
     /**
@@ -5361,6 +5676,57 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#savepreparedinlinemessage
+     *
+     * Stores a message that can be sent by a user of a Mini App. Returns a PreparedInlineMessage object. 
+     *
+     * @param int $userId
+     *        Unique identifier of the target user that can use the prepared message 
+     *
+     * @param Type\AbstractInlineQueryResult $result
+     *        A JSON-serialized object describing the message to be sent 
+     *
+     * @param bool|null $allowUserChats
+     *        Pass True if the message can be sent to private chats with users 
+     *
+     * @param bool|null $allowBotChats
+     *        Pass True if the message can be sent to private chats with bots 
+     *
+     * @param bool|null $allowGroupChats
+     *        Pass True if the message can be sent to group and supergroup chats 
+     *
+     * @param bool|null $allowChannelChats
+     *        Pass True if the message can be sent to channel chats 
+     *
+     * @return Type\PreparedInlineMessage
+     * @throws TelegramException
+     */
+    public function savePreparedInlineMessage(
+        int $userId,
+        Type\AbstractInlineQueryResult $result,
+        bool $allowUserChats = null,
+        bool $allowBotChats = null,
+        bool $allowGroupChats = null,
+        bool $allowChannelChats = null
+    ): Type\PreparedInlineMessage
+    {
+        $requestParameters = [
+            'user_id' => $userId,
+            'result' => $result,
+            'allow_user_chats' => $allowUserChats,
+            'allow_bot_chats' => $allowBotChats,
+            'allow_group_chats' => $allowGroupChats,
+            'allow_channel_chats' => $allowChannelChats,
+        ];
+
+        $returnType = [
+            Type\PreparedInlineMessage::class,
+        ];
+
+        return $this->_requestWithMap('savePreparedInlineMessage', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#sendinvoice
      *
      * Use this method to send invoices. On success, the sent Message is returned. 
@@ -5375,7 +5741,7 @@ abstract class TypedClient {
      *        Product description, 1-255 characters 
      *
      * @param string $payload
-     *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal 
+     *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal 
      * processes. 
      *
      * @param string $currency
@@ -5453,6 +5819,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -5492,6 +5862,7 @@ abstract class TypedClient {
         bool $isFlexible = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
@@ -5523,6 +5894,7 @@ abstract class TypedClient {
             'is_flexible' => $isFlexible,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,
@@ -5547,7 +5919,7 @@ abstract class TypedClient {
      *        Product description, 1-255 characters 
      *
      * @param string $payload
-     *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal 
+     *        Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal 
      * processes. 
      *
      * @param string $currency
@@ -5557,8 +5929,18 @@ abstract class TypedClient {
      *        Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, 
      * delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars. 
      *
+     * @param string|null $businessConnectionId
+     *        Unique identifier of the business connection on behalf of which the link will be created. For payments in 
+     * Telegram Stars only. 
+     *
      * @param string|null $providerToken
      *        Payment provider token, obtained via @|BotFather. Pass an empty string for payments in Telegram Stars. 
+     *
+     * @param int|null $subscriptionPeriod
+     *        The number of seconds the subscription will be active for before the next payment. The currency must be set to 
+     * “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any 
+     * number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions 
+     * from the same user. Subscription price must no exceed 2500 Telegram Stars. 
      *
      * @param int|null $maxTipAmount
      *        The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For 
@@ -5618,7 +6000,9 @@ abstract class TypedClient {
         string $payload,
         string $currency,
         array $prices,
+        string $businessConnectionId = null,
         string $providerToken = null,
+        int $subscriptionPeriod = null,
         int $maxTipAmount = null,
         array $suggestedTipAmounts = null,
         string $providerData = null,
@@ -5636,12 +6020,14 @@ abstract class TypedClient {
     ): string
     {
         $requestParameters = [
+            'business_connection_id' => $businessConnectionId,
             'title' => $title,
             'description' => $description,
             'payload' => $payload,
             'provider_token' => $providerToken,
             'currency' => $currency,
             'prices' => $prices,
+            'subscription_period' => $subscriptionPeriod,
             'max_tip_amount' => $maxTipAmount,
             'suggested_tip_amounts' => $suggestedTipAmounts,
             'provider_data' => $providerData,
@@ -5818,6 +6204,45 @@ abstract class TypedClient {
     }
 
     /**
+     * https://core.telegram.org/bots/api#edituserstarsubscription
+     *
+     * Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns True on 
+     * success. 
+     *
+     * @param int $userId
+     *        Identifier of the user whose subscription will be edited 
+     *
+     * @param string $telegramPaymentChargeId
+     *        Telegram payment identifier for the subscription 
+     *
+     * @param bool $isCanceled
+     *        Pass True to cancel extension of the user subscription; the subscription must be active up to the end of the 
+     * current subscription period. Pass False to allow the user to re-enable a subscription that was previously canceled by 
+     * the bot. 
+     *
+     * @return bool
+     * @throws TelegramException
+     */
+    public function editUserStarSubscription(
+        int $userId,
+        string $telegramPaymentChargeId,
+        bool $isCanceled
+    ): bool
+    {
+        $requestParameters = [
+            'user_id' => $userId,
+            'telegram_payment_charge_id' => $telegramPaymentChargeId,
+            'is_canceled' => $isCanceled,
+        ];
+
+        $returnType = [
+            'bool',
+        ];
+
+        return $this->_requestWithMap('editUserStarSubscription', $requestParameters, $returnType);
+    }
+
+    /**
      * https://core.telegram.org/bots/api#setpassportdataerrors
      *
      * Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to 
@@ -5875,6 +6300,10 @@ abstract class TypedClient {
      * @param bool|null $protectContent
      *        Protects the contents of the sent message from forwarding and saving 
      *
+     * @param bool|null $allowPaidBroadcast
+     *        Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars 
+     * per message. The relevant Stars will be withdrawn from the bot's balance 
+     *
      * @param string|null $messageEffectId
      *        Unique identifier of the message effect to be added to the message; for private chats only 
      *
@@ -5895,6 +6324,7 @@ abstract class TypedClient {
         int $messageThreadId = null,
         bool $disableNotification = null,
         bool $protectContent = null,
+        bool $allowPaidBroadcast = null,
         string $messageEffectId = null,
         Type\ReplyParameters $replyParameters = null,
         Type\InlineKeyboardMarkup $replyMarkup = null
@@ -5907,6 +6337,7 @@ abstract class TypedClient {
             'game_short_name' => $gameShortName,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
+            'allow_paid_broadcast' => $allowPaidBroadcast,
             'message_effect_id' => $messageEffectId,
             'reply_parameters' => $replyParameters,
             'reply_markup' => $replyMarkup,

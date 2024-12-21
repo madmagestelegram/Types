@@ -34,6 +34,7 @@ class GiveawayWinners extends AbstractType
             'winner_count',
             'winners',
             'additional_chat_count',
+            'prize_star_count',
             'premium_subscription_month_count',
             'unclaimed_prize_count',
             'only_new_members',
@@ -56,6 +57,7 @@ class GiveawayWinners extends AbstractType
             'winner_count' => $this->getWinnerCount(),
             'winners' => $this->getWinners(),
             'additional_chat_count' => $this->getAdditionalChatCount(),
+            'prize_star_count' => $this->getPrizeStarCount(),
             'premium_subscription_month_count' => $this->getPremiumSubscriptionMonthCount(),
             'unclaimed_prize_count' => $this->getUnclaimedPrizeCount(),
             'only_new_members' => $this->getOnlyNewMembers(),
@@ -128,7 +130,19 @@ class GiveawayWinners extends AbstractType
     protected $additionalChatCount;
 
     /**
-     * Optional. The number of months the Telegram Premium subscription won from the giveaway will be active for 
+     * Optional. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("prize_star_count")
+     * @Accessor(getter="getPrizeStarCount", setter="setPrizeStarCount")
+     * @Type("int")
+     */
+    protected $prizeStarCount;
+
+    /**
+     * Optional. The number of months the Telegram Premium subscription won from the giveaway will be active for; for 
+     * Telegram Premium giveaways only 
      *
      * @var int|null
      * @SkipWhenEmpty
@@ -295,6 +309,25 @@ class GiveawayWinners extends AbstractType
     public function getAdditionalChatCount(): ?int
     {
         return $this->additionalChatCount;
+    }
+
+    /**
+     * @param int $prizeStarCount
+     * @return static
+     */
+    public function setPrizeStarCount(int $prizeStarCount): self
+    {
+        $this->prizeStarCount = $prizeStarCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPrizeStarCount(): ?int
+    {
+        return $this->prizeStarCount;
     }
 
     /**
