@@ -59,6 +59,7 @@ class ChatFullInfo extends AbstractType
             'invite_link',
             'pinned_message',
             'permissions',
+            'can_send_gift',
             'can_send_paid_media',
             'slow_mode_delay',
             'unrestrict_boost_count',
@@ -114,6 +115,7 @@ class ChatFullInfo extends AbstractType
             'invite_link' => $this->getInviteLink(),
             'pinned_message' => $this->getPinnedMessage(),
             'permissions' => $this->getPermissions(),
+            'can_send_gift' => $this->getCanSendGift(),
             'can_send_paid_media' => $this->getCanSendPaidMedia(),
             'slow_mode_delay' => $this->getSlowModeDelay(),
             'unrestrict_boost_count' => $this->getUnrestrictBoostCount(),
@@ -475,6 +477,17 @@ class ChatFullInfo extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\ChatPermissions")
      */
     protected $permissions;
+
+    /**
+     * Optional. True, if gifts can be sent to the chat 
+     *
+     * @var bool|null
+     * @SkipWhenEmpty
+     * @SerializedName("can_send_gift")
+     * @Accessor(getter="getCanSendGift", setter="setCanSendGift")
+     * @Type("bool")
+     */
+    protected $canSendGift;
 
     /**
      * Optional. True, if paid media messages can be sent or forwarded to the channel chat. The field is available only for 
@@ -1215,6 +1228,25 @@ class ChatFullInfo extends AbstractType
     public function getPermissions(): ?ChatPermissions
     {
         return $this->permissions;
+    }
+
+    /**
+     * @param bool $canSendGift
+     * @return static
+     */
+    public function setCanSendGift(bool $canSendGift): self
+    {
+        $this->canSendGift = $canSendGift;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanSendGift(): ?bool
+    {
+        return $this->canSendGift;
     }
 
     /**

@@ -34,7 +34,6 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
             'input_message_content',
             'reply_markup',
             'url',
-            'hide_url',
             'description',
             'thumbnail_url',
             'thumbnail_width',
@@ -56,7 +55,6 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
             'input_message_content' => $this->getInputMessageContent(),
             'reply_markup' => $this->getReplyMarkup(),
             'url' => $this->getUrl(),
-            'hide_url' => $this->getHideUrl(),
             'description' => $this->getDescription(),
             'thumbnail_url' => $this->getThumbnailUrl(),
             'thumbnail_width' => $this->getThumbnailWidth(),
@@ -127,17 +125,6 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
      * @Type("string")
      */
     protected $url;
-
-    /**
-     * Optional. Pass True if you don't want the URL to be shown in the message 
-     *
-     * @var bool|null
-     * @SkipWhenEmpty
-     * @SerializedName("hide_url")
-     * @Accessor(getter="getHideUrl", setter="setHideUrl")
-     * @Type("bool")
-     */
-    protected $hideUrl;
 
     /**
      * Optional. Short description of the result 
@@ -296,25 +283,6 @@ class InlineQueryResultArticle extends AbstractInlineQueryResult
     public function getUrl(): ?string
     {
         return $this->url;
-    }
-
-    /**
-     * @param bool $hideUrl
-     * @return static
-     */
-    public function setHideUrl(bool $hideUrl): self
-    {
-        $this->hideUrl = $hideUrl;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getHideUrl(): ?bool
-    {
-        return $this->hideUrl;
     }
 
     /**

@@ -87,7 +87,7 @@ class InputMediaDocument extends AbstractInputMedia
      * file, so you can pass “attach://” if the thumbnail was uploaded using multipart/form-data 
      * under . More information on Sending Files » 
      *
-     * @var InputFile|string|null
+     * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("thumbnail")
      * @Accessor(getter="getThumbnail", setter="setThumbnail")
@@ -180,10 +180,10 @@ class InputMediaDocument extends AbstractInputMedia
     }
 
     /**
-     * @param InputFile|string $thumbnail
+     * @param string $thumbnail
      * @return static
      */
-    public function setThumbnail( $thumbnail): self
+    public function setThumbnail(string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
 
@@ -191,9 +191,9 @@ class InputMediaDocument extends AbstractInputMedia
     }
 
     /**
-     * @return InputFile|string|null
+     * @return string|null
      */
-    public function getThumbnail()
+    public function getThumbnail(): ?string
     {
         return $this->thumbnail;
     }

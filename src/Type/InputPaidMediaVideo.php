@@ -31,6 +31,8 @@ class InputPaidMediaVideo extends AbstractInputPaidMedia
             'type',
             'media',
             'thumbnail',
+            'cover',
+            'start_timestamp',
             'width',
             'height',
             'duration',
@@ -49,6 +51,8 @@ class InputPaidMediaVideo extends AbstractInputPaidMedia
             'type' => $this->getType(),
             'media' => $this->getMedia(),
             'thumbnail' => $this->getThumbnail(),
+            'cover' => $this->getCover(),
+            'start_timestamp' => $this->getStartTimestamp(),
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'duration' => $this->getDuration(),
@@ -87,13 +91,37 @@ class InputPaidMediaVideo extends AbstractInputPaidMedia
      * file, so you can pass “attach://” if the thumbnail was uploaded using multipart/form-data 
      * under . More information on Sending Files » 
      *
-     * @var InputFile|string|null
+     * @var string|null
      * @SkipWhenEmpty
      * @SerializedName("thumbnail")
      * @Accessor(getter="getThumbnail", setter="setThumbnail")
      * @Type("string")
      */
     protected $thumbnail;
+
+    /**
+     * Optional. Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers 
+     * (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://” to upload a 
+     * new one using multipart/form-data under  name. More information on Sending Files » 
+     *
+     * @var string|null
+     * @SkipWhenEmpty
+     * @SerializedName("cover")
+     * @Accessor(getter="getCover", setter="setCover")
+     * @Type("string")
+     */
+    protected $cover;
+
+    /**
+     * Optional. Start timestamp for the video in the message 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("start_timestamp")
+     * @Accessor(getter="getStartTimestamp", setter="setStartTimestamp")
+     * @Type("int")
+     */
+    protected $startTimestamp;
 
     /**
      * Optional. Video width 
@@ -179,10 +207,10 @@ class InputPaidMediaVideo extends AbstractInputPaidMedia
     }
 
     /**
-     * @param InputFile|string $thumbnail
+     * @param string $thumbnail
      * @return static
      */
-    public function setThumbnail( $thumbnail): self
+    public function setThumbnail(string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
 
@@ -190,11 +218,49 @@ class InputPaidMediaVideo extends AbstractInputPaidMedia
     }
 
     /**
-     * @return InputFile|string|null
+     * @return string|null
      */
-    public function getThumbnail()
+    public function getThumbnail(): ?string
     {
         return $this->thumbnail;
+    }
+
+    /**
+     * @param string $cover
+     * @return static
+     */
+    public function setCover(string $cover): self
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param int $startTimestamp
+     * @return static
+     */
+    public function setStartTimestamp(int $startTimestamp): self
+    {
+        $this->startTimestamp = $startTimestamp;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getStartTimestamp(): ?int
+    {
+        return $this->startTimestamp;
     }
 
     /**

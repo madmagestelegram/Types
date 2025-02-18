@@ -34,6 +34,8 @@ class Video extends AbstractType
             'height',
             'duration',
             'thumbnail',
+            'cover',
+            'start_timestamp',
             'file_name',
             'mime_type',
             'file_size',
@@ -54,6 +56,8 @@ class Video extends AbstractType
             'height' => $this->getHeight(),
             'duration' => $this->getDuration(),
             'thumbnail' => $this->getThumbnail(),
+            'cover' => $this->getCover(),
+            'start_timestamp' => $this->getStartTimestamp(),
             'file_name' => $this->getFileName(),
             'mime_type' => $this->getMimeType(),
             'file_size' => $this->getFileSize(),
@@ -123,6 +127,28 @@ class Video extends AbstractType
      * @Type("MadmagesTelegram\Types\Type\PhotoSize")
      */
     protected $thumbnail;
+
+    /**
+     * Optional. Available sizes of the cover of the video in the message 
+     *
+     * @var PhotoSize[]|null
+     * @SkipWhenEmpty
+     * @SerializedName("cover")
+     * @Accessor(getter="getCover", setter="setCover")
+     * @Type("array<MadmagesTelegram\Types\Type\PhotoSize>")
+     */
+    protected $cover;
+
+    /**
+     * Optional. Timestamp in seconds from which the video will play in the message 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("start_timestamp")
+     * @Accessor(getter="getStartTimestamp", setter="setStartTimestamp")
+     * @Type("int")
+     */
+    protected $startTimestamp;
 
     /**
      * Optional. Original filename as defined by the sender 
@@ -272,6 +298,44 @@ class Video extends AbstractType
     public function getThumbnail(): ?PhotoSize
     {
         return $this->thumbnail;
+    }
+
+    /**
+     * @param PhotoSize[] $cover
+     * @return static
+     */
+    public function setCover(array $cover): self
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * @return PhotoSize[]|null
+     */
+    public function getCover(): ?array
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param int $startTimestamp
+     * @return static
+     */
+    public function setStartTimestamp(int $startTimestamp): self
+    {
+        $this->startTimestamp = $startTimestamp;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getStartTimestamp(): ?int
+    {
+        return $this->startTimestamp;
     }
 
     /**

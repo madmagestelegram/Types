@@ -2,10 +2,12 @@
 
 namespace MadmagesTelegram\Types;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use MadmagesTelegram\Types\Type\AbstractChatMember;
+use MadmagesTelegram\Types\Type\AbstractMaybeInaccessibleMessage;
+use MadmagesTelegram\Types\Type\InaccessibleMessage;
+use MadmagesTelegram\Types\Type\Message;
 use MadmagesTelegram\Types\Type\ChatMemberAdministrator;
 use MadmagesTelegram\Types\Type\ChatMemberBanned;
 use MadmagesTelegram\Types\Type\ChatMemberLeft;
@@ -40,6 +42,14 @@ class Serializer
                                 'left' => ChatMemberLeft::class,
                                 'kicked' => ChatMemberBanned::class,
                                 default=>throw new \RuntimeException('Unexpected ChatMember status: '.$status)
+                            };
+                            $event->setType($type);
+                        }
+
+                        if ($event->getType()['name'] === AbstractMaybeInaccessibleMessage::class) {
+                            $type = match ($event->getData()['date']) {
+                                0 => InaccessibleMessage::class,
+                                default => Message::class,
                             };
                             $event->setType($type);
                         }

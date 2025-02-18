@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Type;
 /**
  * https://core.telegram.org/bots/api#backgroundtypepattern
  *
- * The background is a PNG or TGV (gzipped subset of SVG with MIME type “application/x-tgwallpattern”) pattern to 
- * be combined with the background fill chosen by the user. 
+ * The background is a .PNG or .TGV (gzipped subset of SVG with MIME type “application/x-tgwallpattern”) pattern 
+ * to be combined with the background fill chosen by the user. 
  *
  * @ExclusionPolicy("none")
  * @AccessType("public_method")

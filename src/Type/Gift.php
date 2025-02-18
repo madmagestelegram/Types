@@ -31,6 +31,7 @@ class Gift extends AbstractType
             'id',
             'sticker',
             'star_count',
+            'upgrade_star_count',
             'total_count',
             'remaining_count',
         ];
@@ -47,6 +48,7 @@ class Gift extends AbstractType
             'id' => $this->getId(),
             'sticker' => $this->getSticker(),
             'star_count' => $this->getStarCount(),
+            'upgrade_star_count' => $this->getUpgradeStarCount(),
             'total_count' => $this->getTotalCount(),
             'remaining_count' => $this->getRemainingCount(),
         ];
@@ -83,6 +85,17 @@ class Gift extends AbstractType
      * @Type("int")
      */
     protected $starCount;
+
+    /**
+     * Optional. The number of Telegram Stars that must be paid to upgrade the gift to a unique one 
+     *
+     * @var int|null
+     * @SkipWhenEmpty
+     * @SerializedName("upgrade_star_count")
+     * @Accessor(getter="getUpgradeStarCount", setter="setUpgradeStarCount")
+     * @Type("int")
+     */
+    protected $upgradeStarCount;
 
     /**
      * Optional. The total number of the gifts of this type that can be sent; for limited gifts only 
@@ -162,6 +175,25 @@ class Gift extends AbstractType
     public function getStarCount(): int
     {
         return $this->starCount;
+    }
+
+    /**
+     * @param int $upgradeStarCount
+     * @return static
+     */
+    public function setUpgradeStarCount(int $upgradeStarCount): self
+    {
+        $this->upgradeStarCount = $upgradeStarCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUpgradeStarCount(): ?int
+    {
+        return $this->upgradeStarCount;
     }
 
     /**

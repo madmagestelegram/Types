@@ -97,7 +97,7 @@ class InlineQueryResultGif extends AbstractInlineQueryResult
     protected $id;
 
     /**
-     * A valid URL for the GIF file. File size must not exceed 1MB 
+     * A valid URL for the GIF file 
      *
      * @var string
      * @SerializedName("gif_url")
